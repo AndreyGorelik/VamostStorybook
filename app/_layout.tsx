@@ -9,7 +9,13 @@ const Layout = () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <Stack>
+        <Stack initialRouteName="index">
+          <Stack.Screen
+            name="index"
+            options={{
+              title: 'First',
+            }}
+          />
           <Stack.Screen
             name="auth/register/index"
             options={{
