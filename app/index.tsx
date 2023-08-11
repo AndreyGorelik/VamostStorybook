@@ -1,4 +1,5 @@
 import { Link } from 'expo-router';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
