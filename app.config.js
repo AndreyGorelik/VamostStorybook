@@ -16,11 +16,11 @@ export default ({ config }) => ({
         projectId: '67ccfb62-b63f-4f49-bfd9-9167440ad498',
       },
     },
-  },
-  updates: {
-    url: 'https://u.expo.dev/67ccfb62-b63f-4f49-bfd9-9167440ad498',
-  },
-  runtimeVersion: {
-    policy: 'appVersion',
+    updates: {
+      url: 'https://u.expo.dev/67ccfb62-b63f-4f49-bfd9-9167440ad498',
+    },
+    runtimeVersion: {
+      policy: 'appVersion',
+    },
   },
 });
