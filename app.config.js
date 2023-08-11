@@ -10,4 +10,11 @@ export default ({ config }) => ({
     bundler: 'metro',
   },
   plugins: ['expo-router'],
+  expo: {
+    extra: {
+      eas: {
+        projectId: '67ccfb62-b63f-4f49-bfd9-9167440ad498',
+      },
+    },
+  },
 });
