@@ -1,4 +1,4 @@
-import { Text } from './Text';
+import { Text } from './text.component';
 
 export default {
   title: 'Text',

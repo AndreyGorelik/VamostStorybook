@@ -1,6 +1,6 @@
 import { View, Text as NativeText } from 'react-native';
 
-import { styles } from './styles';
+import { styles } from './text.styles';
 
 interface TextI {
   id: string;

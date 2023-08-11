@@ -1,26 +1,36 @@
 import { Link } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
 
-import { persistor, store } from '../src/store';
+const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
 
-export default function Page() {
+function Index() {
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <View style={styles.container}>
-          <View style={styles.main}>
-            <Link href="/auth/register">Register</Link>
-            <Link href="/auth/login">Login</Link>
-            <Text style={styles.title}>Hello World</Text>
-            <Text style={styles.subtitle}>This is the first page of your app.</Text>
-          </View>
-        </View>
-      </PersistGate>
-    </Provider>
+    <View style={styles.container}>
+      <View style={styles.main}>
+        <Link href="/auth/register">Register</Link>
+        <Link href="/auth/login">Login</Link>
+        <Text style={styles.title}>Hello World</Text>
+        <Text style={styles.subtitle}>This is the first page of your app.</Text>
+      </View>
+    </View>
   );
 }
+
+// eslint-disable-next-line import/no-mutable-exports
+let EntryPoint = Index;
+
+if (storybookEnabled) {
+  const StorybookUI = require('../.storybook').default;
+  EntryPoint = () => {
+    return (
+      <View style={{ flex: 1 }}>
+        <StorybookUI />
+      </View>
+    );
+  };
+}
+
+export default EntryPoint;
 
 const styles = StyleSheet.create({
   container: {
