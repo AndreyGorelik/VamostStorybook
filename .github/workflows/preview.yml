@@ -1,6 +1,9 @@
 name: preview
 on: pull_request
 
+env:
+  EXPO_PUBLIC_STORYBOOK_ENABLED: false
+  
 jobs:
   update:
     name: EAS Update
