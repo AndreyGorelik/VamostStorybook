@@ -1,8 +1,8 @@
-import Button from './button.component';
+import Input from './input.component';
 
 export default {
-  title: 'Button',
-  component: Button,
+  title: 'Input',
+  component: Input,
 };
 
 export const Default = {
@@ -13,10 +13,6 @@ export const Default = {
 
 export const Disabled = {
   args: { ...Default.args, disabled: true },
-};
-
-export const CustomWidth = {
-  args: { ...Default.args, width: 100 },
 };
 
 export const CustomColor = {
