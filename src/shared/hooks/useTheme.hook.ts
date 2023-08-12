@@ -18,7 +18,7 @@ const styleConstants = {
   h50: 50,
 };
 
-const LIGHT_THEME: Theme = {
+export const LIGHT_THEME: Theme = {
   dark: false,
   colors: {
     primary: 'rgb(30, 32, 34)',
@@ -28,6 +28,7 @@ const LIGHT_THEME: Theme = {
     textDisabled: 'rgba(0, 0, 0, 0.19)',
     button: 'rgb(30, 32, 34)',
     buttonDisabled: 'rgb(209, 209, 211)',
+    placeholder: 'rgb(209, 209, 211)',
     darkGray: 'rgba(0, 0, 0, 0.4)',
     selected: 'rgb(34, 127, 158)',
     red: 'rgb(255, 38, 80)',
@@ -47,6 +48,7 @@ export type Theme = {
     textDisabled: string;
     button: string;
     buttonDisabled: string;
+    placeholder: string;
     darkGray: string;
     selected: string;
     red: string;

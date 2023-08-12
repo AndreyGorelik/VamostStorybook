@@ -15,8 +15,7 @@ export const createStyles = (theme: Theme) =>
       fontSize: 17,
       paddingHorizontal: 0,
       fontFamily: 'NunitoSans10pt-Regular',
-      color: theme.colors.text,
-      borderColor: theme.colors.primary,
+      color: theme.colors.primary,
     },
     placeholder: {
       position: 'absolute',
@@ -25,6 +24,6 @@ export const createStyles = (theme: Theme) =>
     text: {
       padding: 0,
       margin: 0,
-      color: theme.colors.text,
+      color: theme.colors.placeholder,
     },
   });

@@ -7,14 +7,13 @@ export default {
 
 export const Default = {
   args: {
-    title: 'Confirm',
+    placeholder: 'Enter your email address',
   },
 };
 
-export const Disabled = {
-  args: { ...Default.args, disabled: true },
-};
-
-export const CustomColor = {
-  args: { ...Default.args, color: 'rgb(34, 127, 158)' },
+export const Filled = {
+  args: {
+    placeholder: 'Enter your email address',
+    value: 'email.example@gmail.com',
+  },
 };
