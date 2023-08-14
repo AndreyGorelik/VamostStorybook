@@ -1,6 +1,7 @@
 export interface TextInputCustom {
   placeholder: string;
   value: string;
+  onChangeText?: (text: string) => void;
   [x: string]: unknown;
 }
 
