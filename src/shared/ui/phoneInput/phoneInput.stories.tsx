@@ -7,13 +7,13 @@ export default {
 
 export const Default = {
   args: {
-    placeholder: 'Enter your email address',
+    placeholder: 'Enter your phone number',
   },
 };
 
 export const Filled = {
   args: {
-    placeholder: 'Enter your email address',
-    value: 'email.example@gmail.com',
+    placeholder: 'Enter your phone number',
+    value: '+375336750081',
   },
 };

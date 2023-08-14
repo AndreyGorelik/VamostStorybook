@@ -57,6 +57,7 @@ export default function PhoneInput({ value }: PhoneInputCustom) {
           placeholder: 'Enter your phone number',
         }}
         offset={10}
+        initialValue={value ?? ''}
         autoFormat={true}
         onChangePhoneNumber={movePlaceholder}
       />
