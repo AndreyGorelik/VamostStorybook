@@ -34,7 +34,12 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Create preview
+      - name: Create preview for Android
         uses: expo/expo-github-action/preview@v8
         with:
-          command: eas update --auto
+          command: eas update --auto --platform android
+
+      - name: Create preview for iOS
+        uses: expo/expo-github-action/preview@v8
+        with:
+          command: eas update --auto --platform ios
