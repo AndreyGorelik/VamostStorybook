@@ -7,7 +7,7 @@ export const createStyles = ({ disabled, width, color, theme }: StylesOptions) =
     button: {
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: theme.styleConstants.br.s,
+      borderRadius: theme.styleConstants.borderRadius.small,
       height: theme.styleConstants.h50,
       width: width ?? 'auto',
       backgroundColor: color

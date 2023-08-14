@@ -1,39 +1,28 @@
+import { colors } from '../constants/colors';
+import { StyleConstants, styleConstants } from '../constants/styleConstants';
+
 const useTheme = () => {
   return LIGHT_THEME;
 };
 
 export default useTheme;
 
-const styleConstants = {
-  br: {
-    s: 5,
-    m: 8,
-    b: 10,
-  },
-  pd: {
-    s: 5,
-    m: 8,
-    b: 10,
-  },
-  h50: 50,
-};
-
 export const LIGHT_THEME: Theme = {
   dark: false,
   colors: {
-    primary: 'rgb(30, 32, 34)',
-    secondary: 'rgb(255, 255, 255)',
-    background: 'rgb(255,255,255)',
-    text: 'rgb(255,255,255)',
-    textDisabled: 'rgba(0, 0, 0, 0.19)',
-    button: 'rgb(30, 32, 34)',
-    buttonDisabled: 'rgb(209, 209, 211)',
-    placeholder: 'rgb(209, 209, 211)',
-    darkGray: 'rgba(0, 0, 0, 0.4)',
-    selected: 'rgb(34, 127, 158)',
-    red: 'rgb(255, 38, 80)',
-    darkBlue: 'rgb(0, 35, 69)',
-    lime: 'rgb(126, 235, 81)',
+    primary: colors.black,
+    secondary: colors.white,
+    background: colors.white,
+    text: colors.white,
+    textDisabled: colors.gray,
+    button: colors.black,
+    buttonDisabled: colors.lightGray,
+    placeholder: colors.lightGray,
+    darkGray: colors.darkGray,
+    selected: colors.cyan,
+    red: colors.red,
+    darkBlue: colors.darkBlue,
+    lime: colors.lime,
   },
   styleConstants: styleConstants,
 };
@@ -55,5 +44,5 @@ export type Theme = {
     darkBlue: string;
     lime: string;
   };
-  styleConstants: any;
+  styleConstants: StyleConstants;
 };
