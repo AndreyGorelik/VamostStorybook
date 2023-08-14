@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { TextInputProps } from 'react-native';
 import CountryPicker, { Country } from 'react-native-country-picker-modal';
 import LibPhoneInput from 'react-native-phone-input';
 import Animated, {
@@ -12,9 +13,8 @@ import useTheme from '../../hooks/useTheme.hook';
 
 import { ANIMATION_DURATION } from './phoneInput.data';
 import { createStyles } from './phoneInput.styles';
-import { PhoneInputCustom } from './phoneInput.types';
 
-export default function PhoneInput({ value }: PhoneInputCustom) {
+export default function PhoneInput({ value }: TextInputProps) {
   const phoneRef = useRef<LibPhoneInput>(null);
   const [visible, setVisible] = useState(false);
   const theme = useTheme();

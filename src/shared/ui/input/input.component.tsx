@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { TextInput as NativeTextInput, View } from 'react-native';
+import { TextInput as NativeTextInput, TextInputProps, View } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -11,14 +11,14 @@ import useTheme from '../../hooks/useTheme.hook';
 
 import { ANIMATION_DURATION } from './input.data';
 import { createStyles } from './input.styles';
-import { TextInputCustom, focusAndBlur } from './input.types';
+import { focusAndBlur } from './input.types';
 
 const AnimatedInput = Animated.createAnimatedComponent(NativeTextInput);
 
-const TextInput = forwardRef<NativeTextInput, TextInputCustom>(
-  ({ placeholder, value, onChangeText, ...rest }, ref) => {
+const TextInput = forwardRef<NativeTextInput, TextInputProps>(
+  ({ placeholder, value, onChangeText, onBlur, onFocus, ...rest }, ref) => {
     const theme = useTheme();
-    const styles = createStyles(theme, placeholder);
+    const styles = createStyles(theme, placeholder || '');
     const top = useSharedValue(value ? -10 : 15);
     const labelFontSize = useSharedValue(value ? 12 : 17);
     const progress = useSharedValue(value ? 1 : 0);
@@ -65,8 +65,14 @@ const TextInput = forwardRef<NativeTextInput, TextInputCustom>(
           <Animated.Text style={[styles.text, textReanimatedStyle]}>{placeholder}</Animated.Text>
         </Animated.View>
         <AnimatedInput
-          onFocus={() => movePlaceholder('focus')}
-          onBlur={() => movePlaceholder('blur')}
+          onFocus={(e) => {
+            onFocus?.(e);
+            movePlaceholder('focus');
+          }}
+          onBlur={(e) => {
+            onBlur?.(e);
+            movePlaceholder('blur');
+          }}
           ref={ref}
           value={value}
           onChangeText={onChangeText}

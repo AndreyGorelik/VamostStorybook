@@ -1,4 +1,5 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import {
   View,
   Text,
@@ -13,15 +14,7 @@ import { Input } from '../input';
 import { createStyles } from './birthdayInput.styles';
 import { BirthdayInputProps } from './birthdayInput.types';
 
-export default function BirthdayInput({ confirm }: BirthdayInputProps) {
-  const [day1, setDay1] = useState('');
-  const [day2, setDay2] = useState('');
-  const [month1, setMonth1] = useState('');
-  const [month2, setMonth2] = useState('');
-  const [year1, setYear1] = useState('');
-  const [year2, setYear2] = useState('');
-  const [year3, setYear3] = useState('');
-  const [year4, setYear4] = useState('');
+export default function BirthdayInput({ onChange }: BirthdayInputProps) {
   const day1InputRef = useRef<TextInput>(null);
   const day2InputRef = useRef<TextInput>(null);
   const month1InputRef = useRef<TextInput>(null);
@@ -33,7 +26,23 @@ export default function BirthdayInput({ confirm }: BirthdayInputProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
 
+  const { control, watch } = useForm({
+    defaultValues: {
+      day1: '',
+      day2: '',
+      month1: '',
+      month2: '',
+      year1: '',
+      year2: '',
+      year3: '',
+      year4: '',
+    },
+  });
+
+  //onChange && onChange(Object.values(watch()).join(','));
+
   const handleInput = (inputValue: string, nextInputRef?: React.RefObject<TextInput>) => {
+    onChange?.(Object.values(watch()).join(','));
     if (inputValue.length >= 1) {
       nextInputRef?.current?.focus();
       return inputValue.slice(inputValue.length - 1);
@@ -49,89 +58,161 @@ export default function BirthdayInput({ confirm }: BirthdayInputProps) {
       prevInputRef.current?.focus();
     }
   };
-
   return (
     <View style={styles.wrapper}>
-      <Input
-        ref={month1InputRef}
-        placeholder="M"
-        value={month1}
-        onChangeText={(text: string) => setMonth1(handleInput(text, month2InputRef))}
-        keyboardType="numeric"
+      <Controller
+        control={control}
+        name="month1"
+        render={({ field: { onBlur, onChange, value } }) => (
+          <Input
+            ref={month1InputRef}
+            placeholder="M"
+            value={value}
+            onChangeText={(text: string) => onChange(handleInput(text, month2InputRef))}
+            keyboardType="numeric"
+            onBlur={onBlur}
+          />
+        )}
       />
-      <Input
-        ref={month2InputRef}
-        placeholder="M"
-        value={month2}
-        onChangeText={(text: string) => setMonth2(handleInput(text, day1InputRef))}
-        onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
-          handleBack(e, month1InputRef)
-        }
-        keyboardType="numeric"
-      />
-      <Text style={styles.separator}> / </Text>
-      <Input
-        ref={day1InputRef}
-        placeholder="D"
-        value={day1}
-        onChangeText={(text: string) => setDay1(handleInput(text, day2InputRef))}
-        onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
-          handleBack(e, month2InputRef)
-        }
-        keyboardType="numeric"
-      />
-      <Input
-        ref={day2InputRef}
-        placeholder="D"
-        value={day2}
-        onChangeText={(text: string) => setDay2(handleInput(text, year1InputRef))}
-        onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
-          handleBack(e, day1InputRef)
-        }
-        keyboardType="numeric"
+      <Controller
+        control={control}
+        name="month2"
+        render={({ field: { onBlur, onChange, value } }) => (
+          <Input
+            ref={month2InputRef}
+            placeholder="M"
+            value={value}
+            onChangeText={(text: string) => onChange(handleInput(text, day1InputRef))}
+            onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
+              handleBack(e, month1InputRef)
+            }
+            keyboardType="numeric"
+            onBlur={onBlur}
+          />
+        )}
       />
       <Text style={styles.separator}> / </Text>
 
-      <Input
-        ref={year1InputRef}
-        placeholder="Y"
-        value={year1}
-        onChangeText={(text: string) => setYear1(handleInput(text, year2InputRef))}
-        onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
-          handleBack(e, day2InputRef)
-        }
-        keyboardType="numeric"
+      <Controller
+        control={control}
+        name="day1"
+        render={({ field: { onBlur, onChange, value } }) => (
+          <Input
+            ref={day1InputRef}
+            placeholder="D"
+            value={value}
+            onChangeText={(text: string) => onChange(handleInput(text, day2InputRef))}
+            onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
+              handleBack(e, month2InputRef)
+            }
+            keyboardType="numeric"
+            onBlur={onBlur}
+          />
+        )}
       />
-      <Input
-        ref={year2InputRef}
-        placeholder="Y"
-        value={year2}
-        onChangeText={(text: string) => setYear2(handleInput(text, year3InputRef))}
-        onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
-          handleBack(e, year1InputRef)
-        }
-        keyboardType="numeric"
+
+      <Controller
+        control={control}
+        name="day2"
+        render={({ field: { onBlur, onChange, value } }) => (
+          <Input
+            ref={day2InputRef}
+            placeholder="D"
+            value={value}
+            onChangeText={(text: string) => onChange(handleInput(text, year1InputRef))}
+            onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
+              handleBack(e, day1InputRef)
+            }
+            keyboardType="numeric"
+            onBlur={onBlur}
+          />
+        )}
       />
-      <Input
-        ref={year3InputRef}
-        placeholder="Y"
-        value={year3}
-        onChangeText={(text: string) => setYear3(handleInput(text, year4InputRef))}
-        onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
-          handleBack(e, year2InputRef)
-        }
-        keyboardType="numeric"
+
+      <Text style={styles.separator}> / </Text>
+      <Controller
+        control={control}
+        name="year1"
+        rules={{
+          maxLength: 1,
+        }}
+        render={({ field: { onBlur, onChange, value } }) => (
+          <Input
+            ref={year1InputRef}
+            placeholder="Y"
+            value={value}
+            onChangeText={(text: string) => onChange(handleInput(text, year2InputRef))}
+            onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
+              handleBack(e, day2InputRef)
+            }
+            keyboardType="numeric"
+            onBlur={onBlur}
+          />
+        )}
       />
-      <Input
-        ref={year4InputRef}
-        placeholder="Y"
-        value={year4}
-        maxLength={1}
-        onChangeText={(text: string) => setYear4(text)}
-        onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
-          handleBack(e, year3InputRef)
-        }
-        keyboardType="numeric"
+
+      <Controller
+        control={control}
+        name="year2"
+        rules={{
+          maxLength: 1,
+        }}
+        render={({ field: { onBlur, onChange, value } }) => (
+          <Input
+            ref={year2InputRef}
+            placeholder="Y"
+            value={value}
+            onChangeText={(text: string) => onChange(handleInput(text, year3InputRef))}
+            onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
+              handleBack(e, year1InputRef)
+            }
+            keyboardType="numeric"
+            onBlur={onBlur}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        rules={{
+          maxLength: 1,
+        }}
+        name="year3"
+        render={({ field: { onBlur, onChange, value } }) => (
+          <Input
+            ref={year3InputRef}
+            placeholder="Y"
+            value={value}
+            onChangeText={(text: string) => onChange(handleInput(text, year4InputRef))}
+            onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
+              handleBack(e, year2InputRef)
+            }
+            keyboardType="numeric"
+            onBlur={onBlur}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        rules={{
+          maxLength: 1,
+        }}
+        name="year4"
+        render={({ field: { onBlur, onChange, value } }) => (
+          <Input
+            ref={year4InputRef}
+            placeholder="Y"
+            value={value}
+            onChangeText={(text: string) => {
+              onChange(handleInput(text));
+            }}
+            onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
+              handleBack(e, year3InputRef)
+            }
+            keyboardType="numeric"
+            onBlur={onBlur}
+            maxLength={1}
+          />
+        )}
       />
     </View>
   );
