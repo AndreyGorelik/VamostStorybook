@@ -5,13 +5,13 @@ export default ({ config }) => ({
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
   },
-  alignItems: 'center',
+  scheme: 'vamost',
   web: {
     bundler: 'metro',
   },
   plugins: ['expo-router'],
   expo: {
-    alignItems: 'center',
+    scheme: 'vamost',
     extra: {
       eas: {
         projectId: '67ccfb62-b63f-4f49-bfd9-9167440ad498',
