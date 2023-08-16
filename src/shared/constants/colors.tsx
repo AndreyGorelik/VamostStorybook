@@ -3,6 +3,7 @@ export const colors = {
   white: 'rgb(255, 255, 255)',
   gray: 'rgba(0, 0, 0, 0.19)',
   lightGray: 'rgb(209, 209, 211)',
+  cloud: 'rgba(0,0,0,0.05)',
   darkGray: 'rgba(0, 0, 0, 0.4)',
   cyan: 'rgb(34, 127, 158)',
   red: 'rgb(255, 38, 80)',

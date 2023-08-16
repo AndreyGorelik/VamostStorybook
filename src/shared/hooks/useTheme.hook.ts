@@ -18,6 +18,7 @@ export const LIGHT_THEME: Theme = {
     button: colors.black,
     buttonDisabled: colors.lightGray,
     placeholder: colors.lightGray,
+    imagePlaceholder: colors.cloud,
     darkGray: colors.darkGray,
     selected: colors.cyan,
     red: colors.red,
@@ -38,6 +39,7 @@ export type Theme = {
     button: string;
     buttonDisabled: string;
     placeholder: string;
+    imagePlaceholder: string;
     darkGray: string;
     selected: string;
     red: string;

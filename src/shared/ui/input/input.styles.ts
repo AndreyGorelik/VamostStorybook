@@ -16,6 +16,7 @@ export const createStyles = (theme: Theme, placeholder: string) =>
       fontFamily: 'NunitoSans10pt-Regular',
       color: theme.colors.primary,
       textAlign: placeholder.length === 1 ? 'center' : 'auto',
+      minWidth: 24,
     },
     placeholder: {
       position: 'absolute',
