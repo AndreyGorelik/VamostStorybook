@@ -49,6 +49,7 @@ const getStories = () => {
   return {
     "./src/shared/ui/birthdayInput/birthdayInput.stories.tsx": require("../src/shared/ui/birthdayInput/birthdayInput.stories.tsx"),
     "./src/shared/ui/button/button.stories.tsx": require("../src/shared/ui/button/button.stories.tsx"),
+    "./src/shared/ui/counter/counter.stories.tsx": require("../src/shared/ui/counter/counter.stories.tsx"),
     "./src/shared/ui/input/input.stories.tsx": require("../src/shared/ui/input/input.stories.tsx"),
     "./src/shared/ui/outlinedBtn/outlinedBtn.stories.tsx": require("../src/shared/ui/outlinedBtn/outlinedBtn.stories.tsx"),
     "./src/shared/ui/phoneInput/phoneInput.stories.tsx": require("../src/shared/ui/phoneInput/phoneInput.stories.tsx"),

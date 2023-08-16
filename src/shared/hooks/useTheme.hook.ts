@@ -24,6 +24,11 @@ export const LIGHT_THEME: Theme = {
     red: colors.red,
     darkBlue: colors.darkBlue,
     lime: colors.lime,
+    transparent: colors.transparent,
+    imageGradient: colors.blackCoral,
+    counterText: colors.darkGray,
+    increaseBtn: colors.black,
+    decreaseBtn: colors.lightGray,
   },
   styleConstants: styleConstants,
 };
@@ -45,6 +50,11 @@ export type Theme = {
     red: string;
     darkBlue: string;
     lime: string;
+    transparent: string;
+    imageGradient: string;
+    counterText: string;
+    increaseBtn: string;
+    decreaseBtn: string;
   };
   styleConstants: StyleConstants;
 };

@@ -22,7 +22,7 @@ export default function ImageBox({ uri, onDelete }: ImageBoxProps) {
     >
       <CancelBtn onDelete={onDelete} />
       <LinearGradient
-        colors={['rgba(0,0,0,0.3)', 'transparent']}
+        colors={[theme.colors.imageGradient, theme.colors.transparent]}
         style={styles.gradient}
         start={{ x: 1, y: 0 }}
         end={{ x: 0, y: 1 }}

@@ -3,10 +3,10 @@ import { View, Text as NativeText } from 'react-native';
 import { styles } from './text.styles';
 
 interface TextI {
-  id: string;
+  id?: string;
   title: string;
   variant: string;
-  state: string;
+  state?: string;
 }
 
 export const Text = ({ text: { title, variant, ...rest } }: { text: TextI }) => {
