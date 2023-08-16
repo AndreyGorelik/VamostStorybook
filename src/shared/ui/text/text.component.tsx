@@ -1,21 +1,17 @@
-import { View, Text as NativeText } from 'react-native';
+import { Text as NativeText, StyleSheet, TextStyle, TextProps } from 'react-native';
+type TextVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'warning' | 'medium' | 'disabled';
 
-import { styles } from './text.styles';
-
-interface TextI {
-  id: string;
-  title: string;
-  variant: string;
-  state: string;
+interface CustomText extends TextProps {
+  children: string | string[];
+  color?: string;
+  variant?: TextVariant;
 }
 
-export const Text = ({ text: { title, variant, ...rest } }: { text: TextI }) => {
-  const settings = {
+function Text({ children, variant, color, ...rest }: CustomText) {
+  const settings: TextStyle = {
     fontSize: 17,
-    marginVertical: 5,
-    color: 'black',
-    fontWeight: '400',
     padding: 0,
+    color,
   };
 
   switch (variant) {
@@ -65,11 +61,18 @@ export const Text = ({ text: { title, variant, ...rest } }: { text: TextI }) => 
     default:
       break;
   }
+
   return (
-    <View>
-      <NativeText style={[styles.default, settings]} {...rest}>
-        {title}
-      </NativeText>
-    </View>
+    <NativeText style={[styles.text, settings]} {...rest}>
+      {children}
+    </NativeText>
   );
-};
+}
+
+const styles = StyleSheet.create({
+  text: {
+    fontWeight: '400',
+  },
+});
+
+export default Text;
