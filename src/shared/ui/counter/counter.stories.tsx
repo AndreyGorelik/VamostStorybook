@@ -12,6 +12,7 @@ const Template = () => {
 
   return (
     <Counter
+      title="men"
       count={count}
       increaseValue={() => setCount(count + 1)}
       decreaseValue={() => setCount(count === 0 ? 0 : count - 1)}
