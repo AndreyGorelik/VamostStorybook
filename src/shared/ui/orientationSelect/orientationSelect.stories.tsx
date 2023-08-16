@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import OrientationSelect, { OrientationData, OrientationItem } from './orientationSelect.component';
+import OrientationSelect, { SelectListData, SelectListItem } from './orientationSelect.component';
 import { ORIENTATION_SELECT_DATA } from './orientationSelect.data';
 
 export default {
@@ -9,7 +9,7 @@ export default {
 };
 
 const Template = () => {
-  const defaultValues: OrientationData = ORIENTATION_SELECT_DATA?.map((item: OrientationItem) => {
+  const defaultValues: SelectListData = ORIENTATION_SELECT_DATA?.map((item: SelectListItem) => {
     return { ...item, selected: false };
   });
   const [list, setList] = useState(defaultValues);

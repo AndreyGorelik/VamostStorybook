@@ -3,18 +3,18 @@ import { View, TouchableOpacity } from 'react-native';
 
 import Text from '../text/text.component';
 
-export interface OrientationItem {
+export interface SelectListItem {
   label: string;
   value: string;
   id: string;
   selected?: boolean;
 }
 
-export type OrientationData = OrientationItem[];
+export type SelectListData = SelectListItem[];
 
 interface OrientationSelectProps {
-  list: OrientationData;
-  setList: React.Dispatch<React.SetStateAction<OrientationData>>;
+  list: SelectListData;
+  setList: React.Dispatch<React.SetStateAction<SelectListData>>;
   maxSelectCount?: number;
 }
 
@@ -24,13 +24,13 @@ export default function OrientationSelect({
   maxSelectCount = 3,
 }: OrientationSelectProps) {
   const [errorMaxCount, setErrorMaxCount] = useState<boolean>(false);
-  const selectItem = (item: OrientationItem) => {
+  const selectItem = (item: SelectListItem) => {
     const selectedItemsCount = list.filter((listItem) => listItem.selected).length;
 
     if (item.selected || selectedItemsCount < maxSelectCount) {
       setErrorMaxCount(false);
-      const updatedList = list.map((listItem: OrientationItem) => {
-        if (listItem.label === item.label) {
+      const updatedList = list.map((listItem: SelectListItem) => {
+        if (listItem.id === item.id) {
           return { ...listItem, selected: !listItem.selected };
         }
         return listItem;
@@ -44,7 +44,7 @@ export default function OrientationSelect({
 
   return (
     <View>
-      {list.map((item: OrientationItem) => {
+      {list.map((item: SelectListItem) => {
         return (
           <TouchableOpacity key={item.id} onPress={() => selectItem(item)}>
             <Text variant="h5" color={item.selected ? 'gray' : 'black'}>

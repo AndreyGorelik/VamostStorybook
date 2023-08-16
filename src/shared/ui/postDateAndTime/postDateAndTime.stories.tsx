@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import PostDateAndTime from './postDateAndTime.component';
 
 export default {
@@ -5,11 +7,10 @@ export default {
   component: PostDateAndTime,
 };
 
-export const Default = {
-  args: {
-    text: {
-      id: '1',
-      title: 'Test Task',
-    },
-  },
+const Template = () => {
+  const [date, setDate] = useState<Date>(new Date());
+
+  return <PostDateAndTime date={date} setDate={setDate} />;
 };
+
+export const Default = Template.bind({});
