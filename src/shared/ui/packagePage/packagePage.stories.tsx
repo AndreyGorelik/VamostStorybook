@@ -1,19 +1,19 @@
-import { useCallback, useRef, useState } from 'react';
-import { Text, View } from 'react-native';
+import { useRef, useState, useCallback } from 'react';
+import { Animated, Button, Text, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
-import { Button } from '../button';
-import { FILE_MOCK } from '../photoInput/photoInput.data';
+import { BottomSheet } from '../bottomSheet';
+import { HEIGHT_ANIMATION_DURATION } from '../bottomSheet/bottomSheet.data';
+import { BottomSheetRefProps } from '../bottomSheet/bottomSheet.types';
+import { BottomSheetContent } from '../bottomSheet/components/bottomSheetContent';
 
-import BottomSheet from './bottomSheet.component';
-import { HEIGHT_ANIMATION_DURATION } from './bottomSheet.data';
-import { BottomSheetRefProps } from './bottomSheet.types';
-import { BottomSheetContent } from './components/bottomSheetContent';
+import PackagePage from './packagePage.component';
+import { FILE_MOCK, data } from './packagePage.data';
 
 export default {
-  title: 'BottomSheet',
-  component: BottomSheet,
+  title: 'PackagePage',
+  component: PackagePage,
 };
 
 const Template = () => {
@@ -52,20 +52,9 @@ const Template = () => {
         uri={FILE_MOCK}
       >
         <Animated.View style={[{ overflow: 'hidden' }, rBottomSheetContent]}>
-          {screen === 0 && (
-            <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-              <View style={{ height: 200, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Screen 1</Text>
-              </View>
-            </BottomSheetContent>
-          )}
-          {screen === 1 && (
-            <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-              <View style={{ height: 400, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Screen 2</Text>
-              </View>
-            </BottomSheetContent>
-          )}
+          <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+            <PackagePage />
+          </BottomSheetContent>
         </Animated.View>
         <View style={{ width: '100%', paddingVertical: 20, overflow: 'hidden' }}>
           <Button title="Next" onPress={() => setScreen(screen === 1 ? 0 : 1)} />

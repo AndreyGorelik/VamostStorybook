@@ -10,12 +10,13 @@ export type TextVariant =
   | 'common'
   | 'warning'
   | 'medium'
+  | 'small'
   | 'disabled';
 
 export interface CustomText extends TextProps {
   children: string | string[];
   color?: string;
   variant?: TextVariant;
-  noMargin?: boolean;
+  margin?: boolean;
   weight?: string;
 }

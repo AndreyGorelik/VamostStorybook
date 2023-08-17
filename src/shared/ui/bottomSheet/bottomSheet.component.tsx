@@ -1,6 +1,5 @@
-import { MaterialIcons } from '@expo/vector-icons';
 import { forwardRef, PropsWithChildren, useCallback, useImperativeHandle } from 'react';
-import { View, StyleSheet, Dimensions, Pressable } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -12,11 +11,12 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import useTheme from '../../hooks/useTheme.hook';
-import Text from '../text/text.component';
 
 import { OPACITY_ANIMATION_DURATION, TRANSLATION_ANIMATION_DURATION } from './bottomSheet.data';
 import { createStyles } from './bottomSheet.styles';
 import { BottomSheetRefProps, BottomSheetProps } from './bottomSheet.types';
+import { Header } from './components/header';
+import { HeaderImage } from './components/headerImage';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -24,7 +24,17 @@ const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 30;
 
 const BottomSheet = forwardRef<BottomSheetRefProps, PropsWithChildren<BottomSheetProps>>(
   (
-    { hideSheet, children, leftIconName, rightIconName, title, leftIconPress, rightIconPress },
+    {
+      hideSheet,
+      children,
+      leftIconName,
+      rightIconName,
+      title,
+      leftIconPress,
+      rightIconPress,
+      headerStyle,
+      uri,
+    },
     ref
   ) => {
     const translateY = useSharedValue(0);
@@ -123,22 +133,26 @@ const BottomSheet = forwardRef<BottomSheetRefProps, PropsWithChildren<BottomShee
             height.value = e.nativeEvent.layout.height;
           }}
         >
-          <View style={styles.header}>
-            {leftIconName && (
-              <Pressable style={styles.leftIcon} onPress={leftIconPress}>
-                <MaterialIcons name={leftIconName} size={24} />
-              </Pressable>
-            )}
-            <Text variant="h3" {...styles.headerText}>
-              {title}
-            </Text>
-            {rightIconName && (
-              <Pressable style={styles.rightIcon} onPress={rightIconPress}>
-                <MaterialIcons name={rightIconName} size={24} />
-              </Pressable>
-            )}
-          </View>
-          {children}
+          {headerStyle === 'default' && (
+            <Header
+              title={title}
+              leftIconName={leftIconName}
+              leftIconPress={leftIconPress}
+              rightIconName={rightIconName}
+              rightIconPress={rightIconPress}
+            />
+          )}
+          {headerStyle === 'image' && (
+            <HeaderImage
+              title={title}
+              leftIconName={leftIconName}
+              leftIconPress={leftIconPress}
+              rightIconName={rightIconName}
+              rightIconPress={rightIconPress}
+              uri={uri}
+            />
+          )}
+          <View style={styles.content}>{children}</View>
         </Animated.View>
         {/* </GestureDetector> */}
       </>

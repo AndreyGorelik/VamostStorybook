@@ -10,8 +10,8 @@ export const createStyles = (theme: Theme, SCREEN_HEIGHT: number) =>
       bottom: -SCREEN_HEIGHT,
       borderRadius: theme.styleConstants.borderRadius.big,
       backgroundColor: theme.colors.background,
-      padding: 15,
       paddingTop: 0,
+      overflow: 'hidden',
     },
     line: {
       width: '100%',
@@ -38,6 +38,10 @@ export const createStyles = (theme: Theme, SCREEN_HEIGHT: number) =>
       position: 'absolute',
       left: 0,
       color: theme.colors.text,
+    },
+
+    content: {
+      padding: 15,
     },
 
     rightIcon: {

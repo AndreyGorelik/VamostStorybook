@@ -2,12 +2,12 @@ import { Text as NativeText, StyleSheet, TextStyle } from 'react-native';
 
 import { CustomText } from './text.types';
 
-function Text({ children, variant, color, noMargin, ...rest }: CustomText) {
+function Text({ children, variant, color, margin, ...rest }: CustomText) {
   const settings: TextStyle = {
     fontSize: 17,
     padding: 0,
     color,
-    marginVertical: noMargin ? 0 : 5,
+    marginVertical: margin ? 5 : 0,
   };
 
   switch (variant) {
@@ -23,28 +23,34 @@ function Text({ children, variant, color, noMargin, ...rest }: CustomText) {
       break;
     case 'h3':
       settings.fontSize = 25;
-      settings.marginVertical = 11;
+      settings.marginVertical = margin ? 11 : 0;
       settings.fontWeight = '600';
       break;
     case 'h4':
       settings.fontSize = 21;
-      settings.marginVertical = noMargin ? 0 : 10;
+      settings.marginVertical = margin ? 10 : 0;
       settings.fontWeight = '600';
       break;
     case 'h5':
       settings.fontSize = 18;
-      settings.marginVertical = noMargin ? 0 : 5;
+      settings.marginVertical = margin ? 5 : 0;
       settings.fontWeight = '600';
       break;
     case 'h6':
       settings.fontSize = 15;
-      settings.marginVertical = noMargin ? 0 : 8;
+      settings.marginVertical = margin ? 8 : 0;
       settings.fontWeight = '500';
       break;
     case 'common':
       settings.fontSize = 15;
-      settings.marginVertical = noMargin ? 0 : 8;
+      settings.marginVertical = margin ? 8 : 0;
       settings.fontWeight = '400';
+      break;
+    case 'small':
+      settings.fontSize = 13;
+      settings.marginVertical = margin ? 8 : 0;
+      settings.fontWeight = '400';
+      settings.lineHeight = 21;
       break;
     case 'warning':
       settings.fontSize = 13;

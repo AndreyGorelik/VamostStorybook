@@ -1,4 +1,4 @@
-export interface PackageCardProps {
+export interface PackagePageProps {
   date: string;
   title: string;
   place: string;
