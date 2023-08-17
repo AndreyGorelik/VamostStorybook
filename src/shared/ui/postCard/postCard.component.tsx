@@ -10,6 +10,7 @@ import {
 import formatWholeDate from '../../../utils/convertTime/formatWholeDate';
 import Text from '../text/text.component';
 import UserPicGallery from '../userpicGallery/userPicGallery.component';
+
 interface PostTag {
   tag: string;
   id: string;
