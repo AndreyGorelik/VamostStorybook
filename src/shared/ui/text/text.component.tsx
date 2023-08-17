@@ -1,53 +1,50 @@
-import { View, Text as NativeText } from 'react-native';
+import { Text as NativeText, StyleSheet, TextStyle } from 'react-native';
 
-import { styles } from './text.styles';
+import { CustomText } from './text.types';
 
-interface TextI {
-  id?: string;
-  title: string;
-  variant: string;
-  state?: string;
-}
-
-export const Text = ({ text: { title, variant, ...rest } }: { text: TextI }) => {
-  const settings = {
+function Text({ children, variant, color, noMargin, ...rest }: CustomText) {
+  const settings: TextStyle = {
     fontSize: 17,
-    marginVertical: 5,
-    color: 'black',
-    fontWeight: '400',
     padding: 0,
+    color,
+    marginVertical: noMargin ? 0 : 5,
   };
 
   switch (variant) {
     case 'h1':
       settings.fontSize = 40;
       settings.marginVertical = 15;
-      settings.fontWeight = '600';
+      settings.fontWeight = '700';
       break;
     case 'h2':
       settings.fontSize = 30;
       settings.marginVertical = 13;
-      settings.fontWeight = '600';
+      settings.fontWeight = '700';
       break;
     case 'h3':
       settings.fontSize = 25;
       settings.marginVertical = 11;
-      settings.fontWeight = '500';
+      settings.fontWeight = '600';
       break;
     case 'h4':
       settings.fontSize = 21;
-      settings.marginVertical = 11;
-      settings.fontWeight = '500';
+      settings.marginVertical = noMargin ? 0 : 10;
+      settings.fontWeight = '600';
       break;
     case 'h5':
       settings.fontSize = 18;
-      settings.marginVertical = 8;
-      settings.fontWeight = '500';
+      settings.marginVertical = noMargin ? 0 : 5;
+      settings.fontWeight = '600';
       break;
     case 'h6':
       settings.fontSize = 15;
-      settings.marginVertical = 6;
+      settings.marginVertical = noMargin ? 0 : 8;
       settings.fontWeight = '500';
+      break;
+    case 'common':
+      settings.fontSize = 15;
+      settings.marginVertical = noMargin ? 0 : 8;
+      settings.fontWeight = '400';
       break;
     case 'warning':
       settings.fontSize = 13;
@@ -65,11 +62,18 @@ export const Text = ({ text: { title, variant, ...rest } }: { text: TextI }) => 
     default:
       break;
   }
+
   return (
-    <View>
-      <NativeText style={[styles.default, settings]} {...rest}>
-        {title}
-      </NativeText>
-    </View>
+    <NativeText style={[styles.text, settings]} {...rest}>
+      {children}
+    </NativeText>
   );
-};
+}
+
+const styles = StyleSheet.create({
+  text: {
+    fontWeight: '400',
+  },
+});
+
+export default Text;

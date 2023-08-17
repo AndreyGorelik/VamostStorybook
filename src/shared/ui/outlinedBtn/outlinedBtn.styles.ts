@@ -21,7 +21,6 @@ export const createStyles = ({ disabled, selected, width, color, theme }: Outlin
         : theme.colors.button,
     },
     text: {
-      fontSize: 15,
       letterSpacing: 0.25,
       color: color
         ? color
@@ -30,7 +29,6 @@ export const createStyles = ({ disabled, selected, width, color, theme }: Outlin
         : selected
         ? theme.colors.selected
         : theme.colors.button,
-      paddingVertical: 10,
     },
     icon: {
       color: color

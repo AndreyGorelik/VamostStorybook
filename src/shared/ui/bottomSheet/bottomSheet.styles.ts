@@ -31,8 +31,7 @@ export const createStyles = (theme: Theme, SCREEN_HEIGHT: number) =>
       borderBottomColor: theme.colors.placeholder,
     },
     headerText: {
-      fontSize: 24,
-      fontWeight: 'bold',
+      color: theme.colors.text,
     },
 
     leftIcon: {

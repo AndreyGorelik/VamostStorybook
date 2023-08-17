@@ -1,4 +1,4 @@
-import { Text } from './text.component';
+import Text from './text.component';
 
 export default {
   title: 'Text',
@@ -7,45 +7,69 @@ export default {
 
 export const Default = {
   args: {
-    text: {
-      id: '1',
-      title: 'Test Task',
-    },
+    children: 'Text component',
   },
 };
 
 export const H1 = {
-  args: { text: { ...Default.args.text, variant: 'h1' } },
+  args: {
+    children: 'Text component',
+    variant: 'h1',
+  },
 };
 
 export const H2 = {
-  args: { text: { ...Default.args.text, variant: 'h2' } },
+  args: {
+    children: 'Text component',
+    variant: 'h2',
+  },
 };
 
 export const H3 = {
-  args: { text: { ...Default.args.text, variant: 'h3' } },
+  args: {
+    children: 'Text component',
+    variant: 'h3',
+  },
 };
 
 export const H4 = {
-  args: { text: { ...Default.args.text, variant: 'h4' } },
+  args: {
+    children: 'Text component',
+    variant: 'h4',
+  },
 };
 
 export const H5 = {
-  args: { text: { ...Default.args.text, variant: 'h5' } },
+  args: {
+    children: 'Text component',
+    variant: 'h5',
+  },
 };
 
 export const H6 = {
-  args: { text: { ...Default.args.text, variant: 'h6' } },
+  args: {
+    children: 'Text component',
+    variant: 'h6',
+  },
 };
 
 export const Warning = {
-  args: { text: { ...Default.args.text, variant: 'warning' } },
+  args: {
+    children: 'Text component',
+    variant: 'warning',
+  },
 };
 
 export const Medium = {
-  args: { text: { ...Default.args.text, variant: 'medium' } },
+  args: {
+    children: 'Text component',
+    variant: 'medium',
+  },
 };
 
 export const Disabled = {
-  args: { text: { ...Default.args.text, variant: 'disabled' } },
+  args: {
+    children: 'Text component',
+    variant: 'disabled',
+  },
 };

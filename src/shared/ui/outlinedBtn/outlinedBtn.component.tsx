@@ -1,7 +1,8 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { Text, Keyboard, TouchableOpacity } from 'react-native';
+import { Keyboard, TouchableOpacity } from 'react-native';
 
 import useTheme from '../../hooks/useTheme.hook';
+import Text from '../text/text.component';
 
 import { createStyles } from './outlinedBtn.styles';
 import { OutlinedBtnProps } from './outlinedBtn.types';
@@ -33,7 +34,9 @@ export default function OutlinedButton({
       onPress={handlePress}
       activeOpacity={0.8}
     >
-      <Text style={styles.text}>{title}</Text>
+      <Text variant="common" {...styles.text}>
+        {title}
+      </Text>
       {icon && <MaterialIcons name={icon} size={30} style={styles.icon} />}
     </TouchableOpacity>
   );

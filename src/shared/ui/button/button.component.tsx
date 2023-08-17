@@ -1,6 +1,7 @@
-import { Keyboard, Text, TouchableOpacity } from 'react-native';
+import { Keyboard, TouchableOpacity } from 'react-native';
 
 import useTheme from '../../hooks/useTheme.hook';
+import Text from '../text/text.component';
 
 import { createStyles } from './button.styles';
 import { CustomButton } from './button.types';
@@ -24,7 +25,9 @@ export default function Button({ title, width, onPress, disabled, color }: Custo
       onPress={handlePress}
       activeOpacity={0.8}
     >
-      <Text style={styles.text}>{title}</Text>
+      <Text variant="common" {...styles.text}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 }

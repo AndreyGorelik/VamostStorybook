@@ -17,9 +17,7 @@ export const createStyles = ({ disabled, width, color, theme }: StylesOptions) =
         : theme.colors.primary,
     },
     text: {
-      fontSize: 15,
       letterSpacing: 0.25,
       color: disabled ? theme.colors.textDisabled : theme.colors.buttonText,
-      paddingVertical: 10,
     },
   });

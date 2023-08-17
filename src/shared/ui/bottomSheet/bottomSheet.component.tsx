@@ -1,6 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { forwardRef, PropsWithChildren, useCallback, useImperativeHandle } from 'react';
-import { View, StyleSheet, Dimensions, Text, Pressable } from 'react-native';
+import { View, StyleSheet, Dimensions, Pressable } from 'react-native';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -12,6 +12,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import useTheme from '../../hooks/useTheme.hook';
+import Text from '../text/text.component';
 
 import { OPACITY_ANIMATION_DURATION, TRANSLATION_ANIMATION_DURATION } from './bottomSheet.data';
 import { createStyles } from './bottomSheet.styles';
@@ -128,7 +129,9 @@ const BottomSheet = forwardRef<BottomSheetRefProps, PropsWithChildren<BottomShee
                 <MaterialIcons name={leftIconName} size={24} />
               </Pressable>
             )}
-            <Text style={styles.headerText}>{title}</Text>
+            <Text variant="h3" {...styles.headerText}>
+              {title}
+            </Text>
             {rightIconName && (
               <Pressable style={styles.rightIcon} onPress={rightIconPress}>
                 <MaterialIcons name={rightIconName} size={24} />
