@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import BirthdayInput from './birthdayInput.component';
 
 export default {
@@ -5,8 +7,10 @@ export default {
   component: BirthdayInput,
 };
 
-export const Default = {
-  args: {
-    title: 'Confirm',
-  },
+const Template = () => {
+  const [, setInfo] = useState('');
+
+  return <BirthdayInput onChange={(info) => setInfo(info)} />;
 };
+
+export const Default = Template.bind({});

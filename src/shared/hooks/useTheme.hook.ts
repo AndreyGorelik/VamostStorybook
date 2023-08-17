@@ -13,7 +13,8 @@ export const LIGHT_THEME: Theme = {
     primary: colors.black,
     secondary: colors.white,
     background: colors.white,
-    text: colors.white,
+    text: colors.black,
+    buttonText: colors.white,
     textDisabled: colors.gray,
     button: colors.black,
     buttonDisabled: colors.lightGray,
@@ -40,6 +41,7 @@ export type Theme = {
     secondary: string;
     background: string;
     text: string;
+    buttonText: string;
     textDisabled: string;
     button: string;
     buttonDisabled: string;

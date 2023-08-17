@@ -6,8 +6,8 @@ export const styleConstants: StyleConstants = {
   },
   padding: {
     small: 5,
-    medium: 8,
-    big: 10,
+    medium: 10,
+    big: 15,
   },
   h50: 50,
 };

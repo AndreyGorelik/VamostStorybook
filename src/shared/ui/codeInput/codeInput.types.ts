@@ -1,3 +1,3 @@
-export interface BirthdayInputProps {
+export interface CodeInputProps {
   onChange?: (input: string) => void;
 }
