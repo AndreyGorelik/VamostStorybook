@@ -55,6 +55,7 @@ const getStories = () => {
     "./src/shared/ui/input/input.stories.tsx": require("../src/shared/ui/input/input.stories.tsx"),
     "./src/shared/ui/outlinedBtn/outlinedBtn.stories.tsx": require("../src/shared/ui/outlinedBtn/outlinedBtn.stories.tsx"),
     "./src/shared/ui/packageCard/packageCard.stories.tsx": require("../src/shared/ui/packageCard/packageCard.stories.tsx"),
+    "./src/shared/ui/packagePage/packagePage.stories.tsx": require("../src/shared/ui/packagePage/packagePage.stories.tsx"),
     "./src/shared/ui/phoneInput/phoneInput.stories.tsx": require("../src/shared/ui/phoneInput/phoneInput.stories.tsx"),
     "./src/shared/ui/photoInput/photoInput.stories.tsx": require("../src/shared/ui/photoInput/photoInput.stories.tsx"),
     "./src/shared/ui/text/text.stories.tsx": require("../src/shared/ui/text/text.stories.tsx"),

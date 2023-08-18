@@ -51,7 +51,9 @@ export default function BottomSheetContent({
     <Animated.View
       entering={entering}
       exiting={exiting}
-      onLayout={(e) => setHeight(e.nativeEvent.layout.height)}
+      onLayout={(e) => {
+        setHeight(e.nativeEvent.layout.height);
+      }}
     >
       {children}
     </Animated.View>

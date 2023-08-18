@@ -1,10 +1,5 @@
-import { MaterialIcons } from '@expo/vector-icons';
+import { HeaderProps } from '../header/header.types';
 
-export interface HeaderImageProps {
-  leftIconPress?: () => void;
-  rightIconPress?: () => void;
-  leftIconName?: keyof typeof MaterialIcons.glyphMap;
-  rightIconName?: keyof typeof MaterialIcons.glyphMap;
-  title: string;
+export interface HeaderImageProps extends HeaderProps {
   uri?: string;
 }

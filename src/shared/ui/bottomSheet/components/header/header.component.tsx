@@ -1,9 +1,8 @@
-import { MaterialIcons } from '@expo/vector-icons';
-import React from 'react';
-import { View, Pressable } from 'react-native';
+import { View } from 'react-native';
 
 import useTheme from '../../../../hooks/useTheme.hook';
 import Text from '../../../text/text.component';
+import { HeaderButton } from '../headerButton';
 
 import { createStyles } from './header.styles';
 import { HeaderProps } from './header.types';
@@ -20,16 +19,14 @@ export default function Header({
 
   return (
     <View style={styles.header}>
-      <Pressable style={styles.leftIcon} onPress={leftIconPress}>
-        <MaterialIcons name={leftIconName} size={24} />
-      </Pressable>
+      {leftIconName && <HeaderButton onPress={leftIconPress} icon={leftIconName} variant="left" />}
 
       <Text variant="h3" {...styles.headerText}>
         {title}
       </Text>
-      <Pressable style={styles.rightIcon} onPress={rightIconPress}>
-        <MaterialIcons name={rightIconName} size={24} />
-      </Pressable>
+      {rightIconName && (
+        <HeaderButton onPress={rightIconPress} icon={rightIconName} variant="right" />
+      )}
     </View>
   );
 }

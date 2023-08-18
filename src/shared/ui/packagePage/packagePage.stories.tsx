@@ -1,15 +1,18 @@
 import { useRef, useState, useCallback } from 'react';
-import { Animated, Button, Text, View } from 'react-native';
+import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
+import { dateConvert } from '../../utils/dateConvert';
 import { BottomSheet } from '../bottomSheet';
 import { HEIGHT_ANIMATION_DURATION } from '../bottomSheet/bottomSheet.data';
 import { BottomSheetRefProps } from '../bottomSheet/bottomSheet.types';
 import { BottomSheetContent } from '../bottomSheet/components/bottomSheetContent';
+import { Button } from '../button';
 
 import PackagePage from './packagePage.component';
-import { FILE_MOCK, data } from './packagePage.data';
+import { data } from './packagePage.data';
+import { PackagePageProps } from './packagePage.types';
 
 export default {
   title: 'PackagePage',
@@ -20,6 +23,7 @@ const Template = () => {
   const bottomSheetRef = useRef<BottomSheetRefProps>(null);
   const [screen, setScreen] = useState(0);
   const height = useSharedValue(0);
+  const mock: PackagePageProps = { ...data[0], date: dateConvert(data[0].date) };
 
   const openSheet: () => void = useCallback(() => {
     bottomSheetRef.current?.scrollTo(height.value);
@@ -44,12 +48,10 @@ const Template = () => {
         hideSheet={hideSheet}
         ref={bottomSheetRef}
         leftIconName="keyboard-backspace"
-        rightIconName="close"
-        title="New post"
+        title={mock.title}
         leftIconPress={hideSheet}
-        rightIconPress={hideSheet}
         headerStyle="image"
-        uri={FILE_MOCK}
+        uri={mock.uri}
       >
         <Animated.View style={[{ overflow: 'hidden' }, rBottomSheetContent]}>
           <BottomSheetContent setHeight={(value: number) => (height.value = value)}>

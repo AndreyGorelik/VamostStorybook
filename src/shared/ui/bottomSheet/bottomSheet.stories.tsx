@@ -48,7 +48,7 @@ const Template = () => {
         title="New post"
         leftIconPress={hideSheet}
         rightIconPress={hideSheet}
-        headerStyle="image"
+        headerStyle="default"
         uri={FILE_MOCK}
       >
         <Animated.View style={[{ overflow: 'hidden' }, rBottomSheetContent]}>
@@ -61,7 +61,7 @@ const Template = () => {
           )}
           {screen === 1 && (
             <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-              <View style={{ height: 400, alignItems: 'center', justifyContent: 'center' }}>
+              <View style={{ height: 300, alignItems: 'center', justifyContent: 'center' }}>
                 <Text>Screen 2</Text>
               </View>
             </BottomSheetContent>

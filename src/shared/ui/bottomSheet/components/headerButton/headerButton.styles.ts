@@ -4,26 +4,6 @@ import { Theme } from '../../../../hooks/useTheme.hook';
 
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
-    header: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: theme.styleConstants.borderRadius.medium,
-      overflow: 'hidden',
-    },
-    headerText: {
-      position: 'absolute',
-      bottom: 20,
-      color: theme.colors.secondary,
-    },
-
-    image: {
-      flex: 1,
-      flexDirection: 'row',
-      height: 200,
-      justifyContent: 'center',
-    },
-
     iconWrapper: {
       position: 'relative',
       borderRadius: 99,
@@ -40,10 +20,8 @@ export const createStyles = (theme: Theme) =>
       opacity: 0.85,
     },
 
-    leftIcon: {
+    icon: {
       position: 'absolute',
-      left: 20,
-      top: 20,
       width: 40,
       height: 40,
       color: theme.colors.text,
@@ -51,14 +29,13 @@ export const createStyles = (theme: Theme) =>
       alignItems: 'center',
     },
 
-    rightIcon: {
-      position: 'absolute',
+    right: {
       right: 20,
       top: 20,
-      width: 40,
-      height: 40,
-      color: theme.colors.text,
-      justifyContent: 'center',
-      alignItems: 'center',
+    },
+
+    left: {
+      left: 20,
+      top: 20,
     },
   });
