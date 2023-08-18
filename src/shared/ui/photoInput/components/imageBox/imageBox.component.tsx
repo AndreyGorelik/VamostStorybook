@@ -17,7 +17,7 @@ export default function ImageBox({ uri, onDelete }: ImageBoxProps) {
   return (
     <Animated.View
       style={styles.wrapper}
-      entering={FadeIn.duration(700)}
+      entering={FadeIn.duration(300)}
       exiting={FadeOut.duration(150)}
     >
       <CancelBtn onDelete={onDelete} />

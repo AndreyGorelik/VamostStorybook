@@ -6,13 +6,13 @@ import { Blank } from './components/blank';
 import { ImageBox } from './components/imageBox';
 import { PhotoInputProps } from './photoInput.types';
 
-export default function PhotoInput({ image, pickImage, onDelete, id }: PhotoInputProps) {
+export default function PhotoInput({ image, pickImage, onDelete, id, loading }: PhotoInputProps) {
   return (
     <Animated.View>
       {image ? (
         <ImageBox uri={image} onDelete={() => onDelete(id)} />
       ) : (
-        <Blank pickImage={pickImage} />
+        <Blank pickImage={pickImage} loading={loading} />
       )}
     </Animated.View>
   );

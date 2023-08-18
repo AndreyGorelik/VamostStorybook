@@ -16,6 +16,7 @@ export const createStyles = (theme: Theme) =>
     image: {
       height: '100%',
       width: '100%',
+      objectFit: 'cover',
     },
     gradient: {
       position: 'absolute',

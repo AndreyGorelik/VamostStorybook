@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { Pressable, PressableStateCallbackType } from 'react-native';
+import { ActivityIndicator, Pressable, PressableStateCallbackType } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import useTheme from '../../../../hooks/useTheme.hook';
@@ -7,7 +7,7 @@ import useTheme from '../../../../hooks/useTheme.hook';
 import { createStyles } from './blank.styles';
 import { BlankProps } from './blank.types';
 
-export default function Blank({ pickImage }: BlankProps) {
+export default function Blank({ pickImage, loading }: BlankProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
 
@@ -20,7 +20,11 @@ export default function Blank({ pickImage }: BlankProps) {
         ]}
         onPress={pickImage}
       >
-        <MaterialIcons name="add" size={30} color={theme.colors.textDisabled} />
+        {loading ? (
+          <ActivityIndicator size={30} color={theme.colors.textDisabled} />
+        ) : (
+          <MaterialIcons name="add" size={30} color={theme.colors.textDisabled} />
+        )}
       </Pressable>
     </Animated.View>
   );
