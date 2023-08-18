@@ -49,7 +49,7 @@ export default function PackageCard({
         <Text variant="small" {...styles.restictions}>
           {`$${restrictions[0]} Minimum Spend • Max ${restrictions[1]} people`}
         </Text>
-        <Text variant="small" {...styles.descriptions} numberOfLines={4}>
+        <Text variant="small" {...styles.descriptions}>
           {description}
         </Text>
       </View>

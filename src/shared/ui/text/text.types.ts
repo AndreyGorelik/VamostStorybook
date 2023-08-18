@@ -19,4 +19,6 @@ export interface CustomText extends TextProps {
   variant?: TextVariant;
   margin?: boolean;
   weight?: string;
+  width?: number;
+  align?: 'left' | 'right' | 'center' | 'justify' | 'auto';
 }

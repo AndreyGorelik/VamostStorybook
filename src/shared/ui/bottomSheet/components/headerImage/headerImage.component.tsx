@@ -37,7 +37,14 @@ export default function HeaderImage({
             variant="left"
           />
         )}
-        <Text variant="h3" {...styles.headerText}>
+        <Text
+          variant="h3"
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          width={320}
+          align="center"
+          {...styles.headerText}
+        >
           {title}
         </Text>
         {rightIconName && (

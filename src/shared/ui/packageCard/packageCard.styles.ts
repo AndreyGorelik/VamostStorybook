@@ -41,7 +41,6 @@ export const createStyles = (theme: Theme) =>
     descriptions: {
       color: theme.colors.lightText,
       paddingRight: 15,
-      lineHeight: 300,
     },
     header: {
       rowGap: 5,

@@ -21,7 +21,14 @@ export default function Header({
     <View style={styles.header}>
       {leftIconName && <HeaderButton onPress={leftIconPress} icon={leftIconName} variant="left" />}
 
-      <Text variant="h3" {...styles.headerText}>
+      <Text
+        variant="h3"
+        {...styles.headerText}
+        align="center"
+        width={180}
+        numberOfLines={1}
+        ellipsizeMode="tail"
+      >
         {title}
       </Text>
       {rightIconName && (

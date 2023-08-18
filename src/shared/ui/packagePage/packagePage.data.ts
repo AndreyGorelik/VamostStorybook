@@ -5,17 +5,25 @@ export const FILE_MOCK =
 
 export const data: PackagePageProps[] = [
   {
-    date: '2022-02-17',
+    date: '2022-02-17T22:00:00',
     title: 'VIP Table - Front Stage',
     place: 'Club E11even',
     restrictions: ['5000', '16'],
     description:
-      'See DJ Diplo from our exclusive VIP table with dedicated waitstaff.' +
+      'See DJ Diplo from our exclusive VIP table with dedicated waitstaff. ' +
+      'Best view in the club. Doors open at 10pm.' +
+      `See DJ Diplo from our exclusive VIP table with dedicated waitstaff. 
+
+` +
+      'Best view in the club. Doors open at 10pm.' +
+      'See DJ Diplo from our exclusive VIP table with dedicated waitstaff. ' +
+      'Best view in the club. Doors open at 10pm.' +
+      'See DJ Diplo from our exclusive VIP table with dedicated waitstaff. ' +
       'Best view in the club. Doors open at 10pm.',
     uri: FILE_MOCK,
   },
   {
-    date: '2022-02-17',
+    date: '2022-02-17T22:00:00',
     title: 'Executive Table Upper Stage',
     place: 'Club E11even',
     restrictions: ['2000', '9'],
@@ -25,7 +33,7 @@ export const data: PackagePageProps[] = [
     uri: FILE_MOCK,
   },
   {
-    date: '2022-02-17',
+    date: '2022-02-17T22:00:00',
     title: 'Silver Table Side Deck',
     place: 'Club E11even',
     restrictions: ['1000', '4'],

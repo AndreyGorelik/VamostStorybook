@@ -2,12 +2,14 @@ import { Text as NativeText, StyleSheet, TextStyle } from 'react-native';
 
 import { CustomText } from './text.types';
 
-function Text({ children, variant, color, margin, ...rest }: CustomText) {
+function Text({ children, variant, color, margin, width, align, ...rest }: CustomText) {
   const settings: TextStyle = {
     fontSize: 17,
     padding: 0,
     color,
     marginVertical: margin ? 5 : 0,
+    width,
+    textAlign: align,
   };
 
   switch (variant) {

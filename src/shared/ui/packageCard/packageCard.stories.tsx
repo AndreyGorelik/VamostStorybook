@@ -17,7 +17,9 @@ const Template = () => {
   return (
     <FlatList
       data={data}
-      renderItem={({ item }) => <PackageCard {...item} date={dateConvert(item.date)} />}
+      renderItem={({ item }) => (
+        <PackageCard {...item} date={dateConvert(item.date).convertedDate} />
+      )}
       ItemSeparatorComponent={() => (
         <View style={{ height: 1, backgroundColor: theme.colors.imagePlaceholder }} />
       )}

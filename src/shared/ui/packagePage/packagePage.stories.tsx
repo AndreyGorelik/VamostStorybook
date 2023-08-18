@@ -3,7 +3,6 @@ import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
-import { dateConvert } from '../../utils/dateConvert';
 import { BottomSheet } from '../bottomSheet';
 import { HEIGHT_ANIMATION_DURATION } from '../bottomSheet/bottomSheet.data';
 import { BottomSheetRefProps } from '../bottomSheet/bottomSheet.types';
@@ -23,7 +22,7 @@ const Template = () => {
   const bottomSheetRef = useRef<BottomSheetRefProps>(null);
   const [screen, setScreen] = useState(0);
   const height = useSharedValue(0);
-  const mock: PackagePageProps = { ...data[0], date: dateConvert(data[0].date) };
+  const mock: PackagePageProps = { ...data[0] };
 
   const openSheet: () => void = useCallback(() => {
     bottomSheetRef.current?.scrollTo(height.value);
@@ -55,11 +54,11 @@ const Template = () => {
       >
         <Animated.View style={[{ overflow: 'hidden' }, rBottomSheetContent]}>
           <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-            <PackagePage />
+            <PackagePage {...mock} />
           </BottomSheetContent>
         </Animated.View>
         <View style={{ width: '100%', paddingVertical: 20, overflow: 'hidden' }}>
-          <Button title="Next" onPress={() => setScreen(screen === 1 ? 0 : 1)} />
+          <Button title="Select" onPress={() => setScreen(screen === 1 ? 0 : 1)} />
         </View>
       </BottomSheet>
     </GestureHandlerRootView>
