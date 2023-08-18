@@ -1,10 +1,6 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Button as NativeButton } from 'react-native';
 
-export default function Button() {
-  return (
-    <View>
-      <Text>Button</Text>
-    </View>
-  );
+export default function Button({ title }) {
+  return <NativeButton title={title} />;
 }

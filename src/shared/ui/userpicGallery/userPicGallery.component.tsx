@@ -1,11 +1,7 @@
-import { View, StyleSheet, Image } from 'react-native';
+import { View, Image } from 'react-native';
 
-import { PostGuests } from '../postCard/postCard.component';
-
-interface UserPicGalleryProps {
-  data: PostGuests[];
-  size?: number;
-}
+import { styles } from './userPicGallery.styles';
+import { UserPicGalleryProps } from './userPicGallery.types';
 
 export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps) {
   return (
@@ -16,7 +12,7 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
             <Image
               key={item.id}
               source={item.guestPhoto}
-              style={[styles.userpic, styles.overlayUserpic, { width: size, height: size }]}
+              style={[styles.userpic, { marginLeft: -size / 2, width: size, height: size }]}
             />
           );
         } else {
@@ -32,17 +28,3 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-  },
-  userpic: {
-    borderRadius: 100,
-    borderWidth: 3,
-    borderColor: 'white',
-  },
-  overlayUserpic: {
-    marginLeft: -20,
-  },
-});

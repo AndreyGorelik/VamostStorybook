@@ -8,10 +8,7 @@ import convertDateToHumanFormat from '../../../utils/convertTime/convertDateToHu
 import convertTime from '../../../utils/convertTime/convertTime';
 import Text from '../text/text.component';
 
-interface PostDateAndTimeProps {
-  date: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
-}
+import { PostDateAndTimeProps } from './postDateAndTime.types';
 
 export default function PostDateAndTime({ date, setDate }: PostDateAndTimeProps) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);

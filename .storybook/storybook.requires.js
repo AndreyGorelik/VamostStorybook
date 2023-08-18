@@ -14,7 +14,7 @@ global.STORIES = [
     directory: "./src/shared/ui",
     files: "**/*.stories.?(ts|tsx|js|jsx)",
     importPathMatcher:
-      "^\\.[\\\\/](?:src\\/shared\\/ui(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)\\/|\\/|$)(?!\\.)(?=.)[^/]*?\\.stories\\.(?:ts|tsx|js|jsx)?)$",
+      "^\\.[\\\\/](?:src[\\\\/]shared[\\\\/]ui(?:[\\\\/](?!\\.)(?:(?:(?!(?:^|[\\\\/])\\.).)*?)[\\\\/]|[\\\\/]|$)(?!\\.)(?=.)[^\\\\/]*?\\.stories\\.(?:ts|tsx|js|jsx)?)$",
   },
 ];
 
@@ -48,10 +48,12 @@ try {
 const getStories = () => {
   return {
     "./src/shared/ui/button/button.stories.tsx": require("../src/shared/ui/button/button.stories.tsx"),
+    "./src/shared/ui/hostingLabel/hostingLabel.stories.tsx": require("../src/shared/ui/hostingLabel/hostingLabel.stories.tsx"),
     "./src/shared/ui/orientationSelect/orientationSelect.stories.tsx": require("../src/shared/ui/orientationSelect/orientationSelect.stories.tsx"),
     "./src/shared/ui/postCard/postCard.stories.tsx": require("../src/shared/ui/postCard/postCard.stories.tsx"),
     "./src/shared/ui/postDateAndTime/postDateAndTime.stories.tsx": require("../src/shared/ui/postDateAndTime/postDateAndTime.stories.tsx"),
     "./src/shared/ui/postFull/postFull.stories.tsx": require("../src/shared/ui/postFull/postFull.stories.tsx"),
+    "./src/shared/ui/request/request.stories.tsx": require("../src/shared/ui/request/request.stories.tsx"),
     "./src/shared/ui/tagList/tagList.stories.tsx": require("../src/shared/ui/tagList/tagList.stories.tsx"),
     "./src/shared/ui/text/text.stories.tsx": require("../src/shared/ui/text/text.stories.tsx"),
     "./src/shared/ui/userpicGallery/userPicGallery.stories.tsx": require("../src/shared/ui/userpicGallery/userPicGallery.stories.tsx"),

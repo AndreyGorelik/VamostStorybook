@@ -1,12 +1,10 @@
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 
-import { SelectListData, SelectListItem } from '../orientationSelect/orientationSelect.component';
+import { SelectListItem } from '../orientationSelect/orientationsSelect.types';
 import Text from '../text/text.component';
 
-interface TagListProps {
-  list: SelectListData;
-  setList: React.Dispatch<React.SetStateAction<SelectListData>>;
-}
+import { styles } from './tagList.styles';
+import { TagListProps } from './tagList.types';
 
 export default function TagList({ list, setList }: TagListProps) {
   const selectItem = (item: SelectListItem) => {
@@ -37,17 +35,17 @@ export default function TagList({ list, setList }: TagListProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    gap: 10,
-    flexWrap: 'wrap',
-  },
-  tagButton: {
-    padding: 5,
-    borderRadius: 5,
-  },
-  text: {
-    color: 'black',
-  },
-});
+// const styles = StyleSheet.create({
+//   row: {
+//     flexDirection: 'row',
+//     gap: 10,
+//     flexWrap: 'wrap',
+//   },
+//   tagButton: {
+//     padding: 5,
+//     borderRadius: 5,
+//   },
+//   text: {
+//     color: 'black',
+//   },
+// });

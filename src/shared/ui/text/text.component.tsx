@@ -2,18 +2,19 @@ import { Text as NativeText, StyleSheet, TextStyle, TextProps } from 'react-nati
 type TextVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'warning' | 'medium' | 'disabled';
 
 interface CustomText extends TextProps {
-  children: string | string[];
+  children: null | string | string[];
   color?: string;
   variant?: TextVariant;
   noMargin?: boolean;
+  margin?: number;
 }
 
-function Text({ children, variant, color, noMargin, ...rest }: CustomText) {
+function Text({ children, variant, color, noMargin, margin, ...rest }: CustomText) {
   const settings: TextStyle = {
     fontSize: 17,
     padding: 0,
     color,
-    marginVertical: noMargin ? 0 : 5,
+    marginVertical: noMargin ? 0 : margin ? margin : 5,
   };
 
   switch (variant) {
@@ -34,17 +35,17 @@ function Text({ children, variant, color, noMargin, ...rest }: CustomText) {
       break;
     case 'h4':
       settings.fontSize = 21;
-      settings.marginVertical = noMargin ? 0 : 10;
+      settings.marginVertical = noMargin ? 0 : margin ? margin : 10;
       settings.fontWeight = '600';
       break;
     case 'h5':
       settings.fontSize = 18;
-      settings.marginVertical = noMargin ? 0 : 5;
+      settings.marginVertical = noMargin ? 0 : margin ? margin : 5;
       settings.fontWeight = '600';
       break;
     case 'h6':
       settings.fontSize = 15;
-      settings.marginVertical = noMargin ? 0 : 8;
+      settings.marginVertical = noMargin ? 0 : margin ? margin : 8;
       settings.fontWeight = '500';
       break;
     case 'warning':

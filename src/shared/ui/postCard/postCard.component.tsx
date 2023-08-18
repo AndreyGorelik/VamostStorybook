@@ -1,39 +1,12 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  ImageBackground,
-  ImageSourcePropType,
-} from 'react-native';
+import { View, TouchableOpacity, ImageBackground } from 'react-native';
 
 import formatWholeDate from '../../../utils/convertTime/formatWholeDate';
 import Text from '../text/text.component';
 import UserPicGallery from '../userpicGallery/userPicGallery.component';
 
-interface PostTag {
-  tag: string;
-  id: string;
-}
-
-export interface PostGuests {
-  guestPhoto: ImageSourcePropType;
-  id: string;
-}
-
-interface PostCardProps {
-  photo: ImageSourcePropType;
-  post_tags: PostTag[];
-  start_date: Date;
-  start_time: Date;
-  venue_name: string;
-  venue_location: string;
-  post_name: string;
-  guest_male_count: number;
-  guest_female_count: number;
-  guest_other_count: number;
-  guests: PostGuests[];
-}
+import { styles } from './postCard.styles';
+import { PostCardProps } from './postCard.types';
 
 export default function PostCard({ data }: { data: PostCardProps }) {
   return (
@@ -92,40 +65,3 @@ export default function PostCard({ data }: { data: PostCardProps }) {
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 10,
-    backgroundColor: 'white',
-    borderRadius: 15,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-  },
-  postCardCover: {
-    width: '100%',
-    height: 200,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-  },
-  photoContainer: {
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-  },
-  textContainer: {
-    padding: 10,
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  linearGradient: {
-    flex: 1,
-  },
-});

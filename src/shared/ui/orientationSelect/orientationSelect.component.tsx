@@ -3,20 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 
 import Text from '../text/text.component';
 
-export interface SelectListItem {
-  label: string;
-  value: string;
-  id: string;
-  selected?: boolean;
-}
-
-export type SelectListData = SelectListItem[];
-
-interface OrientationSelectProps {
-  list: SelectListData;
-  setList: React.Dispatch<React.SetStateAction<SelectListData>>;
-  maxSelectCount?: number;
-}
+import { OrientationSelectProps, SelectListItem } from './orientationsSelect.types';
 
 export default function OrientationSelect({
   list,
