@@ -1,12 +1,11 @@
 import { useRef, useState, useCallback } from 'react';
-import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import { useSharedValue } from 'react-native-reanimated';
 
 import { BottomSheet } from '../bottomSheet';
-import { HEIGHT_ANIMATION_DURATION } from '../bottomSheet/bottomSheet.data';
 import { BottomSheetRefProps } from '../bottomSheet/bottomSheet.types';
 import { BottomSheetContent } from '../bottomSheet/components/bottomSheetContent';
+import { ContentWrapper } from '../bottomSheet/components/contentWrapper';
 import { Button } from '../button';
 
 import PackagePage from './packagePage.component';
@@ -32,14 +31,6 @@ const Template = () => {
     return bottomSheetRef.current?.scrollTo(0);
   }, []);
 
-  const rBottomSheetContent = useAnimatedStyle(() => {
-    if (height.value === 0) return {};
-
-    return {
-      height: withTiming(height.value, { duration: HEIGHT_ANIMATION_DURATION }),
-    };
-  });
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Button title="Open sheet" onPress={openSheet} />
@@ -52,14 +43,13 @@ const Template = () => {
         headerStyle="image"
         uri={mock.uri}
       >
-        <Animated.View style={[{ overflow: 'hidden' }, rBottomSheetContent]}>
+        <ContentWrapper height={height} headerStyle="image">
           <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
             <PackagePage {...mock} />
+            <PackagePage {...mock} />
           </BottomSheetContent>
-        </Animated.View>
-        <View style={{ width: '100%', paddingVertical: 20, overflow: 'hidden' }}>
-          <Button title="Select" onPress={() => setScreen(screen === 1 ? 0 : 1)} />
-        </View>
+        </ContentWrapper>
+        <Button title="Select" onPress={() => setScreen(screen === 1 ? 0 : 1)} />
       </BottomSheet>
     </GestureHandlerRootView>
   );

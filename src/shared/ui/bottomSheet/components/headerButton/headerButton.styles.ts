@@ -7,7 +7,6 @@ export const createStyles = (theme: Theme) =>
     iconWrapper: {
       position: 'relative',
       borderRadius: 99,
-
       color: theme.colors.text,
     },
 
@@ -31,11 +30,13 @@ export const createStyles = (theme: Theme) =>
 
     right: {
       right: 20,
-      top: 20,
     },
 
     left: {
       left: 20,
+    },
+
+    top: {
       top: 20,
     },
   });

@@ -1,15 +1,15 @@
 import { useCallback, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { useSharedValue } from 'react-native-reanimated';
 
 import { Button } from '../button';
 import { FILE_MOCK } from '../photoInput/photoInput.data';
 
 import BottomSheet from './bottomSheet.component';
-import { HEIGHT_ANIMATION_DURATION } from './bottomSheet.data';
 import { BottomSheetRefProps } from './bottomSheet.types';
 import { BottomSheetContent } from './components/bottomSheetContent';
+import { ContentWrapper } from './components/contentWrapper';
 
 export default {
   title: 'BottomSheet',
@@ -29,14 +29,6 @@ const Template = () => {
     return bottomSheetRef.current?.scrollTo(0);
   }, []);
 
-  const rBottomSheetContent = useAnimatedStyle(() => {
-    if (height.value === 0) return {};
-
-    return {
-      height: withTiming(height.value, { duration: HEIGHT_ANIMATION_DURATION }),
-    };
-  });
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Button title="Open sheet" onPress={openSheet} />
@@ -48,10 +40,10 @@ const Template = () => {
         title="New post"
         leftIconPress={hideSheet}
         rightIconPress={hideSheet}
-        headerStyle="default"
+        headerStyle="image"
         uri={FILE_MOCK}
       >
-        <Animated.View style={[{ overflow: 'hidden' }, rBottomSheetContent]}>
+        <ContentWrapper height={height} headerStyle="image">
           {screen === 0 && (
             <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
               <View style={{ height: 200, alignItems: 'center', justifyContent: 'center' }}>
@@ -61,15 +53,13 @@ const Template = () => {
           )}
           {screen === 1 && (
             <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-              <View style={{ height: 300, alignItems: 'center', justifyContent: 'center' }}>
+              <View style={{ height: 800, alignItems: 'center', justifyContent: 'center' }}>
                 <Text>Screen 2</Text>
               </View>
             </BottomSheetContent>
           )}
-        </Animated.View>
-        <View style={{ width: '100%', paddingVertical: 20, overflow: 'hidden' }}>
-          <Button title="Next" onPress={() => setScreen(screen === 1 ? 0 : 1)} />
-        </View>
+        </ContentWrapper>
+        <Button title="Next" onPress={() => setScreen(screen === 1 ? 0 : 1)} />
       </BottomSheet>
     </GestureHandlerRootView>
   );

@@ -38,43 +38,30 @@ const BottomSheet = forwardRef<BottomSheetRefProps, PropsWithChildren<BottomShee
     ref
   ) => {
     const translateY = useSharedValue(0);
-    //const context = useSharedValue({ y: 0 });
     const active = useSharedValue(false);
     const theme = useTheme();
     const styles = createStyles(theme, SCREEN_HEIGHT);
-    const height = useSharedValue(0);
 
     const scrollTo = useCallback(
       (destination: number) => {
         'worklet';
         active.value = destination !== 0;
-        translateY.value = withTiming(destination === 0 ? 0 : -SCREEN_HEIGHT + 30, {
+        translateY.value = withTiming(destination === 0 ? 0 : -SCREEN_HEIGHT + 20, {
           duration: TRANSLATION_ANIMATION_DURATION,
         });
       },
-      [translateY, active]
+      [active, translateY]
     );
 
-    useImperativeHandle(ref, () => ({ scrollTo }), [scrollTo]);
-
-    // const tap = Gesture.Pan()
-    //   .onStart(() => {
-    //     context.value = { y: translateY.value };
-    //   })
-    //   .onUpdate((event) => {
-    //     translateY.value = event.translationY + context.value.y;
-    //     translateY.value = Math.max(translateY.value, MAX_TRANSLATE_Y);
-    //   })
-    //   .onEnd(() => {
-    //     if (translateY.value > -SCREEN_HEIGHT / 2.5) {
-    //       scrollTo(0);
-    //       runOnJS(hideSheet)();
-    //     } else if (translateY.value < -SCREEN_HEIGHT / 1.65) {
-    //       scrollTo(MAX_TRANSLATE_Y);
-    //     } else {
-    //       scrollTo(height.value);
-    //     }
-    //   });
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          scrollTo,
+        };
+      },
+      [scrollTo]
+    );
 
     const rBottomSheetStyle = useAnimatedStyle(() => {
       const borderRadius = interpolate(
@@ -83,6 +70,7 @@ const BottomSheet = forwardRef<BottomSheetRefProps, PropsWithChildren<BottomShee
         [25, 20],
         Extrapolate.CLAMP
       );
+
       return {
         borderRadius,
         transform: [
@@ -111,7 +99,6 @@ const BottomSheet = forwardRef<BottomSheetRefProps, PropsWithChildren<BottomShee
       <>
         <Animated.View
           onTouchStart={() => {
-            // Dismiss the BottomSheet
             scrollTo(0);
             runOnJS(hideSheet)();
           }}
@@ -125,14 +112,7 @@ const BottomSheet = forwardRef<BottomSheetRefProps, PropsWithChildren<BottomShee
           ]}
           pointerEvents="none"
         ></Animated.View>
-        {/* <GestureDetector gesture={tap}> */}
-        <Animated.View
-          style={[styles.bottomSheetContainer, rBottomSheetStyle]}
-          onLayout={(e) => {
-            //console.log(e.nativeEvent);
-            height.value = e.nativeEvent.layout.height;
-          }}
-        >
+        <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle]}>
           {headerStyle === 'default' && (
             <Header
               title={title}
@@ -152,9 +132,8 @@ const BottomSheet = forwardRef<BottomSheetRefProps, PropsWithChildren<BottomShee
               uri={uri}
             />
           )}
-          <View style={styles.content}>{children}</View>
+          <View style={[styles.content]}>{children}</View>
         </Animated.View>
-        {/* </GestureDetector> */}
       </>
     );
   }

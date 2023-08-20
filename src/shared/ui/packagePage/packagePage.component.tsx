@@ -11,6 +11,7 @@ import { PackagePageProps } from './packagePage.types';
 export default function PackagePage({ date, place, description, restrictions }: PackagePageProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
+
   const { convertedDate, convertedTime } = dateConvert(date);
 
   return (

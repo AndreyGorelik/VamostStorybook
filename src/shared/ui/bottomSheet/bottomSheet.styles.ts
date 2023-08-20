@@ -42,6 +42,8 @@ export const createStyles = (theme: Theme, SCREEN_HEIGHT: number) =>
 
     content: {
       padding: 15,
+      paddingBottom: 30,
+      rowGap: 5,
     },
 
     rightIcon: {

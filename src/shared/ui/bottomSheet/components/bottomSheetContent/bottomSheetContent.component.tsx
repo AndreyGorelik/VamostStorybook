@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, LayoutChangeEvent } from 'react-native';
 import Animated, { withTiming } from 'react-native-reanimated';
 
 import {
@@ -51,8 +51,8 @@ export default function BottomSheetContent({
     <Animated.View
       entering={entering}
       exiting={exiting}
-      onLayout={(e) => {
-        setHeight(e.nativeEvent.layout.height);
+      onLayout={(e: LayoutChangeEvent) => {
+        setHeight?.(e.nativeEvent.layout.height);
       }}
     >
       {children}

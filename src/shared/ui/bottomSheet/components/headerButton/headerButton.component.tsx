@@ -24,6 +24,7 @@ export default function HeaderButton({
         styles[variant],
         {
           opacity: pressed ? 0.8 : 1,
+          top: isBackground ? 20 : 'auto',
         },
       ]}
       onPress={onPress}

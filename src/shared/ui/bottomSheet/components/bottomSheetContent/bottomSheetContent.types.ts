@@ -1,5 +1,5 @@
 export interface BottomSheetContentProps {
-  setHeight: (value: number) => void;
+  setHeight?: (value: number) => void;
 }
 
 export type ExitingAnimationType = {

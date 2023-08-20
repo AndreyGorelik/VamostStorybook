@@ -5,6 +5,7 @@ export const dateConvert = (
   convertedTime: string;
 } => {
   const date = new Date(dateString);
+
   const [weekDay, month, day, ...rest] = date
     .toLocaleString('en-US', {
       weekday: 'long',

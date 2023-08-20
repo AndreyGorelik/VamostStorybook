@@ -18,6 +18,7 @@ export const createStyles = (theme: Theme) =>
     },
 
     image: {
+      position: 'relative',
       flex: 1,
       flexDirection: 'row',
       height: 200,
@@ -27,7 +28,6 @@ export const createStyles = (theme: Theme) =>
     iconWrapper: {
       position: 'relative',
       borderRadius: 99,
-
       color: theme.colors.text,
     },
 
@@ -38,27 +38,5 @@ export const createStyles = (theme: Theme) =>
       backgroundColor: theme.colors.secondary,
       borderRadius: 99,
       opacity: 0.85,
-    },
-
-    leftIcon: {
-      position: 'absolute',
-      left: 20,
-      top: 20,
-      width: 40,
-      height: 40,
-      color: theme.colors.text,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-
-    rightIcon: {
-      position: 'absolute',
-      right: 20,
-      top: 20,
-      width: 40,
-      height: 40,
-      color: theme.colors.text,
-      justifyContent: 'center',
-      alignItems: 'center',
     },
   });
