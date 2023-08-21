@@ -1,0 +1,2 @@
+export const ANIMATION_DURATION = 1500;
+export const ANIMATION_DAMPING_RATIO = 0.8;

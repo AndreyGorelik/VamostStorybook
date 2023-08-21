@@ -15,7 +15,6 @@ export const decorators = [
       style={{
         flex: 1,
         backgroundColor: '#ffffff',
-        padding: 8,
       }}
     >
       <Story />
