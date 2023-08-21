@@ -106,7 +106,7 @@ const BottomSheet = forwardRef<BottomSheetRefProps, PropsWithChildren<BottomShee
           style={[
             {
               ...StyleSheet.absoluteFillObject,
-              backgroundColor: 'rgba(0,0,0,0.4)',
+              backgroundColor: theme.colors.darkGray,
             },
             rBackdropStyle,
           ]}
