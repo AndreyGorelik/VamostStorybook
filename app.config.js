@@ -24,6 +24,7 @@ export default ({ config }) => ({
     runtimeVersion: {
       policy: 'appVersion',
     },
+
     plugins: [
       [
         'expo-image-picker',
