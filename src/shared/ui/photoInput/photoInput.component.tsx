@@ -1,5 +1,3 @@
-//import * as ImagePicker from 'expo-image-picker';
-//import { useState } from 'react';
 import Animated from 'react-native-reanimated';
 
 import { Blank } from './components/blank';
