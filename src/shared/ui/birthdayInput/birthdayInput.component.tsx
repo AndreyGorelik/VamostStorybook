@@ -39,8 +39,6 @@ export default function BirthdayInput({ onChange }: BirthdayInputProps) {
     },
   });
 
-  //onChange && onChange(Object.values(watch()).join(','));
-
   const handleInput = (inputValue: string, nextInputRef?: React.RefObject<TextInput>) => {
     onChange?.(Object.values(watch()).join(','));
     if (inputValue.length >= 1) {
