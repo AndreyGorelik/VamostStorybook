@@ -2,16 +2,17 @@ import { StyleSheet } from 'react-native';
 
 import { Theme } from '../../hooks/useTheme.hook';
 
-export const createStyles = (theme: Theme, placeholder: string) =>
+export const createStyles = (theme: Theme, placeholder: string, fontSize?: number) =>
   StyleSheet.create({
     container: {
       position: 'relative',
       marginVertical: 10,
+      flex: 1,
     },
     input: {
       borderBottomWidth: 0.5,
       paddingVertical: 10,
-      fontSize: 17,
+      fontSize: fontSize ? fontSize : 17,
       paddingHorizontal: 0,
       fontFamily: 'NunitoSans10pt-Regular',
       color: theme.colors.primary,

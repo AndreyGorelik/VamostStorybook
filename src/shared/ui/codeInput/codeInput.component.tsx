@@ -59,6 +59,7 @@ export default function BirthdayInput({ onChange }: CodeInputProps) {
             onChangeText={(text: string) => onChange(handleInput(text, digit2))}
             keyboardType="numeric"
             onBlur={onBlur}
+            fontSize={20}
           />
         )}
       />

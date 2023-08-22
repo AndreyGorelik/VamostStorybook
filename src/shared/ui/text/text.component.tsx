@@ -19,8 +19,8 @@ function Text({ children, variant, color, margin, width, align, ...rest }: Custo
       settings.fontWeight = '700';
       break;
     case 'h2':
-      settings.fontSize = 30;
-      settings.marginVertical = 13;
+      settings.fontSize = 35;
+      settings.marginVertical = margin ? 13 : 0;
       settings.fontWeight = '700';
       break;
     case 'h3':

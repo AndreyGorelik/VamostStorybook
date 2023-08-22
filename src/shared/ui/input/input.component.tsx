@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { TextInput as NativeTextInput, TextInputProps, View } from 'react-native';
+import { TextInput as NativeTextInput, View } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -11,14 +11,14 @@ import useTheme from '../../hooks/useTheme.hook';
 
 import { ANIMATION_DURATION } from './input.data';
 import { createStyles } from './input.styles';
-import { focusAndBlur } from './input.types';
+import { InputProps, focusAndBlur } from './input.types';
 
 const AnimatedInput = Animated.createAnimatedComponent(NativeTextInput);
 
-const TextInput = forwardRef<NativeTextInput, TextInputProps>(
-  ({ placeholder, value, onChangeText, onBlur, onFocus, ...rest }, ref) => {
+const TextInput = forwardRef<NativeTextInput, InputProps>(
+  ({ placeholder, value, onChangeText, onBlur, onFocus, fontSize, ...rest }, ref) => {
     const theme = useTheme();
-    const styles = createStyles(theme, placeholder || '');
+    const styles = createStyles(theme, placeholder || '', fontSize);
     const top = useSharedValue(value ? -10 : 15);
     const labelFontSize = useSharedValue(value ? 12 : 17);
     const progress = useSharedValue(value ? 1 : 0);
