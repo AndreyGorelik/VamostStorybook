@@ -8,10 +8,10 @@ import Request from '../request/request.component';
 import Text from '../text/text.component';
 import UserPicGallery from '../userpicGallery/userPicGallery.component';
 
-import { styles } from './postFull.styles';
-import { PostFullProps, PostTag, RequestProps } from './postFull.types';
+import { styles } from './postFullHost.styles';
+import { PostFullHostProps, PostTag, RequestProps } from './postFullHost.types';
 
-export default function PostFull({ data }: { data: PostFullProps }) {
+export default function PostFullHost({ data }: { data: PostFullHostProps }) {
   return (
     <>
       <View style={styles.header}>

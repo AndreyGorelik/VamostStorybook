@@ -16,7 +16,7 @@ export interface RequestProps {
   telegram?: string;
 }
 
-export interface PostFullProps {
+export interface PostFullGuestProps {
   photo: ImageSourcePropType;
   post_tags: PostTag[];
   start_date: Date;
@@ -28,5 +28,4 @@ export interface PostFullProps {
   guest_female_count: number;
   guest_other_count: number;
   guests: PostGuests[];
-  requests: RequestProps[];
 }
