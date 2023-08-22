@@ -6,13 +6,13 @@ import { Pressable, View } from 'react-native';
 import useTheme from '../../../shared/hooks/useTheme.hook';
 import { Header } from '../../../shared/ui/header';
 
+import { Birthday } from './components/steps/birthday';
 import { Code } from './components/steps/code';
-import { PhoneAndPass } from './components/steps/phoneAndPass';
-import { createStyles } from './register.styles';
 import { Email } from './components/steps/email';
 import { Nickname } from './components/steps/nickname';
-import { Birthday } from './components/steps/birthday';
-import Photos from './components/steps/photos/photos.component';
+import { PhoneAndPass } from './components/steps/phoneAndPass';
+import { Photos } from './components/steps/photos';
+import { createStyles } from './register.styles';
 
 const RegisterScreen = () => {
   const [step, setStep] = useState(1);

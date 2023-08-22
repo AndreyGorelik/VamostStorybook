@@ -1,6 +1,7 @@
+import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 
 import useTheme from '../../../../../../shared/hooks/useTheme.hook';
 import { Button } from '../../../../../../shared/ui/button';
@@ -48,7 +49,7 @@ export default function PhoneAndPass({ goAhead, setNumber }: PhoneAndPassProps) 
         />
         <Controller
           control={control}
-          rules={{ required: true }}
+          rules={{ required: true, minLength: 8 }}
           name="password"
           render={({ field: { onBlur, onChange, value } }) => (
             <Input
@@ -57,6 +58,23 @@ export default function PhoneAndPass({ goAhead, setNumber }: PhoneAndPassProps) 
               onBlur={onBlur}
               value={value}
               secureTextEntry={secure}
+              rightIcon={
+                <Pressable
+                  onPress={() => setSecure(!secure)}
+                  style={({ pressed }) => [
+                    styles.pressable,
+                    {
+                      opacity: pressed ? 0.6 : 1,
+                    },
+                  ]}
+                >
+                  <Ionicons
+                    name={secure ? 'eye' : 'eye-off'}
+                    size={24}
+                    color={theme.colors.placeholder}
+                  />
+                </Pressable>
+              }
             />
           )}
         />

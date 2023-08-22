@@ -15,7 +15,6 @@ export const createStyles = (
       flex: 1,
     },
     input: {
-      borderBottomWidth: 0.5,
       paddingVertical: 10,
       fontSize: fontSize ? fontSize : 17,
       paddingHorizontal: 0,
@@ -23,6 +22,13 @@ export const createStyles = (
       color: error ? theme.colors.red : theme.colors.primary,
       textAlign: placeholder.length === 1 ? 'center' : 'auto',
       minWidth: 24,
+      flex: 1,
+    },
+    inputWrapper: {
+      borderBottomWidth: 0.5,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
     },
     error: {
       borderColor: theme.colors.warning,

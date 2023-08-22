@@ -21,4 +21,9 @@ export const createStyles = (theme: Theme) =>
       paddingVertical: 40,
       rowGap: 15,
     },
+    pressable: {
+      marginTop: 10,
+      borderRadius: 30,
+      paddingRight: 5,
+    },
   });

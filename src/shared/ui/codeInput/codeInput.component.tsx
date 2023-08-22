@@ -27,8 +27,6 @@ export default function CodeInput({ onChange }: CodeInputProps) {
     },
   });
 
-  //onChange && onChange(Object.values(watch()).join(','));
-
   const handleInput = (inputValue: string, nextInputRef?: React.RefObject<TextInput>) => {
     onChange?.(Object.values(watch()).join(','));
     if (inputValue.length >= 1) {
@@ -59,7 +57,6 @@ export default function CodeInput({ onChange }: CodeInputProps) {
             onChangeText={(text: string) => onChange(handleInput(text, digit2))}
             keyboardType="numeric"
             onBlur={onBlur}
-            fontSize={20}
           />
         )}
       />

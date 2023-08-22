@@ -16,7 +16,10 @@ import { InputProps, focusAndBlur } from './input.types';
 const AnimatedInput = Animated.createAnimatedComponent(NativeTextInput);
 
 const TextInput = forwardRef<NativeTextInput, InputProps>(
-  ({ placeholder, value, onChangeText, onBlur, onFocus, fontSize, error, ...rest }, ref) => {
+  (
+    { placeholder, value, onChangeText, onBlur, onFocus, fontSize, error, rightIcon, ...rest },
+    ref
+  ) => {
     const theme = useTheme();
     const styles = createStyles(theme, placeholder || '', fontSize, error);
     const top = useSharedValue(value ? -10 : 15);
@@ -65,22 +68,27 @@ const TextInput = forwardRef<NativeTextInput, InputProps>(
         <Animated.View style={[styles.placeholder, reanimatedStyle]}>
           <Animated.Text style={[styles.text, textReanimatedStyle]}>{placeholder}</Animated.Text>
         </Animated.View>
-        <AnimatedInput
-          onFocus={(e) => {
-            onFocus?.(e);
-            movePlaceholder('focus');
-          }}
-          onBlur={(e) => {
-            onBlur?.(e);
-            movePlaceholder('blur');
-          }}
-          ref={ref}
-          value={value}
-          onChangeText={onChangeText}
-          style={[styles.input, error ? styles.error : borderReanimatedStyle]}
-          placeholderTextColor={'white'}
-          {...rest}
-        />
+        <Animated.View
+          style={[styles.inputWrapper, [error ? styles.error : borderReanimatedStyle]]}
+        >
+          <AnimatedInput
+            onFocus={(e) => {
+              onFocus?.(e);
+              movePlaceholder('focus');
+            }}
+            onBlur={(e) => {
+              onBlur?.(e);
+              movePlaceholder('blur');
+            }}
+            ref={ref}
+            value={value}
+            onChangeText={onChangeText}
+            style={[styles.input]}
+            placeholderTextColor={'white'}
+            {...rest}
+          />
+          {rightIcon && rightIcon}
+        </Animated.View>
       </View>
     );
   }

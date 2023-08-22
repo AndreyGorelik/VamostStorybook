@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
 
@@ -5,11 +6,10 @@ import useTheme from '../../../../../../shared/hooks/useTheme.hook';
 import { BirthdayInput } from '../../../../../../shared/ui/birthdayInput';
 import { Button } from '../../../../../../shared/ui/button';
 import Text from '../../../../../../shared/ui/text/text.component';
+import { validateDate } from '../../../../../../shared/utils/dateValidate';
 
 import { createStyles } from './birthday.styles';
 import { BirthdayProps } from './birthday.types';
-import { validateDate } from '../../../../../../shared/utils/dateValidate';
-import { useState } from 'react';
 
 export default function Birthday({ goAhead }: BirthdayProps) {
   const theme = useTheme();
