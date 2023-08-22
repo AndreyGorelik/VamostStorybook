@@ -16,9 +16,9 @@ import { InputProps, focusAndBlur } from './input.types';
 const AnimatedInput = Animated.createAnimatedComponent(NativeTextInput);
 
 const TextInput = forwardRef<NativeTextInput, InputProps>(
-  ({ placeholder, value, onChangeText, onBlur, onFocus, fontSize, ...rest }, ref) => {
+  ({ placeholder, value, onChangeText, onBlur, onFocus, fontSize, error, ...rest }, ref) => {
     const theme = useTheme();
-    const styles = createStyles(theme, placeholder || '', fontSize);
+    const styles = createStyles(theme, placeholder || '', fontSize, error);
     const top = useSharedValue(value ? -10 : 15);
     const labelFontSize = useSharedValue(value ? 12 : 17);
     const progress = useSharedValue(value ? 1 : 0);
@@ -54,8 +54,9 @@ const TextInput = forwardRef<NativeTextInput, InputProps>(
         [0, 1],
         [theme.colors.placeholder, theme.colors.primary]
       );
+
       return {
-        borderColor,
+        borderColor: borderColor,
       };
     }, []);
 
@@ -76,7 +77,7 @@ const TextInput = forwardRef<NativeTextInput, InputProps>(
           ref={ref}
           value={value}
           onChangeText={onChangeText}
-          style={[styles.input, borderReanimatedStyle]}
+          style={[styles.input, error ? styles.error : borderReanimatedStyle]}
           placeholderTextColor={'white'}
           {...rest}
         />

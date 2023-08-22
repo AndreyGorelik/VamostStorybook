@@ -12,6 +12,7 @@ import { createStyles } from './register.styles';
 import { Email } from './components/steps/email';
 import { Nickname } from './components/steps/nickname';
 import { Birthday } from './components/steps/birthday';
+import Photos from './components/steps/photos/photos.component';
 
 const RegisterScreen = () => {
   const [step, setStep] = useState(1);
@@ -54,6 +55,7 @@ const RegisterScreen = () => {
       {step === 3 && <Email goAhead={goAhead} />}
       {step === 4 && <Nickname goAhead={goAhead} />}
       {step === 5 && <Birthday goAhead={goAhead} />}
+      {step === 6 && <Photos goAhead={goAhead} />}
     </View>
   );
 };
