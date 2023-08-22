@@ -10,6 +10,8 @@ import { Code } from './components/steps/code';
 import { PhoneAndPass } from './components/steps/phoneAndPass';
 import { createStyles } from './register.styles';
 import { Email } from './components/steps/email';
+import { Nickname } from './components/steps/nickname';
+import { Birthday } from './components/steps/birthday';
 
 const RegisterScreen = () => {
   const [step, setStep] = useState(1);
@@ -50,6 +52,8 @@ const RegisterScreen = () => {
       {step === 1 && <PhoneAndPass goAhead={goAhead} setNumber={setNumber} />}
       {step === 2 && <Code goAhead={goAhead} number={number} />}
       {step === 3 && <Email goAhead={goAhead} />}
+      {step === 4 && <Nickname goAhead={goAhead} />}
+      {step === 5 && <Birthday goAhead={goAhead} />}
     </View>
   );
 };

@@ -2,14 +2,14 @@ import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
 
 import useTheme from '../../../../../../shared/hooks/useTheme.hook';
+import { BirthdayInput } from '../../../../../../shared/ui/birthdayInput';
 import { Button } from '../../../../../../shared/ui/button';
-import { Input } from '../../../../../../shared/ui/input';
 import Text from '../../../../../../shared/ui/text/text.component';
 
-import { createStyles } from './email.styles';
-import { EmailProps } from './email.types';
+import { createStyles } from './birthday.styles';
+import { BirthdayProps } from './birthday.types';
 
-export default function Email({ goAhead }: EmailProps) {
+export default function Code({ goAhead }: BirthdayProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
 
@@ -19,7 +19,7 @@ export default function Email({ goAhead }: EmailProps) {
     formState: { isValid },
   } = useForm({
     defaultValues: {
-      email: '',
+      birthday: '',
     },
   });
 
@@ -30,34 +30,19 @@ export default function Email({ goAhead }: EmailProps) {
   return (
     <View style={styles.wrapper}>
       <Text variant="h2" margin={true}>
-        What&apos;s your email?
+        My birthday is...
       </Text>
       <View style={styles.subInfo}>
         <Text variant="common" fontSize={17}>
-          Don&apos;t loose access to your account, verify your email.
+          Your age will be public.
         </Text>
       </View>
-
       <View style={styles.content}>
         <Controller
           control={control}
-          rules={{
-            required: true,
-            pattern: {
-              value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-
-              message: 'Invalid email',
-            },
-          }}
-          name="email"
-          render={({ field: { onChange, onBlur, value } }) => (
-            <Input
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value}
-              placeholder="Enter your email address"
-            />
-          )}
+          rules={{ required: true }}
+          name="birthday"
+          render={({ field: { onChange } }) => <BirthdayInput onChange={onChange} />}
         />
       </View>
       <Button title="Continue" onPress={handleSubmit(onSubmit)} disabled={!isValid} />

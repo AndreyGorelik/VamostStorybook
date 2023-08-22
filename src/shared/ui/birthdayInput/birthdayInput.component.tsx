@@ -28,10 +28,10 @@ export default function BirthdayInput({ onChange }: BirthdayInputProps) {
 
   const { control, watch } = useForm({
     defaultValues: {
-      day1: '',
-      day2: '',
       month1: '',
       month2: '',
+      day1: '',
+      day2: '',
       year1: '',
       year2: '',
       year3: '',
@@ -40,7 +40,7 @@ export default function BirthdayInput({ onChange }: BirthdayInputProps) {
   });
 
   const handleInput = (inputValue: string, nextInputRef?: React.RefObject<TextInput>) => {
-    onChange?.(Object.values(watch()).join(','));
+    onChange?.(Object.values(watch()).join(',') + inputValue);
     if (inputValue.length >= 1) {
       nextInputRef?.current?.focus();
       return inputValue.slice(inputValue.length - 1);

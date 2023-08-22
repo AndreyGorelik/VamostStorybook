@@ -7,7 +7,7 @@ import { Input } from '../input';
 import { createStyles } from './codeInput.styles';
 import { CodeInputProps } from './codeInput.types';
 
-export default function BirthdayInput({ onChange }: CodeInputProps) {
+export default function CodeInput({ onChange }: CodeInputProps) {
   const digit1 = useRef<TextInput>(null);
   const digit2 = useRef<TextInput>(null);
   const digit3 = useRef<TextInput>(null);

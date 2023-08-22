@@ -6,10 +6,10 @@ import { Button } from '../../../../../../shared/ui/button';
 import { Input } from '../../../../../../shared/ui/input';
 import Text from '../../../../../../shared/ui/text/text.component';
 
-import { createStyles } from './email.styles';
-import { EmailProps } from './email.types';
+import { createStyles } from './nickname.styles';
+import { NicknameProps } from './nickname.types';
 
-export default function Email({ goAhead }: EmailProps) {
+export default function Code({ goAhead }: NicknameProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
 
@@ -19,7 +19,7 @@ export default function Email({ goAhead }: EmailProps) {
     formState: { isValid },
   } = useForm({
     defaultValues: {
-      email: '',
+      nickname: '',
     },
   });
 
@@ -30,11 +30,11 @@ export default function Email({ goAhead }: EmailProps) {
   return (
     <View style={styles.wrapper}>
       <Text variant="h2" margin={true}>
-        What&apos;s your email?
+        My nickname is...
       </Text>
       <View style={styles.subInfo}>
         <Text variant="common" fontSize={17}>
-          Don&apos;t loose access to your account, verify your email.
+          This is how you will appear in Vamost.
         </Text>
       </View>
 
@@ -43,20 +43,10 @@ export default function Email({ goAhead }: EmailProps) {
           control={control}
           rules={{
             required: true,
-            pattern: {
-              value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-
-              message: 'Invalid email',
-            },
           }}
-          name="email"
+          name="nickname"
           render={({ field: { onChange, onBlur, value } }) => (
-            <Input
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value}
-              placeholder="Enter your email address"
-            />
+            <Input onChangeText={onChange} onBlur={onBlur} value={value} placeholder="Nickname" />
           )}
         />
       </View>
