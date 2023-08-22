@@ -11,6 +11,9 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
+import createSagaMiddleware from 'redux-saga';
+
+import rootSaga from '../sagas';
 
 import settingsSlice from './slices/settingsSlice';
 
@@ -25,6 +28,8 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+const sagaMiddleware = createSagaMiddleware();
+
 export const store: ToolkitStore = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
@@ -32,8 +37,12 @@ export const store: ToolkitStore = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+      thunk: false,
+    }).concat(sagaMiddleware),
 });
+
+sagaMiddleware.run(rootSaga);
+
 export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;

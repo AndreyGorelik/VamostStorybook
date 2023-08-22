@@ -3,6 +3,9 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
+import { Provider } from 'react-redux';
+
+import { store } from '../src/store';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,8 +25,10 @@ export default function Layout() {
   }
 
   return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <Stack />
-    </View>
+    <Provider store={store}>
+      <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+        <Stack />
+      </View>
+    </Provider>
   );
 }
