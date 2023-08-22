@@ -2,7 +2,7 @@ import { Text as NativeText, StyleSheet, TextStyle } from 'react-native';
 
 import { CustomText } from './text.types';
 
-function Text({ children, variant, color, margin, width, align, ...rest }: CustomText) {
+function Text({ children, variant, color, margin, width, align, fontSize, ...rest }: CustomText) {
   const settings: TextStyle = {
     fontSize: 17,
     padding: 0,
@@ -44,7 +44,7 @@ function Text({ children, variant, color, margin, width, align, ...rest }: Custo
       settings.fontWeight = '500';
       break;
     case 'common':
-      settings.fontSize = 15;
+      settings.fontSize = fontSize ? fontSize : 15;
       settings.marginVertical = margin ? 8 : 0;
       settings.fontWeight = '400';
       break;

@@ -1,16 +1,10 @@
-import { LinkProps } from 'expo-router/build/link/Link';
-import { ReactElement } from 'react';
-import { View, ButtonProps } from 'react-native';
+import { View } from 'react-native';
 
 import { Logo } from '../../../assets/icons';
 import useTheme from '../../hooks/useTheme.hook';
 
 import { createStyles } from './header.styles';
-
-export interface HeaderProps {
-  headerLeft: ReactElement<LinkProps | ButtonProps>;
-  headerRight: ReactElement<LinkProps | ButtonProps>;
-}
+import { HeaderProps } from './header.types';
 
 export default function Header({ headerLeft, headerRight }: HeaderProps) {
   const theme = useTheme();

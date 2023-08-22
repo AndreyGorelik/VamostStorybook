@@ -22,21 +22,6 @@ export default function AuthLayout() {
           ),
         }}
       />
-      <Stack.Screen
-        name="register/index"
-        options={{
-          header: () => (
-            <Header
-              headerLeft={<Link href="/login">Sign in</Link>}
-              headerRight={
-                <Pressable>
-                  <MaterialIcons name="close" size={24} color="black" />
-                </Pressable>
-              }
-            />
-          ),
-        }}
-      />
     </Stack>
   );
 }

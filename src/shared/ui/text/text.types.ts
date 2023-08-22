@@ -21,4 +21,5 @@ export interface CustomText extends TextProps {
   weight?: string;
   width?: number;
   align?: 'left' | 'right' | 'center' | 'justify' | 'auto';
+  fontSize?: number;
 }

@@ -1,24 +1,21 @@
-import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
 
 import useTheme from '../../../../../../shared/hooks/useTheme.hook';
 import { Button } from '../../../../../../shared/ui/button';
-import { Input } from '../../../../../../shared/ui/input';
-import { PhoneInput } from '../../../../../../shared/ui/phoneInput';
+import { CodeInput } from '../../../../../../shared/ui/codeInput';
 import Text from '../../../../../../shared/ui/text/text.component';
 
 import { createStyles } from './code.styles';
 import { CodeProps } from './code.types';
-import { CodeInput } from '../../../../../../shared/ui/codeInput';
 
 export default function Code({ goAhead, number }: CodeProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
+
   const {
     control,
     handleSubmit,
-    watch,
     formState: { isValid },
   } = useForm({
     defaultValues: {
@@ -27,7 +24,6 @@ export default function Code({ goAhead, number }: CodeProps) {
   });
 
   function onSubmit() {
-    console.log(watch());
     goAhead();
   }
 
@@ -49,10 +45,11 @@ export default function Code({ goAhead, number }: CodeProps) {
       </View>
       <View style={styles.agreement}>
         <Text variant="small" align="center">
-          Didn&apos;t get a code? Send over
+          Didn&apos;t get a code?
         </Text>
+        <Text style={styles.sendOver}>Send over</Text>
       </View>
-      <Button title="Sign up" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
+      <Button title="Confirm" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
     </View>
   );
 }

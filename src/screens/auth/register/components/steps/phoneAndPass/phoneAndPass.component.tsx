@@ -15,10 +15,10 @@ export default function PhoneAndPass({ goAhead, setNumber }: PhoneAndPassProps) 
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secure, setSecure] = useState<boolean>(true);
+
   const {
     control,
     handleSubmit,
-    watch,
     formState: { isValid },
   } = useForm({
     defaultValues: {
