@@ -47,12 +47,21 @@ try {
 
 const getStories = () => {
   return {
+    "./src/shared/ui/birthdayInput/birthdayInput.stories.tsx": require("../src/shared/ui/birthdayInput/birthdayInput.stories.tsx"),
+    "./src/shared/ui/bottomSheet/bottomSheet.stories.tsx": require("../src/shared/ui/bottomSheet/bottomSheet.stories.tsx"),
     "./src/shared/ui/button/button.stories.tsx": require("../src/shared/ui/button/button.stories.tsx"),
+    "./src/shared/ui/codeInput/codeInput.stories.tsx": require("../src/shared/ui/codeInput/codeInput.stories.tsx"),
+    "./src/shared/ui/counter/counter.stories.tsx": require("../src/shared/ui/counter/counter.stories.tsx"),
     "./src/shared/ui/hostingLabel/hostingLabel.stories.tsx": require("../src/shared/ui/hostingLabel/hostingLabel.stories.tsx"),
+    "./src/shared/ui/input/input.stories.tsx": require("../src/shared/ui/input/input.stories.tsx"),
     "./src/shared/ui/orientationSelect/orientationSelect.stories.tsx": require("../src/shared/ui/orientationSelect/orientationSelect.stories.tsx"),
+    "./src/shared/ui/outlinedBtn/outlinedBtn.stories.tsx": require("../src/shared/ui/outlinedBtn/outlinedBtn.stories.tsx"),
+    "./src/shared/ui/packageCard/packageCard.stories.tsx": require("../src/shared/ui/packageCard/packageCard.stories.tsx"),
+    "./src/shared/ui/packagePage/packagePage.stories.tsx": require("../src/shared/ui/packagePage/packagePage.stories.tsx"),
+    "./src/shared/ui/phoneInput/phoneInput.stories.tsx": require("../src/shared/ui/phoneInput/phoneInput.stories.tsx"),
+    "./src/shared/ui/photoInput/photoInput.stories.tsx": require("../src/shared/ui/photoInput/photoInput.stories.tsx"),
     "./src/shared/ui/postCard/postCard.stories.tsx": require("../src/shared/ui/postCard/postCard.stories.tsx"),
     "./src/shared/ui/postDateAndTime/postDateAndTime.stories.tsx": require("../src/shared/ui/postDateAndTime/postDateAndTime.stories.tsx"),
-    "./src/shared/ui/postFullGuest/postFullGuest.stories.tsx": require("../src/shared/ui/postFullGuest/postFullGuest.stories.tsx"),
     "./src/shared/ui/postFullHost/postFullHost.stories.tsx": require("../src/shared/ui/postFullHost/postFullHost.stories.tsx"),
     "./src/shared/ui/request/request.stories.tsx": require("../src/shared/ui/request/request.stories.tsx"),
     "./src/shared/ui/tagList/tagList.stories.tsx": require("../src/shared/ui/tagList/tagList.stories.tsx"),

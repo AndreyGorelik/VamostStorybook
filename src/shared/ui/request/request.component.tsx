@@ -1,39 +1,45 @@
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
-import { Image, ScrollView, View } from 'react-native';
+import { Image, View } from 'react-native';
 
-import Button from '../button/button.component';
+import { OutlinedButton } from '../outlinedBtn';
 import Text from '../text/text.component';
 
 import { styles } from './request.styles';
 import { RequestProps } from './request.types';
 
-export default function Request({ data }: { data: RequestProps }) {
+export default function Request({
+  data,
+  confirmRequest,
+  deleteRequest,
+}: {
+  data: RequestProps;
+  confirmRequest: () => void;
+  deleteRequest: () => void;
+}) {
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <View>
+        <Image source={data.photo} style={styles.userpic} />
+      </View>
+      <View style={styles.flex}>
         <View>
-          <Image source={data.photo} style={styles.userpic} />
+          <Text variant="h5">{data.name}</Text>
         </View>
-        <View>
-          <View>
-            <Text variant="h5">{data.name}</Text>
+        <View style={styles.rowSpaceBetween}>
+          <View style={styles.row}>
+            <View style={styles.iconWrapper}>
+              <FontAwesome name="phone" size={15} color="white" />
+            </View>
+            <View style={styles.iconWrapper}>
+              <FontAwesome5 name="telegram-plane" size={15} color="white" />
+            </View>
           </View>
-          <View style={styles.rowSpaceBetween}>
-            <View style={styles.row}>
-              <View style={styles.iconWrapper}>
-                <FontAwesome name="phone" size={15} color="white" />
-              </View>
-              <View style={styles.iconWrapper}>
-                <FontAwesome5 name="telegram-plane" size={15} color="white" />
-              </View>
-            </View>
-            <View style={styles.row}>
-              <Button title="Confirm" />
-              <Button title="Delete" />
-            </View>
+          <View style={styles.row}>
+            <OutlinedButton title="Confirm" onPress={confirmRequest} height={30} width={70} />
+            <OutlinedButton title="Delete" onPress={deleteRequest} height={30} width={70} />
           </View>
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }

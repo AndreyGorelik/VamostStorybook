@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+  scrollWrapper: {
+    flex: 1,
+  },
   header: {
     position: 'relative',
     marginBottom: 50,
@@ -54,14 +57,17 @@ export const styles = StyleSheet.create({
     gap: 5,
   },
   actionButtons: {
+    width: '100%',
+    flex: 1,
     flexDirection: 'row',
     gap: 10,
+    justifyContent: 'space-between',
   },
   postInfo: {
     paddingHorizontal: 15,
   },
   requestsList: {
-    marginVertical: 10,
+    marginVertical: 40,
     gap: 5,
   },
 });

@@ -1,61 +1,77 @@
-import { Text as NativeText, StyleSheet, TextStyle, TextProps } from 'react-native';
-type TextVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'warning' | 'medium' | 'disabled';
+import { Text as NativeText, StyleSheet, TextStyle } from 'react-native';
 
-interface CustomText extends TextProps {
-  children: null | string | string[];
-  color?: string;
-  variant?: TextVariant;
-  noMargin?: boolean;
-  margin?: number;
-}
+import { CustomText } from './text.types';
 
-function Text({ children, variant, color, noMargin, margin, ...rest }: CustomText) {
+function Text({
+  children,
+  variant,
+  color,
+  margin,
+  noMargin,
+  width,
+  align,
+  fontSize,
+  ...rest
+}: CustomText) {
   const settings: TextStyle = {
-    fontSize: 17,
+    fontSize: fontSize ?? 17,
     padding: 0,
     color,
     marginVertical: noMargin ? 0 : margin ? margin : 5,
+    width,
+    textAlign: align,
   };
 
   switch (variant) {
     case 'h1':
-      settings.fontSize = 40;
-      settings.marginVertical = 15;
+      settings.fontSize = fontSize ?? 40;
+      noMargin ? 0 : margin ? margin : 15;
       settings.fontWeight = '700';
       break;
     case 'h2':
-      settings.fontSize = 30;
-      settings.marginVertical = 13;
+      settings.fontSize = fontSize ?? 30;
+      noMargin ? 0 : margin ? margin : 13;
       settings.fontWeight = '700';
       break;
     case 'h3':
-      settings.fontSize = 25;
-      settings.marginVertical = 11;
+      settings.fontSize = fontSize ?? 25;
+      settings.marginVertical = noMargin ? 0 : margin ? margin : 11;
       settings.fontWeight = '600';
       break;
     case 'h4':
-      settings.fontSize = 21;
+      settings.fontSize = fontSize ?? 21;
       settings.marginVertical = noMargin ? 0 : margin ? margin : 10;
       settings.fontWeight = '600';
       break;
     case 'h5':
-      settings.fontSize = 18;
+      settings.fontSize = fontSize ?? 18;
       settings.marginVertical = noMargin ? 0 : margin ? margin : 5;
       settings.fontWeight = '600';
       break;
     case 'h6':
-      settings.fontSize = 15;
+      settings.fontSize = fontSize ?? 15;
       settings.marginVertical = noMargin ? 0 : margin ? margin : 8;
       settings.fontWeight = '500';
       break;
+    case 'common':
+      settings.fontSize = fontSize ?? 15;
+      settings.marginVertical = margin ? 8 : 0;
+      settings.fontWeight = '400';
+      break;
+    case 'small':
+      settings.fontSize = fontSize ?? 13;
+      settings.marginVertical = margin ? 8 : 0;
+      settings.fontWeight = '400';
+      settings.lineHeight = 21;
+      break;
     case 'warning':
-      settings.fontSize = 13;
+      settings.fontSize = fontSize ?? 13;
       settings.marginVertical = 3;
       settings.fontWeight = '500';
       settings.color = 'red';
       break;
     case 'medium':
-      settings.fontSize = 20;
+      settings.fontSize = fontSize ?? 20;
       settings.marginVertical = 5;
       break;
     case 'disabled':

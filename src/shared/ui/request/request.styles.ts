@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
   container: {
     flexDirection: 'row',
     gap: 10,
@@ -11,11 +14,10 @@ export const styles = StyleSheet.create({
     gap: 8,
   },
   rowSpaceBetween: {
+    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 8,
   },
   userpic: {
     borderRadius: 100,

@@ -1,9 +1,9 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { View, Image, ImageBackground } from 'react-native';
+import { View, Image, ImageBackground, ScrollView, Alert } from 'react-native';
 
 import formatWholeDate from '../../../utils/convertTime/formatWholeDate';
-import Button from '../button/button.component';
 import HostingLabel from '../hostingLabel/hostingLabel.component';
+import { OutlinedButton } from '../outlinedBtn';
 import Request from '../request/request.component';
 import Text from '../text/text.component';
 import UserPicGallery from '../userpicGallery/userPicGallery.component';
@@ -12,8 +12,20 @@ import { styles } from './postFullHost.styles';
 import { PostFullHostProps, PostTag, RequestProps } from './postFullHost.types';
 
 export default function PostFullHost({ data }: { data: PostFullHostProps }) {
+  const confirmRequest = () => {
+    Alert.alert('confirm');
+  };
+  const changeRequest = () => {
+    Alert.alert('change');
+  };
+  const cancelRequest = () => {
+    Alert.alert('cancel');
+  };
+  const deleteRequest = () => {
+    Alert.alert('delete');
+  };
   return (
-    <>
+    <ScrollView style={styles.scrollWrapper}>
       <View style={styles.header}>
         <ImageBackground
           imageStyle={styles.postCardCover}
@@ -67,17 +79,45 @@ export default function PostFullHost({ data }: { data: PostFullHostProps }) {
         </View>
 
         <View style={styles.actionButtons}>
-          <Button title={'Confirm & Lock'} />
-          <Button title={'Change'} />
-          <Button title={'Cancel'} />
+          <OutlinedButton
+            title={'Confirm & Lock'}
+            borderRadius={15}
+            height={30}
+            onPress={confirmRequest}
+            fontSize={12}
+            flex={1}
+          />
+          <OutlinedButton
+            title={'Change'}
+            borderRadius={15}
+            height={30}
+            onPress={changeRequest}
+            fontSize={12}
+            flex={1}
+          />
+          <OutlinedButton
+            title={'Cancel'}
+            borderRadius={15}
+            height={30}
+            onPress={cancelRequest}
+            fontSize={12}
+            flex={1}
+          />
         </View>
 
         <View style={styles.requestsList}>
           {data.requests.map((item: RequestProps) => {
-            return <Request key={item.id} data={item} />;
+            return (
+              <Request
+                key={item.id}
+                data={item}
+                confirmRequest={confirmRequest}
+                deleteRequest={deleteRequest}
+              />
+            );
           })}
         </View>
       </View>
-    </>
+    </ScrollView>
   );
 }

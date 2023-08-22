@@ -32,6 +32,10 @@ export const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
   },
+  rowSpaceBetween: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   linearGradient: {
     flex: 1,
   },

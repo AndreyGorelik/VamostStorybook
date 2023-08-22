@@ -7,17 +7,18 @@ export default {
 
 export const Default = {
   args: {
-    text: {
-      id: '1',
-      title: 'Test Task',
-    },
+    title: 'Confirm',
   },
 };
 
 export const Disabled = {
-  args: { ...Default.args },
+  args: { ...Default.args, disabled: true },
 };
 
-export const Selected = {
-  args: { ...Default.args },
+export const CustomWidth = {
+  args: { ...Default.args, width: 100 },
+};
+
+export const CustomColor = {
+  args: { ...Default.args, color: 'rgb(34, 127, 158)' },
 };

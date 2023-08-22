@@ -1,7 +1,7 @@
 export default ({ config }) => ({
   ...config,
-  name: 'Storybook Tutorial Template',
-  slug: 'storybook-tutorial-template',
+  name: 'vamost',
+  slug: 'vamost',
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
   },
@@ -11,17 +11,27 @@ export default ({ config }) => ({
   },
   plugins: ['expo-router'],
   expo: {
-    scheme: 'vamost',
+    owner: 'zbsprod',
+    scheme: 'vamoose',
     extra: {
       eas: {
-        // projectId: '67ccfb62-b63f-4f49-bfd9-9167440ad498',
+        projectId: '6e5848a3-5310-4771-a7a3-080a97b247c8',
       },
     },
     updates: {
-      url: 'https://u.expo.dev/67ccfb62-b63f-4f49-bfd9-9167440ad498',
+      url: 'https://u.expo.dev/6e5848a3-5310-4771-a7a3-080a97b247c8',
     },
     runtimeVersion: {
       policy: 'appVersion',
     },
+
+    plugins: [
+      [
+        'expo-image-picker',
+        {
+          photosPermission: 'The app accesses your photos to let you share them with your friends.',
+        },
+      ],
+    ],
   },
 });

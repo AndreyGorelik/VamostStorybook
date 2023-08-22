@@ -1,7 +1,8 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { View, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 
 import formatWholeDate from '../../../utils/convertTime/formatWholeDate';
+import { OutlinedButton } from '../outlinedBtn';
 import Text from '../text/text.component';
 import UserPicGallery from '../userpicGallery/userPicGallery.component';
 
@@ -59,7 +60,15 @@ export default function PostCard({ data }: { data: PostCardProps }) {
               guests
             </Text>
           </View>
-          <UserPicGallery data={data.guests} />
+          <View style={styles.rowSpaceBetween}>
+            <UserPicGallery data={data.guests} />
+            <OutlinedButton
+              title={'Lock'}
+              onPress={() => Alert.alert('press')}
+              height={40}
+              width={100}
+            />
+          </View>
         </View>
       </View>
     </TouchableOpacity>
