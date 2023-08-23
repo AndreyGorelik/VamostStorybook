@@ -1,7 +1,7 @@
 import { View, TouchableOpacity } from 'react-native';
 
 import useTheme from '../../hooks/useTheme.hook';
-import { SelectListItem } from '../orientationSelect/orientationsSelect.types';
+import { SelectListItem } from '../selectList/selectList.types';
 import Text from '../text/text.component';
 
 import { createStyles } from './tagList.styles';

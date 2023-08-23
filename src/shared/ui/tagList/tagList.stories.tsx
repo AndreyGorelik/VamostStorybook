@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { SelectListData, SelectListItem } from '../orientationSelect/orientationSelect.component';
+import { SelectListData, SelectListItem } from '../selectList/selectList.component';
 
 import TagList from './tagList.component';
 import { TAG_LIST_DATA } from './tagList.data';

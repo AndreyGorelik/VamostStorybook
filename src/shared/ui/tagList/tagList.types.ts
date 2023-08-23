@@ -1,4 +1,4 @@
-import { SelectListData } from '../orientationSelect/orientationsSelect.types';
+import { SelectListData } from '../selectList/selectList.types';
 
 export interface TagListProps {
   list: SelectListData;

@@ -6,8 +6,10 @@ export interface SelectListItem {
 
 export type SelectListData = SelectListItem[];
 
-export interface OrientationSelectProps {
+export interface SelectListProps {
   list: SelectListData;
   setList: React.Dispatch<React.SetStateAction<SelectListData>>;
-  maxSelectCount?: number;
+  maxSelectCount: number;
+  moreOption?: boolean;
+  moreAction?: (arg0: unknown) => void;
 }
