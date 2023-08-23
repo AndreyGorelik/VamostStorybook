@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { TextInput as NativeTextInput, View } from 'react-native';
+import { GestureResponderEvent, TextInput as NativeTextInput, View } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -70,6 +70,9 @@ const TextInput = forwardRef<NativeTextInput, InputProps>(
         </Animated.View>
         <Animated.View
           style={[styles.inputWrapper, [error ? styles.error : borderReanimatedStyle]]}
+          onTouchStart={(e: GestureResponderEvent) => {
+            e.stopPropagation();
+          }}
         >
           <AnimatedInput
             onFocus={(e) => {
