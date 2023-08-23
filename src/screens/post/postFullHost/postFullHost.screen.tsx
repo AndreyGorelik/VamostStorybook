@@ -1,18 +1,20 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { View, Image, ImageBackground, ScrollView, Alert } from 'react-native';
 
+import useTheme from '../../../shared/hooks/useTheme.hook';
+import { HostingLabel } from '../../../shared/ui/hostingLabel';
+import { OutlinedButton } from '../../../shared/ui/outlinedBtn';
+import { Request } from '../../../shared/ui/request';
+import Text from '../../../shared/ui/text/text.component';
+import { UserPicGallery } from '../../../shared/ui/userpicGallery';
 import formatWholeDate from '../../../utils/convertTime/formatWholeDate';
-import useTheme from '../../hooks/useTheme.hook';
-import HostingLabel from '../hostingLabel/hostingLabel.component';
-import { OutlinedButton } from '../outlinedBtn';
-import Request from '../request/request.component';
-import Text from '../text/text.component';
-import UserPicGallery from '../userpicGallery/userPicGallery.component';
 
+import { POST_FULL_HOST_DATA } from './postFullHost.data';
 import { createStyles } from './postFullHost.styles';
 import { PostFullHostProps, PostTag, RequestProps } from './postFullHost.types';
 
-export default function PostFullHost({ data }: { data: PostFullHostProps }) {
+export default function PostFullHost() {
+  const data = POST_FULL_HOST_DATA;
   const theme = useTheme();
   const styles = createStyles(theme);
   const confirmRequest = () => {

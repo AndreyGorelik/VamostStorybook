@@ -56,7 +56,7 @@ export default function SelectList({
               <TouchableOpacity key={item.id} onPress={() => selectMultiItem(item)}>
                 <Text
                   variant="h5"
-                  color={item.selected ? theme.colors.selectedListItem : theme.colors.listItem}
+                  color={item.selected ? theme.colors.selected : theme.colors.listItem}
                 >
                   {item.label}
                 </Text>
@@ -80,9 +80,11 @@ export default function SelectList({
                 key={item.id}
                 title={item.label}
                 onPress={
-                  isLastElement && moreOption ? () => moreAction(item) : () => selectItem(item)
+                  isLastElement && moreOption && moreAction
+                    ? () => moreAction(item)
+                    : () => selectItem(item)
                 }
-                color={item.selected ? theme.colors.selectedListItem : theme.colors.listItem}
+                color={item.selected ? theme.colors.selected : theme.colors.listItem}
                 icon={isLastElement && moreOption ? 'arrow-right' : undefined}
               />
             );

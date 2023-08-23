@@ -10,6 +10,8 @@ function Index() {
       <View style={styles.main}>
         <Link href="/auth/register">Register</Link>
         <Link href="/auth/login">Login</Link>
+        <Link href="/post/postFullHost">Post Full Host</Link>
+        <Link href="/post/postFullGuest">Post Full Guest</Link>
         <Text style={styles.title}>Hello World</Text>
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
       </View>

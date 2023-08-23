@@ -42,6 +42,7 @@ export const LIGHT_THEME: Theme = {
     iconColor: colors.black,
     gradientStart: colors.blackTransparetFull,
     gradientFinish: colors.blackTranparentQuarter,
+    divider: colors.gray,
   },
   styleConstants: styleConstants,
 };
@@ -81,6 +82,7 @@ export type Theme = {
     iconColor: string;
     gradientStart: string;
     gradientFinish: string;
+    divider: string;
   };
   styleConstants: StyleConstants;
 };
