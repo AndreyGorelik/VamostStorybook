@@ -15,6 +15,7 @@ export const createStyles = (theme: Theme) =>
       width: '90%',
       alignSelf: 'center',
       rowGap: 15,
+      flex: 1,
     },
     content: {
       flex: 1,
@@ -25,5 +26,12 @@ export const createStyles = (theme: Theme) =>
       marginTop: 10,
       borderRadius: 30,
       paddingRight: 5,
+    },
+    accept: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      columnGap: 5,
+      paddingHorizontal: 10,
     },
   });

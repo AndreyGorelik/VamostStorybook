@@ -1,7 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, Link } from 'expo-router';
 import { useLayoutEffect, useState } from 'react';
-import { Pressable, View } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
 
 import useTheme from '../../../shared/hooks/useTheme.hook';
 import { Header } from '../../../shared/ui/header';
@@ -49,14 +49,18 @@ const RegisterScreen = () => {
   }, [navigation, step]);
 
   return (
-    <View style={styles.wrapper}>
+    <KeyboardAvoidingView
+      style={styles.wrapper}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      onTouchStart={() => Keyboard.dismiss()}
+    >
       {step === 1 && <PhoneAndPass goAhead={goAhead} setNumber={setNumber} />}
       {step === 2 && <Code goAhead={goAhead} number={number} />}
       {step === 3 && <Email goAhead={goAhead} />}
       {step === 4 && <Nickname goAhead={goAhead} />}
       {step === 5 && <Birthday goAhead={goAhead} />}
       {step === 6 && <Photos goAhead={goAhead} />}
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

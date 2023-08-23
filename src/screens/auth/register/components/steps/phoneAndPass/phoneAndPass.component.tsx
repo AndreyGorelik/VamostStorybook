@@ -82,9 +82,20 @@ export default function PhoneAndPass({ goAhead, setNumber }: PhoneAndPassProps) 
           <Text variant="small" align="center">
             We will send you a text with a verification code. Message and data rates may apply.
           </Text>
-          <Text variant="small" align="center">
-            By signing up you accept the Terms of Service and Privacy Policy
-          </Text>
+          <View style={styles.accept}>
+            <Text variant="small" align="center">
+              By signing up you accept the
+            </Text>
+            <Text variant="small" color={theme.colors.selected}>
+              Terms of Service
+            </Text>
+            <Text variant="small" align="center">
+              and
+            </Text>
+            <Text variant="small" color={theme.colors.selected}>
+              Privacy Policy
+            </Text>
+          </View>
         </View>
       </View>
 

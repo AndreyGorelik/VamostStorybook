@@ -24,7 +24,6 @@ export default function Photos({ goAhead }: PhotosProps) {
   }
 
   const pickImage = async (id: number) => {
-    // No permissions request is necessary for launching the image library
     if (!status?.granted) {
       await requestPermission();
     }
