@@ -76,7 +76,7 @@ export default function Photos({ goAhead }: PhotosProps) {
           />
         ))}
       </View>
-      <Button title="Continue" onPress={onSubmit} disabled={images.length === 0} />
+      <Button title="Finish registration" onPress={onSubmit} disabled={images.length === 0} />
     </View>
   );
 }

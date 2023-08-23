@@ -9,9 +9,12 @@ import { Header } from '../../../shared/ui/header';
 import { Birthday } from './components/steps/birthday';
 import { Code } from './components/steps/code';
 import { Email } from './components/steps/email';
+import { Gender } from './components/steps/gender';
 import { Nickname } from './components/steps/nickname';
+import { Orientation } from './components/steps/orientation';
 import { PhoneAndPass } from './components/steps/phoneAndPass';
 import { Photos } from './components/steps/photos';
+import { ShowMe } from './components/steps/showMe';
 import { createStyles } from './register.styles';
 
 const RegisterScreen = () => {
@@ -59,7 +62,10 @@ const RegisterScreen = () => {
       {step === 3 && <Email goAhead={goAhead} />}
       {step === 4 && <Nickname goAhead={goAhead} />}
       {step === 5 && <Birthday goAhead={goAhead} />}
-      {step === 6 && <Photos goAhead={goAhead} />}
+      {step === 6 && <Gender goAhead={goAhead} />}
+      {step === 7 && <Orientation goAhead={goAhead} />}
+      {step === 8 && <ShowMe goAhead={goAhead} />}
+      {step === 9 && <Photos goAhead={goAhead} />}
     </KeyboardAvoidingView>
   );
 };

@@ -14,8 +14,4 @@ export const createStyles = (theme: Theme) =>
       paddingVertical: 40,
       rowGap: 15,
     },
-    subInfo: {
-      paddingVertical: 10,
-      paddingRight: 20,
-    },
   });

@@ -19,6 +19,6 @@ export const createStyles = (theme: Theme) =>
     },
     subInfo: {
       paddingVertical: 10,
-      paddingRight: 40,
+      paddingRight: 20,
     },
   });

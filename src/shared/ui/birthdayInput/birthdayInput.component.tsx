@@ -48,6 +48,9 @@ export default function BirthdayInput({ onChange, errors }: BirthdayInputProps) 
 
     onChange?.(`${day},${month},${year}`);
     if (inputValue.length >= 1) {
+      const cleanedText = inputValue.replace(/[^0-9]/g, '');
+      if (cleanedText.length === 0) return '';
+
       nextInputRef?.current?.focus();
       return inputValue.slice(inputValue.length - 1);
     }

@@ -30,8 +30,11 @@ export default function CodeInput({ onChange }: CodeInputProps) {
   const handleInput = (inputValue: string, nextInputRef?: React.RefObject<TextInput>) => {
     onChange?.(Object.values(watch()).join(','));
     if (inputValue.length >= 1) {
+      const cleanedText = inputValue.replace(/[^0-9]/g, '');
+      if (cleanedText.length === 0) return '';
+
       nextInputRef?.current?.focus();
-      return inputValue.slice(inputValue.length - 1);
+      return cleanedText.slice(cleanedText.length - 1);
     }
     return '';
   };
