@@ -4,6 +4,7 @@ import { View } from 'react-native';
 
 import useTheme from '../../../../../../shared/hooks/useTheme.hook';
 import { BirthdayInput } from '../../../../../../shared/ui/birthdayInput';
+import { BirthdayErrors } from '../../../../../../shared/ui/birthdayInput/birthdayInput.types';
 import { Button } from '../../../../../../shared/ui/button';
 import Text from '../../../../../../shared/ui/text/text.component';
 import { validateDate } from '../../../../../../shared/utils/dateValidate';
@@ -14,7 +15,7 @@ import { BirthdayProps } from './birthday.types';
 export default function Birthday({ goAhead }: BirthdayProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<BirthdayErrors>({
     month: false,
     day: false,
     year: false,
