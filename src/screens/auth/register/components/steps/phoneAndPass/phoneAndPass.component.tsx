@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { GestureResponderEvent, Pressable, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 
 import useTheme from '../../../../../../shared/hooks/useTheme.hook';
 import { Button } from '../../../../../../shared/ui/button';

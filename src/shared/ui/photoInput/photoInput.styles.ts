@@ -5,6 +5,5 @@ export const createStyles = () =>
     wrapper: {
       width: '32%',
       height: 160,
-      overflow: 'hidden',
     },
   });

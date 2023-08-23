@@ -4,11 +4,11 @@ export const validateDate = (day: number, month: number, year: number) => {
   const maxAllowedDate = new Date();
   maxAllowedDate.setFullYear(currentDate.getFullYear() - 150);
 
-  if (day < 1 || day > 31) return { ...errors, day: true };
-  if (month < 1 || month > 12) return { ...errors, month: true };
+  if (day < 1 || day > 31) errors.day = true;
+  if (month < 1 || month > 12) errors.month = true;
 
   if (year > currentDate.getFullYear() || year < currentDate.getFullYear() - 110)
-    return { ...errors, year: true };
+    errors.year = true;
 
   if (
     (month === 1 ||
@@ -20,17 +20,17 @@ export const validateDate = (day: number, month: number, year: number) => {
       month === 12) &&
     day > 31
   ) {
-    return { ...errors, day: true };
+    errors.day = true;
   }
 
   if ((month === 4 || month === 6 || month === 9 || month === 11) && day > 30) {
-    return { ...errors, day: true };
+    errors.day = true;
   }
 
   if (month === 2) {
     const leapYear = isLeapYear(year);
-    if (leapYear && day > 29) return { ...errors, day: true };
-    if (!leapYear && day > 28) return { ...errors, day: true };
+    if (leapYear && day > 29) errors.day = true;
+    if (!leapYear && day > 28) errors.day = true;
   }
 
   return errors;
