@@ -2,14 +2,18 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { View, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 
 import formatWholeDate from '../../../utils/convertTime/formatWholeDate';
+import useTheme from '../../hooks/useTheme.hook';
 import { OutlinedButton } from '../outlinedBtn';
 import Text from '../text/text.component';
 import UserPicGallery from '../userpicGallery/userPicGallery.component';
 
-import { styles } from './postCard.styles';
+import { createStyles } from './postCard.styles';
 import { PostCardProps } from './postCard.types';
 
 export default function PostCard({ data }: { data: PostCardProps }) {
+  const theme = useTheme();
+  const styles = createStyles(theme);
+
   return (
     <TouchableOpacity style={styles.container} activeOpacity={0.8}>
       <View style={styles.photoContainer}>
@@ -20,16 +24,16 @@ export default function PostCard({ data }: { data: PostCardProps }) {
             style={styles.postCardCover}
           >
             <LinearGradient
-              colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.73)']}
+              colors={[theme.colors.gradientStart, theme.colors.gradientFinish]}
               style={styles.linearGradient}
             ></LinearGradient>
           </ImageBackground>
         </View>
-        <View style={{ position: 'absolute', bottom: 0, padding: 10 }}>
-          <Text variant="h4" noMargin={true} color="white">
+        <View style={styles.imageInfo}>
+          <Text variant="h4" noMargin={true} color={theme.colors.background}>
             {data.post_name}
           </Text>
-          <Text variant="h6" color="white">
+          <Text variant="h6" color={theme.colors.background}>
             {data.venue_location} • {data.venue_name}
           </Text>
         </View>

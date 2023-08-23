@@ -2,16 +2,19 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { View, Image, ImageBackground, ScrollView, Alert } from 'react-native';
 
 import formatWholeDate from '../../../utils/convertTime/formatWholeDate';
+import useTheme from '../../hooks/useTheme.hook';
 import HostingLabel from '../hostingLabel/hostingLabel.component';
 import { OutlinedButton } from '../outlinedBtn';
 import Request from '../request/request.component';
 import Text from '../text/text.component';
 import UserPicGallery from '../userpicGallery/userPicGallery.component';
 
-import { styles } from './postFullHost.styles';
+import { createStyles } from './postFullHost.styles';
 import { PostFullHostProps, PostTag, RequestProps } from './postFullHost.types';
 
 export default function PostFullHost({ data }: { data: PostFullHostProps }) {
+  const theme = useTheme();
+  const styles = createStyles(theme);
   const confirmRequest = () => {
     Alert.alert('confirm');
   };
@@ -24,6 +27,7 @@ export default function PostFullHost({ data }: { data: PostFullHostProps }) {
   const deleteRequest = () => {
     Alert.alert('delete');
   };
+
   return (
     <ScrollView style={styles.scrollWrapper}>
       <View style={styles.header}>
@@ -33,16 +37,16 @@ export default function PostFullHost({ data }: { data: PostFullHostProps }) {
           style={styles.photoContainer}
         >
           <LinearGradient
-            colors={['rgba(0, 0, 0, 0.33)', 'rgba(0, 0, 0, 0.73)']}
+            colors={[theme.colors.gradientStart, theme.colors.gradientFinish]}
             style={styles.linearGradient}
           ></LinearGradient>
         </ImageBackground>
         <View style={styles.textOnPhoto}>
           <View style={styles.textHeader}>
-            <Text variant="h3" color="white">
+            <Text variant="h3" color={theme.colors.secondary}>
               {data.post_name}
             </Text>
-            <Text variant="h5" color="white">
+            <Text variant="h5" color={theme.colors.secondary}>
               {formatWholeDate(data.start_date)}
             </Text>
           </View>

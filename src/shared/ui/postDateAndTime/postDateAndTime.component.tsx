@@ -1,19 +1,22 @@
 import { FontAwesome } from '@expo/vector-icons';
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { useState } from 'react';
+import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import convertDateToHumanFormat from '../../../utils/convertTime/convertDateToHumanFormat';
 import convertTime from '../../../utils/convertTime/convertTime';
+import useTheme from '../../hooks/useTheme.hook';
 import Text from '../text/text.component';
 
+import { createStyles } from './postDateAndTime.styles';
 import { PostDateAndTimeProps } from './postDateAndTime.types';
 
 export default function PostDateAndTime({ date, setDate }: PostDateAndTimeProps) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
-
+  const theme = useTheme();
+  const styles = createStyles(theme);
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -43,7 +46,7 @@ export default function PostDateAndTime({ date, setDate }: PostDateAndTimeProps)
   return (
     <View style={styles.row}>
       <TouchableOpacity onPress={showDatePicker} style={styles.dateField}>
-        <FontAwesome name="calendar-check-o" size={14} color="black" />
+        <FontAwesome name="calendar-check-o" size={14} color={theme.colors.iconColor} />
         <Text>{convertDateToHumanFormat(date)}</Text>
       </TouchableOpacity>
       <Text>at</Text>
@@ -67,29 +70,3 @@ export default function PostDateAndTime({ date, setDate }: PostDateAndTimeProps)
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    gap: 5,
-    flexWrap: 'wrap',
-    alignItems: 'center',
-  },
-  tagButton: {
-    padding: 5,
-    borderRadius: 5,
-  },
-  text: {
-    color: 'black',
-  },
-  dateField: {
-    flexDirection: 'row',
-    gap: 5,
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderColor: 'black',
-    borderWidth: 1,
-    padding: 5,
-  },
-});

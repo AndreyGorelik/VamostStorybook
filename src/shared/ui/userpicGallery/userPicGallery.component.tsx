@@ -1,9 +1,13 @@
 import { View, Image } from 'react-native';
 
-import { styles } from './userPicGallery.styles';
+import useTheme from '../../hooks/useTheme.hook';
+
+import { createStyles } from './userPicGallery.styles';
 import { UserPicGalleryProps } from './userPicGallery.types';
 
 export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps) {
+  const theme = useTheme();
+  const styles = createStyles(theme);
   return (
     <View style={styles.row}>
       {data?.map((item, index) => {

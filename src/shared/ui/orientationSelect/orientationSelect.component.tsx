@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 
+import useTheme from '../../hooks/useTheme.hook';
 import Text from '../text/text.component';
 
 import { OrientationSelectProps, SelectListItem } from './orientationsSelect.types';
@@ -11,6 +12,7 @@ export default function OrientationSelect({
   maxSelectCount = 3,
 }: OrientationSelectProps) {
   const [errorMaxCount, setErrorMaxCount] = useState<boolean>(false);
+  const theme = useTheme();
   const selectItem = (item: SelectListItem) => {
     const selectedItemsCount = list.filter((listItem) => listItem.selected).length;
 
@@ -34,7 +36,10 @@ export default function OrientationSelect({
       {list.map((item: SelectListItem) => {
         return (
           <TouchableOpacity key={item.id} onPress={() => selectItem(item)}>
-            <Text variant="h5" color={item.selected ? 'gray' : 'black'}>
+            <Text
+              variant="h5"
+              color={item.selected ? theme.colors.selectedListItem : theme.colors.listItem}
+            >
               {item.label}
             </Text>
           </TouchableOpacity>

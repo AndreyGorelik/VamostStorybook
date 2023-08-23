@@ -1,12 +1,15 @@
 import { View, TouchableOpacity } from 'react-native';
 
+import useTheme from '../../hooks/useTheme.hook';
 import { SelectListItem } from '../orientationSelect/orientationsSelect.types';
 import Text from '../text/text.component';
 
-import { styles } from './tagList.styles';
+import { createStyles } from './tagList.styles';
 import { TagListProps } from './tagList.types';
 
 export default function TagList({ list, setList }: TagListProps) {
+  const theme = useTheme();
+  const styles = createStyles(theme);
   const selectItem = (item: SelectListItem) => {
     const updatedList = list.map((listItem: SelectListItem) => {
       if (listItem.id === item.id) {
@@ -25,7 +28,10 @@ export default function TagList({ list, setList }: TagListProps) {
           <TouchableOpacity
             key={item.id}
             onPress={() => selectItem(item)}
-            style={[styles.tagButton, { backgroundColor: item.selected ? '#a8a8a8' : '#f0f0f0' }]}
+            style={[
+              styles.tagButton,
+              { backgroundColor: item.selected ? theme.colors.selectedTag : theme.colors.tag },
+            ]}
           >
             <Text style={styles.text}>{item.label}</Text>
           </TouchableOpacity>
@@ -34,18 +40,3 @@ export default function TagList({ list, setList }: TagListProps) {
     </View>
   );
 }
-
-// const styles = StyleSheet.create({
-//   row: {
-//     flexDirection: 'row',
-//     gap: 10,
-//     flexWrap: 'wrap',
-//   },
-//   tagButton: {
-//     padding: 5,
-//     borderRadius: 5,
-//   },
-//   text: {
-//     color: 'black',
-//   },
-// });
