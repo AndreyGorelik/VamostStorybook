@@ -15,7 +15,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import rootSaga from '../sagas';
 
-import settingsSlice from './slices/settingsSlice';
+import authSlice from './slices/authSlice';
 
 const persistConfig = {
   key: 'root',
@@ -23,7 +23,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  settingsSlice,
+  authSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -45,5 +45,5 @@ sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;

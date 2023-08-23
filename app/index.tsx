@@ -4,12 +4,13 @@ import { StyleSheet, View } from 'react-native';
 import { useAppSelector, useAppDispatch } from '../src/shared/hooks/redux.hook';
 import { Button } from '../src/shared/ui/button';
 import Text from '../src/shared/ui/text/text.component';
-import { loginUser, logoutUser } from '../src/store/slices/settingsSlice';
+import { RootState } from '../src/store';
+import { AuthState, loginUser, logoutUser } from '../src/store/slices/authSlice';
 
 const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
 
 function Index() {
-  const state = useAppSelector((state) => state.settingsSlice);
+  const state: AuthState = useAppSelector((state: RootState) => state.authSlice);
   const dispatch = useAppDispatch();
 
   return (

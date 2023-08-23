@@ -1,13 +1,11 @@
 import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
 
-interface State {
-  theme: string;
+export interface AuthState {
   isAuth: boolean;
   authError: string | null;
 }
 
-const initialState: State = {
-  theme: 'light',
+const initialState: AuthState = {
   isAuth: false,
   authError: null,
 };
@@ -16,9 +14,6 @@ const settingsSlice = createSlice({
   name: 'settingsSlice',
   initialState,
   reducers: {
-    changeTheme(state) {
-      state.theme = 'dark';
-    },
     loginUserSuccess(state) {
       state.isAuth = true;
     },
@@ -35,6 +30,6 @@ const settingsSlice = createSlice({
 export const LOGIN_USER = 'users/loginUser';
 export const loginUser = createAction(LOGIN_USER);
 
-export const { changeTheme, loginUserSuccess, logoutUser, setAuthError } = settingsSlice.actions;
+export const { loginUserSuccess, logoutUser, setAuthError } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

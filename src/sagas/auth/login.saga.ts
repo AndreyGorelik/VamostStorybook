@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 
-import { LOGIN_USER, loginUserSuccess, setAuthError } from '../../store/slices/settingsSlice';
+import { LOGIN_USER, loginUserSuccess, setAuthError } from '../../store/slices/authSlice';
 
 const logIn = async () => {
   const request = await fetch('https://jsonplaceholder.typicode.com/todos/12');
