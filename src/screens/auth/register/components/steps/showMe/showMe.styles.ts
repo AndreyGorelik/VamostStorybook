@@ -13,5 +13,6 @@ export const createStyles = (theme: Theme) =>
       flex: 1,
       paddingVertical: 40,
       rowGap: 15,
+      justifyContent: 'center',
     },
   });
