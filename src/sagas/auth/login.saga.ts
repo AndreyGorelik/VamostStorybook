@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import { LOGIN_USER, loginUserSuccess, setAuthError } from '../../store/slices/authSlice';
 
@@ -14,7 +14,7 @@ const logIn = async () => {
 };
 
 function* logInRequestWorker() {
-  const data: boolean = yield logIn();
+  const data: boolean = yield call(logIn);
 
   if (data) {
     yield put(loginUserSuccess());
