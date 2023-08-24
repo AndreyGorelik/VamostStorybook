@@ -18,6 +18,8 @@ function Index() {
       <View style={styles.main}>
         <Link href="/auth/register">Register</Link>
         <Link href="/auth/login">Login</Link>
+        <Link href="/post/postFullHost">Post Full Host</Link>
+        <Link href="/post/postFullGuest">Post Full Guest</Link>
         <Text variant="h2">{state.isAuth ? 'is auth' : 'no auth'}</Text>
         {state.authError ? <Text variant="warning">{state.authError}</Text> : null}
         <Button title="login" onPress={() => dispatch(loginUser())} />

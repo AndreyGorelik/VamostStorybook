@@ -17,8 +17,10 @@ export interface CustomText extends TextProps {
   children: string | string[];
   color?: string;
   variant?: TextVariant;
-  margin?: boolean;
+  margin?: number;
   weight?: string;
   width?: number;
+  fontSize?: number;
+  noMargin?: boolean;
   align?: 'left' | 'right' | 'center' | 'justify' | 'auto';
 }

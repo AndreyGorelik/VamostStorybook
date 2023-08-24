@@ -1,8 +1,8 @@
+import { format } from 'date-fns';
 import React from 'react';
 import { View } from 'react-native';
 
 import useTheme from '../../hooks/useTheme.hook';
-import { dateConvert } from '../../utils/dateConvert';
 import Text from '../text/text.component';
 
 import { createStyles } from './packagePage.styles';
@@ -12,7 +12,7 @@ export default function PackagePage({ date, place, description, restrictions }: 
   const theme = useTheme();
   const styles = createStyles(theme);
 
-  const { convertedDate, convertedTime } = dateConvert(date);
+  const formattedDate = format(new Date(date), 'EEEE MMM d @ h:mm a');
 
   return (
     <View style={styles.wrapper}>
@@ -21,13 +21,7 @@ export default function PackagePage({ date, place, description, restrictions }: 
       </Text>
       <View style={styles.row}>
         <Text variant="common" {...styles.date}>
-          {convertedDate}
-        </Text>
-        <Text variant="common" {...styles.separator}>
-          @
-        </Text>
-        <Text variant="common" {...styles.separator}>
-          {convertedTime}
+          {formattedDate}
         </Text>
       </View>
       <Text variant="common" {...styles.restictions}>
