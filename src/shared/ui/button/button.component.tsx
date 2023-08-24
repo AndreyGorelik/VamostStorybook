@@ -1,4 +1,4 @@
-import { Keyboard, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 import useTheme from '../../hooks/useTheme.hook';
 import Text from '../text/text.component';
@@ -8,7 +8,6 @@ import { CustomButton } from './button.types';
 
 export default function Button({ title, width, onPress, disabled, color }: CustomButton) {
   const handlePress = () => {
-    Keyboard.dismiss();
     onPress?.();
   };
 
