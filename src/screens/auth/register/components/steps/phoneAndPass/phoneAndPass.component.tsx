@@ -35,9 +35,7 @@ export default function PhoneAndPass({ goAhead, setNumber }: PhoneAndPassProps) 
 
   return (
     <View style={styles.wrapper}>
-      <Text variant="h2" margin={true}>
-        Welcome! Let&apos;s create your account
-      </Text>
+      <Text variant="h2">Welcome! Let&apos;s create your account</Text>
       <View style={styles.content}>
         <Controller
           control={control}

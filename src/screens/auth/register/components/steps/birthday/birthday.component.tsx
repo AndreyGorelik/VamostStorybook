@@ -45,9 +45,7 @@ export default function Birthday({ goAhead }: BirthdayProps) {
 
   return (
     <View style={styles.wrapper}>
-      <Text variant="h2" margin={true}>
-        My birthday is...
-      </Text>
+      <Text variant="h2">My birthday is...</Text>
       <View style={styles.subInfo}>
         <Text variant="common" fontSize={17}>
           Your age will be public.

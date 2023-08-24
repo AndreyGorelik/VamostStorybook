@@ -29,10 +29,8 @@ export default function Code({ goAhead, number }: CodeProps) {
 
   return (
     <View style={styles.wrapper}>
-      <Text variant="h2" margin={true}>
-        Enter the 6-digit code sent to you at
-      </Text>
-      <Text variant="h2" color={theme.colors.selected}>
+      <Text variant="h2">Enter the 6-digit code sent to you at</Text>
+      <Text variant="h2" noMargin={true} color={theme.colors.selected}>
         {number}
       </Text>
       <View style={styles.content}>

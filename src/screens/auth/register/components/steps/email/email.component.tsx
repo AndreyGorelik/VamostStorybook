@@ -29,9 +29,7 @@ export default function Email({ goAhead }: EmailProps) {
 
   return (
     <View style={styles.wrapper}>
-      <Text variant="h2" margin={true}>
-        What&apos;s your email?
-      </Text>
+      <Text variant="h2">What&apos;s your email?</Text>
       <View style={styles.subInfo}>
         <Text variant="common" fontSize={17}>
           Don&apos;t loose access to your account, verify your email.

@@ -27,9 +27,7 @@ export default function Orientation({ goAhead }: OrientationProps) {
 
   return (
     <View style={styles.wrapper}>
-      <Text variant="h2" margin={true}>
-        {'My sexual \norientation is'}
-      </Text>
+      <Text variant="h2">{'My sexual \norientation is'}</Text>
 
       <View style={styles.content}></View>
       <Button title="Continue" onPress={handleSubmit(onSubmit)} disabled={!isValid} />

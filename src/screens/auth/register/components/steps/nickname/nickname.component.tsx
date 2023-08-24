@@ -29,9 +29,7 @@ export default function Code({ goAhead }: NicknameProps) {
 
   return (
     <View style={styles.wrapper}>
-      <Text variant="h2" margin={true}>
-        My nickname is...
-      </Text>
+      <Text variant="h2">My nickname is...</Text>
       <View style={styles.subInfo}>
         <Text variant="common" fontSize={17}>
           This is how you will appear in Vamost.

@@ -55,9 +55,7 @@ export default function Photos({ goAhead }: PhotosProps) {
 
   return (
     <View style={styles.wrapper}>
-      <Text variant="h2" margin={true}>
-        Add photos
-      </Text>
+      <Text variant="h2">Add photos</Text>
       <View style={styles.subInfo}>
         <Text variant="common" fontSize={17}>
           Add at least one photo to continue.

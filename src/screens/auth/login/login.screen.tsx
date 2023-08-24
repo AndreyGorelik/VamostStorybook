@@ -39,9 +39,7 @@ export default function Login() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       onTouchStart={() => Keyboard.dismiss()}
     >
-      <Text variant="h2" margin={true}>
-        Login to your account.
-      </Text>
+      <Text variant="h2">Login to your account.</Text>
       <View style={styles.content}>
         <Controller
           control={control}

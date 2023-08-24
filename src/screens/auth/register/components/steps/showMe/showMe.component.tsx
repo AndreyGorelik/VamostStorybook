@@ -27,9 +27,7 @@ export default function ShowMe({ goAhead }: ShowMeProps) {
 
   return (
     <View style={styles.wrapper}>
-      <Text variant="h2" margin={true}>
-        Show me
-      </Text>
+      <Text variant="h2">Show me</Text>
 
       <View style={styles.content}></View>
       <Button title="Continue" onPress={handleSubmit(onSubmit)} disabled={!isValid} />

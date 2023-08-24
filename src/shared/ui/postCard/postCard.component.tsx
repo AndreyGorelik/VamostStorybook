@@ -55,11 +55,7 @@ export default function PostCard({ data }: { data: PostCardProps }) {
               );
             })}
             <Text variant="disabled">
-              {(
-                data.guestFemaleCount +
-                data.guestMaleCount +
-                data.guestOtherCount
-              ).toString()}{' '}
+              {(data.guestFemaleCount + data.guestMaleCount + data.guestOtherCount).toString()}{' '}
               guests
             </Text>
           </View>

@@ -27,9 +27,7 @@ export default function Gender({ goAhead }: GenderProps) {
 
   return (
     <View style={styles.wrapper}>
-      <Text variant="h2" margin={true}>
-        I&apos;m a...
-      </Text>
+      <Text variant="h2">I&apos;m a...</Text>
 
       <View style={styles.content}></View>
       <Button title="Continue" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
