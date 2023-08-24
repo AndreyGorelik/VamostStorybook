@@ -1,7 +1,7 @@
 export default ({ config }) => ({
   ...config,
   name: 'vamost',
-  slug: 'vamost',
+  slug: 'vamoose',
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
   },
@@ -12,7 +12,7 @@ export default ({ config }) => ({
   plugins: ['expo-router'],
   expo: {
     owner: 'zbsprod',
-    scheme: 'vamost',
+    scheme: 'vamoose',
     extra: {
       eas: {
         projectId: '6e5848a3-5310-4771-a7a3-080a97b247c8',
