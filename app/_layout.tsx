@@ -3,6 +3,10 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+
+import { persistor, store } from '../src/store';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,8 +26,12 @@ export default function Layout() {
   }
 
   return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <Stack />
-    </View>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+          <Stack />
+        </View>
+      </PersistGate>
+    </Provider>
   );
 }

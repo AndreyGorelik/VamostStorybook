@@ -1,7 +1,7 @@
 export default ({ config }) => ({
   ...config,
   name: 'vamost',
-  slug: 'vamost',
+  slug: 'vamoose',
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
   },

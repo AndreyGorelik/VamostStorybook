@@ -1,10 +1,18 @@
 import { Link } from 'expo-router';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
+import { useAppSelector, useAppDispatch } from '../src/shared/hooks/redux.hook';
+import { Button } from '../src/shared/ui/button';
+import Text from '../src/shared/ui/text/text.component';
+import { RootState } from '../src/store';
+import { AuthState, loginUser, logoutUser } from '../src/store/slices/authSlice';
 
 const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
 
 function Index() {
+  const state: AuthState = useAppSelector((state: RootState) => state.authSlice);
+  const dispatch = useAppDispatch();
+
   return (
     <View style={styles.container}>
       <View style={styles.main}>
@@ -12,8 +20,10 @@ function Index() {
         <Link href="/auth/login">Login</Link>
         <Link href="/post/postFullHost">Post Full Host</Link>
         <Link href="/post/postFullGuest">Post Full Guest</Link>
-        <Text style={styles.title}>Hello World</Text>
-        <Text style={styles.subtitle}>This is the first page of your app.</Text>
+        <Text variant="h2">{state.isAuth ? 'is auth' : 'no auth'}</Text>
+        {state.authError ? <Text variant="warning">{state.authError}</Text> : null}
+        <Button title="login" onPress={() => dispatch(loginUser())} />
+        <Button title="logout" onPress={() => dispatch(logoutUser())} />
       </View>
     </View>
   );

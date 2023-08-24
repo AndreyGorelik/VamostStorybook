@@ -11,8 +11,11 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
+import createSagaMiddleware from 'redux-saga';
 
-import settingsSlice from './slices/settingsSlice';
+import rootSaga from '../sagas';
+
+import authSlice from './slices/authSlice';
 
 const persistConfig = {
   key: 'root',
@@ -20,10 +23,12 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  settingsSlice,
+  authSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const sagaMiddleware = createSagaMiddleware();
 
 export const store: ToolkitStore = configureStore({
   reducer: persistedReducer,
@@ -32,9 +37,13 @@ export const store: ToolkitStore = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+      thunk: false,
+    }).concat(sagaMiddleware),
 });
+
+sagaMiddleware.run(rootSaga);
+
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
