@@ -10,6 +10,7 @@ import { SelectListProps, SelectListItem } from './selectList.types';
 export default function SelectList({
   list,
   setList,
+  textError,
   maxSelectCount,
   moreOption,
   moreAction,
@@ -63,11 +64,7 @@ export default function SelectList({
               </TouchableOpacity>
             );
           })}
-          {errorMaxCount && (
-            <Text variant="warning">
-              Maximum {maxSelectCount.toString()} orientations can be selected.
-            </Text>
-          )}
+          {errorMaxCount && textError && <Text variant="warning">{textError}</Text>}
         </View>
       )}
 

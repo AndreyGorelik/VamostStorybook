@@ -5,7 +5,7 @@ import Dinner from '../../../assets/images/postFullImages/dinner.png';
 import Drinks from '../../../assets/images/postFullImages/drinks.png';
 export const POST_FULL_HOST_DATA = {
   photo: Photo,
-  post_tags: [
+  postTags: [
     {
       label: 'Dinner',
       icon: Dinner,
@@ -13,14 +13,14 @@ export const POST_FULL_HOST_DATA = {
     },
     { label: 'Drinks', icon: Drinks, id: '2' },
   ],
-  start_date: new Date(),
-  start_time: new Date(),
-  venue_name: 'Miami Design District',
-  venue_location: 'American',
-  post_name: 'Wokabily food & drinks',
-  guest_male_count: 1,
-  guest_female_count: 1,
-  guest_other_count: 1,
+  startDate: new Date(),
+  startTime: new Date(),
+  venueName: 'Miami Design District',
+  venueLocation: 'American',
+  postName: 'Wokabily food & drinks',
+  guestMaleCount: 1,
+  guestFemaleCount: 1,
+  guestOtherCount: 1,
   guests: [
     { guestPhoto: UserPic1, id: '1' },
     { guestPhoto: UserPic2, id: '2' },

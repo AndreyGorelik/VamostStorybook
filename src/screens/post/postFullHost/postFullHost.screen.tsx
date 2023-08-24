@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
 import { View, Image, ImageBackground, ScrollView, Alert } from 'react-native';
 
@@ -7,11 +8,10 @@ import { OutlinedButton } from '../../../shared/ui/outlinedBtn';
 import { Request } from '../../../shared/ui/request';
 import Text from '../../../shared/ui/text/text.component';
 import { UserPicGallery } from '../../../shared/ui/userpicGallery';
-import formatWholeDate from '../../../utils/convertTime/formatWholeDate';
 
 import { POST_FULL_HOST_DATA } from './postFullHost.data';
 import { createStyles } from './postFullHost.styles';
-import { PostFullHostProps, PostTag, RequestProps } from './postFullHost.types';
+import { PostTag, RequestProps } from './postFullHost.types';
 
 export default function PostFullHost() {
   const data = POST_FULL_HOST_DATA;
@@ -46,10 +46,10 @@ export default function PostFullHost() {
         <View style={styles.textOnPhoto}>
           <View style={styles.textHeader}>
             <Text variant="h3" color={theme.colors.secondary}>
-              {data.post_name}
+              {data.postName}
             </Text>
             <Text variant="h5" color={theme.colors.secondary}>
-              {formatWholeDate(data.start_date)}
+              {format(data.startDate, 'MMMM d, yyyy, h:mm a')}
             </Text>
           </View>
           <HostingLabel />
@@ -63,7 +63,7 @@ export default function PostFullHost() {
       </View>
       <View style={styles.postInfo}>
         <View style={styles.tags}>
-          {data.post_tags.map((item: PostTag) => {
+          {data.postTags.map((item: PostTag) => {
             return (
               <View key={item.id} style={styles.tagItem}>
                 <Image source={item.icon} style={styles.tagIcons} />
@@ -79,7 +79,7 @@ export default function PostFullHost() {
           </Text>
           <Text>
             From my side:
-            {data?.guest_male_count > 0 ? ' +' + data.guest_male_count.toString() + ' men' : '0'}
+            {data?.guestMaleCount > 0 ? ' +' + data.guestMaleCount.toString() + ' men' : '0'}
           </Text>
           <Text>Guest invited: +{data.guests.length.toString()} women</Text>
         </View>

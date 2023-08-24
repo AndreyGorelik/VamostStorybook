@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { Keyboard, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 import useTheme from '../../hooks/useTheme.hook';
 import Text from '../text/text.component';
@@ -21,7 +21,6 @@ export default function OutlinedButton({
   flex,
 }: OutlinedBtnProps) {
   const handlePress = () => {
-    Keyboard.dismiss();
     onPress?.();
   };
 

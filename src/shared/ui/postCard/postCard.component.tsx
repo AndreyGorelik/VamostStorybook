@@ -1,7 +1,7 @@
+import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
 import { View, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 
-import formatWholeDate from '../../../utils/convertTime/formatWholeDate';
 import useTheme from '../../hooks/useTheme.hook';
 import { OutlinedButton } from '../outlinedBtn';
 import Text from '../text/text.component';
@@ -13,7 +13,6 @@ import { PostCardProps } from './postCard.types';
 export default function PostCard({ data }: { data: PostCardProps }) {
   const theme = useTheme();
   const styles = createStyles(theme);
-
   return (
     <TouchableOpacity style={styles.container} activeOpacity={0.8}>
       <View style={styles.photoContainer}>
@@ -31,22 +30,22 @@ export default function PostCard({ data }: { data: PostCardProps }) {
         </View>
         <View style={styles.imageInfo}>
           <Text variant="h4" noMargin={true} color={theme.colors.background}>
-            {data.post_name}
+            {data.postName}
           </Text>
           <Text variant="h6" color={theme.colors.background}>
-            {data.venue_location} • {data.venue_name}
+            {data.venueLocation} • {data.venueName}
           </Text>
         </View>
       </View>
       <View style={styles.textContainer}>
         <View>
           <Text variant="h5" noMargin={true}>
-            {formatWholeDate(data.start_date)}
+            {format(data.startDate, 'MMMM d, yyyy, h:mm a')}
           </Text>
         </View>
         <View>
           <View style={styles.row}>
-            {data.post_tags.map((item, index, array) => {
+            {data.postTags.map((item, index, array) => {
               const isLastElement = index === array.length - 1;
               const separator = array.length > 2 ? ', ' : ' & ';
               return (
@@ -57,9 +56,9 @@ export default function PostCard({ data }: { data: PostCardProps }) {
             })}
             <Text variant="disabled">
               {(
-                data.guest_female_count +
-                data.guest_male_count +
-                data.guest_other_count
+                data.guestFemaleCount +
+                data.guestMaleCount +
+                data.guestOtherCount
               ).toString()}{' '}
               guests
             </Text>

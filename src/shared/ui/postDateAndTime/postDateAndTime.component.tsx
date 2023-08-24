@@ -1,11 +1,10 @@
 import { FontAwesome } from '@expo/vector-icons';
+import format from 'date-fns/format';
 import { useState } from 'react';
 import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-import convertDateToHumanFormat from '../../../utils/convertTime/convertDateToHumanFormat';
-import convertTime from '../../../utils/convertTime/convertTime';
 import useTheme from '../../hooks/useTheme.hook';
 import Text from '../text/text.component';
 
@@ -47,11 +46,11 @@ export default function PostDateAndTime({ date, setDate }: PostDateAndTimeProps)
     <View style={styles.row}>
       <TouchableOpacity onPress={showDatePicker} style={styles.dateField}>
         <FontAwesome name="calendar-check-o" size={14} color={theme.colors.iconColor} />
-        <Text>{convertDateToHumanFormat(date)}</Text>
+        <Text>{format(date, 'yyyy/dd/mm')}</Text>
       </TouchableOpacity>
       <Text>at</Text>
       <TouchableOpacity onPress={showTimePicker} style={styles.dateField}>
-        <Text>{convertTime(date)}</Text>
+        <Text>{format(date, 'h:mm a')}</Text>
       </TouchableOpacity>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}

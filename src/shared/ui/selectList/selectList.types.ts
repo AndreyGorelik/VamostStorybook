@@ -10,6 +10,7 @@ export interface SelectListProps {
   list: SelectListData;
   setList: React.Dispatch<React.SetStateAction<SelectListData>>;
   maxSelectCount: number;
+  textError?: string;
   moreOption?: boolean;
   moreAction?: (arg0: unknown) => void;
 }

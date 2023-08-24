@@ -1,7 +1,7 @@
+import { format } from 'date-fns';
 import { FlatList, View } from 'react-native';
 
 import useTheme from '../../hooks/useTheme.hook';
-import { dateConvert } from '../../utils/dateConvert';
 
 import PackageCard from './packageCard.component';
 import { data } from './packageCard.data';
@@ -18,7 +18,7 @@ const Template = () => {
     <FlatList
       data={data}
       renderItem={({ item }) => (
-        <PackageCard {...item} date={dateConvert(item.date).convertedDate} />
+        <PackageCard {...item} date={format(new Date(item.date), 'EEEE MMM d')} />
       )}
       ItemSeparatorComponent={() => (
         <View style={{ height: 1, backgroundColor: theme.colors.imagePlaceholder }} />

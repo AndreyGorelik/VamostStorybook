@@ -18,7 +18,14 @@ const MultiSelectTemplate = () => {
   );
   const [list, setList] = useState(defaultValues);
 
-  return <SelectList list={list} setList={setList} maxSelectCount={3} />;
+  return (
+    <SelectList
+      list={list}
+      setList={setList}
+      maxSelectCount={3}
+      textError="Maximum 3 orientations can be selected."
+    />
+  );
 };
 
 const RadioButtonSelectTemplate = () => {
