@@ -4,6 +4,6 @@ export const createStyles = () =>
   StyleSheet.create({
     wrapper: {
       width: '32%',
-      height: 160,
+      height: '38%',
     },
   });
