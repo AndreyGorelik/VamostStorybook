@@ -20,6 +20,7 @@ export default function AuthLayout() {
               }
             />
           ),
+          animation: 'fade_from_bottom',
         }}
       />
     </Stack>
