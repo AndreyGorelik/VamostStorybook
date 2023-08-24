@@ -16,4 +16,13 @@ export const createStyles = (theme: Theme) =>
       paddingVertical: 5,
       backgroundColor: theme.colors.background,
     },
+    logo: {
+      height: 30,
+      flex: 1,
+      marginBottom: 3,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    left: { flex: 1 },
+    right: { flex: 1, alignItems: 'flex-end' },
   });

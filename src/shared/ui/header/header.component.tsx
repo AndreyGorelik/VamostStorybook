@@ -12,19 +12,11 @@ export default function Header({ headerLeft, headerRight }: HeaderProps) {
 
   return (
     <View style={styles.header}>
-      <View style={{ flex: 1 }}>{headerLeft}</View>
-      <View
-        style={{
-          height: 30,
-          flex: 1,
-          marginBottom: 3,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <View style={styles.left}>{headerLeft}</View>
+      <View style={styles.logo}>
         <Logo />
       </View>
-      <View style={{ flex: 1, alignItems: 'flex-end' }}>{headerRight}</View>
+      <View style={styles.right}>{headerRight}</View>
     </View>
   );
 }
