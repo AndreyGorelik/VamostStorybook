@@ -1,6 +1,6 @@
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
-import { View } from 'react-native';
+import { FlatList, View } from 'react-native';
 
 import useTheme from '../../../../../../shared/hooks/useTheme.hook';
 import { Button } from '../../../../../../shared/ui/button';
@@ -11,11 +11,14 @@ import { PhotosData } from './photos.data';
 import { createStyles } from './photos.styles';
 import { PhotosProps } from './photos.types';
 
+const COLUMN_AMOUNT = 3;
+
 export default function Photos({ goAhead }: PhotosProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [images, setImages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<number | null>(null);
+  const [flatListHeight, setFlatListHeight] = useState<number>(0);
 
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
@@ -63,16 +66,22 @@ export default function Photos({ goAhead }: PhotosProps) {
       </View>
 
       <View style={styles.content}>
-        {PhotosData.map((item, index) => (
-          <PhotoInput
-            id={item.id}
-            image={images[index]}
-            key={item.id}
-            loading={item.id === isLoading}
-            onDelete={handleDelete}
-            pickImage={() => pickImage(item.id)}
-          />
-        ))}
+        <FlatList
+          data={PhotosData}
+          onLayout={(event) => setFlatListHeight(event.nativeEvent.layout.height)}
+          renderItem={({ item, index }) => (
+            <PhotoInput
+              id={item.id}
+              image={images[index]}
+              loading={item.id === isLoading}
+              onDelete={handleDelete}
+              pickImage={() => pickImage(item.id)}
+              height={flatListHeight / ((PhotosData.length / COLUMN_AMOUNT) * 1.22)}
+            />
+          )}
+          keyExtractor={(item) => `${item.id}`}
+          numColumns={COLUMN_AMOUNT}
+        />
       </View>
       <Button title="Finish registration" onPress={onSubmit} disabled={images.length === 0} />
     </View>

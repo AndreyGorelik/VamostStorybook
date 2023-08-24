@@ -12,10 +12,7 @@ export const createStyles = (theme: Theme) =>
     content: {
       flex: 1,
       paddingVertical: 40,
-      rowGap: 15,
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between',
+      margin: -2,
     },
     subInfo: {
       paddingVertical: 10,
