@@ -9,14 +9,21 @@ export interface OutlinedBtnProps {
   height?: number;
   disabled?: boolean;
   selected?: boolean;
+  fontSize?: number;
   color?: string;
+  borderRadius?: number;
+  flex?: number;
   icon?: keyof typeof MaterialIcons.glyphMap;
 }
 
 export type OutlinedBtnStyle = {
   theme: Theme;
   width?: number;
+  height?: number;
+  fontSize?: number;
   disabled?: boolean;
   selected?: boolean;
+  borderRadius?: number;
+  flex?: number;
   color?: string;
 };

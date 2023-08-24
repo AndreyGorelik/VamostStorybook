@@ -2,13 +2,24 @@ import { StyleSheet } from 'react-native';
 
 import { OutlinedBtnStyle } from './outlinedBtn.types';
 
-export const createStyles = ({ disabled, selected, width, color, theme }: OutlinedBtnStyle) =>
+export const createStyles = ({
+  theme,
+  disabled,
+  selected,
+  width,
+  height,
+  color,
+  borderRadius,
+  fontSize,
+  flex,
+}: OutlinedBtnStyle) =>
   StyleSheet.create({
     button: {
+      flex: flex ?? 0,
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 5,
-      height: 50,
+      borderRadius: borderRadius ?? 5,
+      height: height ?? 50,
       width: width ?? 'auto',
       backgroundColor: 'transparent',
       borderWidth: 1,
@@ -22,6 +33,7 @@ export const createStyles = ({ disabled, selected, width, color, theme }: Outlin
     },
     text: {
       letterSpacing: 0.25,
+      fontSize: fontSize,
       color: color
         ? color
         : disabled

@@ -10,11 +10,15 @@ import { OutlinedBtnProps } from './outlinedBtn.types';
 export default function OutlinedButton({
   title,
   width,
+  height,
   onPress,
   disabled,
   selected,
   color,
   icon,
+  borderRadius,
+  fontSize,
+  flex,
 }: OutlinedBtnProps) {
   const handlePress = () => {
     onPress?.();
@@ -22,7 +26,17 @@ export default function OutlinedButton({
 
   const theme = useTheme();
 
-  const styles = createStyles({ theme: theme, disabled, selected, width, color });
+  const styles = createStyles({
+    theme: theme,
+    disabled,
+    selected,
+    width,
+    height,
+    color,
+    borderRadius,
+    fontSize,
+    flex,
+  });
 
   return (
     <TouchableOpacity

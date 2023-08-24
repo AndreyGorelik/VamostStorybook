@@ -25,6 +25,7 @@ export const LIGHT_THEME: Theme = {
     darkGray: colors.darkGray,
     selected: colors.cyan,
     red: colors.red,
+    secondRed: colors.secondRed,
     darkBlue: colors.darkBlue,
     lime: colors.lime,
     transparent: colors.transparent,
@@ -33,6 +34,16 @@ export const LIGHT_THEME: Theme = {
     increaseBtn: colors.black,
     decreaseBtn: colors.lightGray,
     warning: colors.red,
+    listItem: colors.black,
+    selectedListItem: colors.gray,
+    shadow: colors.black,
+    tag: colors.grayThird,
+    selectedTag: colors.graySecond,
+    border: colors.black,
+    iconColor: colors.black,
+    gradientStart: colors.blackTransparetFull,
+    gradientFinish: colors.blackTranparentQuarter,
+    divider: colors.gray,
   },
   styleConstants: styleConstants,
 };
@@ -55,6 +66,7 @@ export type Theme = {
     darkGray: string;
     selected: string;
     red: string;
+    secondRed: string;
     darkBlue: string;
     lime: string;
     transparent: string;
@@ -63,6 +75,16 @@ export type Theme = {
     increaseBtn: string;
     decreaseBtn: string;
     warning: string;
+    listItem: string;
+    selectedListItem: string;
+    shadow: string;
+    tag: string;
+    selectedTag: string;
+    border: string;
+    iconColor: string;
+    gradientStart: string;
+    gradientFinish: string;
+    divider: string;
   };
   styleConstants: StyleConstants;
 };
