@@ -14,6 +14,7 @@ import { PostDateAndTimeProps } from './postDateAndTime.types';
 export default function PostDateAndTime({ date, setDate }: PostDateAndTimeProps) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+
   const theme = useTheme();
   const styles = createStyles(theme);
   const showDatePicker = () => {
@@ -46,7 +47,7 @@ export default function PostDateAndTime({ date, setDate }: PostDateAndTimeProps)
     <View style={styles.row}>
       <TouchableOpacity onPress={showDatePicker} style={styles.dateField}>
         <FontAwesome name="calendar-check-o" size={14} color={theme.colors.iconColor} />
-        <Text>{format(date, 'yyyy/dd/mm')}</Text>
+        <Text>{format(date, 'yyyy/dd/MM')}</Text>
       </TouchableOpacity>
       <Text>at</Text>
       <TouchableOpacity onPress={showTimePicker} style={styles.dateField}>
