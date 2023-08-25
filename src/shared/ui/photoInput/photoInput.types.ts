@@ -4,4 +4,5 @@ export interface PhotoInputProps {
   onDelete: (id: number) => void;
   pickImage: () => Promise<void>;
   loading: boolean;
+  height: number;
 }

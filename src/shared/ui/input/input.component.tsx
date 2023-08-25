@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { TextInput as NativeTextInput, TextInputProps, View } from 'react-native';
+import { GestureResponderEvent, TextInput as NativeTextInput, View } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -11,14 +11,17 @@ import useTheme from '../../hooks/useTheme.hook';
 
 import { ANIMATION_DURATION } from './input.data';
 import { createStyles } from './input.styles';
-import { focusAndBlur } from './input.types';
+import { InputProps, focusAndBlur } from './input.types';
 
 const AnimatedInput = Animated.createAnimatedComponent(NativeTextInput);
 
-const TextInput = forwardRef<NativeTextInput, TextInputProps>(
-  ({ placeholder, value, onChangeText, onBlur, onFocus, ...rest }, ref) => {
+const TextInput = forwardRef<NativeTextInput, InputProps>(
+  (
+    { placeholder, value, onChangeText, onBlur, onFocus, fontSize, error, rightIcon, ...rest },
+    ref
+  ) => {
     const theme = useTheme();
-    const styles = createStyles(theme, placeholder || '');
+    const styles = createStyles(theme, placeholder || '', fontSize, error);
     const top = useSharedValue(value ? -10 : 15);
     const labelFontSize = useSharedValue(value ? 12 : 17);
     const progress = useSharedValue(value ? 1 : 0);
@@ -54,8 +57,9 @@ const TextInput = forwardRef<NativeTextInput, TextInputProps>(
         [0, 1],
         [theme.colors.placeholder, theme.colors.primary]
       );
+
       return {
-        borderColor,
+        borderColor: borderColor,
       };
     }, []);
 
@@ -64,22 +68,30 @@ const TextInput = forwardRef<NativeTextInput, TextInputProps>(
         <Animated.View style={[styles.placeholder, reanimatedStyle]}>
           <Animated.Text style={[styles.text, textReanimatedStyle]}>{placeholder}</Animated.Text>
         </Animated.View>
-        <AnimatedInput
-          onFocus={(e) => {
-            onFocus?.(e);
-            movePlaceholder('focus');
+        <Animated.View
+          style={[styles.inputWrapper, [error ? styles.error : borderReanimatedStyle]]}
+          onTouchStart={(e: GestureResponderEvent) => {
+            e.stopPropagation();
           }}
-          onBlur={(e) => {
-            onBlur?.(e);
-            movePlaceholder('blur');
-          }}
-          ref={ref}
-          value={value}
-          onChangeText={onChangeText}
-          style={[styles.input, borderReanimatedStyle]}
-          placeholderTextColor={'white'}
-          {...rest}
-        />
+        >
+          <AnimatedInput
+            onFocus={(e) => {
+              onFocus?.(e);
+              movePlaceholder('focus');
+            }}
+            onBlur={(e) => {
+              onBlur?.(e);
+              movePlaceholder('blur');
+            }}
+            ref={ref}
+            value={value}
+            onChangeText={onChangeText}
+            style={[styles.input]}
+            placeholderTextColor={'white'}
+            {...rest}
+          />
+          {rightIcon && rightIcon}
+        </Animated.View>
       </View>
     );
   }

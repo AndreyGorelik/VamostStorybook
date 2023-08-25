@@ -14,7 +14,7 @@ import { Input } from '../input';
 import { createStyles } from './birthdayInput.styles';
 import { BirthdayInputProps } from './birthdayInput.types';
 
-export default function BirthdayInput({ onChange }: BirthdayInputProps) {
+export default function BirthdayInput({ onChange, errors }: BirthdayInputProps) {
   const day1InputRef = useRef<TextInput>(null);
   const day2InputRef = useRef<TextInput>(null);
   const month1InputRef = useRef<TextInput>(null);
@@ -28,10 +28,10 @@ export default function BirthdayInput({ onChange }: BirthdayInputProps) {
 
   const { control, watch } = useForm({
     defaultValues: {
-      day1: '',
-      day2: '',
       month1: '',
       month2: '',
+      day1: '',
+      day2: '',
       year1: '',
       year2: '',
       year3: '',
@@ -40,8 +40,17 @@ export default function BirthdayInput({ onChange }: BirthdayInputProps) {
   });
 
   const handleInput = (inputValue: string, nextInputRef?: React.RefObject<TextInput>) => {
-    onChange?.(Object.values(watch()).join(','));
+    const data = [...Object.values(watch())].map((value) => (value === '' ? inputValue : value));
+
+    const day = data[2] + data[3];
+    const month = data[0] + data[1];
+    const year = data[4] + data[5] + data[6] + data[7];
+
+    onChange?.(`${day},${month},${year}`);
     if (inputValue.length >= 1) {
+      const cleanedText = inputValue.replace(/[^0-9]/g, '');
+      if (cleanedText.length === 0) return '';
+
       nextInputRef?.current?.focus();
       return inputValue.slice(inputValue.length - 1);
     }
@@ -69,6 +78,7 @@ export default function BirthdayInput({ onChange }: BirthdayInputProps) {
             onChangeText={(text: string) => onChange(handleInput(text, month2InputRef))}
             keyboardType="numeric"
             onBlur={onBlur}
+            error={errors?.month}
           />
         )}
       />
@@ -86,6 +96,7 @@ export default function BirthdayInput({ onChange }: BirthdayInputProps) {
             }
             keyboardType="numeric"
             onBlur={onBlur}
+            error={errors?.month}
           />
         )}
       />
@@ -105,6 +116,7 @@ export default function BirthdayInput({ onChange }: BirthdayInputProps) {
             }
             keyboardType="numeric"
             onBlur={onBlur}
+            error={errors?.day}
           />
         )}
       />
@@ -123,6 +135,7 @@ export default function BirthdayInput({ onChange }: BirthdayInputProps) {
             }
             keyboardType="numeric"
             onBlur={onBlur}
+            error={errors?.day}
           />
         )}
       />
@@ -145,6 +158,7 @@ export default function BirthdayInput({ onChange }: BirthdayInputProps) {
             }
             keyboardType="numeric"
             onBlur={onBlur}
+            error={errors?.year}
           />
         )}
       />
@@ -166,6 +180,7 @@ export default function BirthdayInput({ onChange }: BirthdayInputProps) {
             }
             keyboardType="numeric"
             onBlur={onBlur}
+            error={errors?.year}
           />
         )}
       />
@@ -186,6 +201,7 @@ export default function BirthdayInput({ onChange }: BirthdayInputProps) {
             }
             keyboardType="numeric"
             onBlur={onBlur}
+            error={errors?.year}
           />
         )}
       />
@@ -209,6 +225,7 @@ export default function BirthdayInput({ onChange }: BirthdayInputProps) {
             keyboardType="numeric"
             onBlur={onBlur}
             maxLength={1}
+            error={errors?.year}
           />
         )}
       />

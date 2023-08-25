@@ -33,6 +33,7 @@ export const LIGHT_THEME: Theme = {
     counterText: colors.darkGray,
     increaseBtn: colors.black,
     decreaseBtn: colors.lightGray,
+    warning: colors.red,
     listItem: colors.black,
     selectedListItem: colors.gray,
     shadow: colors.black,
@@ -73,6 +74,7 @@ export type Theme = {
     counterText: string;
     increaseBtn: string;
     decreaseBtn: string;
+    warning: string;
     listItem: string;
     selectedListItem: string;
     shadow: string;

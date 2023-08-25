@@ -7,7 +7,7 @@ import { Input } from '../input';
 import { createStyles } from './codeInput.styles';
 import { CodeInputProps } from './codeInput.types';
 
-export default function BirthdayInput({ onChange }: CodeInputProps) {
+export default function CodeInput({ onChange }: CodeInputProps) {
   const digit1 = useRef<TextInput>(null);
   const digit2 = useRef<TextInput>(null);
   const digit3 = useRef<TextInput>(null);
@@ -27,13 +27,14 @@ export default function BirthdayInput({ onChange }: CodeInputProps) {
     },
   });
 
-  //onChange && onChange(Object.values(watch()).join(','));
-
   const handleInput = (inputValue: string, nextInputRef?: React.RefObject<TextInput>) => {
     onChange?.(Object.values(watch()).join(','));
     if (inputValue.length >= 1) {
+      const cleanedText = inputValue.replace(/[^0-9]/g, '');
+      if (cleanedText.length === 0) return '';
+
       nextInputRef?.current?.focus();
-      return inputValue.slice(inputValue.length - 1);
+      return cleanedText.slice(cleanedText.length - 1);
     }
     return '';
   };
