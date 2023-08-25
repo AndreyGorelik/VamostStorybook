@@ -7,7 +7,7 @@ import { CodeInput } from '../../../../../../shared/ui/codeInput';
 import Text from '../../../../../../shared/ui/text/text.component';
 
 import { createStyles } from './code.styles';
-import { CodeProps } from './code.types';
+import { CodeProps, CodeValues } from './code.types';
 
 export default function Code({ goAhead, number }: CodeProps) {
   const theme = useTheme();
@@ -17,13 +17,15 @@ export default function Code({ goAhead, number }: CodeProps) {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm({
+  } = useForm<CodeValues>({
     defaultValues: {
       code: '',
     },
   });
 
-  function onSubmit() {
+  function onSubmit({ code }: CodeValues) {
+    if (code.length < 6) return;
+
     goAhead();
   }
 
