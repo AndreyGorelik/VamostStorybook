@@ -76,7 +76,7 @@ export default function Photos({ goAhead }: PhotosProps) {
               loading={item.id === isLoading}
               onDelete={handleDelete}
               pickImage={() => pickImage(item.id)}
-              height={flatListHeight / ((PhotosData.length / COLUMN_AMOUNT) * 1.22)}
+              height={flatListHeight / (Math.ceil(PhotosData.length / COLUMN_AMOUNT) * 1.22)}
             />
           )}
           keyExtractor={(item) => `${item.id}`}
