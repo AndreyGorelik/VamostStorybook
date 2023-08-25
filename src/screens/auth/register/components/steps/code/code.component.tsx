@@ -23,9 +23,7 @@ export default function Code({ goAhead, number }: CodeProps) {
     },
   });
 
-  function onSubmit({ code }: CodeValues) {
-    if (code.length < 6) return;
-
+  function onSubmit() {
     goAhead();
   }
 
@@ -38,7 +36,7 @@ export default function Code({ goAhead, number }: CodeProps) {
       <View style={styles.content}>
         <Controller
           control={control}
-          rules={{ required: true }}
+          rules={{ required: true, validate: (code) => code.length === 6 }}
           name="code"
           render={({ field: { onChange } }) => <CodeInput onChange={onChange} />}
         />
