@@ -2,21 +2,36 @@ import { StyleSheet } from 'react-native';
 
 import { Theme } from '../../hooks/useTheme.hook';
 
-export const createStyles = (theme: Theme, placeholder: string) =>
+export const createStyles = (
+  theme: Theme,
+  placeholder: string,
+  fontSize?: number,
+  error?: boolean
+) =>
   StyleSheet.create({
     container: {
       position: 'relative',
       marginVertical: 10,
+      flex: 1,
     },
     input: {
-      borderBottomWidth: 0.5,
       paddingVertical: 10,
-      fontSize: 17,
+      fontSize: fontSize ? fontSize : 17,
       paddingHorizontal: 0,
       fontFamily: 'NunitoSans10pt-Regular',
-      color: theme.colors.primary,
+      color: error ? theme.colors.red : theme.colors.primary,
       textAlign: placeholder.length === 1 ? 'center' : 'auto',
       minWidth: 24,
+      flex: 1,
+    },
+    inputWrapper: {
+      borderBottomWidth: 0.5,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    error: {
+      borderColor: theme.colors.warning,
     },
     placeholder: {
       position: 'absolute',
@@ -27,6 +42,6 @@ export const createStyles = (theme: Theme, placeholder: string) =>
     text: {
       padding: 0,
       margin: 0,
-      color: theme.colors.placeholder,
+      color: error ? theme.colors.red : theme.colors.placeholder,
     },
   });

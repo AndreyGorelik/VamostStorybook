@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { TextInputProps } from 'react-native';
 import CountryPicker, { Country } from 'react-native-country-picker-modal';
 import LibPhoneInput from 'react-native-phone-input';
 import Animated, {
@@ -13,8 +12,9 @@ import useTheme from '../../hooks/useTheme.hook';
 
 import { ANIMATION_DURATION } from './phoneInput.data';
 import { createStyles } from './phoneInput.styles';
+import { PhoneInputProps } from './phoneInput.types';
 
-export default function PhoneInput({ value }: TextInputProps) {
+export default function PhoneInput({ setNumber, value }: PhoneInputProps) {
   const phoneRef = useRef<LibPhoneInput>(null);
   const [visible, setVisible] = useState(false);
   const theme = useTheme();
@@ -46,6 +46,8 @@ export default function PhoneInput({ value }: TextInputProps) {
     } else {
       progress.value = withTiming(0, { duration: ANIMATION_DURATION });
     }
+
+    setNumber(number);
   };
 
   return (
@@ -55,6 +57,11 @@ export default function PhoneInput({ value }: TextInputProps) {
         onPressFlag={onPressFlag}
         textProps={{
           placeholder: 'Enter your phone number',
+          placeholderTextColor: theme.colors.placeholder,
+        }}
+        textStyle={{
+          fontSize: 17,
+          fontFamily: 'NunitoSans10pt-Regular',
         }}
         offset={10}
         initialValue={value ?? ''}
