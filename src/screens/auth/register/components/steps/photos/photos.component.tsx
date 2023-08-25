@@ -11,7 +11,7 @@ import { PhotosData } from './photos.data';
 import { createStyles } from './photos.styles';
 import { PhotosProps } from './photos.types';
 
-const COLUMN_AMOUNT = 4;
+const COLUMN_AMOUNT = 3;
 
 export default function Photos({ goAhead }: PhotosProps) {
   const theme = useTheme();

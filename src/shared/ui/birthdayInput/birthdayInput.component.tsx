@@ -51,13 +51,6 @@ export default function BirthdayInput({ onChange, errors }: BirthdayInputProps) 
   }, [onChange, watchedValues]);
 
   const handleInput = (inputValue: string, nextInputRef?: React.RefObject<TextInput>) => {
-    const data = [...Object.values(watch())].map((value) => (value === '' ? inputValue : value));
-
-    const day = data[2] + data[3];
-    const month = data[0] + data[1];
-    const year = data[4] + data[5] + data[6] + data[7];
-
-    onChange?.(`${day},${month},${year}`);
     if (inputValue.length >= 1) {
       const cleanedText = inputValue.replace(/[^0-9]/g, '');
       if (cleanedText.length === 0) return '';
