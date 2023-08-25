@@ -13,14 +13,14 @@ import Text from '../text/text.component';
 import { createStyles } from './checkBox.styles';
 import { CheckBoxProps } from './checkBox.types';
 
-export default function CheckBox({ checked, setChecked, label }: CheckBoxProps) {
+export default function CheckBox({ value, onChange, label }: CheckBoxProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
   const transformSize = useSharedValue(1);
 
   const toggleCheckbox = () => {
     transformSize.value = withSequence(withSpring(1.1), withSpring(1));
-    setChecked(!checked);
+    onChange(!value);
   };
 
   const animatedIconStyle = useAnimatedStyle(() => {
@@ -39,7 +39,7 @@ export default function CheckBox({ checked, setChecked, label }: CheckBoxProps) 
     >
       <Text>{label}</Text>
       <Animated.View style={animatedIconStyle}>
-        {checked ? (
+        {value ? (
           <MaterialCommunityIcons
             name="checkbox-marked-circle-outline"
             size={25}

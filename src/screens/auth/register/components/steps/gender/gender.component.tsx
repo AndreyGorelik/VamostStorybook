@@ -10,6 +10,7 @@ import Text from '../../../../../../shared/ui/text/text.component';
 import { ORIENTATION_RADIO_DATA_WITH_OPTIONS } from './gender.data';
 import { createStyles } from './gender.styles';
 import { GenderProps, SelectListData, SelectListItem } from './gender.types';
+import { CheckBox } from '../../../../../../shared/ui/checkBox';
 
 export default function Gender({ goAhead }: GenderProps) {
   const theme = useTheme();
@@ -20,7 +21,7 @@ export default function Gender({ goAhead }: GenderProps) {
     }
   );
   const [list, setList] = useState(defaultValues);
-
+  const [showMyGender, setShowMyGender] = useState(false);
   const {
     handleSubmit,
     formState: { isValid },
@@ -46,7 +47,13 @@ export default function Gender({ goAhead }: GenderProps) {
           moreOption={true}
           moreAction={onSubmit}
         />
+        <CheckBox
+          value={showMyGender}
+          onChange={setShowMyGender}
+          label="Show my orientation on my profile"
+        />
       </View>
+
       <Button title="Continue" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
     </View>
   );

@@ -18,7 +18,7 @@ import { ShowMe } from './components/steps/showMe';
 import { createStyles } from './register.styles';
 
 const RegisterScreen = () => {
-  const [step, setStep] = useState<number>(9);
+  const [step, setStep] = useState<number>(6);
   const [number, setNumber] = useState<string>('');
   const theme = useTheme();
   const styles = createStyles(theme);
