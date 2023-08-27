@@ -1,8 +1,8 @@
+import useTheme from '@shared/hooks/useTheme.hook';
 import { format } from 'date-fns';
 import React from 'react';
 import { View } from 'react-native';
 
-import useTheme from '../../hooks/useTheme.hook';
 import Text from '../text/text.component';
 
 import { createStyles } from './packagePage.styles';

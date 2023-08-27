@@ -1,3 +1,4 @@
+import useTheme from '@shared/hooks/useTheme.hook';
 import React, { useRef, useState } from 'react';
 import CountryPicker, { Country } from 'react-native-country-picker-modal';
 import LibPhoneInput from 'react-native-phone-input';
@@ -7,8 +8,6 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-
-import useTheme from '../../hooks/useTheme.hook';
 
 import { ANIMATION_DURATION } from './phoneInput.data';
 import { createStyles } from './phoneInput.styles';

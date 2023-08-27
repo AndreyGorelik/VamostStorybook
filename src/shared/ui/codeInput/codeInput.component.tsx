@@ -1,8 +1,7 @@
+import { Input } from '@shared/ui/input';
 import { useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { View, TextInput, NativeSyntheticEvent, TextInputKeyPressEventData } from 'react-native';
-
-import { Input } from '../input';
 
 import { createStyles } from './codeInput.styles';
 import { CodeInputProps } from './codeInput.types';

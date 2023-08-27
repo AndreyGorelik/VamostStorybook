@@ -1,7 +1,7 @@
+import useTheme from '@shared/hooks/useTheme.hook';
+import Text from '@shared/ui/text/text.component';
 import { View } from 'react-native';
 
-import useTheme from '../../../../hooks/useTheme.hook';
-import Text from '../../../text/text.component';
 import { HeaderButton } from '../headerButton';
 
 import { createStyles } from './header.styles';

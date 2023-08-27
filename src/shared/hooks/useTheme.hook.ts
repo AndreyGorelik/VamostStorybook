@@ -1,5 +1,5 @@
-import { colors } from '../constants/colors';
-import { StyleConstants, styleConstants } from '../constants/styleConstants';
+import { colors } from '@shared/constants/colors';
+import { StyleConstants, styleConstants } from '@shared/constants/styleConstants';
 
 const useTheme = () => {
   return LIGHT_THEME;

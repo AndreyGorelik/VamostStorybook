@@ -1,12 +1,11 @@
+import useTheme from '@shared/hooks/useTheme.hook';
+import { Button } from '@shared/ui/button';
+import Divider from '@shared/ui/divider/divider.component';
+import Text from '@shared/ui/text/text.component';
+import { UserPicGallery } from '@shared/ui/userpicGallery';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
 import { View, Image, ImageBackground, ScrollView, Alert } from 'react-native';
-
-import useTheme from '../../../shared/hooks/useTheme.hook';
-import { Button } from '../../../shared/ui/button';
-import Divider from '../../../shared/ui/divider/divider.component';
-import Text from '../../../shared/ui/text/text.component';
-import { UserPicGallery } from '../../../shared/ui/userpicGallery';
 
 import { POST_FULL_GUEST_DATA } from './postFullGuest.data';
 import { createStyles } from './postFullGuest.styles';

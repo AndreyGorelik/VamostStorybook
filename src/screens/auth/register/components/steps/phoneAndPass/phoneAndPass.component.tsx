@@ -1,13 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
+import useTheme from '@shared/hooks/useTheme.hook';
+import { Button } from '@shared/ui/button';
+import { Input } from '@shared/ui/input';
+import { PhoneInput } from '@shared/ui/phoneInput';
+import Text from '@shared/ui/text/text.component';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Pressable, View } from 'react-native';
-
-import useTheme from '../../../../../../shared/hooks/useTheme.hook';
-import { Button } from '../../../../../../shared/ui/button';
-import { Input } from '../../../../../../shared/ui/input';
-import { PhoneInput } from '../../../../../../shared/ui/phoneInput';
-import Text from '../../../../../../shared/ui/text/text.component';
 
 import { createStyles } from './phoneAndPass.styles';
 import { PhoneAndPassProps } from './phoneAndPass.types';

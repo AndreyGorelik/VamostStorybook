@@ -1,4 +1,4 @@
-import { Theme } from '../../hooks/useTheme.hook';
+import { Theme } from '@shared/hooks/useTheme.hook';
 
 export interface CustomButton {
   title: string;

@@ -1,3 +1,4 @@
+import useTheme from '@shared/hooks/useTheme.hook';
 import { useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
@@ -8,7 +9,6 @@ import {
   TextInputKeyPressEventData,
 } from 'react-native';
 
-import useTheme from '../../hooks/useTheme.hook';
 import { Input } from '../input';
 
 import { createStyles } from './birthdayInput.styles';

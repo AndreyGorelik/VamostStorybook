@@ -1,3 +1,4 @@
+import useTheme from '@shared/hooks/useTheme.hook';
 import { forwardRef, PropsWithChildren, useCallback, useImperativeHandle } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Animated, {
@@ -9,8 +10,6 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-
-import useTheme from '../../hooks/useTheme.hook';
 
 import { OPACITY_ANIMATION_DURATION, TRANSLATION_ANIMATION_DURATION } from './bottomSheet.data';
 import { createStyles } from './bottomSheet.styles';

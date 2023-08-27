@@ -1,3 +1,3 @@
-import { PostFullHost } from '../../../src/screens/post/postFullHost';
+import { PostFullHost } from '@screens/post/postFullHost';
 
 export default PostFullHost;
