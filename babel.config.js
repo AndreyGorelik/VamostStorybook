@@ -12,7 +12,6 @@ module.exports = function (api) {
             '@shared': './src/shared',
             '@screens': './src/screens',
             '@assets': './src/assets',
-            '@store': './src/store',
           },
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },

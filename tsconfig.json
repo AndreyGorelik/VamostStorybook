@@ -11,8 +11,7 @@
     "paths": {
       "@shared/*": ["src/shared/*"],
       "@screens/*": ["src/screens/*"],
-      "@assets/*": ["src/assets/*"],
-      "@store": ["src/store"],
+      "@assets/*": ["src/assets/*"]
     },
     "noEmit": true,
     "strict": true,
