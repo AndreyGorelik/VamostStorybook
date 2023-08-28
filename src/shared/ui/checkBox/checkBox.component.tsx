@@ -39,19 +39,11 @@ export default function CheckBox({ value, onChange, label }: CheckBoxProps) {
     >
       <Text>{label}</Text>
       <Animated.View style={animatedIconStyle}>
-        {value ? (
-          <MaterialCommunityIcons
-            name="checkbox-marked-circle-outline"
-            size={25}
-            color={theme.colors.button}
-          />
-        ) : (
-          <MaterialCommunityIcons
-            name="checkbox-blank-circle-outline"
-            size={25}
-            color={theme.colors.button}
-          />
-        )}
+        <MaterialCommunityIcons
+          name={value ? 'checkbox-marked-circle-outline' : 'checkbox-blank-circle-outline'}
+          size={25}
+          color={theme.colors.button}
+        />
       </Animated.View>
     </TouchableOpacity>
   );

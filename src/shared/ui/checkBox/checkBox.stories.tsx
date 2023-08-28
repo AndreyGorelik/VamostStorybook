@@ -10,7 +10,7 @@ export default {
 const Template = () => {
   const [checked, setChecked] = useState(false);
 
-  return <CheckBox checked={checked} setChecked={setChecked} label={'Receive notifications'} />;
+  return <CheckBox value={checked} onChange={setChecked} label={'Receive notifications'} />;
 };
 
 export const Default = Template.bind({});
