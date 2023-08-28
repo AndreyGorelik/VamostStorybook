@@ -50,7 +50,7 @@ export default function Gender({ goAhead }: GenderProps) {
         <CheckBox
           value={showMyGender}
           onChange={setShowMyGender}
-          label="Show my orientation on my profile"
+          label="Show my gender on my profile"
         />
       </View>
 
