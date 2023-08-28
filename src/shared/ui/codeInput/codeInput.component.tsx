@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { View, TextInput, NativeSyntheticEvent, TextInputKeyPressEventData } from 'react-native';
 
@@ -26,9 +26,13 @@ export default function CodeInput({ onChange }: CodeInputProps) {
       digit6: '',
     },
   });
+  const watchedValues = watch();
+
+  useEffect(() => {
+    onChange?.(Object.values(watchedValues).join(''));
+  }, [onChange, watchedValues]);
 
   const handleInput = (inputValue: string, nextInputRef?: React.RefObject<TextInput>) => {
-    onChange?.(Object.values(watch()).join(','));
     if (inputValue.length >= 1) {
       const cleanedText = inputValue.replace(/[^0-9]/g, '');
       if (cleanedText.length === 0) return '';
