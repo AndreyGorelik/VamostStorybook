@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import POSTS_DATA from '../posts.data';
 import { createStyles } from '../posts.styles';
 
-export default function Upcoming() {
+export default function Canceled() {
   const theme = useTheme();
   const styles = createStyles(theme);
 

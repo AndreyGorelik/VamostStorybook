@@ -16,6 +16,7 @@ export const createStyles = (theme: Theme) =>
       backgroundColor: theme.colors.background,
     },
     logo: {
+      overflow: 'hidden',
       height: 30,
       flex: 1,
       marginBottom: 3,

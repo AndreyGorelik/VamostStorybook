@@ -7,7 +7,7 @@ import { Pressable } from 'react-native';
 
 export enum MainScreens {
   HOME = 'Home',
-  USER = 'User',
+  USER = 'My posts',
 }
 
 export default function Layout() {
@@ -38,7 +38,7 @@ export default function Layout() {
         }}
       />
       <Drawer.Screen
-        name="user/index"
+        name="user/posts"
         options={{
           drawerLabel: MainScreens.USER,
         }}

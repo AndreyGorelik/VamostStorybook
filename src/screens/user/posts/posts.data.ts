@@ -1,7 +1,8 @@
 import Photo from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
 import UserPic1 from '@assets/images/postCardImages/userpic1.webp';
 import UserPic2 from '@assets/images/postCardImages/userpic2.jpeg';
-import { PostData } from './upcoming.types';
+
+import { PostData } from './posts.types';
 
 export const POST_CARD_DATA = {
   photo: Photo,
