@@ -44,6 +44,8 @@ export const LIGHT_THEME: Theme = {
     gradientStart: colors.blackTransparetFull,
     gradientFinish: colors.blackTranparentQuarter,
     divider: colors.gray,
+    drawerActive: colors.cyan,
+    drawerInactive: colors.darkGray,
   },
   styleConstants: styleConstants,
 };
@@ -85,6 +87,8 @@ export type Theme = {
     gradientStart: string;
     gradientFinish: string;
     divider: string;
+    drawerActive: string;
+    drawerInactive: string;
   };
   styleConstants: StyleConstants;
 };

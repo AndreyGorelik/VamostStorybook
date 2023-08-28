@@ -4,6 +4,7 @@ import { Button } from '@shared/ui/button';
 import { Input } from '@shared/ui/input';
 import { PhoneInput } from '@shared/ui/phoneInput';
 import Text from '@shared/ui/text/text.component';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, View } from 'react-native';
@@ -30,6 +31,7 @@ export default function Login() {
 
   function onSubmit(value: LoginData) {
     setValues(value);
+    router.replace('/home');
   }
 
   return (
