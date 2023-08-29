@@ -5,10 +5,17 @@ import {
   setNicknameError,
   setPhoneNumberError,
 } from 'src/store/slices/errorsSlice';
-import { setEmail, setNickname, setPhoneNumber, setTokens } from 'src/store/slices/userSlice';
+import {
+  setEmail,
+  setNickname,
+  setPhoneNumber,
+  setShownGender,
+  setTokens,
+} from 'src/store/slices/userSlice';
 
 import {
   CONFIRM_CODE,
+  REGISTER_ATTRIBUTES,
   REGISTER_EMAIL,
   REGISTER_NICKNAME,
   REGISTER_USER,
@@ -115,9 +122,37 @@ function* registerNicknameWorker(action) {
   }
 }
 
+function* registerAttributes(action) {
+  const { payload } = action;
+
+  const token = yield select((state) => state.userSlice.tokens.access);
+  console.log('>>>', token);
+  
+  const request = yield fetch(
+    'https://kthuqqbzd2.execute-api.us-east-1.amazonaws.com/dev/auth/signup/user-attributes',
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(payload),
+    }
+  );
+
+  if (request.status === 200) {
+    yield put(setShownGender(payload.shownGender));
+    yield put(setNextStep(9));
+  } else {
+    const requestJson = yield request.json();
+    console.log(requestJson);
+  }
+}
+
 export function* signUpSaga() {
   yield takeLatest(REGISTER_USER, phoneAndPasswordRequestWorker);
   yield takeLatest(CONFIRM_CODE, confirmCodeWorker);
   yield takeLatest(REGISTER_EMAIL, registerEmailWorker);
   yield takeLatest(REGISTER_NICKNAME, registerNicknameWorker);
+  yield takeLatest(REGISTER_ATTRIBUTES, registerAttributes);
 }

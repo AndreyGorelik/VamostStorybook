@@ -20,6 +20,7 @@ export interface AuthState {
       | 'Pansexual'
       | 'Queer'
       | null;
+    isShown: boolean;
   };
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   birthdate: string;
@@ -44,6 +45,7 @@ const initialState: AuthState = {
   },
   sexualOrientation: {
     value: null,
+    isShown: false,
   },
   shownGender: null,
   birthdate: '',
@@ -63,12 +65,12 @@ const userSlice = createSlice({
       state.tokens = action.payload;
     },
     setNickname(state, action) {
-      state.tokens = action.payload;
+      state.nickname = action.payload;
     },
     setGender(state, action) {
       state.gender = action.payload;
     },
-    sexualOrientation(state, action) {
+    setSexualOrientation(state, action) {
       state.sexualOrientation = action.payload;
     },
     setShownGender(state, action) {
@@ -89,7 +91,7 @@ export const {
   setTokens,
   setNickname,
   setGender,
-  sexualOrientation,
+  setSexualOrientation,
   setShownGender,
   setBirthdate,
 } = userSlice.actions;

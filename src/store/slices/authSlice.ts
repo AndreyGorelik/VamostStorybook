@@ -41,6 +41,34 @@ export const registerEmail = createAction<{ email: string }>(REGISTER_EMAIL);
 export const REGISTER_NICKNAME = 'users/registerNickname';
 export const registerNickname = createAction<{ nickName: string }>(REGISTER_NICKNAME);
 
+interface Attributes {
+  gender: {
+    value: 'Man' | 'Woman' | 'Other' | null;
+    isShown: boolean;
+  };
+  sexualOrientation: {
+    value:
+      | 'Straight'
+      | 'Gay'
+      | 'Lesbian'
+      | 'Bisexual'
+      | 'Asexual'
+      | 'Demisexual'
+      | 'Pansexual'
+      | 'Queer'
+      | null;
+    isShown: boolean;
+  };
+  shownGender: 'Man' | 'Woman' | 'Everyone' | null | string;
+  birthdate: string;
+}
+
+export const REGISTER_ATTRIBUTES = 'users/registerAttributes';
+export const registerAttributes = createAction<Attributes>(REGISTER_ATTRIBUTES);
+
+export const REGISTER_PHOTOS = 'users/registerPhotos';
+export const registerPhotos = createAction(REGISTER_PHOTOS);
+
 export const { loginUserSuccess, logoutUser, setNextStep } = authSlice.actions;
 
 export default authSlice.reducer;

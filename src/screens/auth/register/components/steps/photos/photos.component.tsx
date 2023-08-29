@@ -1,3 +1,4 @@
+import { useAppDispatch } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Button } from '@shared/ui/button';
 import { PhotoInput } from '@shared/ui/photoInput';
@@ -5,6 +6,7 @@ import Text from '@shared/ui/text/text.component';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { FlatList, View } from 'react-native';
+import { registerPhotos } from 'src/store/slices/authSlice';
 
 import { PhotosData } from './photos.data';
 import { createStyles } from './photos.styles';
@@ -15,14 +17,19 @@ const COLUMN_AMOUNT = 3;
 export default function Photos({ goAhead }: PhotosProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const [images, setImages] = useState<string[]>([]);
+  const dispatch = useAppDispatch();
+  const [images, setImages] = useState<{ uri: string; imageData: string }[]>([]);
   const [isLoading, setIsLoading] = useState<number | null>(null);
   const [flatListHeight, setFlatListHeight] = useState<number>(0);
 
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
   function onSubmit() {
-    goAhead();
+    console.log(images);
+
+    // images.forEach((item) => {
+    //   dispatch(registerPhotos(item));
+    // });
   }
 
   const pickImage = async (id: number) => {
@@ -36,15 +43,30 @@ export default function Photos({ goAhead }: PhotosProps) {
       allowsEditing: false,
       quality: 1,
       allowsMultipleSelection: true,
+      base64: true,
     });
 
     if (!result.canceled) {
       if (id <= images.length) {
-        setImages(result.assets.map((asset) => asset.uri));
+        setImages(
+          result.assets.map((asset) => {
+            return {
+              uri: asset.uri,
+              imageData: 'data:image/jpeg;base64,' + asset.base64,
+            };
+          })
+        );
       } else {
         setImages([
           ...images,
-          ...result.assets.map((asset) => asset.uri).slice(0, 6 - images.length),
+          ...result.assets
+            .map((asset) => {
+              return {
+                uri: asset.uri,
+                imageData: 'data:image/jpeg;base64,' + asset.base64,
+              };
+            })
+            .slice(0, 6 - images.length),
         ]);
       }
     }
