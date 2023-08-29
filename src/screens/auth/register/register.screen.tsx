@@ -5,7 +5,7 @@ import { Header } from '@shared/ui/header';
 import { useNavigation, Link } from 'expo-router';
 import { useLayoutEffect, useState } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
-import { setNextStep } from 'src/store/slices/authSlice';
+import { setPrevStep } from 'src/store/slices/authSlice';
 
 import { Birthday } from './components/steps/birthday';
 import { Code } from './components/steps/code';
@@ -19,18 +19,12 @@ import { ShowMe } from './components/steps/showMe';
 import { createStyles } from './register.styles';
 
 const RegisterScreen = () => {
-  // const [step, setStep] = useState<number>(1);
   const [number, setNumber] = useState<string>('');
   const theme = useTheme();
   const styles = createStyles(theme);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const { step } = useAppSelector((state) => state.authSlice);
-  // console.log('step', state);
-  const state = useAppSelector((state) => state);
-  console.log('STATE', state);
-
-  function goAhead() {}
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -40,7 +34,7 @@ const RegisterScreen = () => {
             step === 1 ? (
               <Link href="/login">Sign in</Link>
             ) : (
-              <Pressable onPress={() => dispatch(setNextStep(step - 1))}>
+              <Pressable onPress={() => dispatch(setPrevStep())}>
                 <MaterialIcons name="arrow-back" size={24} color="black" />
               </Pressable>
             )
@@ -61,15 +55,15 @@ const RegisterScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       onTouchStart={() => Keyboard.dismiss()}
     >
-      {step === 1 && <PhoneAndPass goAhead={goAhead} setNumber={setNumber} />}
-      {step === 2 && <Code goAhead={goAhead} number={number} />}
-      {step === 3 && <Email goAhead={goAhead} />}
-      {step === 4 && <Nickname goAhead={goAhead} />}
-      {step === 5 && <Birthday goAhead={goAhead} />}
-      {step === 6 && <Gender goAhead={goAhead} />}
-      {step === 7 && <Orientation goAhead={goAhead} />}
-      {step === 8 && <ShowMe goAhead={goAhead} />}
-      {step === 9 && <Photos goAhead={goAhead} />}
+      {step === 1 && <PhoneAndPass setNumber={setNumber} />}
+      {step === 2 && <Code number={number} />}
+      {step === 3 && <Email />}
+      {step === 4 && <Nickname />}
+      {step === 5 && <Birthday />}
+      {step === 6 && <Gender />}
+      {step === 7 && <Orientation />}
+      {step === 8 && <ShowMe />}
+      {step === 9 && <Photos />}
     </KeyboardAvoidingView>
   );
 };

@@ -8,9 +8,8 @@ import { View } from 'react-native';
 import { registerNickname } from 'src/store/slices/authSlice';
 
 import { createStyles } from './nickname.styles';
-import { NicknameProps } from './nickname.types';
 
-export default function Code({ goAhead }: NicknameProps) {
+export default function Code() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();

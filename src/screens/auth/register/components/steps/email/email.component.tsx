@@ -8,9 +8,8 @@ import { View } from 'react-native';
 import { registerEmail } from 'src/store/slices/authSlice';
 
 import { createStyles } from './email.styles';
-import { EmailProps } from './email.types';
 
-export default function Email({ goAhead }: EmailProps) {
+export default function Email() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();

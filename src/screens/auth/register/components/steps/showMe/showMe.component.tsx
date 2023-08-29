@@ -9,9 +9,9 @@ import { registerAttributes } from 'src/store/slices/authSlice';
 
 import { ORIENTATION_RADIO_DATA } from './showMe.data';
 import { createStyles } from './showMe.styles';
-import { SelectListData, SelectListItem, ShowMeProps } from './showMe.types';
+import { SelectListData, SelectListItem } from './showMe.types';
 
-export default function ShowMe({ goAhead }: ShowMeProps) {
+export default function ShowMe() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();

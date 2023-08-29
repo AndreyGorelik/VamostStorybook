@@ -8,13 +8,12 @@ import { validateDate } from '@shared/utils/dateValidate';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
+import { setNextStep } from 'src/store/slices/authSlice';
 import { setBirthdate } from 'src/store/slices/userSlice';
 
 import { createStyles } from './birthday.styles';
-import { BirthdayProps } from './birthday.types';
-import { setNextStep } from 'src/store/slices/authSlice';
 
-export default function Birthday({ goAhead }: BirthdayProps) {
+export default function Birthday() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
@@ -43,7 +42,7 @@ export default function Birthday({ goAhead }: BirthdayProps) {
       return;
     }
     dispatch(setBirthdate(formattedDate));
-    dispatch(setNextStep(6));
+    dispatch(setNextStep());
   }
 
   return (

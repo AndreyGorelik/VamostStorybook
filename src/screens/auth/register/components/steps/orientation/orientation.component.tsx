@@ -10,9 +10,9 @@ import { setSexualOrientation } from 'src/store/slices/userSlice';
 
 import { ORIENTATION_MULTI_SELECT_DATA } from './orientation.data';
 import { createStyles } from './orientation.styles';
-import { OrientationProps, SelectListData, SelectListItem } from './orientation.types';
+import { SelectListData, SelectListItem } from './orientation.types';
 
-export default function Orientation({ goAhead }: OrientationProps) {
+export default function Orientation() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
@@ -31,7 +31,7 @@ export default function Orientation({ goAhead }: OrientationProps) {
         value: orientation,
       })
     );
-    dispatch(setNextStep(8));
+    dispatch(setNextStep());
   }
 
   return (

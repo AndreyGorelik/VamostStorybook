@@ -6,30 +6,28 @@ import Text from '@shared/ui/text/text.component';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { registerPhotos } from 'src/store/slices/authSlice';
+import { registerPhoto } from 'src/store/slices/authSlice';
 
 import { PhotosData } from './photos.data';
 import { createStyles } from './photos.styles';
-import { PhotosProps } from './photos.types';
+import { PickedImage } from './photos.types';
 
 const COLUMN_AMOUNT = 3;
 
-export default function Photos({ goAhead }: PhotosProps) {
+export default function Photos() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
-  const [images, setImages] = useState<{ uri: string; imageData: string }[]>([]);
+  const [images, setImages] = useState<PickedImage[]>([]);
   const [isLoading, setIsLoading] = useState<number | null>(null);
   const [flatListHeight, setFlatListHeight] = useState<number>(0);
 
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
   function onSubmit() {
-    console.log(images);
-
-    // images.forEach((item) => {
-    //   dispatch(registerPhotos(item));
-    // });
+    images.forEach((item) => {
+      dispatch(registerPhoto({ imageData: item.imageData }));
+    });
   }
 
   const pickImage = async (id: number) => {
@@ -49,23 +47,19 @@ export default function Photos({ goAhead }: PhotosProps) {
     if (!result.canceled) {
       if (id <= images.length) {
         setImages(
-          result.assets.map((asset) => {
-            return {
-              uri: asset.uri,
-              imageData: 'data:image/jpeg;base64,' + asset.base64,
-            };
-          })
+          result.assets.map((asset) => ({
+            uri: asset.uri,
+            imageData: 'data:image/jpeg;base64,' + asset.base64,
+          }))
         );
       } else {
         setImages([
           ...images,
           ...result.assets
-            .map((asset) => {
-              return {
-                uri: asset.uri,
-                imageData: 'data:image/jpeg;base64,' + asset.base64,
-              };
-            })
+            .map((asset) => ({
+              uri: asset.uri,
+              imageData: 'data:image/jpeg;base64,' + asset.base64,
+            }))
             .slice(0, 6 - images.length),
         ]);
       }
@@ -93,7 +87,7 @@ export default function Photos({ goAhead }: PhotosProps) {
           renderItem={({ item, index }) => (
             <PhotoInput
               id={item.id}
-              image={images[index]}
+              image={images[index]?.uri}
               loading={item.id === isLoading}
               onDelete={handleDelete}
               pickImage={() => pickImage(item.id)}

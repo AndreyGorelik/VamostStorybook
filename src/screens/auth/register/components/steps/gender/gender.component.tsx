@@ -10,9 +10,9 @@ import { setGender } from 'src/store/slices/userSlice';
 
 import { ORIENTATION_RADIO_DATA_WITH_OPTIONS } from './gender.data';
 import { createStyles } from './gender.styles';
-import { GenderProps, SelectListData, SelectListItem } from './gender.types';
+import { SelectListData, SelectListItem } from './gender.types';
 
-export default function Gender({ goAhead }: GenderProps) {
+export default function Gender() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
@@ -31,7 +31,7 @@ export default function Gender({ goAhead }: GenderProps) {
         value: gender,
       })
     );
-    dispatch(setNextStep(7));
+    dispatch(setNextStep());
   }
 
   return (
