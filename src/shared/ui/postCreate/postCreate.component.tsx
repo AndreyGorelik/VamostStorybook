@@ -1,6 +1,4 @@
-import { MaterialIcons } from '@expo/vector-icons';
-import { useNavigation, Link } from 'expo-router';
-import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
@@ -11,10 +9,10 @@ import { BottomSheetRefProps } from '../bottomSheet/bottomSheet.types';
 import { BottomSheetContent } from '../bottomSheet/components/bottomSheetContent';
 import { ContentWrapper } from '../bottomSheet/components/contentWrapper';
 import Button from '../button/button.component';
-import { Header } from '../header';
-import Text from '../text/text.component';
 
-import HostGuest from './components/hostGuest/hostGuest.component';
+import StepOne from './components/stepOne/stepOne.component';
+import { StepThree } from './components/stepThree';
+import { StepTwo } from './components/stepTwo';
 import { createStyles } from './postCreate.styles';
 
 const PostCreate = () => {
@@ -24,9 +22,7 @@ const PostCreate = () => {
   });
   const theme = useTheme();
   const styles = createStyles(theme);
-  const navigation = useNavigation();
   const bottomSheetRef = useRef<BottomSheetRefProps>(null);
-  // const [screen, setScreen] = useState(0);
   const height = useSharedValue(0);
 
   function goAhead() {
@@ -40,13 +36,7 @@ const PostCreate = () => {
     return bottomSheetRef.current?.scrollTo(0);
   }, []);
 
-  const chooseHostOrGuest = (host: boolean) => {
-    setPost({
-      ...post,
-      host,
-    });
-    goAhead();
-  };
+  console.log(post);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -61,23 +51,35 @@ const PostCreate = () => {
         rightIconPress={hideSheet}
         headerStyle="default"
       >
-        <ContentWrapper height={height} headerStyle="image">
+        <ContentWrapper height={height} headerStyle="default">
           {step === 0 && (
             <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
               <View style={{ height: 200, justifyContent: 'center' }}>
-                <HostGuest onSelect={chooseHostOrGuest} />
+                <StepOne
+                  post={post}
+                  setPost={setPost}
+                  step={step}
+                  setStep={setStep}
+                  next={goAhead}
+                />
               </View>
             </BottomSheetContent>
           )}
           {step === 1 && (
             <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-              <View style={{ height: 800, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Screen 2</Text>
+              <View style={{ justifyContent: 'center' }}>
+                <StepTwo post={post} setPost={setPost} next={goAhead} />
+              </View>
+            </BottomSheetContent>
+          )}
+          {step === 2 && (
+            <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+              <View style={{ justifyContent: 'center' }}>
+                <StepThree post={post} setPost={setPost} next={goAhead} />
               </View>
             </BottomSheetContent>
           )}
         </ContentWrapper>
-        {step !== 0 && <Button title="Next" onPress={() => setStep(step === 1 ? 0 : 1)} />}
       </BottomSheet>
     </GestureHandlerRootView>
   );
