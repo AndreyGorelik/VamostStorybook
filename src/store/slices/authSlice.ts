@@ -1,4 +1,4 @@
-import { createAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
 import {
   REGISTER_USER,
   CONFIRM_CODE,
@@ -23,11 +23,13 @@ import { LOGIN_USER } from './userSlice';
 export interface AuthState {
   isAuth: boolean;
   step: number;
+  isLoading: boolean;
 }
 
 const initialState: AuthState = {
   isAuth: false,
   step: 1,
+  isLoading: false,
 };
 
 const authSlice = createSlice({
@@ -46,6 +48,9 @@ const authSlice = createSlice({
     setPrevStep(state) {
       state.step -= 1;
     },
+    setIsLoading(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
+    },
   },
 });
 
@@ -63,6 +68,7 @@ export const registerAttributes = createAction<RegisterAttributes>(REGISTER_ATTR
 
 export const registerPhoto = createAction<RegisterPhoto>(REGISTER_PHOTO);
 
-export const { loginUserSuccess, logoutUser, setNextStep, setPrevStep } = authSlice.actions;
+export const { loginUserSuccess, logoutUser, setNextStep, setPrevStep, setIsLoading } =
+  authSlice.actions;
 
 export default authSlice.reducer;

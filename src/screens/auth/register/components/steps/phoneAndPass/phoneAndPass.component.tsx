@@ -19,6 +19,7 @@ export default function PhoneAndPass({ setNumber }: PhoneAndPassProps) {
   const [secure, setSecure] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const { phoneNumberError } = useAppSelector((state) => state.errorsSlice);
+  const { isLoading } = useAppSelector((state) => state.authSlice);
   const {
     control,
     handleSubmit,
@@ -101,7 +102,12 @@ export default function PhoneAndPass({ setNumber }: PhoneAndPassProps) {
         </View>
       </View>
 
-      <Button title="Sign up" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
+      <Button
+        title="Sign up"
+        onPress={handleSubmit(onSubmit)}
+        disabled={!isValid}
+        loading={isLoading}
+      />
     </View>
   );
 }

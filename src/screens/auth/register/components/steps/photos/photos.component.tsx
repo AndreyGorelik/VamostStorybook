@@ -1,4 +1,4 @@
-import { useAppDispatch } from '@shared/hooks/redux.hook';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Button } from '@shared/ui/button';
 import { PhotoInput } from '@shared/ui/photoInput';
@@ -18,6 +18,7 @@ export default function Photos() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
+  const { isLoading: loading } = useAppSelector((state) => state.authSlice);
   const [images, setImages] = useState<PickedImage[]>([]);
   const [isLoading, setIsLoading] = useState<number | null>(null);
   const [flatListHeight, setFlatListHeight] = useState<number>(0);
@@ -98,7 +99,12 @@ export default function Photos() {
           numColumns={COLUMN_AMOUNT}
         />
       </View>
-      <Button title="Finish registration" onPress={onSubmit} disabled={images.length === 0} />
+      <Button
+        title="Finish registration"
+        onPress={onSubmit}
+        disabled={images.length === 0}
+        loading={loading}
+      />
     </View>
   );
 }

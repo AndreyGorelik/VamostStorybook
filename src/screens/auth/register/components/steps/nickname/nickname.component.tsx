@@ -1,4 +1,4 @@
-import { useAppDispatch } from '@shared/hooks/redux.hook';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Button } from '@shared/ui/button';
 import { Input } from '@shared/ui/input';
@@ -13,6 +13,7 @@ export default function Code() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.authSlice);
   const {
     control,
     handleSubmit,
@@ -48,7 +49,12 @@ export default function Code() {
           )}
         />
       </View>
-      <Button title="Continue" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
+      <Button
+        title="Continue"
+        onPress={handleSubmit(onSubmit)}
+        disabled={!isValid}
+        loading={isLoading}
+      />
     </View>
   );
 }

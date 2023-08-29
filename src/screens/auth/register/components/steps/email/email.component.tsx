@@ -14,6 +14,8 @@ export default function Email() {
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
   const { emailError } = useAppSelector((state) => state.errorsSlice);
+  const { isLoading } = useAppSelector((state) => state.authSlice);
+
   const {
     control,
     handleSubmit,
@@ -60,7 +62,12 @@ export default function Email() {
         />
         {emailError && <Text variant="warning">{emailError}</Text>}
       </View>
-      <Button title="Continue" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
+      <Button
+        title="Continue"
+        onPress={handleSubmit(onSubmit)}
+        disabled={!isValid}
+        loading={isLoading}
+      />
     </View>
   );
 }

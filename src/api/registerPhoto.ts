@@ -8,7 +8,7 @@ export const registerPhotoRequest = async ({
   data,
   token,
 }: RegisterPhotoRequest): Promise<AxiosResponse<string>> => {
-  return await axios.post(`${API_ROUTES.baseUrl}${API_ROUTES.userAttributes}`, data, {
+  return await axios.post(`${API_ROUTES.baseUrl}${API_ROUTES.images}`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

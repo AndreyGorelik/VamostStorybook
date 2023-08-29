@@ -7,6 +7,7 @@ export interface CustomButton {
   height?: number;
   disabled?: boolean;
   color?: string;
+  loading?: boolean;
 }
 
 export type StylesOptions = {

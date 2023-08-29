@@ -1,4 +1,4 @@
-import { useAppDispatch } from '@shared/hooks/redux.hook';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Button } from '@shared/ui/button';
 import { SelectList } from '@shared/ui/selectList';
@@ -16,6 +16,8 @@ export default function Gender() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.authSlice);
+
   const defaultValues: SelectListData = ORIENTATION_RADIO_DATA_WITH_OPTIONS?.map(
     (item: SelectListItem) => {
       return { ...item, selected: false };
@@ -47,7 +49,12 @@ export default function Gender() {
           moreAction={onSubmit}
         />
       </View>
-      <Button title="Continue" onPress={onSubmit} disabled={!list.some((item) => item.selected)} />
+      <Button
+        title="Continue"
+        onPress={onSubmit}
+        disabled={!list.some((item) => item.selected)}
+        loading={isLoading}
+      />
     </View>
   );
 }

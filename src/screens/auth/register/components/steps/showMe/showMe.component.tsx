@@ -15,6 +15,8 @@ export default function ShowMe() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.authSlice);
+
   const defaultValues: SelectListData = ORIENTATION_RADIO_DATA?.map((item: SelectListItem) => {
     return { ...item, selected: false };
   });
@@ -41,7 +43,12 @@ export default function ShowMe() {
       <View style={styles.content}>
         <SelectList list={list} setList={setList} maxSelectCount={1} />
       </View>
-      <Button title="Continue" onPress={onSubmit} disabled={!list.some((item) => item.selected)} />
+      <Button
+        title="Continue"
+        onPress={onSubmit}
+        disabled={!list.some((item) => item.selected)}
+        loading={isLoading}
+      />
     </View>
   );
 }

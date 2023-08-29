@@ -16,6 +16,7 @@ export default function Code({ number }: CodeProps) {
   const dispatch = useAppDispatch();
   const { phoneNumber } = useAppSelector((state) => state.userSlice);
   const { confirmCodeError } = useAppSelector((state) => state.errorsSlice);
+  const { isLoading } = useAppSelector((state) => state.authSlice);
   const {
     control,
     handleSubmit,
@@ -51,7 +52,12 @@ export default function Code({ number }: CodeProps) {
         </Text>
         <Text style={styles.sendOver}>Send over</Text>
       </View>
-      <Button title="Confirm" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
+      <Button
+        title="Confirm"
+        onPress={handleSubmit(onSubmit)}
+        disabled={!isValid}
+        loading={isLoading}
+      />
     </View>
   );
 }

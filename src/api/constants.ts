@@ -5,6 +5,6 @@ export const API_ROUTES = {
   confirm: 'auth/signup/confirm',
   email: 'auth/signup/email',
   nickname: 'auth/signup/nickname',
-  userAttributes: 'auth/signup/user-attibutes',
+  userAttributes: 'auth/signup/user-attributes',
   images: 'auth/signup/images',
 };
