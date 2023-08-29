@@ -1,6 +1,6 @@
+import { PostGuests } from '@shared/ui/postCard/postCard.types';
 import { ImageSourcePropType } from 'react-native';
 
-import { PostGuests } from '../../../shared/ui/postCard/postCard.types';
 export interface PostTag {
   label: string;
   id: string;

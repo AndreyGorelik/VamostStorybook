@@ -1,10 +1,9 @@
+import useTheme from '@shared/hooks/useTheme.hook';
+import { Button } from '@shared/ui/button';
+import { Input } from '@shared/ui/input';
+import Text from '@shared/ui/text/text.component';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
-
-import useTheme from '../../../../../../shared/hooks/useTheme.hook';
-import { Button } from '../../../../../../shared/ui/button';
-import { Input } from '../../../../../../shared/ui/input';
-import Text from '../../../../../../shared/ui/text/text.component';
 
 import { createStyles } from './email.styles';
 import { EmailProps } from './email.types';

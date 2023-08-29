@@ -1,6 +1,6 @@
+import useTheme from '@shared/hooks/useTheme.hook';
 import { Image, Pressable, View } from 'react-native';
 
-import useTheme from '../../hooks/useTheme.hook';
 import Text from '../text/text.component';
 
 import { FILE_MOCK } from './packageCard.data';

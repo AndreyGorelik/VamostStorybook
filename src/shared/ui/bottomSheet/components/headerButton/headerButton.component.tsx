@@ -1,8 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import useTheme from '@shared/hooks/useTheme.hook';
 import React from 'react';
 import { View, Pressable } from 'react-native';
-
-import useTheme from '../../../../hooks/useTheme.hook';
 
 import { createStyles } from './headerButton.styles';
 import { HeaderButtonProps } from './headerButton.types';

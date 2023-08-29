@@ -1,10 +1,9 @@
+import useTheme from '@shared/hooks/useTheme.hook';
+import { Button } from '@shared/ui/button';
+import { CodeInput } from '@shared/ui/codeInput';
+import Text from '@shared/ui/text/text.component';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
-
-import useTheme from '../../../../../../shared/hooks/useTheme.hook';
-import { Button } from '../../../../../../shared/ui/button';
-import { CodeInput } from '../../../../../../shared/ui/codeInput';
-import Text from '../../../../../../shared/ui/text/text.component';
 
 import { createStyles } from './code.styles';
 import { CodeProps, CodeValues } from './code.types';

@@ -7,6 +7,12 @@
     "jsx": "react-jsx",
     "lib": ["es6"],
     "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["src/shared/*"],
+      "@screens/*": ["src/screens/*"],
+      "@assets/*": ["src/assets/*"]
+    },
     "noEmit": true,
     "strict": true,
     "target": "esnext"

@@ -1,3 +1,3 @@
-import { PostFullGuest } from '../../../src/screens/post/postFullGuest';
+import { PostFullGuest } from '@screens/post/postFullGuest';
 
 export default PostFullGuest;
