@@ -2,16 +2,16 @@ import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
 
 export interface AuthState {
   isAuth: boolean;
-  authError: string | null;
+  step: number;
 }
 
 const initialState: AuthState = {
   isAuth: false,
-  authError: null,
+  step: 1,
 };
 
-const settingsSlice = createSlice({
-  name: 'settingsSlice',
+const authSlice = createSlice({
+  name: 'authSlice',
   initialState,
   reducers: {
     loginUserSuccess(state) {
@@ -19,10 +19,9 @@ const settingsSlice = createSlice({
     },
     logoutUser(state) {
       state.isAuth = false;
-      state.authError = null;
     },
-    setAuthError(state, action: PayloadAction<string | null>) {
-      state.authError = action.payload;
+    setNextStep(state, action) {
+      state.step = action.payload;
     },
   },
 });
@@ -30,6 +29,18 @@ const settingsSlice = createSlice({
 export const LOGIN_USER = 'users/loginUser';
 export const loginUser = createAction(LOGIN_USER);
 
-export const { loginUserSuccess, logoutUser, setAuthError } = settingsSlice.actions;
+export const REGISTER_USER = 'users/signUpUser';
+export const registerUser = createAction<{ phoneNumber: string; password: string }>(REGISTER_USER);
 
-export default settingsSlice.reducer;
+export const CONFIRM_CODE = 'users/confirmCode';
+export const confirmCode = createAction<{ phoneNumber: string; code: string }>(CONFIRM_CODE);
+
+export const REGISTER_EMAIL = 'users/registerEmail';
+export const registerEmail = createAction<{ email: string }>(REGISTER_EMAIL);
+
+export const REGISTER_NICKNAME = 'users/registerNickname';
+export const registerNickname = createAction<{ nickName: string }>(REGISTER_NICKNAME);
+
+export const { loginUserSuccess, logoutUser, setNextStep } = authSlice.actions;
+
+export default authSlice.reducer;

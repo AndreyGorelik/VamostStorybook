@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Button } from '@shared/ui/button';
 import { Input } from '@shared/ui/input';
@@ -7,29 +8,31 @@ import Text from '@shared/ui/text/text.component';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Pressable, View } from 'react-native';
+import { registerUser } from 'src/store/slices/authSlice';
 
 import { createStyles } from './phoneAndPass.styles';
 import { PhoneAndPassProps } from './phoneAndPass.types';
 
-export default function PhoneAndPass({ goAhead, setNumber }: PhoneAndPassProps) {
+export default function PhoneAndPass({ setNumber }: PhoneAndPassProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secure, setSecure] = useState<boolean>(true);
-
+  const dispatch = useAppDispatch();
+  const { phoneNumberError } = useAppSelector((state) => state.errorsSlice);
   const {
     control,
     handleSubmit,
     formState: { isValid },
   } = useForm({
     defaultValues: {
-      number: '',
+      phoneNumber: '',
       password: '',
     },
   });
 
-  function onSubmit(value: { number: string; password: string }) {
-    setNumber(value.number);
-    goAhead();
+  function onSubmit(value: { phoneNumber: string; password: string }) {
+    dispatch(registerUser(value));
+    setNumber(value.phoneNumber);
   }
 
   return (
@@ -39,7 +42,7 @@ export default function PhoneAndPass({ goAhead, setNumber }: PhoneAndPassProps) 
         <Controller
           control={control}
           rules={{ required: true }}
-          name="number"
+          name="phoneNumber"
           render={({ field: { onChange, value } }) => (
             <PhoneInput setNumber={onChange} value={value} />
           )}
@@ -75,6 +78,8 @@ export default function PhoneAndPass({ goAhead, setNumber }: PhoneAndPassProps) 
             />
           )}
         />
+        {phoneNumberError && <Text variant="warning">{phoneNumberError}</Text>}
+
         <View style={styles.agreement}>
           <Text variant="small" align="center">
             We will send you a text with a verification code. Message and data rates may apply.
