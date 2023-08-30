@@ -1,5 +1,6 @@
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Button } from '@shared/ui/button';
+import { CheckBox } from '@shared/ui/checkBox';
 import { SelectList } from '@shared/ui/selectList';
 import Text from '@shared/ui/text/text.component';
 import { useState } from 'react';
@@ -19,7 +20,7 @@ export default function Orientation({ goAhead }: OrientationProps) {
     }
   );
   const [list, setList] = useState(defaultValues);
-
+  const [showOrientationInProfile, setShowOrientationInProfile] = useState(false);
   const {
     handleSubmit,
     formState: { isValid },
@@ -43,6 +44,13 @@ export default function Orientation({ goAhead }: OrientationProps) {
           setList={setList}
           maxSelectCount={3}
           textError="Maximum 3 orientations can be selected."
+        />
+      </View>
+      <View style={styles.checkBoxContainer}>
+        <CheckBox
+          value={showOrientationInProfile}
+          onChange={setShowOrientationInProfile}
+          label="Show my orientation on my profile"
         />
       </View>
       <Button title="Continue" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
