@@ -61,7 +61,7 @@ function* phoneAndPasswordRequestWorker(action: Action<RegisterUser>) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
         if (error.response.data || error.response.data.message) {
-          yield put(setPhoneNumberError(error.response.data.message));
+          yield put(setPhoneNumberError(error.response.data || error.response.data.message));
         }
       }
     }
@@ -86,7 +86,7 @@ function* confirmCodeWorker(action: Action<ConfirmCode>) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
         if (error.response.data || error.response.data.message) {
-          yield put(setConfirmCodeError(error.response.data.message));
+          yield put(setConfirmCodeError(error.response.data || error.response.data.message));
         }
       }
     }
@@ -114,7 +114,7 @@ function* registerEmailWorker(action: Action<RegisterEmail>) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
         if (error.response.data || error.response.data.message) {
-          yield put(setEmailError(error.response.data.message));
+          yield put(setEmailError(error.response.data || error.response.data.message));
         }
       }
     }
@@ -138,7 +138,7 @@ function* registerNicknameWorker(action: Action<RegisterNickname>) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
         if (error.response.data || error.response.data.message) {
-          yield put(setNicknameError(error.response.data.message));
+          yield put(setNicknameError(error.response.data || error.response.data.message));
         }
       }
     }
@@ -163,7 +163,7 @@ function* registerAttributesWorker(action: Action<RegisterAttributes>) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
         if (error.response.data || error.response.data.message) {
-          yield put(setAttributesError(error.response.data.message));
+          yield put(setAttributesError(error.response.data || error.response.data.message));
         }
       }
     }
@@ -184,7 +184,7 @@ function* registerPhotoWorker(action: Action<RegisterPhoto>) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
         if (error.response.data || error.response.data.message) {
-          yield put(setPhotosError(error.response.data.message));
+          yield put(setPhotosError(error.response.data || error.response.data.message));
         }
       }
     }
