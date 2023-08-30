@@ -1,18 +1,18 @@
 export default ({ config }) => ({
   ...config,
-  name: 'vamoose',
-  slug: 'vamoose',
+  name: 'vamost',
+  slug: 'vamost',
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
   },
-  scheme: 'vamoose',
+  scheme: 'vamost',
   web: {
     bundler: 'metro',
   },
   plugins: ['expo-router'],
   expo: {
     owner: 'zbsprod',
-    scheme: 'vamoose',
+    scheme: 'vamost',
     experiments: {
       tsconfigPaths: true,
     },
