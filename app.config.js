@@ -11,8 +11,8 @@ export default ({ config }) => ({
   },
   plugins: ['expo-router'],
   expo: {
-    owner: 'nicesolutions',
     scheme: 'vamost',
+    owner: 'nicesolutions',
     experiments: {
       tsconfigPaths: true,
     },
