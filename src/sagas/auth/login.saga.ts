@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import * as SecureStore from 'expo-secure-store';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { signInRequest } from 'src/api/signIn';
-import { loginUserSuccess } from 'src/store/slices/authSlice';
+import { loginUserSuccess, setIsLoading } from 'src/store/slices/authSlice';
 import { setAuthError } from 'src/store/slices/errorsSlice';
 import { setUser } from 'src/store/slices/userSlice';
 import { Action, LoginUser } from 'src/types/actions/actions.types';
@@ -18,6 +18,7 @@ async function saveTokens(refresh: string, access: string, userId: string) {
 function* logInRequestWorker(action: Action<LoginUser>) {
   action.payload.phoneNumber = action.payload.phoneNumber.replace(/[^\d+]/g, '');
   try {
+    yield put(setIsLoading(true));
     const response: AxiosResponse<SignInResponse> = yield call(signInRequest, action.payload);
     const data = response.data;
     yield call(saveTokens, data.tokens.refresh, data.tokens.access, data.id);
@@ -36,6 +37,8 @@ function* logInRequestWorker(action: Action<LoginUser>) {
     yield put(setAuthError(null));
   } catch (error) {
     yield put(setAuthError('something went wrong'));
+  } finally {
+    yield put(setIsLoading(false));
   }
 }
 

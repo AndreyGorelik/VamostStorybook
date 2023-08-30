@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useAppDispatch } from '@shared/hooks/redux.hook';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Button } from '@shared/ui/button';
 import { Input } from '@shared/ui/input';
@@ -18,7 +18,7 @@ export default function Login() {
   const styles = createStyles(theme);
   const [secure, setSecure] = useState<boolean>(true);
   const dispatch = useAppDispatch();
-
+  const { isLoading } = useAppSelector((state) => state.authSlice);
   const {
     control,
     handleSubmit,
@@ -82,7 +82,12 @@ export default function Login() {
           )}
         />
       </View>
-      <Button title="Sign in" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
+      <Button
+        title="Sign in"
+        onPress={handleSubmit(onSubmit)}
+        disabled={!isValid}
+        loading={isLoading}
+      />
       <Pressable
         style={({ pressed }) => [
           styles.forgotPass,
