@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Button } from '@shared/ui/button';
+import { CheckBox } from '@shared/ui/checkBox';
 import { SelectList } from '@shared/ui/selectList';
 import Text from '@shared/ui/text/text.component';
 import { useState } from 'react';
@@ -10,6 +11,7 @@ import { setGender } from 'src/store/slices/userSlice';
 
 import { ORIENTATION_RADIO_DATA_WITH_OPTIONS } from './gender.data';
 import { createStyles } from './gender.styles';
+import { SelectListData, SelectListItem } from './gender.types';
 
 export default function Gender() {
   const theme = useTheme();
@@ -23,7 +25,7 @@ export default function Gender() {
     }
   );
   const [list, setList] = useState(defaultValues);
-
+  const [showMyGender, setShowMyGender] = useState(false);
   function onSubmit() {
     const gender = list.find((item) => item.selected)?.label;
     dispatch(
