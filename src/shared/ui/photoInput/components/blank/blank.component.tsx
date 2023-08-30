@@ -1,8 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import useTheme from '@shared/hooks/useTheme.hook';
 import { ActivityIndicator, Pressable, PressableStateCallbackType } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
-
-import useTheme from '../../../../hooks/useTheme.hook';
 
 import { createStyles } from './blank.styles';
 import { BlankProps } from './blank.types';

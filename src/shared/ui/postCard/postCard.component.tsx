@@ -1,8 +1,8 @@
+import useTheme from '@shared/hooks/useTheme.hook';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
 import { View, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 
-import useTheme from '../../hooks/useTheme.hook';
 import { OutlinedButton } from '../outlinedBtn';
 import Text from '../text/text.component';
 import UserPicGallery from '../userpicGallery/userPicGallery.component';

@@ -1,8 +1,8 @@
+import useTheme from '@shared/hooks/useTheme.hook';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
-import useTheme from '../../../../hooks/useTheme.hook';
 import { CancelBtn } from '../cancelBtn';
 
 import { createStyles } from './imageBox.styles';

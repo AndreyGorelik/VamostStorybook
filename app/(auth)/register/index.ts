@@ -1,3 +1,3 @@
-import { Register } from '../../../src/screens/auth/register';
+import { Register } from '@screens/auth/register';
 
 export default Register;

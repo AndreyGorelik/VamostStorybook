@@ -1,7 +1,6 @@
+import { Logo } from '@assets/icons';
+import useTheme from '@shared/hooks/useTheme.hook';
 import { View } from 'react-native';
-
-import { Logo } from '../../../assets/icons';
-import useTheme from '../../hooks/useTheme.hook';
 
 import { createStyles } from './header.styles';
 import { HeaderProps } from './header.types';

@@ -1,4 +1,4 @@
-import UserPic1 from '../../../assets/images/postCardImages/userpic1.webp';
+import UserPic1 from '@assets/images/postCardImages/userpic1.webp';
 
 export const REQUEST_DATA = {
   name: 'Chakrika Joyanto',

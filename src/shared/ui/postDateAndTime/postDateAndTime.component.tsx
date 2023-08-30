@@ -1,11 +1,11 @@
 import { FontAwesome } from '@expo/vector-icons';
+import useTheme from '@shared/hooks/useTheme.hook';
 import format from 'date-fns/format';
 import { useState } from 'react';
 import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-import useTheme from '../../hooks/useTheme.hook';
 import Text from '../text/text.component';
 
 import { createStyles } from './postDateAndTime.styles';

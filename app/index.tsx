@@ -1,6 +1,6 @@
 import { Redirect, useRootNavigationState } from 'expo-router';
-import React from 'react';
 import { View } from 'react-native';
+export { ErrorBoundary } from 'expo-router';
 
 const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';
 

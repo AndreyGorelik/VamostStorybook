@@ -2,6 +2,20 @@ module.exports = function (api) {
   api.cache(true);
   return {
     presets: ['babel-preset-expo'],
-    plugins: ['expo-router/babel', 'react-native-reanimated/plugin'],
+    plugins: [
+      'expo-router/babel',
+      'react-native-reanimated/plugin',
+      [
+        'module-resolver',
+        {
+          alias: {
+            '@shared': './src/shared',
+            '@screens': './src/screens',
+            '@assets': './src/assets',
+          },
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        },
+      ],
+    ],
   };
 };

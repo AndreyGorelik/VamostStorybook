@@ -1,8 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import { Header } from '@shared/ui/header';
 import { Link, Stack } from 'expo-router';
 import { Pressable } from 'react-native';
-
-import Header from '../../src/shared/ui/header/header.component';
 
 export default function AuthLayout() {
   return (

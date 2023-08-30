@@ -1,6 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
-
-import { Theme } from '../../hooks/useTheme.hook';
+import { Theme } from '@shared/hooks/useTheme.hook';
 
 export interface OutlinedBtnProps {
   title: string;

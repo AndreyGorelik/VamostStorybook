@@ -13,6 +13,9 @@ export default ({ config }) => ({
   expo: {
     owner: 'zbsprod',
     scheme: 'vamoose',
+    experiments: {
+      tsconfigPaths: true,
+    },
     extra: {
       eas: {
         projectId: '6e5848a3-5310-4771-a7a3-080a97b247c8',
@@ -24,7 +27,6 @@ export default ({ config }) => ({
     runtimeVersion: {
       policy: 'appVersion',
     },
-
     plugins: [
       [
         'expo-image-picker',
