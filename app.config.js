@@ -1,11 +1,11 @@
 export default ({ config }) => ({
   ...config,
-  name: 'vamost',
+  name: 'vamoose',
   slug: 'vamoose',
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
   },
-  scheme: 'vamost',
+  scheme: 'vamoose',
   web: {
     bundler: 'metro',
   },
