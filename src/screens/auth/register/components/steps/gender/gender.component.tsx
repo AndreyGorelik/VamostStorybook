@@ -10,7 +10,6 @@ import { setGender } from 'src/store/slices/userSlice';
 
 import { ORIENTATION_RADIO_DATA_WITH_OPTIONS } from './gender.data';
 import { createStyles } from './gender.styles';
-import { SelectListData, SelectListItem } from './gender.types';
 
 export default function Gender() {
   const theme = useTheme();
@@ -47,6 +46,11 @@ export default function Gender() {
           maxSelectCount={1}
           moreOption={true}
           moreAction={onSubmit}
+        />
+        <CheckBox
+          value={showMyGender}
+          onChange={setShowMyGender}
+          label="Show my gender on my profile"
         />
       </View>
       <Button
