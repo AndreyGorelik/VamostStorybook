@@ -8,4 +8,7 @@ export const createStyles = (theme: Theme) =>
       backgroundColor: theme.colors.background,
       flex: 1,
     },
+    gestureHandlerRootView: {
+      flex: 1,
+    },
   });

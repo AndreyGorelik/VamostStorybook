@@ -6,28 +6,20 @@ import { Button } from '../../../button';
 import { Counter } from '../../../counter';
 import Text from '../../../text/text.component';
 
+import { FROM_MY_SIDE, INVITE_GUESTS } from './stepThree.data';
 import { createStyles } from './stepThree.styles';
-import { PeopleCounter } from './stepThree.types';
+import { PeopleCounter, StepThreeProps } from './stepThree.types';
 
-const counterConfigs = [
-  { key: 'menCount', title: 'men' },
-  { key: 'womenCount', title: 'women' },
-  { key: 'otherCount', title: 'OTHER' },
-  { key: 'guestsMenCount', title: 'men' },
-  { key: 'guestsWomenCount', title: 'women' },
-  { key: 'guestsOtherCount', title: 'OTHER' },
-];
-
-const StepThree = ({ post, setPost, next }) => {
+const StepThree = ({ post, setPost, next }: StepThreeProps) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [counters, setCounters] = useState<PeopleCounter>({
-    menCount: 1,
-    womenCount: 0,
-    otherCount: 0,
-    guestsMenCount: 0,
-    guestsWomenCount: 0,
-    guestsOtherCount: 0,
+    menCount: post.menCount,
+    womenCount: post.womenCount,
+    otherCount: post.otherCount,
+    guestsMenCount: post.guestsMenCount,
+    guestsWomenCount: post.guestsWomenCount,
+    guestsOtherCount: post.guestsOtherCount,
   });
 
   const handleIncrement = (key: keyof PeopleCounter) => {
@@ -52,7 +44,19 @@ const StepThree = ({ post, setPost, next }) => {
     <View style={styles.wrapper}>
       <Text variant="h4">From my side</Text>
 
-      {counterConfigs.map((item) => (
+      {FROM_MY_SIDE.map((item) => (
+        <Counter
+          key={item.key}
+          title={item.title}
+          count={counters[item.key]}
+          increaseValue={() => handleIncrement(item.key)}
+          decreaseValue={() => handleDecrement(item.key)}
+        />
+      ))}
+
+      <Text variant="h4">Invite guests</Text>
+
+      {INVITE_GUESTS.map((item) => (
         <Counter
           key={item.key}
           title={item.title}

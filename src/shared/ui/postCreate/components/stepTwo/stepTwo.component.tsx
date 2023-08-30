@@ -12,17 +12,16 @@ import Text from '../../../text/text.component';
 
 import { TAG_LIST_DATA } from './stepTwo.data';
 import { createStyles } from './stepTwo.styles';
+import { StepTwoProps } from './stepTwo.types';
 
-export default function StepTwo({ post, setPost, next }) {
+export default function StepTwo({ post, setPost, next }: StepTwoProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const [date, setDate] = useState(() => {
-    return new Date(Date.now() + 24 * 60 * 60 * 1000);
-  });
-  const [selectedTagList, setSelectedTagList] = useState<string[]>([]);
-  const [descriptionVisible, setDescriptionVisible] = useState(false);
-  const [location] = useState('Miami FL');
-  const [description, setDescription] = useState('');
+  const [date, setDate] = useState(post.date);
+  const [selectedTagList, setSelectedTagList] = useState<string[]>(post.tags);
+  const [descriptionVisible, setDescriptionVisible] = useState(post.description || false);
+  const [location] = useState(post.location);
+  const [description, setDescription] = useState(post.description);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(false);
 
   useEffect(() => {
@@ -49,6 +48,10 @@ export default function StepTwo({ post, setPost, next }) {
     next();
   };
 
+  const selectWhere = () => {
+    return;
+  };
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.row}>
@@ -62,14 +65,14 @@ export default function StepTwo({ post, setPost, next }) {
       <View style={styles.row}>
         <Text>What:</Text>
         <TagList
-          selectedList={selectedTagList}
+          selectedList={post.tags}
           setSelectedList={setSelectedTagList}
           tagsList={TAG_LIST_DATA}
         />
       </View>
       <View style={styles.row}>
         <Text>Where:</Text>
-        <OutlinedButton title="Select..." borderRadius={25} width={150} onPress={() => {}} />
+        <OutlinedButton title="Select..." borderRadius={25} width={150} onPress={selectWhere} />
       </View>
       <TouchableOpacity activeOpacity={0.8} onPress={changeDescriptionVisibility}>
         <Text color={theme.colors.textLink}>

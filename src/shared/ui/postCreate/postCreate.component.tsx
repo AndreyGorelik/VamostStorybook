@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import { Keyboard, KeyboardAvoidingView, Platform, Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
@@ -14,11 +14,22 @@ import StepOne from './components/stepOne/stepOne.component';
 import { StepThree } from './components/stepThree';
 import { StepTwo } from './components/stepTwo';
 import { createStyles } from './postCreate.styles';
+import { Post } from './postCreate.types';
 
 const PostCreate = () => {
   const [step, setStep] = useState<number>(0);
-  const [post, setPost] = useState({
+  const [post, setPost] = useState<Post>({
     host: false,
+    date: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    description: '',
+    location: 'Miami Fl',
+    tags: [],
+    menCount: 1,
+    womenCount: 0,
+    otherCount: 0,
+    guestsMenCount: 0,
+    guestsWomenCount: 0,
+    guestsOtherCount: 0,
   });
   const theme = useTheme();
   const styles = createStyles(theme);
@@ -36,10 +47,14 @@ const PostCreate = () => {
     return bottomSheetRef.current?.scrollTo(0);
   }, []);
 
-  console.log(post);
+  const previousStep = () => {
+    if (step !== 0) setStep(step - 1);
+  };
+
+  // console.log(post);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={styles.gestureHandlerRootView}>
       <Button title="Open sheet" onPress={openSheet} />
       <BottomSheet
         hideSheet={hideSheet}
@@ -47,7 +62,7 @@ const PostCreate = () => {
         leftIconName="keyboard-backspace"
         rightIconName="close"
         title="New post"
-        leftIconPress={hideSheet}
+        leftIconPress={previousStep}
         rightIconPress={hideSheet}
         headerStyle="default"
       >
@@ -55,13 +70,7 @@ const PostCreate = () => {
           {step === 0 && (
             <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
               <View style={{ height: 200, justifyContent: 'center' }}>
-                <StepOne
-                  post={post}
-                  setPost={setPost}
-                  step={step}
-                  setStep={setStep}
-                  next={goAhead}
-                />
+                <StepOne post={post} setPost={setPost} next={goAhead} />
               </View>
             </BottomSheetContent>
           )}
