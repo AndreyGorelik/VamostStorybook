@@ -65,7 +65,7 @@ export default function StepTwo({ post, setPost, next }: StepTwoProps) {
       <View style={styles.row}>
         <Text>What:</Text>
         <TagList
-          selectedList={post.tags}
+          selectedList={selectedTagList}
           setSelectedList={setSelectedTagList}
           tagsList={TAG_LIST_DATA}
         />
