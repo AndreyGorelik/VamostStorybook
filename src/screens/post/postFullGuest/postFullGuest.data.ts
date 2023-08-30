@@ -1,6 +1,7 @@
-import Photo from '../../../assets/images/postCardImages/postCardMainPhoto.jpeg';
-import UserPic1 from '../../../assets/images/postCardImages/userpic1.webp';
-import UserPic2 from '../../../assets/images/postCardImages/userpic2.jpeg';
+import Photo from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
+import UserPic1 from '@assets/images/postCardImages/userpic1.webp';
+import UserPic2 from '@assets/images/postCardImages/userpic2.jpeg';
+
 export const POST_FULL_GUEST_DATA = {
   photo: Photo,
   host: {

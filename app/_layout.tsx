@@ -5,14 +5,13 @@ import React, { useCallback } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-
-import { persistor, store } from '../src/store';
+import { store, persistor } from 'src/store';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
   const [fontsLoaded] = useFonts({
-    'NunitoSans10pt-Regular': require('../src/assets/fonts/NunitoSans_10pt-Regular.ttf'),
+    'NunitoSans10pt-Regular': require('src/assets/fonts/NunitoSans_10pt-Regular.ttf'),
   });
 
   const onLayoutRootView = useCallback(async () => {

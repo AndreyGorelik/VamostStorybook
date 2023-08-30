@@ -1,6 +1,5 @@
+import useTheme from '@shared/hooks/useTheme.hook';
 import { View, Image } from 'react-native';
-
-import useTheme from '../../hooks/useTheme.hook';
 
 import { createStyles } from './userPicGallery.styles';
 import { UserPicGalleryProps } from './userPicGallery.types';

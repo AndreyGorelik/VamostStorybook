@@ -1,7 +1,7 @@
+import useTheme from '@shared/hooks/useTheme.hook';
 import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import useTheme from '../../hooks/useTheme.hook';
 import { OutlinedButton } from '../outlinedBtn';
 import Text from '../text/text.component';
 

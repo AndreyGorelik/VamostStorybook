@@ -1,6 +1,5 @@
+import { Theme } from '@shared/hooks/useTheme.hook';
 import { StyleSheet } from 'react-native';
-
-import { Theme } from '../../hooks/useTheme.hook';
 
 export const createStyles = (theme: Theme, SCREEN_HEIGHT: number) =>
   StyleSheet.create({

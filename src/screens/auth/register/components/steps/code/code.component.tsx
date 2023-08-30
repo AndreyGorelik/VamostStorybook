@@ -1,13 +1,12 @@
+import useTheme from '@shared/hooks/useTheme.hook';
+import { Button } from '@shared/ui/button';
+import { CodeInput } from '@shared/ui/codeInput';
+import Text from '@shared/ui/text/text.component';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
 
-import useTheme from '../../../../../../shared/hooks/useTheme.hook';
-import { Button } from '../../../../../../shared/ui/button';
-import { CodeInput } from '../../../../../../shared/ui/codeInput';
-import Text from '../../../../../../shared/ui/text/text.component';
-
 import { createStyles } from './code.styles';
-import { CodeProps } from './code.types';
+import { CodeProps, CodeValues } from './code.types';
 
 export default function Code({ goAhead, number }: CodeProps) {
   const theme = useTheme();
@@ -17,7 +16,7 @@ export default function Code({ goAhead, number }: CodeProps) {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm({
+  } = useForm<CodeValues>({
     defaultValues: {
       code: '',
     },
@@ -36,7 +35,7 @@ export default function Code({ goAhead, number }: CodeProps) {
       <View style={styles.content}>
         <Controller
           control={control}
-          rules={{ required: true }}
+          rules={{ required: true, validate: (code) => code.length === 6 }}
           name="code"
           render={({ field: { onChange } }) => <CodeInput onChange={onChange} />}
         />

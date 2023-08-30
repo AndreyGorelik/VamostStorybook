@@ -1,3 +1,4 @@
+import useTheme from '@shared/hooks/useTheme.hook';
 import React, { useRef, useState } from 'react';
 import CountryPicker, { Country } from 'react-native-country-picker-modal';
 import LibPhoneInput from 'react-native-phone-input';
@@ -7,8 +8,6 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-
-import useTheme from '../../hooks/useTheme.hook';
 
 import { ANIMATION_DURATION } from './phoneInput.data';
 import { createStyles } from './phoneInput.styles';
@@ -20,12 +19,15 @@ export default function PhoneInput({ setNumber, value }: PhoneInputProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
   const progress = useSharedValue(value ? 1 : 0);
+  const [maxSize, setMaxSize] = useState<number>(0);
+  const [countryCode, setCountryCode] = useState<string | undefined>('');
 
   function onPressFlag() {
     setVisible(true);
   }
 
   function onSelect(country: Country) {
+    setMaxSize(0);
     phoneRef.current?.selectCountry(country.cca2.toLowerCase());
   }
 
@@ -46,7 +48,16 @@ export default function PhoneInput({ setNumber, value }: PhoneInputProps) {
     } else {
       progress.value = withTiming(0, { duration: ANIMATION_DURATION });
     }
+    const isValidNumber = phoneRef.current?.isValidNumber();
+    const newCountryCode = phoneRef.current?.getCountryCode();
 
+    if (isValidNumber) {
+      setMaxSize(number.length);
+    }
+    if (newCountryCode !== countryCode) {
+      setMaxSize(0);
+      setCountryCode(newCountryCode);
+    }
     setNumber(number);
   };
 
@@ -58,6 +69,7 @@ export default function PhoneInput({ setNumber, value }: PhoneInputProps) {
         textProps={{
           placeholder: 'Enter your phone number',
           placeholderTextColor: theme.colors.placeholder,
+          maxLength: maxSize ? maxSize : 100,
         }}
         textStyle={{
           fontSize: 17,
@@ -67,6 +79,9 @@ export default function PhoneInput({ setNumber, value }: PhoneInputProps) {
         initialValue={value ?? ''}
         autoFormat={true}
         onChangePhoneNumber={movePlaceholder}
+        onSelectCountry={() => {
+          setMaxSize(0);
+        }}
       />
       <CountryPicker
         countryCode="BE"

@@ -1,11 +1,10 @@
+import useTheme from '@shared/hooks/useTheme.hook';
+import { Button } from '@shared/ui/button';
+import { SelectList } from '@shared/ui/selectList';
+import Text from '@shared/ui/text/text.component';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
-
-import useTheme from '../../../../../../shared/hooks/useTheme.hook';
-import { Button } from '../../../../../../shared/ui/button';
-import { SelectList } from '../../../../../../shared/ui/selectList';
-import Text from '../../../../../../shared/ui/text/text.component';
 
 import { ORIENTATION_MULTI_SELECT_DATA } from './orientation.data';
 import { createStyles } from './orientation.styles';

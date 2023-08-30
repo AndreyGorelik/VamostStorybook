@@ -1,5 +1,5 @@
-import { colors } from '../constants/colors';
-import { StyleConstants, styleConstants } from '../constants/styleConstants';
+import { colors } from '@shared/constants/colors';
+import { StyleConstants, styleConstants } from '@shared/constants/styleConstants';
 
 const useTheme = () => {
   return LIGHT_THEME;
@@ -45,6 +45,8 @@ export const LIGHT_THEME: Theme = {
     gradientFinish: colors.blackTranparentQuarter,
     divider: colors.gray,
     textLink: colors.blue,
+    drawerActive: colors.cyan,
+    drawerInactive: colors.darkGray,
   },
   styleConstants: styleConstants,
 };
@@ -87,6 +89,8 @@ export type Theme = {
     gradientFinish: string;
     divider: string;
     textLink: string;
+    drawerActive: string;
+    drawerInactive: string;
   };
   styleConstants: StyleConstants;
 };

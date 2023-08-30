@@ -1,11 +1,10 @@
+import useTheme from '@shared/hooks/useTheme.hook';
+import { Button } from '@shared/ui/button';
+import { PhotoInput } from '@shared/ui/photoInput';
+import Text from '@shared/ui/text/text.component';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { FlatList, View } from 'react-native';
-
-import useTheme from '../../../../../../shared/hooks/useTheme.hook';
-import { Button } from '../../../../../../shared/ui/button';
-import { PhotoInput } from '../../../../../../shared/ui/photoInput';
-import Text from '../../../../../../shared/ui/text/text.component';
 
 import { PhotosData } from './photos.data';
 import { createStyles } from './photos.styles';
@@ -76,7 +75,7 @@ export default function Photos({ goAhead }: PhotosProps) {
               loading={item.id === isLoading}
               onDelete={handleDelete}
               pickImage={() => pickImage(item.id)}
-              height={flatListHeight / ((PhotosData.length / COLUMN_AMOUNT) * 1.22)}
+              height={flatListHeight / (Math.ceil(PhotosData.length / COLUMN_AMOUNT) * 1.22)}
             />
           )}
           keyExtractor={(item) => `${item.id}`}

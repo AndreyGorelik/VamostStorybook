@@ -1,7 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import useTheme from '@shared/hooks/useTheme.hook';
 import { TouchableOpacity } from 'react-native';
 
-import useTheme from '../../hooks/useTheme.hook';
 import Text from '../text/text.component';
 
 import { createStyles } from './outlinedBtn.styles';

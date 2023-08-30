@@ -1,7 +1,7 @@
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import useTheme from '@shared/hooks/useTheme.hook';
 import { Image, View } from 'react-native';
 
-import useTheme from '../../hooks/useTheme.hook';
 import { OutlinedButton } from '../outlinedBtn';
 import Text from '../text/text.component';
 

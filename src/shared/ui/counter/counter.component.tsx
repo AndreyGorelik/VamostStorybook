@@ -1,8 +1,7 @@
 import { AntDesign } from '@expo/vector-icons';
+import useTheme from '@shared/hooks/useTheme.hook';
+import Text from '@shared/ui/text/text.component';
 import { Pressable, View } from 'react-native';
-
-import useTheme from '../../hooks/useTheme.hook';
-import Text from '../text/text.component';
 
 import { createStyles } from './counter.styles';
 import { CounterProps } from './counter.types';

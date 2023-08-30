@@ -1,3 +1,4 @@
+import useTheme from '@shared/hooks/useTheme.hook';
 import { forwardRef } from 'react';
 import { GestureResponderEvent, TextInput as NativeTextInput, View } from 'react-native';
 import Animated, {
@@ -6,8 +7,6 @@ import Animated, {
   withTiming,
   interpolateColor,
 } from 'react-native-reanimated';
-
-import useTheme from '../../hooks/useTheme.hook';
 
 import { ANIMATION_DURATION } from './input.data';
 import { createStyles } from './input.styles';

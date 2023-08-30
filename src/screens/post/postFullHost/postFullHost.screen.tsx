@@ -1,13 +1,12 @@
+import useTheme from '@shared/hooks/useTheme.hook';
+import { HostingLabel } from '@shared/ui/hostingLabel';
+import { OutlinedButton } from '@shared/ui/outlinedBtn';
+import { Request } from '@shared/ui/request';
+import Text from '@shared/ui/text/text.component';
+import { UserPicGallery } from '@shared/ui/userpicGallery';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
 import { View, Image, ImageBackground, ScrollView, Alert } from 'react-native';
-
-import useTheme from '../../../shared/hooks/useTheme.hook';
-import { HostingLabel } from '../../../shared/ui/hostingLabel';
-import { OutlinedButton } from '../../../shared/ui/outlinedBtn';
-import { Request } from '../../../shared/ui/request';
-import Text from '../../../shared/ui/text/text.component';
-import { UserPicGallery } from '../../../shared/ui/userpicGallery';
 
 import { POST_FULL_HOST_DATA } from './postFullHost.data';
 import { createStyles } from './postFullHost.styles';

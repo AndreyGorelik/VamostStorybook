@@ -1,4 +1,5 @@
-import { useRef } from 'react';
+import useTheme from '@shared/hooks/useTheme.hook';
+import { useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   View,
@@ -8,11 +9,10 @@ import {
   TextInputKeyPressEventData,
 } from 'react-native';
 
-import useTheme from '../../hooks/useTheme.hook';
 import { Input } from '../input';
 
 import { createStyles } from './birthdayInput.styles';
-import { BirthdayInputProps } from './birthdayInput.types';
+import { BirthdayInputProps, BirthdayValues } from './birthdayInput.types';
 
 export default function BirthdayInput({ onChange, errors }: BirthdayInputProps) {
   const day1InputRef = useRef<TextInput>(null);
@@ -26,7 +26,7 @@ export default function BirthdayInput({ onChange, errors }: BirthdayInputProps) 
   const theme = useTheme();
   const styles = createStyles(theme);
 
-  const { control, watch } = useForm({
+  const { control, watch } = useForm<BirthdayValues>({
     defaultValues: {
       month1: '',
       month2: '',
@@ -38,15 +38,19 @@ export default function BirthdayInput({ onChange, errors }: BirthdayInputProps) 
       year4: '',
     },
   });
+  const watchedValues = watch();
 
-  const handleInput = (inputValue: string, nextInputRef?: React.RefObject<TextInput>) => {
-    const data = [...Object.values(watch())].map((value) => (value === '' ? inputValue : value));
+  useEffect(() => {
+    const data = Object.values(watchedValues);
 
     const day = data[2] + data[3];
     const month = data[0] + data[1];
     const year = data[4] + data[5] + data[6] + data[7];
 
     onChange?.(`${day},${month},${year}`);
+  }, [onChange, watchedValues]);
+
+  const handleInput = (inputValue: string, nextInputRef?: React.RefObject<TextInput>) => {
     if (inputValue.length >= 1) {
       const cleanedText = inputValue.replace(/[^0-9]/g, '');
       if (cleanedText.length === 0) return '';
