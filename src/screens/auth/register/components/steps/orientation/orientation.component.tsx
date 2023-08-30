@@ -1,5 +1,6 @@
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Button } from '@shared/ui/button';
+import { CheckBox } from '@shared/ui/checkBox';
 import { SelectList } from '@shared/ui/selectList';
 import Text from '@shared/ui/text/text.component';
 import { useState } from 'react';
