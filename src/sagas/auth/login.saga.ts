@@ -5,6 +5,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { signInRequest } from 'src/api/signIn';
 import { loginUserSuccess } from 'src/store/slices/authSlice';
 import { setAuthError } from 'src/store/slices/errorsSlice';
+import { setUser } from 'src/store/slices/userSlice';
 import { Action, LoginUser } from 'src/types/actions/actions.types';
 import { SignInResponse } from 'src/types/api/signIn.types';
 
@@ -20,6 +21,17 @@ function* logInRequestWorker(action: Action<LoginUser>) {
     const response: AxiosResponse<SignInResponse> = yield call(signInRequest, action.payload);
     const data = response.data;
     yield call(saveTokens, data.tokens.refresh, data.tokens.access, data.id);
+    yield put(
+      setUser({
+        birthdate: data.birthdate,
+        email: data.email,
+        gender: data.gender,
+        nickname: data.nickName,
+        phoneNumber: data.phoneNumber,
+        sexualOrientation: data.sexualOrientation,
+        shownGender: data.shownGender,
+      })
+    );
     yield put(loginUserSuccess());
     yield put(setAuthError(null));
   } catch (error) {

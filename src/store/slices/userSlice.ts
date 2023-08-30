@@ -1,10 +1,9 @@
 import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
 
-export interface AuthState {
+export interface UserState {
   phoneNumber: string;
   email: string;
   nickname: string;
-  tokens: Tokens;
   gender: {
     value: 'Man' | 'Woman' | 'Other' | null;
     isShown: boolean;
@@ -24,22 +23,12 @@ export interface AuthState {
   };
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   birthdate: string;
-  userId: string | null;
 }
 
-interface Tokens {
-  access: string;
-  refresh: string;
-}
-
-const initialState: AuthState = {
+const initialState: UserState = {
   phoneNumber: '',
   email: '',
   nickname: '',
-  tokens: {
-    access: '',
-    refresh: '',
-  },
   gender: {
     value: null,
     isShown: false,
@@ -50,21 +39,20 @@ const initialState: AuthState = {
   },
   shownGender: null,
   birthdate: '',
-  userId: null,
 };
 
 const userSlice = createSlice({
   name: 'userSlice',
   initialState,
   reducers: {
+    setUser(state, action: PayloadAction<UserState>) {
+      state = action.payload;
+    },
     setPhoneNumber(state, action) {
       state.phoneNumber = action.payload;
     },
     setEmail(state, action) {
       state.email = action.payload;
-    },
-    setTokens(state, action) {
-      state.tokens = action.payload;
     },
     setNickname(state, action) {
       state.nickname = action.payload;
@@ -81,9 +69,6 @@ const userSlice = createSlice({
     setBirthdate(state, action) {
       state.birthdate = action.payload;
     },
-    setUserId(state, action: PayloadAction<string>) {
-      state.userId = action.payload;
-    },
   },
 });
 
@@ -93,13 +78,12 @@ export const loginUser = createAction(LOGIN_USER);
 export const {
   setPhoneNumber,
   setEmail,
-  setTokens,
   setNickname,
   setGender,
   setSexualOrientation,
   setShownGender,
   setBirthdate,
-  setUserId,
+  setUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -4,17 +4,26 @@ export type SignInResponse = {
     refresh: string;
   };
   phoneNumber: string;
+  gender: {
+    value: 'Man' | 'Woman' | 'Other' | null;
+    isShown: boolean;
+  };
   sexualOrientation: {
-    value: string;
+    value:
+      | 'Straight'
+      | 'Gay'
+      | 'Lesbian'
+      | 'Bisexual'
+      | 'Asexual'
+      | 'Demisexual'
+      | 'Pansexual'
+      | 'Queer'
+      | null;
     isShown: boolean;
   };
   nickName: string;
-  shownGender: string;
+  shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   email: string;
-  gender: {
-    value: string;
-    isShown: boolean;
-  };
   birthdate: string;
   images: string[];
   phoneVerified: boolean;
