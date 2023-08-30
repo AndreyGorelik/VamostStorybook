@@ -1,3 +1,3 @@
-import Other from './logo.svg';
+import Logo from './logo.svg';
 
-export default Other;
+export default Logo;

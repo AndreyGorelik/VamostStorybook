@@ -1,7 +1,7 @@
 import { colors } from '@shared/constants/colors';
 import { StyleConstants, styleConstants } from '@shared/constants/styleConstants';
 
-const useTheme = () => {
+const useTheme = (): Theme => {
   return LIGHT_THEME;
 };
 
