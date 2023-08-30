@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   REGISTER_USER,
   CONFIRM_CODE,
@@ -7,7 +8,7 @@ import {
   REGISTER_PHOTO,
 } from '@shared/constants/actions';
 import Axios, { AxiosResponse } from 'axios';
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { confirmCodeRequest } from 'src/api/confirmCode';
 import { registerAttributesRequest } from 'src/api/registerAttributes';
 import { registerEmailRequest } from 'src/api/registerEmail';
@@ -23,13 +24,7 @@ import {
   setPhoneNumberError,
   setPhotosError,
 } from 'src/store/slices/errorsSlice';
-import {
-  setEmail,
-  setNickname,
-  setPhoneNumber,
-  setShownGender,
-  setTokens,
-} from 'src/store/slices/userSlice';
+import { setEmail, setNickname, setPhoneNumber, setShownGender } from 'src/store/slices/userSlice';
 import {
   Action,
   ConfirmCode,
@@ -40,6 +35,16 @@ import {
   RegisterUser,
 } from 'src/types/actions/actions.types';
 import { ConfirmCodeResponse } from 'src/types/api/confirmCode.types';
+
+async function saveTokens(refresh: string, access: string, userId: string) {
+  await AsyncStorage.setItem('refresh', refresh);
+  await AsyncStorage.setItem('access', access);
+  await AsyncStorage.setItem('userId', userId);
+}
+
+async function getAccess() {
+  return await AsyncStorage.getItem('access');
+}
 
 function* phoneAndPasswordRequestWorker(action: Action<RegisterUser>) {
   const { payload } = action;
@@ -55,8 +60,8 @@ function* phoneAndPasswordRequestWorker(action: Action<RegisterUser>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data) {
-          yield put(setPhoneNumberError(error.response.data));
+        if (error.response.data || error.response.data.message) {
+          yield put(setPhoneNumberError(error.response.data.message));
         }
       }
     }
@@ -73,13 +78,15 @@ function* confirmCodeWorker(action: Action<ConfirmCode>) {
     const request: AxiosResponse<ConfirmCodeResponse> = yield call(confirmCodeRequest, payload);
 
     yield put(setConfirmCodeError(null));
-    yield put(setTokens(request.data.tokens));
+    const { access, refresh } = request.data.tokens;
+    const userId = request.data.userId;
+    yield call(saveTokens, refresh, access, userId);
     yield put(setNextStep());
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data) {
-          yield put(setConfirmCodeError(error.response.data));
+        if (error.response.data || error.response.data.message) {
+          yield put(setConfirmCodeError(error.response.data.message));
         }
       }
     }
@@ -91,7 +98,7 @@ function* confirmCodeWorker(action: Action<ConfirmCode>) {
 function* registerEmailWorker(action: Action<RegisterEmail>) {
   const { payload } = action;
 
-  const token: string = yield select((state) => state.userSlice.tokens.access);
+  const token: string = yield call(getAccess);
   try {
     yield put(setIsLoading(true));
 
@@ -106,8 +113,8 @@ function* registerEmailWorker(action: Action<RegisterEmail>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data) {
-          yield put(setEmailError(error.response.data));
+        if (error.response.data || error.response.data.message) {
+          yield put(setEmailError(error.response.data.message));
         }
       }
     }
@@ -119,7 +126,7 @@ function* registerEmailWorker(action: Action<RegisterEmail>) {
 function* registerNicknameWorker(action: Action<RegisterNickname>) {
   const { payload } = action;
 
-  const token: string = yield select((state) => state.userSlice.tokens.access);
+  const token: string = yield call(getAccess);
   try {
     yield put(setIsLoading(true));
     yield call(registerNicknameRequest, { data: payload, token });
@@ -130,8 +137,8 @@ function* registerNicknameWorker(action: Action<RegisterNickname>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data) {
-          yield put(setNicknameError(error.response.data));
+        if (error.response.data || error.response.data.message) {
+          yield put(setNicknameError(error.response.data.message));
         }
       }
     }
@@ -143,7 +150,7 @@ function* registerNicknameWorker(action: Action<RegisterNickname>) {
 function* registerAttributesWorker(action: Action<RegisterAttributes>) {
   const { payload } = action;
 
-  const token: string = yield select((state) => state.userSlice.tokens.access);
+  const token: string = yield call(getAccess);
 
   try {
     yield put(setIsLoading(true));
@@ -155,8 +162,8 @@ function* registerAttributesWorker(action: Action<RegisterAttributes>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data) {
-          yield put(setAttributesError(error.response.data));
+        if (error.response.data || error.response.data.message) {
+          yield put(setAttributesError(error.response.data.message));
         }
       }
     }
@@ -168,7 +175,7 @@ function* registerAttributesWorker(action: Action<RegisterAttributes>) {
 function* registerPhotoWorker(action: Action<RegisterPhoto>) {
   const { payload } = action;
 
-  const token: string = yield select((state) => state.userSlice.tokens.access);
+  const token: string = yield call(getAccess);
   try {
     yield put(setIsLoading(true));
 
@@ -176,8 +183,8 @@ function* registerPhotoWorker(action: Action<RegisterPhoto>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data) {
-          yield put(setPhotosError(error.response.data));
+        if (error.response.data || error.response.data.message) {
+          yield put(setPhotosError(error.response.data.message));
         }
       }
     }

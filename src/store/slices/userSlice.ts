@@ -1,4 +1,4 @@
-import { createAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
 
 export interface AuthState {
   phoneNumber: string;
@@ -24,6 +24,7 @@ export interface AuthState {
   };
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   birthdate: string;
+  userId: string | null;
 }
 
 interface Tokens {
@@ -49,6 +50,7 @@ const initialState: AuthState = {
   },
   shownGender: null,
   birthdate: '',
+  userId: null,
 };
 
 const userSlice = createSlice({
@@ -79,6 +81,9 @@ const userSlice = createSlice({
     setBirthdate(state, action) {
       state.birthdate = action.payload;
     },
+    setUserId(state, action: PayloadAction<string>) {
+      state.userId = action.payload;
+    },
   },
 });
 
@@ -94,6 +99,7 @@ export const {
   setSexualOrientation,
   setShownGender,
   setBirthdate,
+  setUserId,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -7,4 +7,5 @@ export const API_ROUTES = {
   nickname: 'auth/signup/nickname',
   userAttributes: 'auth/signup/user-attributes',
   images: 'auth/signup/images',
+  refresh: 'auth/refresh',
 };
