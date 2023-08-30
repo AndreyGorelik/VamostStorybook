@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   REGISTER_USER,
   CONFIRM_CODE,
@@ -8,6 +7,7 @@ import {
   REGISTER_PHOTO,
 } from '@shared/constants/actions';
 import Axios, { AxiosResponse } from 'axios';
+import * as SecureStore from 'expo-secure-store';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { confirmCodeRequest } from 'src/api/confirmCode';
 import { registerAttributesRequest } from 'src/api/registerAttributes';
@@ -37,13 +37,13 @@ import {
 import { ConfirmCodeResponse } from 'src/types/api/confirmCode.types';
 
 async function saveTokens(refresh: string, access: string, userId: string) {
-  await AsyncStorage.setItem('refresh', refresh);
-  await AsyncStorage.setItem('access', access);
-  await AsyncStorage.setItem('userId', userId);
+  await SecureStore.setItemAsync('refresh', refresh);
+  await SecureStore.setItemAsync('userId', userId);
+  await SecureStore.setItemAsync('access', access);
 }
 
 async function getAccess() {
-  return await AsyncStorage.getItem('access');
+  return await SecureStore.getItemAsync('access');
 }
 
 function* phoneAndPasswordRequestWorker(action: Action<RegisterUser>) {

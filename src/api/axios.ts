@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Axios from 'axios';
+import * as SecureStore from 'expo-secure-store';
 
 import { API_ROUTES } from './constants';
 
@@ -18,8 +18,8 @@ axios.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    const refresh = await AsyncStorage.getItem('refresh');
-    const userId = await AsyncStorage.getItem('userId');
+    const refresh = await SecureStore.getItemAsync('refresh');
+    const userId = await SecureStore.getItemAsync('userId');
 
     if (!refresh || !userId) throw Error;
 
@@ -28,8 +28,8 @@ axios.interceptors.response.use(
 
       const newData = await refreshAccessToken(refresh, userId);
       const { access, refresh: newRefresh } = newData.tokens;
-      await AsyncStorage.setItem('refresh', newRefresh);
-      await AsyncStorage.setItem('access', access);
+      await SecureStore.setItemAsync('refresh', newRefresh);
+      await SecureStore.setItemAsync('access', access);
 
       originalRequest.headers['Authorization'] = `Bearer ${access}`;
 
