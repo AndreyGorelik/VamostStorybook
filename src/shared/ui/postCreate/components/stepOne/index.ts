@@ -1,1 +1,1 @@
-export { default as HostGuest } from './stepOne.component';
+export { default as StepOne } from './stepOne.component';

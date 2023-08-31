@@ -3,7 +3,6 @@ import { Image, Pressable, View } from 'react-native';
 
 import Text from '../text/text.component';
 
-import { FILE_MOCK } from './packageCard.data';
 import { createStyles } from './packageCard.styles';
 import { PackageCardProps } from './packageCard.types';
 
@@ -13,6 +12,8 @@ export default function PackageCard({
   description,
   restrictions,
   place,
+  uri,
+  onPress,
 }: PackageCardProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
@@ -25,9 +26,10 @@ export default function PackageCard({
           opacity: pressed ? 0.6 : 1,
         },
       ]}
+      onPress={onPress}
     >
       <View style={styles.imageWrapper}>
-        <Image source={{ uri: FILE_MOCK }} style={styles.image} />
+        <Image source={{ uri: uri }} style={styles.image} />
       </View>
       <View style={styles.content}>
         <View style={styles.header}>

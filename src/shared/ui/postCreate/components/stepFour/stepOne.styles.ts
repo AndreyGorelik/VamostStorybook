@@ -7,6 +7,5 @@ export const createStyles = (_theme: Theme) =>
     wrapper: {
       gap: 5,
       paddingHorizontal: 30,
-      paddingVertical: 50,
     },
   });

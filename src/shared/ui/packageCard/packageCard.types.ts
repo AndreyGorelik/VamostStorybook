@@ -5,4 +5,6 @@ export interface PackageCardProps {
   description: string;
   restrictions: string[];
   uri: string;
+  onPress: () => void;
+  id?: string;
 }

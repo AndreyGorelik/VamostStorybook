@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import { View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
@@ -10,7 +10,8 @@ import { BottomSheetContent } from '../bottomSheet/components/bottomSheetContent
 import { ContentWrapper } from '../bottomSheet/components/contentWrapper';
 import Button from '../button/button.component';
 
-import StepOne from './components/stepOne/stepOne.component';
+import { StepFour } from './components/stepFour';
+import { StepOne } from './components/stepOne';
 import { StepThree } from './components/stepThree';
 import { StepTwo } from './components/stepTwo';
 import { createStyles } from './postCreate.styles';
@@ -18,6 +19,8 @@ import { Post } from './postCreate.types';
 
 const PostCreate = () => {
   const [step, setStep] = useState<number>(0);
+  const [fullPackageId, setFullPackageId] = useState<string | null>(null);
+
   const [post, setPost] = useState<Post>({
     host: false,
     date: new Date(Date.now() + 24 * 60 * 60 * 1000),
@@ -51,45 +54,54 @@ const PostCreate = () => {
     if (step !== 0) setStep(step - 1);
   };
 
-  // console.log(post);
+  const bottomSheetTitle = () => {
+    if (step == 3) return 'Select package';
+    return 'New post';
+  };
 
   return (
     <GestureHandlerRootView style={styles.gestureHandlerRootView}>
-      <Button title="Open sheet" onPress={openSheet} />
-      <BottomSheet
-        hideSheet={hideSheet}
-        ref={bottomSheetRef}
-        leftIconName="keyboard-backspace"
-        rightIconName="close"
-        title="New post"
-        leftIconPress={previousStep}
-        rightIconPress={hideSheet}
-        headerStyle="default"
-      >
-        <ContentWrapper height={height} headerStyle="default">
-          {step === 0 && (
-            <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-              <View style={{ height: 200, justifyContent: 'center' }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <Button title="Open sheet" onPress={openSheet} />
+        <BottomSheet
+          hideSheet={hideSheet}
+          ref={bottomSheetRef}
+          leftIconName="keyboard-backspace"
+          rightIconName="close"
+          title={bottomSheetTitle()}
+          leftIconPress={previousStep}
+          rightIconPress={hideSheet}
+          headerStyle="default"
+        >
+          <ContentWrapper height={height} headerStyle="default">
+            {step === 0 && (
+              <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
                 <StepOne post={post} setPost={setPost} next={goAhead} />
-              </View>
-            </BottomSheetContent>
-          )}
-          {step === 1 && (
-            <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-              <View style={{ justifyContent: 'center' }}>
+              </BottomSheetContent>
+            )}
+            {step === 1 && (
+              <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
                 <StepTwo post={post} setPost={setPost} next={goAhead} />
-              </View>
-            </BottomSheetContent>
-          )}
-          {step === 2 && (
-            <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-              <View style={{ justifyContent: 'center' }}>
+              </BottomSheetContent>
+            )}
+            {step === 2 && (
+              <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
                 <StepThree post={post} setPost={setPost} next={goAhead} />
-              </View>
-            </BottomSheetContent>
-          )}
-        </ContentWrapper>
-      </BottomSheet>
+              </BottomSheetContent>
+            )}
+            {step === 3 && (
+              <BottomSheetContent>
+                <StepFour post={post} setPost={setPost} next={goAhead} />
+              </BottomSheetContent>
+            )}
+            {step === 3 && (
+              <BottomSheetContent>
+                <StepFour post={post} setPost={setPost} next={goAhead} />
+              </BottomSheetContent>
+            )}
+          </ContentWrapper>
+        </BottomSheet>
+      </SafeAreaView>
     </GestureHandlerRootView>
   );
 };
