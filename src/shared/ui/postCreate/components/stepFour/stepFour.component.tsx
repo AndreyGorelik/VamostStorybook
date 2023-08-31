@@ -8,15 +8,16 @@ import { View } from 'react-native';
 import { PACKAGE_CARD_MOCK } from './stepFour.data';
 import { StepFourProps } from './stepOne.types';
 
-export default function StepFour({ post, setPost, next }: StepFourProps) {
+export default function StepFour({ onSelect, next }: StepFourProps) {
   const [search, setSearch] = useState('');
 
   const filteredPackagesList = PACKAGE_CARD_MOCK.filter((item) => {
     if (item.title.toLowerCase().trim().includes(search.toLowerCase().trim())) return item;
   });
 
-  const showFullPackage = () => {
-    return;
+  const showFullPackage = (id: string) => {
+    onSelect(id);
+    next();
   };
 
   return (
@@ -29,7 +30,7 @@ export default function StepFour({ post, setPost, next }: StepFourProps) {
             <PackageCard
               {...item}
               date={format(new Date(item.date), 'EEEE MMM d')}
-              onPress={() => showFullPackage()}
+              onPress={() => showFullPackage(item.id)}
             />
             {!isLastElement && <Divider />}
           </View>

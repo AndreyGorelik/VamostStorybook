@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import { SafeAreaView, View } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
@@ -10,6 +10,7 @@ import { BottomSheetContent } from '../bottomSheet/components/bottomSheetContent
 import { ContentWrapper } from '../bottomSheet/components/contentWrapper';
 import Button from '../button/button.component';
 
+import { StepFive } from './components/stepFive';
 import { StepFour } from './components/stepFour';
 import { StepOne } from './components/stepOne';
 import { StepThree } from './components/stepThree';
@@ -51,6 +52,9 @@ const PostCreate = () => {
   }, []);
 
   const previousStep = () => {
+    if (step === 4) {
+      setFullPackageId(null);
+    }
     if (step !== 0) setStep(step - 1);
   };
 
@@ -91,12 +95,12 @@ const PostCreate = () => {
             )}
             {step === 3 && (
               <BottomSheetContent>
-                <StepFour post={post} setPost={setPost} next={goAhead} />
+                <StepFour onSelect={setFullPackageId} next={goAhead} />
               </BottomSheetContent>
             )}
-            {step === 3 && (
-              <BottomSheetContent>
-                <StepFour post={post} setPost={setPost} next={goAhead} />
+            {step === 4 && (
+              <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+                <StepFive post={post} setPost={setPost} next={goAhead} packageId={fullPackageId} />
               </BottomSheetContent>
             )}
           </ContentWrapper>
