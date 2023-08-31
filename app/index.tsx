@@ -8,7 +8,7 @@ function Index() {
   const rootNavigationState = useRootNavigationState();
   if (!rootNavigationState?.key) return null;
 
-  return <Redirect href="/register" />;
+  return <Redirect href="/home" />;
 }
 
 // eslint-disable-next-line import/no-mutable-exports
