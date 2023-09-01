@@ -5,7 +5,6 @@ import { Theme } from '../../../../hooks/useTheme.hook';
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     wrapper: {
-      // flex: 1,
       gap: 10,
     },
     row: {

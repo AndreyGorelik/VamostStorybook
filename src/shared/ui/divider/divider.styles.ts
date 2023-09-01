@@ -5,7 +5,6 @@ export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     divider: {
       width: '100%',
-      flex: 1,
       height: 1,
       marginVertical: 3,
       borderRadius: 5,

@@ -5,7 +5,7 @@ export const createStyles = (_theme: Theme) =>
   StyleSheet.create({
     row: {
       flexDirection: 'row',
-      gap: 10,
+      gap: 5,
       flexWrap: 'wrap',
     },
     tagButton: {

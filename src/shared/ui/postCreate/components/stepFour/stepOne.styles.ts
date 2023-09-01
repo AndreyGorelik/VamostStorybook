@@ -8,4 +8,7 @@ export const createStyles = (_theme: Theme) =>
       gap: 5,
       paddingHorizontal: 30,
     },
+    textInput: {
+      height: 70,
+    },
   });

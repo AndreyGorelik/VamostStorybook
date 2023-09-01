@@ -4,7 +4,6 @@ import { StyleSheet } from 'react-native';
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     wrapper: {
-      flex: 1,
       alignItems: 'flex-start',
       rowGap: 8,
     },

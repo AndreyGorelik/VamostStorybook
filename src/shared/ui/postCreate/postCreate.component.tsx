@@ -1,6 +1,11 @@
 import { useCallback, useRef, useState } from 'react';
 import { LayoutChangeEvent, SafeAreaView } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {
+  GestureEvent,
+  GestureHandlerRootView,
+  PanGestureHandler,
+  PanGestureHandlerEventPayload,
+} from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
 import useTheme from '../../hooks/useTheme.hook';
@@ -72,61 +77,74 @@ const PostCreate = () => {
     setMaxHeight(e.nativeEvent.layout.height);
   };
 
+  const handleGestureEvent = ({ nativeEvent }: GestureEvent<PanGestureHandlerEventPayload>) => {
+    if (nativeEvent.translationX > 100) {
+      previousStep();
+    }
+  };
+
   return (
     <GestureHandlerRootView style={styles.gestureHandlerRootView}>
-      <SafeAreaView style={styles.gestureHandlerRootView} onLayout={watchHeight}>
-        <Button title="Open sheet" onPress={openSheet} />
-        <BottomSheet
-          hideSheet={hideSheet}
-          ref={bottomSheetRef}
-          leftIconName="keyboard-backspace"
-          rightIconName="close"
-          title={bottomSheetTitle}
-          leftIconPress={previousStep}
-          rightIconPress={hideSheet}
-          headerStyle={step === 4 ? 'image' : 'default'}
-          uri={
-            'https://www.lovepanky.com/wp-content/uploads/2015/05/How-To-Look-And-Feel-Like-The-Hottest-Chick-In-The-Club.jpg'
-          }
-        >
-          <ContentWrapper height={height} maxHeight={maxHeight} headerStyle="default">
-            {step === 0 && (
-              <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-                <StepOne post={post} setPost={setPost} next={goAhead} />
-              </BottomSheetContent>
-            )}
-            {step === 1 && (
-              <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-                <StepTwo post={post} setPost={setPost} next={goAhead} />
-              </BottomSheetContent>
-            )}
-            {step === 2 && (
-              <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-                <StepThree post={post} setPost={setPost} next={goAhead} />
-              </BottomSheetContent>
-            )}
-            {step === 3 && (
-              <BottomSheetContent setHeight={() => (height.value = maxHeight)}>
-                <StepFour
-                  onSelect={setFullPackageId}
-                  next={goAhead}
-                  changeTitle={setStepFourTitle}
-                />
-              </BottomSheetContent>
-            )}
-            {step === 4 && (
-              <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-                <StepFive post={post} setPost={setPost} next={goAhead} packageId={fullPackageId} />
-              </BottomSheetContent>
-            )}
-            {step === 5 && (
-              <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-                <StepSix onFinish={hideSheet} />
-              </BottomSheetContent>
-            )}
-          </ContentWrapper>
-        </BottomSheet>
-      </SafeAreaView>
+      <PanGestureHandler onGestureEvent={handleGestureEvent}>
+        <SafeAreaView style={styles.gestureHandlerRootView} onLayout={watchHeight}>
+          <Button title="Open sheet" onPress={openSheet} />
+          <BottomSheet
+            hideSheet={hideSheet}
+            ref={bottomSheetRef}
+            leftIconName="keyboard-backspace"
+            rightIconName="close"
+            title={bottomSheetTitle}
+            leftIconPress={previousStep}
+            rightIconPress={hideSheet}
+            headerStyle={step === 4 ? 'image' : 'default'}
+            uri={
+              'https://www.lovepanky.com/wp-content/uploads/2015/05/How-To-Look-And-Feel-Like-The-Hottest-Chick-In-The-Club.jpg'
+            }
+          >
+            <ContentWrapper height={height} maxHeight={maxHeight} headerStyle="default">
+              {step === 0 && (
+                <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+                  <StepOne post={post} setPost={setPost} next={goAhead} />
+                </BottomSheetContent>
+              )}
+              {step === 1 && (
+                <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+                  <StepTwo post={post} setPost={setPost} next={goAhead} />
+                </BottomSheetContent>
+              )}
+              {step === 2 && (
+                <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+                  <StepThree post={post} setPost={setPost} next={goAhead} />
+                </BottomSheetContent>
+              )}
+              {step === 3 && (
+                <BottomSheetContent setHeight={() => (height.value = maxHeight)}>
+                  <StepFour
+                    onSelect={setFullPackageId}
+                    next={goAhead}
+                    changeTitle={setStepFourTitle}
+                  />
+                </BottomSheetContent>
+              )}
+              {step === 4 && (
+                <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+                  <StepFive
+                    post={post}
+                    setPost={setPost}
+                    next={goAhead}
+                    packageId={fullPackageId}
+                  />
+                </BottomSheetContent>
+              )}
+              {step === 5 && (
+                <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+                  <StepSix onFinish={hideSheet} />
+                </BottomSheetContent>
+              )}
+            </ContentWrapper>
+          </BottomSheet>
+        </SafeAreaView>
+      </PanGestureHandler>
     </GestureHandlerRootView>
   );
 };

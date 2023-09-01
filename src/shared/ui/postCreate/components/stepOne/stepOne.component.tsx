@@ -1,7 +1,6 @@
+import useTheme from '@shared/hooks/useTheme.hook';
+import { Button } from '@shared/ui/button';
 import { View } from 'react-native';
-
-import useTheme from '../../../../hooks/useTheme.hook';
-import { Button } from '../../../button';
 
 import { createStyles } from './stepOne.styles';
 import { StepOneProps } from './stepOne.types';

@@ -1,10 +1,9 @@
+import useTheme from '@shared/hooks/useTheme.hook';
+import { Button } from '@shared/ui/button';
+import { Counter } from '@shared/ui/counter';
+import Text from '@shared/ui/text/text.component';
 import React, { useState } from 'react';
 import { View } from 'react-native';
-
-import useTheme from '../../../../hooks/useTheme.hook';
-import { Button } from '../../../button';
-import { Counter } from '../../../counter';
-import Text from '../../../text/text.component';
 
 import { FROM_MY_SIDE, INVITE_GUESTS } from './stepThree.data';
 import { createStyles } from './stepThree.styles';
