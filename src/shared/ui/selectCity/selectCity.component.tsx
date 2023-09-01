@@ -32,7 +32,7 @@ export default function SelectCity({ open, setOpen, setCity }: SelectCityProps) 
 
   return (
     <>
-      <Modal visible={open} transparent={true} animationType="slide">
+      <Modal visible={open} animationType="slide">
         <View style={styles.wrapper}>
           <Pressable
             style={({ pressed }) => [
