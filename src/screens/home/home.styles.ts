@@ -20,6 +20,9 @@ export const createStyles = (theme: Theme) =>
     viewAll: {
       flexDirection: 'row',
       columnGap: 5,
+      padding: 10,
+      alignItems: 'center',
+      marginTop: 3,
     },
     filter: {
       flexDirection: 'row',
