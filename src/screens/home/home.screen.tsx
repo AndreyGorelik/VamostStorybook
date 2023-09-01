@@ -35,7 +35,9 @@ export default function Home() {
       <View style={styles.wrapper}>
         <View style={styles.header}>
           <View style={styles.today}>
-            <Text variant="h2">Today in {city}</Text>
+            <Text variant="h2" ellipsizeMode="tail" numberOfLines={1} width={250}>
+              Today in {city}
+            </Text>
             <Pressable style={styles.viewAll} onPress={() => setOpen(true)}>
               <Text variant="small">View all</Text>
               <MaterialIcons name="chevron-right" size={20} color={theme.colors.text} />
