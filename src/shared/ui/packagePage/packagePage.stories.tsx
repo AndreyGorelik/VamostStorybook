@@ -10,7 +10,6 @@ import { Button } from '../button';
 
 import PackagePage from './packagePage.component';
 import { data } from './packagePage.data';
-import { PackagePageProps } from './packagePage.types';
 
 export default {
   title: 'PackagePage',
@@ -19,9 +18,9 @@ export default {
 
 const Template = () => {
   const bottomSheetRef = useRef<BottomSheetRefProps>(null);
-  const [screen, setScreen] = useState(0);
+  const [, setScreen] = useState(0);
   const height = useSharedValue(0);
-  const mock: PackagePageProps = { ...data[0] };
+  const mock = { ...data[0] };
 
   const openSheet: () => void = useCallback(() => {
     bottomSheetRef.current?.scrollTo(height.value);
@@ -45,11 +44,9 @@ const Template = () => {
       >
         <ContentWrapper height={height} headerStyle="image">
           <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-            <PackagePage {...mock} />
-            <PackagePage {...mock} />
+            <PackagePage {...mock} onSelect={setScreen} />
           </BottomSheetContent>
         </ContentWrapper>
-        <Button title="Select" onPress={() => setScreen(screen === 1 ? 0 : 1)} />
       </BottomSheet>
     </GestureHandlerRootView>
   );

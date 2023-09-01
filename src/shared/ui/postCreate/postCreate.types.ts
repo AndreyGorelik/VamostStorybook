@@ -10,4 +10,5 @@ export interface Post {
   guestsMenCount: number;
   guestsWomenCount: number;
   guestsOtherCount: number;
+  packageId: string;
 }

@@ -3,20 +3,22 @@ import TextInput from '@shared/ui/input/input.component';
 import { PackageCard } from '@shared/ui/packageCard';
 import { format } from 'date-fns';
 import { useState } from 'react';
-import { View } from 'react-native';
+import { Keyboard, View } from 'react-native';
 
 import { PACKAGE_CARD_MOCK } from './stepFour.data';
-import { StepFourProps } from './stepOne.types';
+import { PackageListItem, StepFourProps } from './stepOne.types';
 
-export default function StepFour({ onSelect, next }: StepFourProps) {
+export default function StepFour({ onSelect, next, changeTitle }: StepFourProps) {
   const [search, setSearch] = useState('');
 
   const filteredPackagesList = PACKAGE_CARD_MOCK.filter((item) => {
     if (item.title.toLowerCase().trim().includes(search.toLowerCase().trim())) return item;
   });
 
-  const showFullPackage = (id: string) => {
-    onSelect(id);
+  const showFullPackage = (item: PackageListItem) => {
+    changeTitle(item.title);
+    Keyboard.dismiss();
+    onSelect(item.id);
     next();
   };
 
@@ -30,7 +32,7 @@ export default function StepFour({ onSelect, next }: StepFourProps) {
             <PackageCard
               {...item}
               date={format(new Date(item.date), 'EEEE MMM d')}
-              onPress={() => showFullPackage(item.id)}
+              onPress={() => showFullPackage(item)}
             />
             {!isLastElement && <Divider />}
           </View>

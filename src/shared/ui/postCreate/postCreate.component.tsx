@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import { SafeAreaView } from 'react-native';
+import { LayoutChangeEvent, SafeAreaView } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 
@@ -13,6 +13,7 @@ import Button from '../button/button.component';
 import { StepFive } from './components/stepFive';
 import { StepFour } from './components/stepFour';
 import { StepOne } from './components/stepOne';
+import { StepSix } from './components/stepSIx';
 import { StepThree } from './components/stepThree';
 import { StepTwo } from './components/stepTwo';
 import { createStyles } from './postCreate.styles';
@@ -21,7 +22,8 @@ import { Post } from './postCreate.types';
 const PostCreate = () => {
   const [step, setStep] = useState<number>(0);
   const [fullPackageId, setFullPackageId] = useState<string | null>(null);
-
+  const [maxHeight, setMaxHeight] = useState<number>(0);
+  const [stepFourTitle, setStepFourTitle] = useState('');
   const [post, setPost] = useState<Post>({
     host: false,
     date: new Date(Date.now() + 24 * 60 * 60 * 1000),
@@ -34,6 +36,7 @@ const PostCreate = () => {
     guestsMenCount: 0,
     guestsWomenCount: 0,
     guestsOtherCount: 0,
+    packageId: '',
   });
   const theme = useTheme();
   const styles = createStyles(theme);
@@ -48,6 +51,7 @@ const PostCreate = () => {
   }, [height.value]);
 
   const hideSheet: () => void = useCallback(() => {
+    setStep(0);
     return bottomSheetRef.current?.scrollTo(0);
   }, []);
 
@@ -58,26 +62,34 @@ const PostCreate = () => {
     if (step !== 0) setStep(step - 1);
   };
 
-  const bottomSheetTitle = () => {
-    if (step == 3) return 'Select package';
+  const bottomSheetTitle = (() => {
+    if (step === 3) return 'Select package';
+    if (step === 4) return stepFourTitle;
     return 'New post';
+  })();
+
+  const watchHeight = (e: LayoutChangeEvent) => {
+    setMaxHeight(e.nativeEvent.layout.height);
   };
 
   return (
     <GestureHandlerRootView style={styles.gestureHandlerRootView}>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={styles.gestureHandlerRootView} onLayout={watchHeight}>
         <Button title="Open sheet" onPress={openSheet} />
         <BottomSheet
           hideSheet={hideSheet}
           ref={bottomSheetRef}
           leftIconName="keyboard-backspace"
           rightIconName="close"
-          title={bottomSheetTitle()}
+          title={bottomSheetTitle}
           leftIconPress={previousStep}
           rightIconPress={hideSheet}
-          headerStyle="default"
+          headerStyle={step === 4 ? 'image' : 'default'}
+          uri={
+            'https://www.lovepanky.com/wp-content/uploads/2015/05/How-To-Look-And-Feel-Like-The-Hottest-Chick-In-The-Club.jpg'
+          }
         >
-          <ContentWrapper height={height} headerStyle="default">
+          <ContentWrapper height={height} maxHeight={maxHeight} headerStyle="default">
             {step === 0 && (
               <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
                 <StepOne post={post} setPost={setPost} next={goAhead} />
@@ -94,13 +106,22 @@ const PostCreate = () => {
               </BottomSheetContent>
             )}
             {step === 3 && (
-              <BottomSheetContent>
-                <StepFour onSelect={setFullPackageId} next={goAhead} />
+              <BottomSheetContent setHeight={() => (height.value = maxHeight)}>
+                <StepFour
+                  onSelect={setFullPackageId}
+                  next={goAhead}
+                  changeTitle={setStepFourTitle}
+                />
               </BottomSheetContent>
             )}
             {step === 4 && (
               <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
                 <StepFive post={post} setPost={setPost} next={goAhead} packageId={fullPackageId} />
+              </BottomSheetContent>
+            )}
+            {step === 5 && (
+              <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+                <StepSix onFinish={hideSheet} />
               </BottomSheetContent>
             )}
           </ContentWrapper>

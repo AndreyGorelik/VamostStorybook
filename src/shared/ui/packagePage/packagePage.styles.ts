@@ -33,4 +33,9 @@ export const createStyles = (theme: Theme) =>
     descriptions: {
       color: theme.colors.text,
     },
+    selectBtn: {
+      width: '100%',
+      marginTop: 15,
+      marginBottom: 5,
+    },
   });
