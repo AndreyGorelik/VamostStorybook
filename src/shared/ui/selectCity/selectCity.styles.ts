@@ -32,7 +32,9 @@ export const createStyles = (theme: Theme) =>
     close: {
       position: 'absolute',
       right: 15,
-      top: 15,
-      borderRadius: 99,
+      top: 35,
+      borderRadius: 44,
+      padding: 5,
+      zIndex: 15,
     },
   });

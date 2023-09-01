@@ -36,19 +36,19 @@ const RegisterScreen = () => {
               <Link href="/login">Sign in</Link>
             ) : (
               <Pressable onPress={() => setStep(step - 1)}>
-                <MaterialIcons name="arrow-back" size={24} color="black" />
+                <MaterialIcons name="arrow-back" size={24} color={theme.colors.primary} />
               </Pressable>
             )
           }
           headerRight={
             <Pressable>
-              <MaterialIcons name="close" size={24} color="black" />
+              <MaterialIcons name="close" size={24} color={theme.colors.primary} />
             </Pressable>
           }
         />
       ),
     });
-  }, [navigation, step]);
+  }, [navigation, step, theme.colors.primary]);
 
   return (
     <KeyboardAvoidingView
