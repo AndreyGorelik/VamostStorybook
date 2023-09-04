@@ -14,6 +14,7 @@ import { PostDateAndTimeProps } from './postDateAndTime.types';
 export default function PostDateAndTime({ date, setDate }: PostDateAndTimeProps) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+
   const theme = useTheme();
   const styles = createStyles(theme);
   const showDatePicker = () => {
