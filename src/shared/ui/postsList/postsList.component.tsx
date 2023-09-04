@@ -1,9 +1,9 @@
+import useTheme from '@shared/hooks/useTheme.hook';
 import { PostCard } from '@shared/ui/postCard';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 
 import { createStyles } from './postsList.styles';
 import { PostListProps } from './postsList.types';
-import useTheme from '@shared/hooks/useTheme.hook';
 
 export default function PostsList({ list }: PostListProps) {
   const styles = createStyles();
