@@ -5,13 +5,18 @@ import { PackageCard } from '@shared/ui/packageCard';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { Keyboard, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 import { PACKAGE_CARD_MOCK } from './stepFour.data';
 import { createStyles } from './stepOne.styles';
 import { PackageListItem, StepFourProps } from './stepOne.types';
-import { ScrollView } from 'react-native-gesture-handler';
 
-export default function StepFour({ onSelect, next, changeTitle }: StepFourProps) {
+export default function StepFour({
+  onSelect,
+  next,
+  changeTitle,
+  changeHeaderImage,
+}: StepFourProps) {
   const [search, setSearch] = useState('');
 
   const theme = useTheme();
@@ -23,6 +28,7 @@ export default function StepFour({ onSelect, next, changeTitle }: StepFourProps)
 
   const showFullPackage = (item: PackageListItem) => {
     changeTitle(item.title);
+    changeHeaderImage(item.uri);
     Keyboard.dismiss();
     onSelect(item.id);
     next();

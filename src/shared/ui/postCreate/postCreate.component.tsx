@@ -29,6 +29,8 @@ const PostCreate = () => {
   const [fullPackageId, setFullPackageId] = useState<string | null>(null);
   const [maxHeight, setMaxHeight] = useState<number>(0);
   const [stepFourTitle, setStepFourTitle] = useState('');
+  const [hasPerformedPreviousStep, setHasPerformedPreviousStep] = useState(false);
+  const [bottomSheetImageUri, setBottomSheetImageUri] = useState('');
   const [post, setPost] = useState<Post>({
     host: false,
     date: new Date(Date.now() + 24 * 60 * 60 * 1000),
@@ -77,15 +79,18 @@ const PostCreate = () => {
     setMaxHeight(e.nativeEvent.layout.height);
   };
 
-  const handleGestureEvent = ({ nativeEvent }: GestureEvent<PanGestureHandlerEventPayload>) => {
-    if (nativeEvent.translationX > 100) {
+  const goBackSwipe = ({ nativeEvent }: GestureEvent<PanGestureHandlerEventPayload>) => {
+    if (nativeEvent.translationX > 80 && !hasPerformedPreviousStep) {
       previousStep();
+      setHasPerformedPreviousStep(true);
+    } else if (nativeEvent.translationX <= 80 && hasPerformedPreviousStep) {
+      setHasPerformedPreviousStep(false);
     }
   };
 
   return (
     <GestureHandlerRootView style={styles.gestureHandlerRootView}>
-      <PanGestureHandler onGestureEvent={handleGestureEvent}>
+      <PanGestureHandler onGestureEvent={goBackSwipe}>
         <SafeAreaView style={styles.gestureHandlerRootView} onLayout={watchHeight}>
           <Button title="Open sheet" onPress={openSheet} />
           <BottomSheet
@@ -97,9 +102,7 @@ const PostCreate = () => {
             leftIconPress={previousStep}
             rightIconPress={hideSheet}
             headerStyle={step === 4 ? 'image' : 'default'}
-            uri={
-              'https://www.lovepanky.com/wp-content/uploads/2015/05/How-To-Look-And-Feel-Like-The-Hottest-Chick-In-The-Club.jpg'
-            }
+            uri={bottomSheetImageUri}
           >
             <ContentWrapper height={height} maxHeight={maxHeight} headerStyle="default">
               {step === 0 && (
@@ -123,6 +126,7 @@ const PostCreate = () => {
                     onSelect={setFullPackageId}
                     next={goAhead}
                     changeTitle={setStepFourTitle}
+                    changeHeaderImage={setBottomSheetImageUri}
                   />
                 </BottomSheetContent>
               )}

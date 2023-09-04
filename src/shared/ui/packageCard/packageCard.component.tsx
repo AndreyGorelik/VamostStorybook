@@ -5,7 +5,6 @@ import Text from '../text/text.component';
 
 import { createStyles } from './packageCard.styles';
 import { PackageCardProps } from './packageCard.types';
-
 export default function PackageCard({
   title,
   date,

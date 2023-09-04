@@ -37,4 +37,7 @@ export const createStyles = (theme: Theme) =>
       marginTop: 15,
       marginBottom: 5,
     },
+    gestureHandler: {
+      flex: 1,
+    },
   });

@@ -3,6 +3,7 @@ import React from 'react';
 export interface StepFourProps {
   onSelect: React.Dispatch<React.SetStateAction<string | null>>;
   changeTitle: React.Dispatch<React.SetStateAction<string>>;
+  changeHeaderImage: React.Dispatch<React.SetStateAction<string>>;
   next: () => void;
 }
 
