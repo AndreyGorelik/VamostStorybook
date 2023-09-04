@@ -65,7 +65,7 @@ const RegisterScreen = () => {
       {step === 7 && <Orientation goAhead={goAhead} />}
       {step === 8 && <ShowMe goAhead={goAhead} />}
       {step === 9 && <Photos goAhead={goAhead} />}
-      {step > 10 && <Redirect href="/home" />}
+      {step >= 10 && <Redirect href="/home" />}
     </KeyboardAvoidingView>
   );
 };
