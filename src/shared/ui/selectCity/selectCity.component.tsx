@@ -70,7 +70,7 @@ export default function SelectCity({ open, setOpen, setCity }: SelectCityProps) 
               />
             )}
           </View>
-          <ScrollView style={{ padding: 10 }}>
+          <ScrollView style={styles.listWrapper}>
             <SelectList
               listOptions={items}
               selected={info.city}

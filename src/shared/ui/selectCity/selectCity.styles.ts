@@ -21,6 +21,9 @@ export const createStyles = (theme: Theme) =>
       paddingHorizontal: 10,
       borderRadius: theme.styleConstants.borderRadius.small,
     },
+    listWrapper: {
+      padding: 10,
+    },
     input: {
       height: 70,
     },
