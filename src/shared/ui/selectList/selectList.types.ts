@@ -9,7 +9,7 @@ export type SelectListData = SelectListItem[];
 export interface SelectListProps {
   list: SelectListData;
   setList: React.Dispatch<React.SetStateAction<SelectListData>>;
-  maxSelectCount: number;
+  maxSelectCount?: number;
   textError?: string;
   moreOption?: boolean;
   moreAction?: (arg0: unknown) => void;

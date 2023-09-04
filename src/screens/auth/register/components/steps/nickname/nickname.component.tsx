@@ -1,29 +1,31 @@
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Button } from '@shared/ui/button';
 import { Input } from '@shared/ui/input';
 import Text from '@shared/ui/text/text.component';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
+import { registerNickname } from 'src/store/slices/authSlice';
 
 import { createStyles } from './nickname.styles';
-import { NicknameProps } from './nickname.types';
 
-export default function Code({ goAhead }: NicknameProps) {
+export default function Code() {
   const theme = useTheme();
   const styles = createStyles(theme);
-
+  const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.authSlice);
   const {
     control,
     handleSubmit,
     formState: { isValid },
   } = useForm({
     defaultValues: {
-      nickname: '',
+      nickName: '',
     },
   });
 
-  function onSubmit() {
-    goAhead();
+  function onSubmit(data: { nickName: string }) {
+    dispatch(registerNickname(data));
   }
 
   return (
@@ -41,13 +43,18 @@ export default function Code({ goAhead }: NicknameProps) {
           rules={{
             required: true,
           }}
-          name="nickname"
+          name="nickName"
           render={({ field: { onChange, onBlur, value } }) => (
             <Input onChangeText={onChange} onBlur={onBlur} value={value} placeholder="Nickname" />
           )}
         />
       </View>
-      <Button title="Continue" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
+      <Button
+        title="Continue"
+        onPress={handleSubmit(onSubmit)}
+        disabled={!isValid}
+        loading={isLoading}
+      />
     </View>
   );
 }

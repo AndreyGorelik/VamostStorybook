@@ -1,37 +1,40 @@
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Button } from '@shared/ui/button';
 import { CheckBox } from '@shared/ui/checkBox';
 import { SelectList } from '@shared/ui/selectList';
 import Text from '@shared/ui/text/text.component';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
+import { setNextStep } from 'src/store/slices/authSlice';
+import { setSexualOrientation } from 'src/store/slices/userSlice';
 
 import { ORIENTATION_MULTI_SELECT_DATA } from './orientation.data';
 import { createStyles } from './orientation.styles';
-import { OrientationProps, SelectListData, SelectListItem } from './orientation.types';
+import { SelectListData, SelectListItem } from './orientation.types';
 
-export default function Orientation({ goAhead }: OrientationProps) {
+export default function Orientation() {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.authSlice);
+
   const defaultValues: SelectListData = ORIENTATION_MULTI_SELECT_DATA?.map(
     (item: SelectListItem) => {
       return { ...item, selected: false };
     }
   );
   const [list, setList] = useState(defaultValues);
-  const [showOrientationInProfile, setShowOrientationInProfile] = useState(false);
-  const {
-    handleSubmit,
-    formState: { isValid },
-  } = useForm({
-    defaultValues: {
-      nickname: '',
-    },
-  });
 
   function onSubmit() {
-    goAhead();
+    const orientation = list.find((item) => item.selected)?.label;
+    dispatch(
+      setSexualOrientation({
+        isShown: false,
+        value: orientation,
+      })
+    );
+    dispatch(setNextStep());
   }
 
   return (
@@ -42,18 +45,15 @@ export default function Orientation({ goAhead }: OrientationProps) {
         <SelectList
           list={list}
           setList={setList}
-          maxSelectCount={3}
           textError="Maximum 3 orientations can be selected."
         />
       </View>
-      <View style={styles.checkBoxContainer}>
-        <CheckBox
-          value={showOrientationInProfile}
-          onChange={setShowOrientationInProfile}
-          label="Show my orientation on my profile"
-        />
-      </View>
-      <Button title="Continue" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
+      <Button
+        title="Continue"
+        onPress={onSubmit}
+        disabled={!list.some((item) => item.selected)}
+        loading={isLoading}
+      />
     </View>
   );
 }

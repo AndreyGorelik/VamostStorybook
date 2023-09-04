@@ -1,25 +1,38 @@
+import { LOGIN_USER } from '@shared/constants/actions';
+import { saveTokens } from '@shared/utils/saveTokens';
+import { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { LOGIN_USER, loginUserSuccess, setAuthError } from 'src/store/slices/authSlice';
+import { signInRequest } from 'src/api/signIn';
+import { loginUserSuccess, setIsLoading } from 'src/store/slices/authSlice';
+import { setAuthError } from 'src/store/slices/errorsSlice';
+import { setUser } from 'src/store/slices/userSlice';
+import { Action, LoginUser } from 'src/types/actions/actions.types';
+import { SignInResponse } from 'src/types/api/signIn.types';
 
-const logIn = async () => {
-  const request = await fetch('https://jsonplaceholder.typicode.com/todos/12');
-  const data = await request.json();
-
-  if (data.id === 1) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-function* logInRequestWorker() {
-  const data: boolean = yield call(logIn);
-
-  if (data) {
+function* logInRequestWorker(action: Action<LoginUser>) {
+  action.payload.phoneNumber = action.payload.phoneNumber.replace(/[^\d+]/g, '');
+  try {
+    yield put(setIsLoading(true));
+    const response: AxiosResponse<SignInResponse> = yield call(signInRequest, action.payload);
+    const data = response.data;
+    yield call(saveTokens, data.tokens.refresh, data.tokens.access, data.id);
+    yield put(
+      setUser({
+        birthdate: data.birthdate,
+        email: data.email,
+        gender: data.gender,
+        nickname: data.nickName,
+        phoneNumber: data.phoneNumber,
+        sexualOrientation: data.sexualOrientation,
+        shownGender: data.shownGender,
+      })
+    );
     yield put(loginUserSuccess());
     yield put(setAuthError(null));
-  } else {
+  } catch (error) {
     yield put(setAuthError('something went wrong'));
+  } finally {
+    yield put(setIsLoading(false));
   }
 }
 

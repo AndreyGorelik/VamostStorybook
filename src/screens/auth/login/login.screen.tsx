@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Button } from '@shared/ui/button';
 import { Input } from '@shared/ui/input';
@@ -8,6 +9,7 @@ import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, View } from 'react-native';
+import { loginUser } from 'src/store/slices/authSlice';
 
 import { createStyles } from './login.styles';
 import { LoginData } from './login.types';
@@ -16,8 +18,8 @@ export default function Login() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secure, setSecure] = useState<boolean>(true);
-  const [, setValues] = useState<LoginData | null>(null);
-
+  const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.authSlice);
   const {
     control,
     handleSubmit,
@@ -30,8 +32,7 @@ export default function Login() {
   });
 
   function onSubmit(value: LoginData) {
-    setValues(value);
-    router.replace('/home');
+    dispatch(loginUser(value));
   }
 
   return (
@@ -82,7 +83,12 @@ export default function Login() {
           )}
         />
       </View>
-      <Button title="Sign in" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
+      <Button
+        title="Sign in"
+        onPress={handleSubmit(onSubmit)}
+        disabled={!isValid}
+        loading={isLoading}
+      />
       <Pressable
         style={({ pressed }) => [
           styles.forgotPass,

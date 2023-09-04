@@ -16,6 +16,9 @@ export default ({ config }) => ({
     experiments: {
       tsconfigPaths: true,
     },
+    ios: {
+      config: { usesNonExemptEncryption: false },
+    },
     extra: {
       eas: {
         projectId: '6e5848a3-5310-4771-a7a3-080a97b247c8',

@@ -1,17 +1,39 @@
 import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
+import {
+  REGISTER_USER,
+  CONFIRM_CODE,
+  REGISTER_EMAIL,
+  REGISTER_NICKNAME,
+  REGISTER_ATTRIBUTES,
+  REGISTER_PHOTO,
+} from '@shared/constants/actions';
+
+import {
+  ConfirmCode,
+  LoginUser,
+  RegisterAttributes,
+  RegisterEmail,
+  RegisterNickname,
+  RegisterPhoto,
+  RegisterUser,
+} from '../../types/actions/actions.types';
+
+import { LOGIN_USER } from './userSlice';
 
 export interface AuthState {
   isAuth: boolean;
-  authError: string | null;
+  step: number;
+  isLoading: boolean;
 }
 
 const initialState: AuthState = {
   isAuth: false,
-  authError: null,
+  step: 1,
+  isLoading: false,
 };
 
-const settingsSlice = createSlice({
-  name: 'settingsSlice',
+const authSlice = createSlice({
+  name: 'authSlice',
   initialState,
   reducers: {
     loginUserSuccess(state) {
@@ -19,17 +41,34 @@ const settingsSlice = createSlice({
     },
     logoutUser(state) {
       state.isAuth = false;
-      state.authError = null;
     },
-    setAuthError(state, action: PayloadAction<string | null>) {
-      state.authError = action.payload;
+    setNextStep(state) {
+      state.step += 1;
+    },
+    setPrevStep(state) {
+      state.step -= 1;
+    },
+    setIsLoading(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
     },
   },
 });
 
-export const LOGIN_USER = 'users/loginUser';
-export const loginUser = createAction(LOGIN_USER);
+export const loginUser = createAction<LoginUser>(LOGIN_USER);
 
-export const { loginUserSuccess, logoutUser, setAuthError } = settingsSlice.actions;
+export const registerUser = createAction<RegisterUser>(REGISTER_USER);
 
-export default settingsSlice.reducer;
+export const confirmCode = createAction<ConfirmCode>(CONFIRM_CODE);
+
+export const registerEmail = createAction<RegisterEmail>(REGISTER_EMAIL);
+
+export const registerNickname = createAction<RegisterNickname>(REGISTER_NICKNAME);
+
+export const registerAttributes = createAction<RegisterAttributes>(REGISTER_ATTRIBUTES);
+
+export const registerPhoto = createAction<RegisterPhoto>(REGISTER_PHOTO);
+
+export const { loginUserSuccess, logoutUser, setNextStep, setPrevStep, setIsLoading } =
+  authSlice.actions;
+
+export default authSlice.reducer;
