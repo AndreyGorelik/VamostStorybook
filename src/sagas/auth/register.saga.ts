@@ -6,8 +6,8 @@ import {
   REGISTER_ATTRIBUTES,
   REGISTER_PHOTO,
 } from '@shared/constants/actions';
+import { saveTokens } from '@shared/utils/saveTokens';
 import Axios, { AxiosResponse } from 'axios';
-import * as SecureStore from 'expo-secure-store';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { confirmCodeRequest } from 'src/api/confirmCode';
 import { registerAttributesRequest } from 'src/api/registerAttributes';
@@ -35,16 +35,6 @@ import {
   RegisterUser,
 } from 'src/types/actions/actions.types';
 import { ConfirmCodeResponse } from 'src/types/api/confirmCode.types';
-
-async function saveTokens(refresh: string, access: string, userId: string) {
-  await SecureStore.setItemAsync('refresh', refresh);
-  await SecureStore.setItemAsync('userId', userId);
-  await SecureStore.setItemAsync('access', access);
-}
-
-async function getAccess() {
-  return await SecureStore.getItemAsync('access');
-}
 
 function* phoneAndPasswordRequestWorker(action: Action<RegisterUser>) {
   const { payload } = action;
@@ -98,13 +88,11 @@ function* confirmCodeWorker(action: Action<ConfirmCode>) {
 function* registerEmailWorker(action: Action<RegisterEmail>) {
   const { payload } = action;
 
-  const token: string = yield call(getAccess);
   try {
     yield put(setIsLoading(true));
 
     yield call(registerEmailRequest, {
       data: payload,
-      token,
     });
 
     yield put(setEmail(payload.email));
@@ -126,10 +114,9 @@ function* registerEmailWorker(action: Action<RegisterEmail>) {
 function* registerNicknameWorker(action: Action<RegisterNickname>) {
   const { payload } = action;
 
-  const token: string = yield call(getAccess);
   try {
     yield put(setIsLoading(true));
-    yield call(registerNicknameRequest, { data: payload, token });
+    yield call(registerNicknameRequest, { data: payload });
 
     yield put(setNickname(payload.nickName));
     yield put(setNicknameError(null));
@@ -150,12 +137,10 @@ function* registerNicknameWorker(action: Action<RegisterNickname>) {
 function* registerAttributesWorker(action: Action<RegisterAttributes>) {
   const { payload } = action;
 
-  const token: string = yield call(getAccess);
-
   try {
     yield put(setIsLoading(true));
 
-    yield call(registerAttributesRequest, { data: payload, token });
+    yield call(registerAttributesRequest, { data: payload });
 
     yield put(setShownGender(payload.shownGender));
     yield put(setNextStep());
@@ -175,11 +160,10 @@ function* registerAttributesWorker(action: Action<RegisterAttributes>) {
 function* registerPhotoWorker(action: Action<RegisterPhoto>) {
   const { payload } = action;
 
-  const token: string = yield call(getAccess);
   try {
     yield put(setIsLoading(true));
 
-    yield call(registerPhotoRequest, { data: payload, token });
+    yield call(registerPhotoRequest, { data: payload });
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {

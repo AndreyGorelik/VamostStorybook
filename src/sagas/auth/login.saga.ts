@@ -1,6 +1,6 @@
 import { LOGIN_USER } from '@shared/constants/actions';
+import { saveTokens } from '@shared/utils/saveTokens';
 import { AxiosResponse } from 'axios';
-import * as SecureStore from 'expo-secure-store';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { signInRequest } from 'src/api/signIn';
 import { loginUserSuccess, setIsLoading } from 'src/store/slices/authSlice';
@@ -8,12 +8,6 @@ import { setAuthError } from 'src/store/slices/errorsSlice';
 import { setUser } from 'src/store/slices/userSlice';
 import { Action, LoginUser } from 'src/types/actions/actions.types';
 import { SignInResponse } from 'src/types/api/signIn.types';
-
-async function saveTokens(refresh: string, access: string, userId: string) {
-  await SecureStore.setItemAsync('refresh', refresh);
-  await SecureStore.setItemAsync('userId', userId);
-  await SecureStore.setItemAsync('access', access);
-}
 
 function* logInRequestWorker(action: Action<LoginUser>) {
   action.payload.phoneNumber = action.payload.phoneNumber.replace(/[^\d+]/g, '');

@@ -39,4 +39,19 @@ axios.interceptors.response.use(
   }
 );
 
+axios.interceptors.request.use(
+  async (config) => {
+    const accessToken = await SecureStore.getItemAsync('access');
+
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 export default axios;

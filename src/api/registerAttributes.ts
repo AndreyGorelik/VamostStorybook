@@ -6,11 +6,6 @@ import { API_ROUTES } from './constants';
 
 export const registerAttributesRequest = async ({
   data,
-  token,
 }: RegisterAttributesRequest): Promise<AxiosResponse<string>> => {
-  return await axios.patch(`${API_ROUTES.baseUrl}${API_ROUTES.userAttributes}`, data, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  return await axios.patch(`${API_ROUTES.baseUrl}${API_ROUTES.userAttributes}`, data);
 };
