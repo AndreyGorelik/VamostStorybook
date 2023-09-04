@@ -7,5 +7,5 @@ import { API_ROUTES } from './constants';
 export const registerNicknameRequest = async ({
   data,
 }: RegisterNicknameRequest): Promise<AxiosResponse<string>> => {
-  return await axios.patch(`${API_ROUTES.baseUrl}${API_ROUTES.nickname}`, data);
+  return await axios.patch(`${API_ROUTES.nickname}`, data);
 };

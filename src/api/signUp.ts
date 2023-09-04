@@ -5,5 +5,5 @@ import axios from './axios';
 import { API_ROUTES } from './constants';
 
 export const signUpRequest = async (data: RegisterUser): Promise<AxiosResponse<string>> => {
-  return await axios.post(`${API_ROUTES.baseUrl}${API_ROUTES.signUp}`, data);
+  return await axios.post(`${API_ROUTES.signUp}`, data);
 };

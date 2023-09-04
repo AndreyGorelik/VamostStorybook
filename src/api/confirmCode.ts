@@ -8,5 +8,5 @@ import { API_ROUTES } from './constants';
 export const confirmCodeRequest = async (
   data: ConfirmCode
 ): Promise<AxiosResponse<ConfirmCodeResponse>> => {
-  return await axios.post(`${API_ROUTES.baseUrl}${API_ROUTES.confirm}`, data);
+  return await axios.post(`${API_ROUTES.confirm}`, data);
 };

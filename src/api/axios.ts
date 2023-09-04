@@ -3,12 +3,14 @@ import * as SecureStore from 'expo-secure-store';
 
 import { API_ROUTES } from './constants';
 
-const axios = Axios.create({});
+const axios = Axios.create({
+  baseURL: API_ROUTES.baseURL,
+});
 
 async function refreshAccessToken(refresh: string, userId: string) {
   const data = { refresh, userId };
 
-  const response = await axios.post(`${API_ROUTES.baseUrl}${API_ROUTES.refresh}`, data);
+  const response = await axios.post(`${API_ROUTES.refresh}`, data);
 
   return response.data;
 }

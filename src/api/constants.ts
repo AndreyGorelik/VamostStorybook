@@ -1,5 +1,5 @@
 export const API_ROUTES = {
-  baseUrl: 'https://kthuqqbzd2.execute-api.us-east-1.amazonaws.com/dev/',
+  baseURL: 'https://kthuqqbzd2.execute-api.us-east-1.amazonaws.com/dev/',
   signIn: 'auth/signin',
   signUp: 'auth/signup',
   confirm: 'auth/signup/confirm',

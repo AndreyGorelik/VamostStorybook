@@ -7,5 +7,5 @@ import { API_ROUTES } from './constants';
 export const registerEmailRequest = async ({
   data,
 }: RegisterEmailRequest): Promise<AxiosResponse<string>> => {
-  return await axios.patch(`${API_ROUTES.baseUrl}${API_ROUTES.email}`, data);
+  return await axios.patch(`${API_ROUTES.email}`, data);
 };

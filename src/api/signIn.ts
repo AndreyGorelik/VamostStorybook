@@ -6,5 +6,5 @@ import axios from './axios';
 import { API_ROUTES } from './constants';
 
 export const signInRequest = async (data: LoginUser): Promise<AxiosResponse<SignInResponse>> => {
-  return await axios.post(`${API_ROUTES.baseUrl}${API_ROUTES.signIn}`, data);
+  return await axios.post(`${API_ROUTES.signIn}`, data);
 };
