@@ -27,7 +27,7 @@ export default function Email() {
   });
 
   function onSubmit(data: { email: string }) {
-    dispatch(registerEmail(data));
+    dispatch(registerEmail({ email: data.email.toLowerCase() }));
   }
 
   return (
