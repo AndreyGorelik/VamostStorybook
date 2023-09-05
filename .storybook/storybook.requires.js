@@ -47,6 +47,7 @@ try {
 
 const getStories = () => {
   return {
+    "./src/shared/ui/action/action.stories.tsx": require("../src/shared/ui/action/action.stories.tsx"),
     "./src/shared/ui/birthdayInput/birthdayInput.stories.tsx": require("../src/shared/ui/birthdayInput/birthdayInput.stories.tsx"),
     "./src/shared/ui/bottomSheet/bottomSheet.stories.tsx": require("../src/shared/ui/bottomSheet/bottomSheet.stories.tsx"),
     "./src/shared/ui/button/button.stories.tsx": require("../src/shared/ui/button/button.stories.tsx"),

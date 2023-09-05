@@ -12,6 +12,8 @@ SplashScreen.preventAutoHideAsync();
 export default function Layout() {
   const [fontsLoaded] = useFonts({
     'NunitoSans10pt-Regular': require('src/assets/fonts/NunitoSans_10pt-Regular.ttf'),
+    'NunitoSans10pt-Bold': require('src/assets/fonts/NunitoSans_10pt-Bold.ttf'),
+    'NunitoSans10pt-SemiBold': require('src/assets/fonts/NunitoSans_10pt-SemiBold.ttf'),
   });
 
   const onLayoutRootView = useCallback(async () => {

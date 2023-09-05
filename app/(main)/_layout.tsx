@@ -8,6 +8,7 @@ import { Pressable } from 'react-native';
 export enum MainScreens {
   HOME = 'Home',
   USER = 'My posts',
+  ACCOUNT = 'My account',
 }
 
 export default function Layout() {
@@ -31,6 +32,12 @@ export default function Layout() {
         ),
       }}
     >
+      <Drawer.Screen
+        name="user/account"
+        options={{
+          drawerLabel: MainScreens.ACCOUNT,
+        }}
+      />
       <Drawer.Screen
         name="home/index"
         options={{
