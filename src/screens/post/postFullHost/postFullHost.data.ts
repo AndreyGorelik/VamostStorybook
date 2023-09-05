@@ -23,8 +23,8 @@ export const POST_FULL_HOST_DATA = {
   guestFemaleCount: 1,
   guestOtherCount: 1,
   guests: [
-    { guestPhoto: UserPic1, id: '1' },
-    { guestPhoto: UserPic2, id: '2' },
+    { photo: UserPic1, id: '1' },
+    { photo: UserPic2, id: '2' },
   ],
   requests: [
     {

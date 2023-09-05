@@ -18,8 +18,8 @@ export const POST_CARD_DATA = {
   guestFemaleCount: 1,
   guestOtherCount: 1,
   guests: [
-    { guestPhoto: UserPic1, id: '1' },
-    { guestPhoto: UserPic2, id: '2' },
+    { photo: UserPic1, id: '1' },
+    { photo: UserPic2, id: '2' },
   ],
   id: 'akjaskdf-asdfasdf-324234234',
 };

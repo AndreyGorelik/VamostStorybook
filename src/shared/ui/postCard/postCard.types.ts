@@ -6,7 +6,7 @@ export interface PostTag {
 }
 
 export interface PostGuests {
-  guestPhoto: ImageSourcePropType;
+  photo: ImageSourcePropType;
   name: string;
   id: string;
 }

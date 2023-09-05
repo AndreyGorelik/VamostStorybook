@@ -1,10 +1,11 @@
 import { POSTS } from '@screens/home/home.data';
 import useTheme from '@shared/hooks/useTheme.hook';
 import Text from '@shared/ui/text/text.component';
-import { useLocalSearchParams } from 'expo-router';
+import { Link, useLocalSearchParams } from 'expo-router';
 import { FlatList, Image, View } from 'react-native';
 
 import { createStyles } from './profilesList.styles';
+import { UserProfile } from './profilesList.types';
 
 export default function ProfilesList() {
   const params = useLocalSearchParams();
@@ -14,12 +15,19 @@ export default function ProfilesList() {
 
   const post = POSTS.find((item) => item.id === postId);
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item }: { item: UserProfile }) => {
     return (
-      <View style={styles.profile}>
-        <Image style={styles.profilePhoto} source={item.guestPhoto} />
-        <Text variant="h5">{item.name}</Text>
-      </View>
+      <Link
+        href={{
+          pathname: '/profileFull/',
+          params: { userId: item.id },
+        }}
+      >
+        <View style={styles.profile}>
+          <Image style={styles.profilePhoto} source={item.photo} />
+          <Text variant="h5">{item.name}</Text>
+        </View>
+      </Link>
     );
   };
 

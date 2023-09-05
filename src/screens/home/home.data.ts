@@ -18,8 +18,8 @@ export const POST_CARD_DATA = {
   guestFemaleCount: 1,
   guestOtherCount: 1,
   guests: [
-    { guestPhoto: UserPic1, id: '1', name: 'Natasha Romanoff' },
-    { guestPhoto: UserPic2, id: '2', name: 'Elena Belova' },
+    { photo: UserPic1, id: '1', name: 'Natasha Romanoff' },
+    { photo: UserPic2, id: '2', name: 'Elena Belova' },
   ],
   id: '1',
 };
@@ -40,8 +40,8 @@ export const POST_CARD_DATA_2 = {
   guestFemaleCount: 1,
   guestOtherCount: 1,
   guests: [
-    { guestPhoto: UserPic1, id: '1', name: 'Natasha Romanoff' },
-    { guestPhoto: UserPic2, id: '2', name: 'Elena Belova' },
+    { photo: UserPic1, id: '1', name: 'Natasha Romanoff' },
+    { photo: UserPic2, id: '2', name: 'Elena Belova' },
   ],
   id: '2',
 };

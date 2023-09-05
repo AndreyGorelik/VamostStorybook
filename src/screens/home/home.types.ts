@@ -16,6 +16,6 @@ export type PostCardData = {
   guestMaleCount: number;
   guestFemaleCount: number;
   guestOtherCount: number;
-  guests: { guestPhoto: typeof UserPic1 | typeof UserPic2; id: string; name: string }[];
+  guests: { photo: typeof UserPic1 | typeof UserPic2; id: string; name: string }[];
   id: string;
 };
