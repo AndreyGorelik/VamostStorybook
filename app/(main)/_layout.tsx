@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { DrawerToggleButton } from '@react-navigation/drawer';
 import useTheme from '@shared/hooks/useTheme.hook';
+import { CustomDrawerContent } from '@shared/ui/customDrawerContent';
 import { Header } from '@shared/ui/header';
 import { Drawer } from 'expo-router/drawer';
 import { Pressable } from 'react-native';
@@ -16,6 +17,7 @@ export default function Layout() {
 
   return (
     <Drawer
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         drawerActiveTintColor: theme.colors.drawerActive,
         drawerInactiveTintColor: theme.colors.drawerInactive,
@@ -33,7 +35,7 @@ export default function Layout() {
       }}
     >
       <Drawer.Screen
-        name="user/account"
+        name="user/account/index"
         options={{
           drawerLabel: MainScreens.ACCOUNT,
         }}
