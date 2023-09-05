@@ -1,41 +1,59 @@
 import useTheme from '@shared/hooks/useTheme.hook';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { OutlinedButton } from '../outlinedBtn';
+import Text from '../text/text.component';
 
 import { SelectListProps, SelectListItem } from './selectList.types';
 
-export default function SelectList({ list, setList }: SelectListProps) {
+export default function SelectList({
+  selected,
+  setSelected,
+  listOptions,
+  variant,
+}: SelectListProps) {
   const theme = useTheme();
-
-  const selectItem = (item: SelectListItem) => {
-    const updatedList = list.map((listItem: SelectListItem) => {
-      if (listItem.id === item.id) {
-        return { ...listItem, selected: !listItem.selected };
-      } else {
-        return { ...listItem, selected: false };
-      }
-    });
-
-    setList(updatedList);
+  const selectItem = (label: string) => {
+    setSelected(label);
   };
 
   return (
-    <View>
-      <ScrollView>
+    <>
+      {variant === 'buttonsList' && (
         <View style={{ gap: 10 }}>
-          {list.map((item: SelectListItem) => {
+          {listOptions.map((item: SelectListItem) => {
             return (
               <OutlinedButton
                 key={item.id}
                 title={item.label}
-                onPress={() => selectItem(item)}
-                color={item.selected ? theme.colors.selected : theme.colors.listItem}
+                onPress={() => selectItem(item.id)}
+                color={item.label === selected ? theme.colors.selected : theme.colors.text}
               />
             );
           })}
         </View>
-      </ScrollView>
-    </View>
+      )}
+      {variant === 'textList' && (
+        <View style={{ gap: 10 }}>
+          {listOptions.map((item: SelectListItem) => {
+            return (
+              <TouchableOpacity
+                activeOpacity={0.8}
+                key={item.id}
+                onPress={() => selectItem(item.id)}
+              >
+                <Text
+                  variant="h5"
+                  color={item.label === selected ? theme.colors.selected : theme.colors.text}
+                >
+                  {item.label}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      )}
+    </>
   );
 }
