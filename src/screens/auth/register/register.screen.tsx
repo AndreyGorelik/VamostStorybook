@@ -1,9 +1,11 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Header } from '@shared/ui/header';
 import { useNavigation, Link, Redirect } from 'expo-router';
 import { useLayoutEffect, useState } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
+import { setPrevStep } from 'src/store/slices/authSlice';
 
 import { Birthday } from './components/steps/birthday';
 import { Code } from './components/steps/code';
@@ -17,15 +19,12 @@ import { ShowMe } from './components/steps/showMe';
 import { createStyles } from './register.styles';
 
 const RegisterScreen = () => {
-  const [step, setStep] = useState<number>(1);
   const [number, setNumber] = useState<string>('');
   const theme = useTheme();
   const styles = createStyles(theme);
   const navigation = useNavigation();
-
-  function goAhead() {
-    setStep(step + 1);
-  }
+  const dispatch = useAppDispatch();
+  const { step } = useAppSelector((state) => state.authSlice);
 
   useLayoutEffect(() => {
     navigation.setOptions({

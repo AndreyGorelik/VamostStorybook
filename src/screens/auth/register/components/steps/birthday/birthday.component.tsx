@@ -1,3 +1,4 @@
+import { useAppDispatch } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { BirthdayInput } from '@shared/ui/birthdayInput';
 import { BirthdayErrors } from '@shared/ui/birthdayInput/birthdayInput.types';
@@ -7,13 +8,15 @@ import { validateDate } from '@shared/utils/dateValidate';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
+import { setNextStep } from 'src/store/slices/authSlice';
+import { setBirthdate } from 'src/store/slices/userSlice';
 
 import { createStyles } from './birthday.styles';
-import { BirthdayProps } from './birthday.types';
 
-export default function Birthday({ goAhead }: BirthdayProps) {
+export default function Birthday() {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const dispatch = useAppDispatch();
   const [errors, setErrors] = useState<BirthdayErrors>({
     month: false,
     day: false,
@@ -33,13 +36,13 @@ export default function Birthday({ goAhead }: BirthdayProps) {
   function onSubmit(value: { birthday: string }) {
     const [day, month, year] = value.birthday.split(',');
     const newErrors = validateDate(+day, +month, +year);
-
+    const formattedDate = `${year}-${month}-${day}`;
     if (Object.values(newErrors).some((value) => value === true)) {
       setErrors(newErrors);
       return;
     }
-
-    goAhead();
+    dispatch(setBirthdate(formattedDate));
+    dispatch(setNextStep());
   }
 
   return (

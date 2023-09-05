@@ -85,3 +85,5 @@ buck-out/
 .expo/*
 web-build/
 
+yarn.lock
+

@@ -1,34 +1,39 @@
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Button } from '@shared/ui/button';
 import { SelectList } from '@shared/ui/selectList';
 import Text from '@shared/ui/text/text.component';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
+import { registerAttributes } from 'src/store/slices/authSlice';
 
 import { ORIENTATION_RADIO_DATA } from './showMe.data';
 import { createStyles } from './showMe.styles';
-import { SelectListData, SelectListItem, ShowMeProps } from './showMe.types';
+import { SelectListData, SelectListItem } from './showMe.types';
 
-export default function ShowMe({ goAhead }: ShowMeProps) {
+export default function ShowMe() {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.authSlice);
+
   const defaultValues: SelectListData = ORIENTATION_RADIO_DATA?.map((item: SelectListItem) => {
     return { ...item, selected: false };
   });
   const [list, setList] = useState(defaultValues);
-
-  const {
-    handleSubmit,
-    formState: { isValid },
-  } = useForm({
-    defaultValues: {
-      nickname: '',
-    },
-  });
+  const { birthdate, gender, sexualOrientation } = useAppSelector((state) => state.userSlice);
 
   function onSubmit() {
-    goAhead();
+    const shownGender = list.find((item) => item.selected)?.label || 'Man';
+
+    dispatch(
+      registerAttributes({
+        birthdate,
+        gender,
+        sexualOrientation,
+        shownGender,
+      })
+    );
   }
 
   return (
@@ -38,7 +43,12 @@ export default function ShowMe({ goAhead }: ShowMeProps) {
       <View style={styles.content}>
         <SelectList list={list} setList={setList} maxSelectCount={1} />
       </View>
-      <Button title="Continue" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
+      <Button
+        title="Continue"
+        onPress={onSubmit}
+        disabled={!list.some((item) => item.selected)}
+        loading={isLoading}
+      />
     </View>
   );
 }
