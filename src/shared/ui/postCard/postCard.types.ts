@@ -7,6 +7,7 @@ export interface PostTag {
 
 export interface PostGuests {
   guestPhoto: ImageSourcePropType;
+  name: string;
   id: string;
 }
 
@@ -22,4 +23,5 @@ export interface PostCardProps {
   guestFemaleCount: number;
   guestOtherCount: number;
   guests: PostGuests[];
+  id: string;
 }

@@ -18,9 +18,10 @@ export const POST_CARD_DATA = {
   guestFemaleCount: 1,
   guestOtherCount: 1,
   guests: [
-    { guestPhoto: UserPic1, id: '1' },
-    { guestPhoto: UserPic2, id: '2' },
+    { guestPhoto: UserPic1, id: '1', name: 'Natasha Romanoff' },
+    { guestPhoto: UserPic2, id: '2', name: 'Elena Belova' },
   ],
+  id: '1',
 };
 
 export const POST_CARD_DATA_2 = {
@@ -39,20 +40,10 @@ export const POST_CARD_DATA_2 = {
   guestFemaleCount: 1,
   guestOtherCount: 1,
   guests: [
-    { guestPhoto: UserPic1, id: '1' },
-    { guestPhoto: UserPic2, id: '2' },
+    { guestPhoto: UserPic1, id: '1', name: 'Natasha Romanoff' },
+    { guestPhoto: UserPic2, id: '2', name: 'Elena Belova' },
   ],
+  id: '2',
 };
 
-export const POSTS = [
-  { id: 1, data: POST_CARD_DATA },
-  { id: 2, data: POST_CARD_DATA_2 },
-  { id: 3, data: POST_CARD_DATA },
-  { id: 4, data: POST_CARD_DATA_2 },
-  { id: 5, data: POST_CARD_DATA },
-  { id: 6, data: POST_CARD_DATA_2 },
-  { id: 7, data: POST_CARD_DATA },
-  { id: 8, data: POST_CARD_DATA_2 },
-  { id: 9, data: POST_CARD_DATA },
-  { id: 10, data: POST_CARD_DATA_2 },
-];
+export const POSTS = [POST_CARD_DATA, POST_CARD_DATA_2];

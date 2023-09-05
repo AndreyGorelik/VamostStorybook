@@ -12,7 +12,7 @@ export default function PostsList({ list }: PostListProps) {
   return (
     <FlatList
       data={list}
-      renderItem={({ item }) => <PostCard data={item.data} />}
+      renderItem={({ item }) => <PostCard data={item} />}
       keyExtractor={(item) => `${item.id}`}
       ItemSeparatorComponent={() => <View style={styles.separator}></View>}
       contentContainerStyle={styles.wrapper}

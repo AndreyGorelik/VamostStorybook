@@ -1,8 +1,7 @@
 import Photo from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
 import UserPic1 from '@assets/images/postCardImages/userpic1.webp';
 import UserPic2 from '@assets/images/postCardImages/userpic2.jpeg';
-
-import { PostData } from './posts.types';
+import { PostCardProps } from '@shared/ui/postCard/postCard.types';
 
 export const POST_CARD_DATA = {
   photo: Photo,
@@ -22,12 +21,9 @@ export const POST_CARD_DATA = {
     { guestPhoto: UserPic1, id: '1' },
     { guestPhoto: UserPic2, id: '2' },
   ],
+  id: 'akjaskdf-asdfasdf-324234234',
 };
 
-const POSTS_DATA: PostData[] = [];
-
-for (let i = 0; i < 10; i++) {
-  POSTS_DATA.push({ id: i, data: POST_CARD_DATA });
-}
+const POSTS_DATA: PostCardProps[] = [];
 
 export default POSTS_DATA;

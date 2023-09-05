@@ -2,7 +2,7 @@ import Photo from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
 import UserPic1 from '@assets/images/postCardImages/userpic1.webp';
 import UserPic2 from '@assets/images/postCardImages/userpic2.jpeg';
 
-export type PostsData = { id: number; data: PostCardData }[];
+export type PostsData = PostCardData[];
 
 export type PostCardData = {
   photo: typeof Photo;
@@ -16,5 +16,6 @@ export type PostCardData = {
   guestMaleCount: number;
   guestFemaleCount: number;
   guestOtherCount: number;
-  guests: { guestPhoto: typeof UserPic1 | typeof UserPic2; id: string }[];
+  guests: { guestPhoto: typeof UserPic1 | typeof UserPic2; id: string; name: string }[];
+  id: string;
 };

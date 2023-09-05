@@ -25,7 +25,7 @@ export default function Home() {
   const filteredPosts =
     filter === 'All'
       ? posts
-      : posts.filter((item) => item.data.type === filter.slice(0, filter.length - 1));
+      : posts.filter((item) => item.type === filter.slice(0, filter.length - 1));
 
   const theme = useTheme();
   const styles = createStyles(theme);

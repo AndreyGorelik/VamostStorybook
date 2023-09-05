@@ -1,6 +1,7 @@
 import useTheme from '@shared/hooks/useTheme.hook';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Link } from 'expo-router';
 import { View, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 
 import { OutlinedButton } from '../outlinedBtn';
@@ -11,6 +12,8 @@ import { createStyles } from './postCard.styles';
 import { PostCardProps } from './postCard.types';
 
 export default function PostCard({ data }: { data: PostCardProps }) {
+  // console.log(data);
+
   const theme = useTheme();
   const styles = createStyles(theme);
   return (
@@ -60,7 +63,14 @@ export default function PostCard({ data }: { data: PostCardProps }) {
             </Text>
           </View>
           <View style={styles.rowSpaceBetween}>
-            <UserPicGallery data={data.guests} />
+            <Link
+              href={{
+                pathname: '/profilesList/',
+                params: { postId: data },
+              }}
+            >
+              <UserPicGallery data={data.guests} />
+            </Link>
             <OutlinedButton
               title={'Lock'}
               onPress={() => Alert.alert('press')}
