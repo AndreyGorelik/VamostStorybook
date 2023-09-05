@@ -66,7 +66,7 @@ export default function PostCard({ data }: { data: PostCardProps }) {
             <Link
               href={{
                 pathname: '/profilesList/',
-                params: { postId: data },
+                params: { postId: data.id },
               }}
             >
               <UserPicGallery data={data.guests} />
