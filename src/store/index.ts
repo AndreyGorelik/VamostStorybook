@@ -16,14 +16,19 @@ import createSagaMiddleware from 'redux-saga';
 import rootSaga from '../sagas';
 
 import authSlice from './slices/authSlice';
+import errorsSlice from './slices/errorsSlice';
+import userSlice from './slices/userSlice';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  blacklist: ['errorsSlice'],
 };
 
 const rootReducer = combineReducers({
   authSlice,
+  userSlice,
+  errorsSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

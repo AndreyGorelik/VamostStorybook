@@ -1,16 +1,20 @@
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Button } from '@shared/ui/button';
 import { Input } from '@shared/ui/input';
 import Text from '@shared/ui/text/text.component';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
+import { registerEmail } from 'src/store/slices/authSlice';
 
 import { createStyles } from './email.styles';
-import { EmailProps } from './email.types';
 
-export default function Email({ goAhead }: EmailProps) {
+export default function Email() {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const dispatch = useAppDispatch();
+  const { emailError } = useAppSelector((state) => state.errorsSlice);
+  const { isLoading } = useAppSelector((state) => state.authSlice);
 
   const {
     control,
@@ -22,8 +26,8 @@ export default function Email({ goAhead }: EmailProps) {
     },
   });
 
-  function onSubmit() {
-    goAhead();
+  function onSubmit(data: { email: string }) {
+    dispatch(registerEmail(data));
   }
 
   return (
@@ -56,8 +60,14 @@ export default function Email({ goAhead }: EmailProps) {
             />
           )}
         />
+        {emailError && <Text variant="warning">{emailError}</Text>}
       </View>
-      <Button title="Continue" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
+      <Button
+        title="Continue"
+        onPress={handleSubmit(onSubmit)}
+        disabled={!isValid}
+        loading={isLoading}
+      />
     </View>
   );
 }

@@ -27,8 +27,8 @@ export default function SelectList({
               <OutlinedButton
                 key={item.id}
                 title={item.label}
-                onPress={() => selectItem(item.label)}
-                color={item.label === selected ? theme.colors.selected : theme.colors.text}
+                onPress={() => selectItem(item.id)}
+                color={item.id === selected ? theme.colors.selected : theme.colors.text}
               />
             );
           })}
@@ -41,11 +41,11 @@ export default function SelectList({
               <TouchableOpacity
                 activeOpacity={0.8}
                 key={item.id}
-                onPress={() => selectItem(item.label)}
+                onPress={() => selectItem(item.id)}
               >
                 <Text
                   variant="h5"
-                  color={item.label === selected ? theme.colors.selected : theme.colors.text}
+                  color={item.id === selected ? theme.colors.selected : theme.colors.text}
                 >
                   {item.label}
                 </Text>

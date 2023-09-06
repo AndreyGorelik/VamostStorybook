@@ -7,7 +7,7 @@ export type SelectListData = SelectListItem[];
 
 export interface SelectListProps {
   selected: string;
-  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  setSelected: (value: string) => void;
   listOptions: SelectListItem[];
   variant: 'textList' | 'buttonsList';
 }
