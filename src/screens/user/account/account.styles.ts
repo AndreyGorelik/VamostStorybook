@@ -54,6 +54,7 @@ export const createStyles = (theme: Theme) =>
     actions: {
       flexDirection: 'row',
       justifyContent: 'space-between',
+      flex: 1,
     },
     recentMeetups: {},
     meetupsWrapper: { columnGap: 20, paddingVertical: 15 },

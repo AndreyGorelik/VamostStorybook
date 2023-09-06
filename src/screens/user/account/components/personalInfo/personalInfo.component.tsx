@@ -1,33 +1,35 @@
-import useTheme from '@shared/hooks/useTheme.hook';
+import { useAppSelector } from '@shared/hooks/redux.hook';
+import Text from '@shared/ui/text/text.component';
+import { useForm, Controller } from 'react-hook-form';
 import { View } from 'react-native';
 
-import { createStyles } from './personalInfo.styles';
-import { useAppSelector } from '@shared/hooks/redux.hook';
-import { Input } from '@shared/ui/input';
-import { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
 import { InfoRow } from '../infoRow';
-import Text from '@shared/ui/text/text.component';
+
+import { createStyles } from './personalInfo.styles';
+import { PersonalInfoValues } from './personalInfo.types';
 
 export default function PersonalInfo() {
-  const theme = useTheme();
-  const styles = createStyles(theme);
-  const { email, nickname, birthdate, gender, phoneNumber, sexualOrientation } = useAppSelector(
-    (state) => state.userSlice
-  );
-  const [editable, setEditable] = useState<boolean>(false);
+  const styles = createStyles();
+  const { email, nickname, birthdate, gender, phoneNumber, sexualOrientation, shownGender } =
+    useAppSelector((state) => state.userSlice);
 
-  const { handleSubmit, control } = useForm({
+  const { control } = useForm<PersonalInfoValues>({
     defaultValues: {
       birthdate,
-      gender,
+      gender: gender.value,
       phoneNumber,
-      sexualOrientation,
+      sexualOrientation: sexualOrientation.value,
+      nickname,
+      email,
+      shownGender,
     },
   });
+
   return (
     <View>
-      <Text variant="h3">Personal info</Text>
+      <View style={styles.header}>
+        <Text variant="h3">Personal info</Text>
+      </View>
       <Controller
         control={control}
         name="birthdate"
@@ -36,7 +38,7 @@ export default function PersonalInfo() {
             title="Birthday"
             value={value}
             onChangeText={onChange}
-            editable={editable}
+            editable={false}
             onBlur={onBlur}
           />
         )}
@@ -48,31 +50,65 @@ export default function PersonalInfo() {
         render={({ field: { onChange, value, onBlur } }) => (
           <InfoRow
             title="Gender"
-            value={`${value.value}`}
+            value={`${value}`}
             onChangeText={onChange}
-            editable={editable}
+            editable={false}
             onBlur={onBlur}
           />
         )}
       />
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text variant="medium" width={130}>
-          Gender:
-        </Text>
-        <Input value={`${gender.value}`} editable={false} />
-      </View>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text variant="medium" width={130}>
-          Phone:
-        </Text>
-        <Input value={phoneNumber} editable={false} />
-      </View>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text variant="medium" width={130}>
-          Orientation:
-        </Text>
-        <Input value={`${sexualOrientation.value}`} editable={false} />
-      </View>
+      <Controller
+        control={control}
+        name="phoneNumber"
+        render={({ field: { onChange, value, onBlur } }) => (
+          <InfoRow
+            title="Phone"
+            value={value}
+            onChangeText={onChange}
+            editable={false}
+            onBlur={onBlur}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        name="sexualOrientation"
+        render={({ field: { onChange, value, onBlur } }) => (
+          <InfoRow
+            title="Orientation"
+            value={`${value}`}
+            onChangeText={onChange}
+            editable={false}
+            onBlur={onBlur}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        name="nickname"
+        render={({ field: { onChange, value, onBlur } }) => (
+          <InfoRow
+            title="Nickname"
+            value={value}
+            onChangeText={onChange}
+            editable={false}
+            onBlur={onBlur}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        name="email"
+        render={({ field: { onChange, value, onBlur } }) => (
+          <InfoRow
+            title="Email"
+            value={value}
+            onChangeText={onChange}
+            editable={false}
+            onBlur={onBlur}
+          />
+        )}
+      />
     </View>
   );
 }

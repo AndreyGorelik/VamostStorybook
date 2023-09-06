@@ -21,7 +21,7 @@ export default function ${folder}() {
 }`;
 
   // Create the index.ts file
-  const indexContent = `export { default as ${folder} } from './${folder}.component';`;
+  const indexContent = `export { default as ${folder} } from './${folderName}.component';`;
 
   // Create the [folder_name].styles.ts file
   const stylesContent = `

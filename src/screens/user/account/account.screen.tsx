@@ -1,15 +1,11 @@
 import Background from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
 import UserPic from '@assets/images/postCardImages/userpic2.jpeg';
-import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import Action from '@shared/ui/action/action.component';
 import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
-import { Input } from '@shared/ui/input';
 import Text from '@shared/ui/text/text.component';
 import { useNavigation } from 'expo-router';
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
 import {
   View,
   ScrollView,
@@ -19,28 +15,16 @@ import {
   ActivityIndicatorComponent,
 } from 'react-native';
 
-import { posts } from './account.data';
+import { actions, posts } from './account.data';
 import { createStyles } from './account.styles';
-import { InfoRow } from './components/infoRow';
+import { PersonalInfo } from './components/personalInfo';
 import { RecentMeetup } from './components/recentMeetup';
 
 export default function Account() {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const { email, nickname, birthdate, gender, phoneNumber, sexualOrientation } = useAppSelector(
-    (state) => state.userSlice
-  );
+  const { email, nickname } = useAppSelector((state) => state.userSlice);
   const navigation = useNavigation();
-  const [editable, setEditable] = useState<boolean>(false);
-
-  const { handleSubmit, control } = useForm({
-    defaultValues: {
-      birthdate,
-      gender,
-      phoneNumber,
-      sexualOrientation,
-    },
-  });
 
   function handleBack() {
     navigation.goBack();
@@ -72,34 +56,9 @@ export default function Account() {
       <HeaderButton onPress={handleBack} icon={'logout'} isBackground={true} variant="right" />
       <View style={styles.userContent}>
         <View style={styles.actions}>
-          <Action
-            Icon={<MaterialIcons size={26} name="share" color="white" />}
-            title="Share"
-            onPress={() => {
-              //fff
-            }}
-          />
-          <Action
-            Icon={<AntDesign size={26} name="heart" color="white" />}
-            title="Favorite"
-            onPress={() => {
-              //fff
-            }}
-          />
-          <Action
-            Icon={<Ionicons name="chatbubble-ellipses" size={24} color="white" />}
-            title="Chat"
-            onPress={() => {
-              //fff
-            }}
-          />
-          <Action
-            Icon={<MaterialIcons name="business-center" size={24} color="white" />}
-            title="Request"
-            onPress={() => {
-              //fff
-            }}
-          />
+          {actions.map((action) => (
+            <Action key={action.id} {...action} />
+          ))}
         </View>
         <View style={styles.recentMeetups}>
           <Text variant="h3">Recent meetups</Text>
@@ -109,11 +68,13 @@ export default function Account() {
             horizontal
             contentContainerStyle={styles.meetupsWrapper}
             maxToRenderPerBatch={5}
+            keyExtractor={(item) => `${item.id}`}
             ListEmptyComponent={() => (
               <ActivityIndicatorComponent size="large" color={theme.colors.primary} />
             )}
           />
         </View>
+        <PersonalInfo />
       </View>
     </ScrollView>
   );

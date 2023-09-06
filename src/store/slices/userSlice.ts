@@ -46,7 +46,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<UserState>) {
-      state = action.payload;
+      return { ...action.payload };
     },
     setPhoneNumber(state, action) {
       state.phoneNumber = action.payload;
