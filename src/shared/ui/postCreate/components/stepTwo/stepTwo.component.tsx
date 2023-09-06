@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -22,15 +22,6 @@ export default function StepTwo({ post, setPost, next }: StepTwoProps) {
   const [descriptionVisible, setDescriptionVisible] = useState(post.description || false);
   const [location] = useState(post.location);
   const [description, setDescription] = useState(post.description);
-  const [nextBtnDisabled, setNextBtnDisabled] = useState(false);
-
-  useEffect(() => {
-    if (date < new Date()) {
-      setNextBtnDisabled(true);
-    } else {
-      setNextBtnDisabled(false);
-    }
-  }, [date]);
 
   const changeDescriptionVisibility = () => {
     setDescription('');
@@ -70,6 +61,7 @@ export default function StepTwo({ post, setPost, next }: StepTwoProps) {
           tagsList={TAG_LIST_DATA}
         />
       </View>
+      {!selectedTagList.length && <Text variant="warning">Choose at least one tag</Text>}
       <View style={styles.row}>
         <Text>Where:</Text>
         <OutlinedButton title="Select..." borderRadius={25} width={150} onPress={selectWhere} />
@@ -84,7 +76,11 @@ export default function StepTwo({ post, setPost, next }: StepTwoProps) {
           <TextInput multiline={true} value={description} onChangeText={setDescription} />
         )}
       </View>
-      <Button title="Next" disabled={nextBtnDisabled} onPress={saveAndGoAhead} />
+      <Button
+        title="Next"
+        disabled={date < new Date() || selectedTagList.length === 0 ? true : false}
+        onPress={saveAndGoAhead}
+      />
     </View>
   );
 }
