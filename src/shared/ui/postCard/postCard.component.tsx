@@ -65,7 +65,7 @@ export default function PostCard({ data }: { data: PostCardProps }) {
           <View style={styles.rowSpaceBetween}>
             <Link
               href={{
-                pathname: '/profilesList/',
+                pathname: '/profileslist/',
                 params: { postId: data.id },
               }}
             >

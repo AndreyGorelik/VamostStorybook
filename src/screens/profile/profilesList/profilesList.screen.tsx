@@ -12,15 +12,14 @@ export default function ProfilesList() {
   const { postId } = params;
   const theme = useTheme();
   const styles = createStyles(theme);
-
   const post = POSTS.find((item) => item.id === postId);
 
   const renderItem = ({ item }: { item: UserProfile }) => {
     return (
       <Link
         href={{
-          pathname: '/profileFull/',
-          params: { userId: item.id },
+          pathname: '/profilefull/[id]',
+          params: { id: item.id },
         }}
       >
         <View style={styles.profile}>

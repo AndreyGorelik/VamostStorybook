@@ -8,7 +8,8 @@ import { createStyles } from './profileFull.styles';
 
 export default function ProfileFull() {
   const params = useLocalSearchParams();
-  const { userId: _userId } = params;
+  const { id: _id } = params;
+  console.log(_id);
 
   const theme = useTheme();
   const styles = createStyles(theme);

@@ -21,8 +21,8 @@ export default function ProfileLayout() {
         animation: 'none',
       }}
     >
-      <Stack.Screen name="profilesList/index" />
-      <Stack.Screen name="profileFull/index" />
+      <Stack.Screen name="profileslist/index" />
+      <Stack.Screen name="profilefull/[id]" />
     </Stack>
   );
 }
