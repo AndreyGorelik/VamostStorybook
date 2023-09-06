@@ -14,7 +14,7 @@ export default function StepSix({ onFinish }: StepSixProps) {
   return (
     <>
       <View style={styles.finishMessage}>
-        <FontAwesome name="check-circle" size={125} color={'black'} />
+        <FontAwesome name="check-circle" size={125} color={theme.colors.button} />
         <Text variant="h3">Post created!</Text>
       </View>
       <Button title="Finish" onPress={onFinish} />

@@ -18,7 +18,7 @@ import Button from '../button/button.component';
 import { StepFive } from './components/stepFive';
 import { StepFour } from './components/stepFour';
 import { StepOne } from './components/stepOne';
-import { StepSix } from './components/stepSIx';
+import { StepSix } from './components/stepSix';
 import { StepThree } from './components/stepThree';
 import { StepTwo } from './components/stepTwo';
 import { createStyles } from './postCreate.styles';
