@@ -2,6 +2,7 @@ import UserPic from '@assets/images/postCardImages/userpic2.jpeg';
 import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router';
 import { View, Pressable, Image, ImageBackground } from 'react-native';
 
 import Text from '../text/text.component';
@@ -13,8 +14,15 @@ export default function UserMenu() {
   const styles = createStyles(theme);
   const { email, nickname } = useAppSelector((state) => state.userSlice);
 
+  function handleNavigate() {
+    router.push('account');
+  }
+
   return (
-    <Pressable style={({ pressed }) => [styles.wrapper, { opacity: pressed ? 0.9 : 1 }]}>
+    <Pressable
+      style={({ pressed }) => [styles.wrapper, { opacity: pressed ? 0.9 : 1 }]}
+      onPress={handleNavigate}
+    >
       <ImageBackground style={styles.imageWrapper} imageStyle={{ opacity: 0.8 }} source={UserPic}>
         <LinearGradient
           colors={[theme.colors.primary, theme.colors.secondary]}
@@ -25,7 +33,13 @@ export default function UserMenu() {
         <View style={styles.userInfo}>
           <Image source={UserPic} style={styles.image} />
           <View style={styles.textWrapper}>
-            <Text variant="common" {...styles.text}>
+            <Text
+              variant="common"
+              {...styles.text}
+              ellipsizeMode="tail"
+              width={160}
+              numberOfLines={1}
+            >
               {email}
             </Text>
             <Text variant="common" {...styles.text}>

@@ -14,6 +14,7 @@ export default function Code() {
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.authSlice);
+  const { nicknameError } = useAppSelector((state) => state.errorsSlice);
   const {
     control,
     handleSubmit,
@@ -48,6 +49,7 @@ export default function Code() {
             <Input onChangeText={onChange} onBlur={onBlur} value={value} placeholder="Nickname" />
           )}
         />
+        {nicknameError && <Text variant="warning">{nicknameError}</Text>}
       </View>
       <Button
         title="Continue"

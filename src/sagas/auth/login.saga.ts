@@ -15,6 +15,7 @@ function* logInRequestWorker(action: Action<LoginUser>) {
     yield put(setIsLoading(true));
     const response: AxiosResponse<SignInResponse> = yield call(signInRequest, action.payload);
     const data = response.data;
+
     yield call(saveTokens, data.tokens.refresh, data.tokens.access, data.id);
     yield put(
       setUser({

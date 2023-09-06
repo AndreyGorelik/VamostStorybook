@@ -6,9 +6,7 @@ export default function Layout() {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="profile/index"
     >
-      <Stack.Screen name="profile/index" />
       <Stack.Screen name="post/postFullHost/index" />
       <Stack.Screen name="post/postFullGuest/index" />
     </Stack>

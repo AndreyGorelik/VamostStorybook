@@ -12,6 +12,12 @@ export enum MainScreens {
   ACCOUNT = 'My account',
 }
 
+export const MainScreensPaths: Record<MainScreens, string> = {
+  [MainScreens.HOME]: 'home/index',
+  [MainScreens.USER]: 'user/posts',
+  [MainScreens.ACCOUNT]: 'user/account/index',
+};
+
 export default function Layout() {
   const theme = useTheme();
 
@@ -35,19 +41,13 @@ export default function Layout() {
       }}
     >
       <Drawer.Screen
-        name="user/account/index"
-        options={{
-          drawerLabel: MainScreens.ACCOUNT,
-        }}
-      />
-      <Drawer.Screen
-        name="home/index"
+        name={MainScreensPaths['Home']}
         options={{
           drawerLabel: MainScreens.HOME,
         }}
       />
       <Drawer.Screen
-        name="user/posts"
+        name={MainScreensPaths['My posts']}
         options={{
           drawerLabel: MainScreens.USER,
         }}

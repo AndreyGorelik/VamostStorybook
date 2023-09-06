@@ -11,6 +11,7 @@ function Text({
   width,
   align,
   fontSize,
+  style,
   ...rest
 }: CustomText) {
   const settings: TextStyle = {
@@ -82,7 +83,7 @@ function Text({
   }
 
   return (
-    <NativeText style={[styles.text, settings]} {...rest}>
+    <NativeText style={[styles.text, settings, style]} {...rest}>
       {children}
     </NativeText>
   );

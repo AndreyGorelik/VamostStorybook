@@ -24,6 +24,8 @@ export const createStyles = (theme: Theme) =>
       flex: 1,
       flexDirection: 'row',
       padding: 10,
+      borderBottomLeftRadius: 15,
+      borderBottomRightRadius: 15,
     },
     userInfo: {
       flex: 1,
