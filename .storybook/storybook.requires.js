@@ -62,6 +62,7 @@ const getStories = () => {
     "./src/shared/ui/phoneInput/phoneInput.stories.tsx": require("../src/shared/ui/phoneInput/phoneInput.stories.tsx"),
     "./src/shared/ui/photoInput/photoInput.stories.tsx": require("../src/shared/ui/photoInput/photoInput.stories.tsx"),
     "./src/shared/ui/postCard/postCard.stories.tsx": require("../src/shared/ui/postCard/postCard.stories.tsx"),
+    "./src/shared/ui/postCreate/postCreate.stories.tsx": require("../src/shared/ui/postCreate/postCreate.stories.tsx"),
     "./src/shared/ui/postDateAndTime/postDateAndTime.stories.tsx": require("../src/shared/ui/postDateAndTime/postDateAndTime.stories.tsx"),
     "./src/shared/ui/request/request.stories.tsx": require("../src/shared/ui/request/request.stories.tsx"),
     "./src/shared/ui/selectList/selectList.stories.tsx": require("../src/shared/ui/selectList/selectList.stories.tsx"),

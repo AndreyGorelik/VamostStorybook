@@ -28,7 +28,7 @@ export default function SelectList({
                 key={item.id}
                 title={item.label}
                 onPress={() => selectItem(item.id)}
-                color={item.label === selected ? theme.colors.selected : theme.colors.text}
+                color={item.id === selected ? theme.colors.selected : theme.colors.text}
               />
             );
           })}
@@ -45,7 +45,7 @@ export default function SelectList({
               >
                 <Text
                   variant="h5"
-                  color={item.label === selected ? theme.colors.selected : theme.colors.text}
+                  color={item.id === selected ? theme.colors.selected : theme.colors.text}
                 >
                   {item.label}
                 </Text>

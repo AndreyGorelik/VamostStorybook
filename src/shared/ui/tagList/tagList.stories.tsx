@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import { SelectListData, SelectListItem } from '../selectList/selectList.types';
-
 import TagList from './tagList.component';
 import { TAG_LIST_DATA } from './tagList.data';
 export default {
@@ -10,12 +8,15 @@ export default {
 };
 
 const Template = () => {
-  const defaultValues: SelectListData = TAG_LIST_DATA?.map((item: SelectListItem) => {
-    return { ...item, selected: false };
-  });
-  const [list, setList] = useState(defaultValues);
+  const [selectedList, setSelectedList] = useState<string[]>([]);
 
-  return <TagList list={list} setList={setList} />;
+  return (
+    <TagList
+      selectedList={selectedList}
+      setSelectedList={setSelectedList}
+      tagsList={TAG_LIST_DATA}
+    />
+  );
 };
 
 export const Default = Template.bind({});
