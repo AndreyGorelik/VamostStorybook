@@ -30,7 +30,7 @@ export interface AuthState {
 
 const initialState: AuthState = {
   isAuth: false,
-  step: 1,
+  step: 0,
   isLoading: false,
   signUpFinished: false,
 };

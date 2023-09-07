@@ -2,7 +2,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Header } from '@shared/ui/header';
-import { useNavigation, Link } from 'expo-router';
+import { useNavigation, Link, Redirect } from 'expo-router';
 import { useLayoutEffect, useState } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
 import { setPrevStep } from 'src/store/slices/authSlice';
@@ -55,7 +55,7 @@ const RegisterScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       onTouchStart={() => Keyboard.dismiss()}
     >
-      {step === 1 && <PhoneAndPass setNumber={setNumber} />}
+      {step <= 1 && <PhoneAndPass setNumber={setNumber} />}
       {step === 2 && <Code number={number} />}
       {step === 3 && <Email />}
       {step === 4 && <Nickname />}
@@ -64,6 +64,7 @@ const RegisterScreen = () => {
       {step === 7 && <Orientation />}
       {step === 8 && <ShowMe />}
       {step === 9 && <Photos />}
+      {step >= 9 && <Redirect href="/home" />}
     </KeyboardAvoidingView>
   );
 };
