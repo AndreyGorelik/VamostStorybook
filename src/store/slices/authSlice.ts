@@ -25,12 +25,14 @@ export interface AuthState {
   isAuth: boolean;
   step: number;
   isLoading: boolean;
+  signUpFinished: boolean;
 }
 
 const initialState: AuthState = {
   isAuth: false,
   step: 1,
   isLoading: false,
+  signUpFinished: false,
 };
 
 const authSlice = createSlice({
@@ -55,6 +57,9 @@ const authSlice = createSlice({
     setIsLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
     },
+    setSignUpFinished(state, action: PayloadAction<boolean>) {
+      state.signUpFinished = action.payload;
+    },
   },
 });
 
@@ -74,7 +79,14 @@ export const registerPhoto = createAction<RegisterPhoto>(REGISTER_PHOTO);
 
 export const refresh = createAction(REFRESH);
 
-export const { loginUserSuccess, logoutUser, setNextStep, setPrevStep, setIsLoading, setStep } =
-  authSlice.actions;
+export const {
+  loginUserSuccess,
+  logoutUser,
+  setNextStep,
+  setPrevStep,
+  setIsLoading,
+  setStep,
+  setSignUpFinished,
+} = authSlice.actions;
 
 export default authSlice.reducer;

@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { refreshRequest } from 'src/api/refresh';
 import { signInRequest } from 'src/api/signIn';
-import { loginUserSuccess, logoutUser, setIsLoading } from 'src/store/slices/authSlice';
+import { loginUserSuccess, logoutUser, setIsLoading, setStep } from 'src/store/slices/authSlice';
 import { setAuthError } from 'src/store/slices/errorsSlice';
 import { setUser } from 'src/store/slices/userSlice';
 import { Action, LoginUser } from 'src/types/actions/actions.types';
