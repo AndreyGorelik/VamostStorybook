@@ -8,6 +8,7 @@ import { loginUserSuccess, logoutUser, setIsLoading } from 'src/store/slices/aut
 import { setAuthError } from 'src/store/slices/errorsSlice';
 import { setUser } from 'src/store/slices/userSlice';
 import { Action, LoginUser } from 'src/types/actions/actions.types';
+import { RefreshResponse } from 'src/types/api/refresh.types';
 import { SignInResponse } from 'src/types/api/signIn.types';
 
 function* logInRequestWorker(action: Action<LoginUser>) {
@@ -48,13 +49,17 @@ function* logInRequestWorker(action: Action<LoginUser>) {
 function* refreshRequestWorker() {
   try {
     yield put(setIsLoading(true));
-    yield call(refreshRequest);
+    const response: AxiosResponse<RefreshResponse> = yield call(refreshRequest);
+    const data = response.data;
+
+    yield call(saveTokens, data.tokens.refresh, data.tokens.access);
+
     yield put(loginUserSuccess());
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
         if (error.response.data) {
-          yield put(setAuthError(error.response.data));
+          yield put(setAuthError(error.response.data.message));
         }
       }
     }
