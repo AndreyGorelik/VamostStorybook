@@ -3,7 +3,6 @@ const path = require('path');
 
 function generateComponentFiles(parentFolder, folderName) {
   const folder = folderName[0].toUpperCase() + folderName.slice(1);
-  // Create the [folder_name].component.tsx file
   const componentContent = `
 import useTheme from '@shared/hooks/useTheme.hook';
 import { View } from 'react-native';
@@ -20,29 +19,22 @@ export default function ${folder}() {
   );
 }`;
 
-  // Create the index.ts file
   const indexContent = `export { default as ${folder} } from './${folderName}.component';`;
 
-  // Create the [folder_name].styles.ts file
   const stylesContent = `
 import { Theme } from '@shared/hooks/useTheme.hook';
 import { StyleSheet } from 'react-native';
 
 export const createStyles = (theme: Theme) => StyleSheet.create({
-  // Define your styles here
 });`;
 
-  // Create the [folder_name].types.ts file
   const typesContent = `interface ${folder}Props {
-  // Define your component's props here
 }
 
 export type { ${folder}Props };`;
 
-  // Create the folder for the component
   fs.mkdirSync(path.join(parentFolder, folderName));
 
-  // Write content to files
   fs.writeFileSync(
     path.join(parentFolder, folderName, `${folderName}.component.tsx`),
     componentContent
@@ -54,7 +46,6 @@ export type { ${folder}Props };`;
   console.log(`Generated files for ${folderName}`);
 }
 
-// Usage: node generateComponent.js FolderName
 const parentFolder = process.argv[2];
 const folderName = process.argv[3];
 
