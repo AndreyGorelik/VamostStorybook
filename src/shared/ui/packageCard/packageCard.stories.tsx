@@ -12,12 +12,14 @@ export default {
 
 const Template = () => {
   const theme = useTheme();
-
+  const onPress = () => {
+    return;
+  };
   return (
     <FlatList
       data={data}
       renderItem={({ item }) => (
-        <PackageCard {...item} date={format(new Date(item.date), 'EEEE MMM d')} />
+        <PackageCard {...item} date={format(new Date(item.date), 'EEEE MMM d')} onPress={onPress} />
       )}
       ItemSeparatorComponent={() => (
         <View style={{ height: 1, backgroundColor: theme.colors.imagePlaceholder }} />

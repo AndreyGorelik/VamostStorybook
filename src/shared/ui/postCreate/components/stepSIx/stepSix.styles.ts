@@ -3,13 +3,9 @@ import { StyleSheet } from 'react-native';
 
 export const createStyles = (_theme: Theme) =>
   StyleSheet.create({
-    row: {
-      flexDirection: 'row',
-      gap: 5,
-      flexWrap: 'wrap',
-    },
-    tagButton: {
-      padding: 5,
-      borderRadius: 5,
+    finishMessage: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingVertical: 50,
     },
   });
