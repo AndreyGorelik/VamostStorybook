@@ -26,7 +26,6 @@ export default function Account() {
   const styles = createStyles(theme);
   const { email, nickname } = useAppSelector((state) => state.userSlice);
   const navigation = useNavigation();
-  // console.log(images);
 
   function handleBack() {
     navigation.goBack();
