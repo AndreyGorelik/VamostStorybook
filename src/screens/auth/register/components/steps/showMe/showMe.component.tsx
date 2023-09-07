@@ -16,12 +16,17 @@ export default function ShowMe() {
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.authSlice);
+  const { birthdate, gender, sexualOrientation, shownGender } = useAppSelector(
+    (state) => state.userSlice
+  );
 
   const defaultValues: SelectListData = ORIENTATION_RADIO_DATA?.map((item: SelectListItem) => {
+    if (item.label === shownGender) {
+      return { ...item, selected: true };
+    }
     return { ...item, selected: false };
   });
   const [list, setList] = useState(defaultValues);
-  const { birthdate, gender, sexualOrientation } = useAppSelector((state) => state.userSlice);
 
   function onSubmit() {
     const shownGender = list.find((item) => item.selected)?.label || 'Man';

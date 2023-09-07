@@ -14,7 +14,7 @@ import { Input } from '../input';
 import { createStyles } from './birthdayInput.styles';
 import { BirthdayInputProps, BirthdayValues } from './birthdayInput.types';
 
-export default function BirthdayInput({ onChange, errors }: BirthdayInputProps) {
+export default function BirthdayInput({ onChange, errors, savedValues }: BirthdayInputProps) {
   const day1InputRef = useRef<TextInput>(null);
   const day2InputRef = useRef<TextInput>(null);
   const month1InputRef = useRef<TextInput>(null);
@@ -27,7 +27,7 @@ export default function BirthdayInput({ onChange, errors }: BirthdayInputProps) 
   const styles = createStyles(theme);
 
   const { control, watch } = useForm<BirthdayValues>({
-    defaultValues: {
+    defaultValues: savedValues || {
       month1: '',
       month2: '',
       day1: '',

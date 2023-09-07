@@ -18,19 +18,25 @@ export default function Gender() {
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.authSlice);
+  const { gender } = useAppSelector((state) => state.userSlice);
 
   const defaultValues: SelectListData = ORIENTATION_RADIO_DATA_WITH_OPTIONS?.map(
     (item: SelectListItem) => {
+      if (item.label === gender?.value) {
+        return { ...item, selected: true };
+      }
       return { ...item, selected: false };
     }
   );
   const [list, setList] = useState(defaultValues);
-  const [showMyGender, setShowMyGender] = useState(false);
+  const [showMyGender, setShowMyGender] = useState(
+    gender && gender.isShown ? gender.isShown : false
+  );
   function onSubmit() {
     const gender = list.find((item) => item.selected)?.label;
     dispatch(
       setGender({
-        isShown: false,
+        isShown: showMyGender,
         value: gender,
       })
     );

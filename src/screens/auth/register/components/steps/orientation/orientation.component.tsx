@@ -18,19 +18,26 @@ export default function Orientation() {
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.authSlice);
+  const { sexualOrientation } = useAppSelector((state) => state.userSlice);
 
   const defaultValues: SelectListData = ORIENTATION_MULTI_SELECT_DATA?.map(
     (item: SelectListItem) => {
+      if (item.label === sexualOrientation?.value) {
+        return { ...item, selected: true };
+      }
       return { ...item, selected: false };
     }
   );
   const [list, setList] = useState(defaultValues);
+  const [showMyOrientation, setShowMyOrientation] = useState(
+    sexualOrientation && sexualOrientation.isShown ? sexualOrientation.isShown : false
+  );
 
   function onSubmit() {
     const orientation = list.find((item) => item.selected)?.label;
     dispatch(
       setSexualOrientation({
-        isShown: false,
+        isShown: showMyOrientation,
         value: orientation,
       })
     );
@@ -46,6 +53,13 @@ export default function Orientation() {
           list={list}
           setList={setList}
           textError="Maximum 3 orientations can be selected."
+        />
+      </View>
+      <View style={styles.checkBoxContainer}>
+        <CheckBox
+          value={showMyOrientation}
+          onChange={setShowMyOrientation}
+          label="Show my orientation on my profile"
         />
       </View>
       <Button

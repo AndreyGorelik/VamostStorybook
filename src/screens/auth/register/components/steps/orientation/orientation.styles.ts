@@ -14,6 +14,6 @@ export const createStyles = (theme: Theme) =>
       rowGap: 15,
     },
     checkBoxContainer: {
-      marginVertical: 15,
+      marginBottom: 15,
     },
   });
