@@ -23,7 +23,6 @@ export default function HeaderImage({
     <View style={styles.header}>
       <ImageBackground source={{ uri: uri }} style={styles.image}>
         <LinearGradient
-          // Background Linear Gradient
           colors={[theme.colors.primary, theme.colors.placeholder]}
           start={{ x: 0.5, y: 1 }}
           end={{ x: 0.5, y: 0 }}

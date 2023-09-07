@@ -1,65 +1,43 @@
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
-import { Stack, useRouter, useSegments, useRootNavigationState } from 'expo-router';
+import { checkUserField } from '@shared/utils/checkUserFields';
+import { Stack, useRouter, useRootNavigationState } from 'expo-router';
 import { useEffect } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
+import { setStep } from 'src/store/slices/authSlice';
 
 import { AppWrapperProps } from './appWrapper.types';
-import { setStep } from 'src/store/slices/authSlice';
 
 export default function AppWrapper({ onLayoutRootView }: AppWrapperProps) {
   const router = useRouter();
 
   const { isAuth } = useAppSelector((state) => state.authSlice);
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.userSlice);
-  const segments = useSegments();
+
   const rootNavigationState = useRootNavigationState();
+  const user = useAppSelector((state) => state.userSlice);
+  const dispatch = useAppDispatch();
 
-  function checkUserField(user) {
-    const neccessaryFields = [
-      'email',
-      'nickname',
-      'birthdate',
-      'gender',
-      'orientation',
-      'showMe',
-      'images',
-    ];
-    let finished = false;
-
-    let step = neccessaryFields.findIndex((item) => item in user) + 3;
-    console.log(step, finished);
-
-    return { step, finished };
-  }
   function useProtectedRoute(isAuth: boolean) {
     useEffect(() => {
-      const inAuthGroup = segments[0] === '(auth)';
-      console.log(inAuthGroup, isAuth, segments);
+      if (!rootNavigationState || !rootNavigationState.key) return;
       const { step, finished } = checkUserField(user);
-      
-      if (!segments.length) return;
 
       if (!isAuth) {
         router.replace('/login');
         return;
-      } 
-      
+      }
       if (isAuth && !finished) {
-        console.log('2');
-        test(step);
+        dispatch(setStep(step));
+        router.push('/register');
         return;
       }
-       router.push('/home');
-      
+
+      if (isAuth && finished) {
+        router.push('/home');
+      }
     }, [isAuth]);
   }
-  useProtectedRoute(isAuth);
 
-  function test(step) {
-    dispatch(setStep(step));
-    router.replace('/register');
-  }
+  useProtectedRoute(isAuth);
 
   return (
     <SafeAreaView
@@ -69,6 +47,7 @@ export default function AppWrapper({ onLayoutRootView }: AppWrapperProps) {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="account/index" options={{ animation: 'slide_from_left' }} />
         <Stack.Screen name="(main)" options={{ animation: 'fade' }} />
+        <Stack.Screen name="(auth)" options={{ animation: 'fade' }} />
       </Stack>
     </SafeAreaView>
   );

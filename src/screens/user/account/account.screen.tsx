@@ -28,7 +28,6 @@ export default function Account() {
   const { email, nickname } = useAppSelector((state) => state.userSlice);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  // console.log(images);
 
   function handleBack() {
     navigation.goBack();

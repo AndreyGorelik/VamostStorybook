@@ -22,10 +22,10 @@ function* logInRequestWorker(action: Action<LoginUser>) {
       setUser({
         birthdate: data.birthdate && data.birthdate,
         email: data.email && data.email,
-        gender: data.gender?.value && JSON.parse(`${data.gender}`),
+        gender: data.gender && JSON.parse(data.gender),
         nickname: data.nickName && data.nickName,
         phoneNumber: data.phoneNumber && data.phoneNumber,
-        sexualOrientation: data.sexualOrientation?.value && JSON.parse(`${data.sexualOrientation}`),
+        sexualOrientation: data.sexualOrientation && JSON.parse(data.sexualOrientation),
         shownGender: data.shownGender && data.shownGender,
         images: data.images && data.images,
       })

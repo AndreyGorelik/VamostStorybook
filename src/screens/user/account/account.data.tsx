@@ -16,33 +16,25 @@ export const actions = [
   {
     id: 1,
     title: 'New',
-    onPress: () => {
-      //fff
-    },
+    onPress: () => {},
     Icon: <AntDesign size={26} name="pluscircle" color="white" />,
   },
   {
     id: 2,
     Icon: <MaterialIcons name="edit" size={24} color="white" />,
     title: 'Edit',
-    onPress: () => {
-      //fff
-    },
+    onPress: () => {},
   },
   {
     id: 3,
     Icon: <Ionicons name="people" size={24} color="white" />,
     title: 'Friends',
-    onPress: () => {
-      //fff
-    },
+    onPress: () => {},
   },
   {
     id: 4,
     Icon: <MaterialIcons size={26} name="share" color="white" />,
     title: 'Share',
-    onPress: () => {
-      //fff
-    },
+    onPress: () => {},
   },
 ];

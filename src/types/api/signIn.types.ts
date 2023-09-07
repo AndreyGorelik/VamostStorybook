@@ -4,23 +4,8 @@ export type SignInResponse = {
     refresh: string;
   };
   phoneNumber: string;
-  gender: {
-    value: 'Man' | 'Woman' | 'Other' | null;
-    isShown: boolean;
-  };
-  sexualOrientation: {
-    value:
-      | 'Straight'
-      | 'Gay'
-      | 'Lesbian'
-      | 'Bisexual'
-      | 'Asexual'
-      | 'Demisexual'
-      | 'Pansexual'
-      | 'Queer'
-      | null;
-    isShown: boolean;
-  };
+  gender: string;
+  sexualOrientation: string;
   nickName: string;
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   email: string;
