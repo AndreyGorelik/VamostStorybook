@@ -5,7 +5,8 @@ import { Header } from '@shared/ui/header';
 import { useNavigation, Link } from 'expo-router';
 import { useLayoutEffect, useState } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
-import { setPrevStep } from 'src/store/slices/authSlice';
+import { logoutUser, setPrevStep } from 'src/store/slices/authSlice';
+import { initialState, setUser } from 'src/store/slices/userSlice';
 
 import { Birthday } from './components/steps/birthday';
 import { Code } from './components/steps/code';
@@ -17,6 +18,7 @@ import { PhoneAndPass } from './components/steps/phoneAndPass';
 import { Photos } from './components/steps/photos';
 import { ShowMe } from './components/steps/showMe';
 import { createStyles } from './register.styles';
+import { removeTokens } from '@shared/utils/removeTokens';
 
 const RegisterScreen = () => {
   const [number, setNumber] = useState<string>('');
@@ -34,7 +36,16 @@ const RegisterScreen = () => {
             step === 1 ? (
               <Link href="/login">Sign in</Link>
             ) : (
-              <Pressable onPress={() => dispatch(setPrevStep())}>
+              <Pressable
+                onPress={() => {
+                  if (step <= 2) {
+                    dispatch(setUser(initialState));
+                    dispatch(logoutUser());
+                    removeTokens();
+                  }
+                  dispatch(setPrevStep());
+                }}
+              >
                 <MaterialIcons name="arrow-back" size={24} color={theme.colors.primary} />
               </Pressable>
             )

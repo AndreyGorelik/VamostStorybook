@@ -26,7 +26,7 @@ export interface UserState {
   images: string[];
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
   phoneNumber: '',
   email: '',
   nickname: '',
