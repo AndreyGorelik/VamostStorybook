@@ -17,7 +17,6 @@ export const actions = [
     id: 1,
     title: 'New',
     onPress: () => {
-      //fff
     },
     Icon: <AntDesign size={26} name="pluscircle" color="white" />,
   },
@@ -26,7 +25,6 @@ export const actions = [
     Icon: <MaterialIcons name="edit" size={24} color="white" />,
     title: 'Edit',
     onPress: () => {
-      //fff
     },
   },
   {
@@ -34,7 +32,6 @@ export const actions = [
     Icon: <Ionicons name="people" size={24} color="white" />,
     title: 'Friends',
     onPress: () => {
-      //fff
     },
   },
   {
@@ -42,7 +39,6 @@ export const actions = [
     Icon: <MaterialIcons size={26} name="share" color="white" />,
     title: 'Share',
     onPress: () => {
-      //fff
     },
   },
 ];
