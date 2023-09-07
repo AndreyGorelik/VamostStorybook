@@ -2,6 +2,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Header } from '@shared/ui/header';
+import { removeTokens } from '@shared/utils/removeTokens';
 import { useNavigation, Link } from 'expo-router';
 import { useLayoutEffect, useState } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
@@ -18,7 +19,6 @@ import { PhoneAndPass } from './components/steps/phoneAndPass';
 import { Photos } from './components/steps/photos';
 import { ShowMe } from './components/steps/showMe';
 import { createStyles } from './register.styles';
-import { removeTokens } from '@shared/utils/removeTokens';
 
 const RegisterScreen = () => {
   const [number, setNumber] = useState<string>('');
