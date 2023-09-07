@@ -75,8 +75,8 @@ function* confirmCodeWorker(action: Action<ConfirmCode>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data || error.response.data.message) {
-          yield put(setConfirmCodeError(error.response.data || error.response.data.message));
+        if (error.response.data && error.response.data.message) {
+          yield put(setConfirmCodeError(error.response.data.message));
         }
       }
     }

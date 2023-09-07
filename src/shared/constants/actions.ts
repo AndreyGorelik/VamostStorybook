@@ -11,3 +11,5 @@ export const REGISTER_NICKNAME = 'users/registerNickname';
 export const REGISTER_ATTRIBUTES = 'users/registerAttributes';
 
 export const REGISTER_PHOTO = 'users/registerPhotos';
+
+export const REFRESH = 'users/refresh';

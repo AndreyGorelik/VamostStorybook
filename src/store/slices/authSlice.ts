@@ -6,6 +6,7 @@ import {
   REGISTER_NICKNAME,
   REGISTER_ATTRIBUTES,
   REGISTER_PHOTO,
+  REFRESH,
 } from '@shared/constants/actions';
 
 import {
@@ -48,6 +49,9 @@ const authSlice = createSlice({
     setPrevStep(state) {
       state.step -= 1;
     },
+    setStep(state, action: PayloadAction<number>) {
+      state.step = action.payload;
+    },
     setIsLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
     },
@@ -68,7 +72,9 @@ export const registerAttributes = createAction<RegisterAttributes>(REGISTER_ATTR
 
 export const registerPhoto = createAction<RegisterPhoto>(REGISTER_PHOTO);
 
-export const { loginUserSuccess, logoutUser, setNextStep, setPrevStep, setIsLoading } =
+export const refresh = createAction(REFRESH);
+
+export const { loginUserSuccess, logoutUser, setNextStep, setPrevStep, setIsLoading, setStep } =
   authSlice.actions;
 
 export default authSlice.reducer;
