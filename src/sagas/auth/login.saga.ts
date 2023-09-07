@@ -1,6 +1,6 @@
 import { LOGIN_USER, REFRESH } from '@shared/constants/actions';
 import { saveTokens } from '@shared/utils/saveTokens';
-import { AxiosResponse } from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { refreshRequest } from 'src/api/refresh';
 import { signInRequest } from 'src/api/signIn';
@@ -33,7 +33,13 @@ function* logInRequestWorker(action: Action<LoginUser>) {
     yield put(loginUserSuccess());
     yield put(setAuthError(null));
   } catch (error) {
-    yield put(setAuthError('something went wrong'));
+    if (Axios.isAxiosError(error)) {
+      if (error.response) {
+        if (error.response.data) {
+          yield put(setAuthError(error.response.data));
+        }
+      }
+    }
   } finally {
     yield put(setIsLoading(false));
   }
@@ -45,7 +51,13 @@ function* refreshRequestWorker() {
     yield call(refreshRequest);
     yield put(loginUserSuccess());
   } catch (error) {
-    yield put(setAuthError('unauthorized'));
+    if (Axios.isAxiosError(error)) {
+      if (error.response) {
+        if (error.response.data) {
+          yield put(setAuthError(error.response.data));
+        }
+      }
+    }
     yield put(logoutUser());
   } finally {
     yield put(setIsLoading(false));

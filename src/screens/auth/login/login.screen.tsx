@@ -17,6 +17,7 @@ export default function Login() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secure, setSecure] = useState<boolean>(true);
+  const { authError } = useAppSelector((state) => state.errorsSlice);
 
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.authSlice);
@@ -82,6 +83,7 @@ export default function Login() {
             />
           )}
         />
+        {authError && <Text variant="warning">{authError}</Text>}
       </View>
       <Button
         title="Sign in"
