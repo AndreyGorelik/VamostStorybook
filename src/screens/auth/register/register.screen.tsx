@@ -2,7 +2,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Header } from '@shared/ui/header';
-import { useNavigation, Link } from 'expo-router';
+import { useNavigation, Link, Redirect } from 'expo-router';
 import { useLayoutEffect, useState } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
 import { setPrevStep } from 'src/store/slices/authSlice';
@@ -55,15 +55,16 @@ const RegisterScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       onTouchStart={() => Keyboard.dismiss()}
     >
-      {step === 1 && <PhoneAndPass setNumber={setNumber} />}
-      {step === 2 && <Code number={number} />}
-      {step === 3 && <Email />}
-      {step === 4 && <Nickname />}
-      {step === 5 && <Birthday />}
-      {step === 6 && <Gender />}
-      {step === 7 && <Orientation />}
-      {step === 8 && <ShowMe />}
-      {step === 9 && <Photos />}
+      {step <= 1 && <PhoneAndPass goAhead={goAhead} setNumber={setNumber} />}
+      {step === 2 && <Code goAhead={goAhead} number={number} />}
+      {step === 3 && <Email goAhead={goAhead} />}
+      {step === 4 && <Nickname goAhead={goAhead} />}
+      {step === 5 && <Birthday goAhead={goAhead} />}
+      {step === 6 && <Gender goAhead={goAhead} />}
+      {step === 7 && <Orientation goAhead={goAhead} />}
+      {step === 8 && <ShowMe goAhead={goAhead} />}
+      {step === 9 && <Photos goAhead={goAhead} />}
+      {step >= 10 && <Redirect href="/home" />}
     </KeyboardAvoidingView>
   );
 };

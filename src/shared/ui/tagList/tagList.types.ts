@@ -1,6 +1,10 @@
-import { SelectListData } from '../selectList/selectList.types';
+export interface TagsList {
+  id: string;
+  label: string;
+}
 
 export interface TagListProps {
-  list: SelectListData;
-  setList: React.Dispatch<React.SetStateAction<SelectListData>>;
+  selectedList: string[];
+  setSelectedList: React.Dispatch<React.SetStateAction<string[]>>;
+  tagsList: TagsList[];
 }

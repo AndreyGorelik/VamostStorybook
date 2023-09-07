@@ -6,5 +6,6 @@ export const createStyles = (theme: Theme) =>
     wrapper: {
       backgroundColor: theme.colors.background,
       flex: 1,
+      paddingHorizontal: 15,
     },
   });

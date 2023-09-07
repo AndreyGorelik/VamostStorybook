@@ -4,7 +4,6 @@ import { StyleSheet } from 'react-native';
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     wrapper: {
-      flex: 1,
       alignItems: 'flex-start',
       rowGap: 8,
     },
@@ -32,5 +31,13 @@ export const createStyles = (theme: Theme) =>
     },
     descriptions: {
       color: theme.colors.text,
+    },
+    selectBtn: {
+      width: '100%',
+      marginTop: 15,
+      marginBottom: 5,
+    },
+    gestureHandler: {
+      flex: 1,
     },
   });

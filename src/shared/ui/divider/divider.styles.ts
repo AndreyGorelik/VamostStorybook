@@ -4,9 +4,9 @@ import { StyleSheet } from 'react-native';
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     divider: {
-      width: '95%',
+      width: '100%',
       height: 1,
-      marginVertical: 15,
+      marginVertical: 3,
       borderRadius: 5,
       backgroundColor: theme.colors.divider,
       alignSelf: 'center',

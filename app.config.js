@@ -1,7 +1,7 @@
 export default ({ config }) => ({
   ...config,
   name: 'vamost',
-  slug: 'vamoose',
+  slug: 'vamost',
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
   },
@@ -11,8 +11,8 @@ export default ({ config }) => ({
   },
   plugins: ['expo-router'],
   expo: {
-    owner: 'zbsprod',
-    scheme: 'vamoose',
+    scheme: 'vamost',
+    owner: 'nicesolutions',
     experiments: {
       tsconfigPaths: true,
     },
@@ -21,11 +21,11 @@ export default ({ config }) => ({
     },
     extra: {
       eas: {
-        projectId: '6e5848a3-5310-4771-a7a3-080a97b247c8',
+        projectId: '3b3d0624-1ec0-46e4-b6a2-5348285f1931',
       },
     },
     updates: {
-      url: 'https://u.expo.dev/6e5848a3-5310-4771-a7a3-080a97b247c8',
+      url: 'https://u.expo.dev/3b3d0624-1ec0-46e4-b6a2-5348285f1931',
     },
     runtimeVersion: {
       policy: 'appVersion',

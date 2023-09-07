@@ -16,4 +16,5 @@ export const colors = {
   grayThird: '#f0f0f0',
   blackTransparetFull: 'rgba(0, 0, 0, 0)',
   blackTranparentQuarter: 'rgba(0, 0, 0, 0.75)',
+  blue: 'rgb(5, 99, 193)',
 };
