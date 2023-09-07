@@ -1,0 +1,1 @@
+export { default as PhotoContainer } from './photoContainer.component';

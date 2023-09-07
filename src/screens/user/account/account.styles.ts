@@ -5,6 +5,7 @@ export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     wrapper: {
       backgroundColor: theme.colors.background,
+      width: '100%',
     },
     linearGradient: {
       position: 'absolute',
@@ -56,6 +57,8 @@ export const createStyles = (theme: Theme) =>
       justifyContent: 'space-between',
       flex: 1,
     },
-    recentMeetups: {},
+    recentMeetups: {
+      width: '100%',
+    },
     meetupsWrapper: { columnGap: 20, paddingVertical: 15 },
   });

@@ -18,6 +18,7 @@ import {
 import { actions, posts } from './account.data';
 import { createStyles } from './account.styles';
 import { PersonalInfo } from './components/personalInfo';
+import { PersonalPhotos } from './components/personalPhotos';
 import { RecentMeetup } from './components/recentMeetup';
 
 export default function Account() {
@@ -25,6 +26,7 @@ export default function Account() {
   const styles = createStyles(theme);
   const { email, nickname } = useAppSelector((state) => state.userSlice);
   const navigation = useNavigation();
+  // console.log(images);
 
   function handleBack() {
     navigation.goBack();
@@ -75,6 +77,10 @@ export default function Account() {
           />
         </View>
         <PersonalInfo />
+        <View>
+          <Text variant="h3">Photos</Text>
+          <PersonalPhotos />
+        </View>
       </View>
     </ScrollView>
   );

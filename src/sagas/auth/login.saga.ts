@@ -21,11 +21,12 @@ function* logInRequestWorker(action: Action<LoginUser>) {
       setUser({
         birthdate: data.birthdate,
         email: data.email,
-        gender: data.gender,
+        gender: JSON.parse(`${data.gender}`),
         nickname: data.nickName,
         phoneNumber: data.phoneNumber,
-        sexualOrientation: data.sexualOrientation,
+        sexualOrientation: JSON.parse(`${data.sexualOrientation}`),
         shownGender: data.shownGender,
+        images: data.images,
       })
     );
     yield put(loginUserSuccess());
