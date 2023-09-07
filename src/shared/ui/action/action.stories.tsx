@@ -23,28 +23,24 @@ const Template = () => {
         Icon={<MaterialIcons size={26} name="share" color="white" />}
         title="Share"
         onPress={() => {
-          //fff
         }}
       />
       <Action
         Icon={<AntDesign size={26} name="heart" color="white" />}
         title="Favorite"
         onPress={() => {
-          //fff
         }}
       />
       <Action
         Icon={<Ionicons name="chatbubble-ellipses" size={24} color="white" />}
         title="Chat"
         onPress={() => {
-          //fff
         }}
       />
       <Action
         Icon={<MaterialIcons name="business-center" size={24} color="white" />}
         title="Request"
         onPress={() => {
-          //fff
         }}
       />
     </View>
