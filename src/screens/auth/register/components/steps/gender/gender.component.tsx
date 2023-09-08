@@ -23,6 +23,7 @@ export default function Gender() {
   const [showMyGender, setShowMyGender] = useState(
     gender && gender.isShown ? gender.isShown : false
   );
+
   function onSubmit() {
     dispatch(
       setGender({

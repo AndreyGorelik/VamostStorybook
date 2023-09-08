@@ -20,14 +20,12 @@ export default function ShowMe() {
   );
   const [selected, setSelected] = useState(shownGender ? shownGender : '');
   function onSubmit() {
-    const shownGender = selected;
-
     dispatch(
       registerAttributes({
         birthdate,
         gender,
         sexualOrientation,
-        shownGender,
+        shownGender: selected,
       })
     );
   }
