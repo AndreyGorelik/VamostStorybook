@@ -1,63 +1,38 @@
 import { useState } from 'react';
-import { Alert } from 'react-native';
 
 import SelectList from './selectList.component';
-import { ORIENTATION_MULTI_SELECT_DATA, ORIENTATION_RADIO_DATA } from './selectList.data';
-import { SelectListData, SelectListItem } from './selectList.types';
+import { SEXUAL_ORIENTATION_DATA, SHOW_ME_DATA } from './selectList.data';
 
 export default {
   title: 'SelectList',
   component: SelectList,
 };
 
-const MultiSelectTemplate = () => {
-  const defaultValues: SelectListData = ORIENTATION_MULTI_SELECT_DATA?.map(
-    (item: SelectListItem) => {
-      return { ...item, selected: false };
-    }
-  );
-  const [list, setList] = useState(defaultValues);
+const TextList = () => {
+  const [selected, setSelected] = useState<string>('');
 
   return (
     <SelectList
-      list={list}
-      setList={setList}
-      maxSelectCount={3}
-      textError="Maximum 3 orientations can be selected."
+      selected={selected}
+      setSelected={setSelected}
+      variant="textList"
+      listOptions={SEXUAL_ORIENTATION_DATA}
     />
   );
 };
 
-const RadioButtonSelectTemplate = () => {
-  const defaultValues: SelectListData = ORIENTATION_RADIO_DATA?.map((item: SelectListItem) => {
-    return { ...item, selected: false };
-  });
-  const [list, setList] = useState(defaultValues);
-
-  return <SelectList list={list} setList={setList} maxSelectCount={1} />;
-};
-
-const RadioButtonSelectTemplateWithMore = () => {
-  const defaultValues: SelectListData = ORIENTATION_RADIO_DATA?.map((item: SelectListItem) => {
-    return { ...item, selected: false };
-  });
-  const [list, setList] = useState(defaultValues);
-
-  const doSomething = () => {
-    Alert.alert('additional function');
-  };
+const BtnList = () => {
+  const [selected, setSelected] = useState<string>('');
 
   return (
     <SelectList
-      list={list}
-      setList={setList}
-      maxSelectCount={1}
-      moreOption={true}
-      moreAction={doSomething}
+      selected={selected}
+      setSelected={setSelected}
+      variant="buttonsList"
+      listOptions={SHOW_ME_DATA}
     />
   );
 };
 
-export const Default = MultiSelectTemplate.bind({});
-export const RadioButtonSelect = RadioButtonSelectTemplate.bind({});
-export const WithMoreOptions = RadioButtonSelectTemplateWithMore.bind({});
+export const Default = TextList.bind({});
+export const ButtonsList = BtnList.bind({});

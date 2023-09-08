@@ -18,7 +18,7 @@ export const createStyles = (theme: Theme) =>
       gap: 5,
       flexWrap: 'wrap',
       alignItems: 'center',
-      borderRadius: 10,
+      borderRadius: 20,
       borderColor: theme.colors.border,
       borderWidth: 1,
       padding: 5,
