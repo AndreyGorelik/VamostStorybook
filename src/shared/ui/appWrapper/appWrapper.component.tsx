@@ -10,34 +10,34 @@ import { AppWrapperProps } from './appWrapper.types';
 export default function AppWrapper({ onLayoutRootView }: AppWrapperProps) {
   const router = useRouter();
 
-  const { isAuth } = useAppSelector((state) => state.authSlice);
+  const { isAuth, signUpFinished } = useAppSelector((state) => state.authSlice);
 
   const rootNavigationState = useRootNavigationState();
   const user = useAppSelector((state) => state.userSlice);
   const dispatch = useAppDispatch();
 
-  function useProtectedRoute(isAuth: boolean) {
+  function useProtectedRoute(isAuth: boolean, signUpFinished: boolean) {
     useEffect(() => {
       if (!rootNavigationState || !rootNavigationState.key) return;
       const { step, finished } = checkUserField(user);
 
       if (!isAuth) {
-        router.replace('/login');
+        router.push('/login');
         return;
       }
-      if (isAuth && !finished) {
+      if (isAuth && !finished && !signUpFinished) {
         dispatch(setStep(step));
         router.push('/register');
         return;
       }
 
-      if (isAuth && finished) {
+      if (isAuth && (signUpFinished || finished)) {
         router.push('/home');
       }
-    }, [isAuth]);
+    }, [isAuth, signUpFinished]);
   }
 
-  useProtectedRoute(isAuth);
+  useProtectedRoute(isAuth, signUpFinished);
 
   return (
     <SafeAreaView

@@ -8,6 +8,7 @@ export interface UserState {
     value: 'Man' | 'Woman' | 'Other' | null;
     isShown: boolean;
   };
+  phoneVerified: boolean;
   sexualOrientation: {
     value:
       | 'Straight'
@@ -41,6 +42,7 @@ export const initialState: UserState = {
   shownGender: null,
   birthdate: '',
   images: [],
+  phoneVerified: false,
 };
 
 const userSlice = createSlice({

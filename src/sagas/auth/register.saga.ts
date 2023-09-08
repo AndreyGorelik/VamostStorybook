@@ -15,7 +15,12 @@ import { registerEmailRequest } from 'src/api/registerEmail';
 import { registerNicknameRequest } from 'src/api/registerNickname';
 import { registerPhotoRequest } from 'src/api/registerPhoto';
 import { signUpRequest } from 'src/api/signUp';
-import { setIsLoading, setNextStep } from 'src/store/slices/authSlice';
+import {
+  loginUserSuccess,
+  setIsLoading,
+  setNextStep,
+  setSignUpFinished,
+} from 'src/store/slices/authSlice';
 import {
   setAttributesError,
   setConfirmCodeError,
@@ -71,6 +76,7 @@ function* confirmCodeWorker(action: Action<ConfirmCode>) {
     const { access, refresh } = request.data.tokens;
     const userId = request.data.userId;
     yield call(saveTokens, refresh, access, userId);
+    yield put(loginUserSuccess());
     yield put(setNextStep());
   } catch (error) {
     if (Axios.isAxiosError(error)) {
@@ -157,13 +163,15 @@ function* registerAttributesWorker(action: Action<RegisterAttributes>) {
   }
 }
 
-function* registerPhotoWorker(action: Action<RegisterPhoto>) {
+function* registerPhotoWorker(action: Action<RegisterPhoto[]>) {
   const { payload } = action;
 
   try {
     yield put(setIsLoading(true));
-
-    yield call(registerPhotoRequest, { data: payload });
+    for (const image of payload) {
+      yield call(registerPhotoRequest, { data: image });
+    }
+    yield put(setSignUpFinished(true));
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {

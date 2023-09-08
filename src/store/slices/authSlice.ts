@@ -44,6 +44,7 @@ const authSlice = createSlice({
     },
     logoutUser(state) {
       state.isAuth = false;
+      state.signUpFinished = false;
     },
     setNextStep(state) {
       state.step += 1;
@@ -75,7 +76,7 @@ export const registerNickname = createAction<RegisterNickname>(REGISTER_NICKNAME
 
 export const registerAttributes = createAction<RegisterAttributes>(REGISTER_ATTRIBUTES);
 
-export const registerPhoto = createAction<RegisterPhoto>(REGISTER_PHOTO);
+export const registerPhoto = createAction<RegisterPhoto[]>(REGISTER_PHOTO);
 
 export const refresh = createAction(REFRESH);
 

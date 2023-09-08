@@ -27,9 +27,8 @@ export default function Photos() {
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
   function onSubmit() {
-    images.forEach((item) => {
-      dispatch(registerPhoto({ imageData: item.imageData }));
-    });
+    const photos = images.map((image) => ({ imageData: image.imageData }));
+    dispatch(registerPhoto(photos));
   }
 
   const pickImage = async (id: number) => {

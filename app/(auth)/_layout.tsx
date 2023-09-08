@@ -4,6 +4,7 @@ import { Header } from '@shared/ui/header';
 import { Link, Stack } from 'expo-router';
 import { Pressable } from 'react-native';
 import { setStep } from 'src/store/slices/authSlice';
+import { initialState, setUser } from 'src/store/slices/userSlice';
 
 export default function AuthLayout() {
   const dispatch = useAppDispatch();
@@ -16,7 +17,13 @@ export default function AuthLayout() {
           header: () => (
             <Header
               headerLeft={
-                <Link href="/register" onPress={() => dispatch(setStep(1))}>
+                <Link
+                  href="/register"
+                  onPress={() => {
+                    dispatch(setStep(1));
+                    dispatch(setUser(initialState));
+                  }}
+                >
                   Sign up
                 </Link>
               }

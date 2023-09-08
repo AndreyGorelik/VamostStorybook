@@ -15,6 +15,7 @@ import {
   ActivityIndicatorComponent,
 } from 'react-native';
 import { logoutUser } from 'src/store/slices/authSlice';
+import { initialState, setUser } from 'src/store/slices/userSlice';
 
 import { actions, posts } from './account.data';
 import { createStyles } from './account.styles';
@@ -58,7 +59,10 @@ export default function Account() {
       </ImageBackground>
       <HeaderButton onPress={handleBack} icon={'arrow-back'} isBackground={true} variant="left" />
       <HeaderButton
-        onPress={() => dispatch(logoutUser())}
+        onPress={() => {
+          dispatch(logoutUser());
+          dispatch(setUser(initialState));
+        }}
         icon={'logout'}
         isBackground={true}
         variant="right"

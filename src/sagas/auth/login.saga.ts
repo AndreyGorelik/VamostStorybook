@@ -28,7 +28,8 @@ function* logInRequestWorker(action: Action<LoginUser>) {
         phoneNumber: data.phoneNumber && data.phoneNumber,
         sexualOrientation: data.sexualOrientation && JSON.parse(data.sexualOrientation),
         shownGender: data.shownGender && data.shownGender,
-        images: data.images && data.images,
+        images: data.image && data.image,
+        phoneVerified: data.phoneVerified && data.phoneVerified,
       })
     );
     yield put(loginUserSuccess());
