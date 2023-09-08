@@ -30,7 +30,7 @@ export default function Orientation() {
     dispatch(
       setSexualOrientation({
         isShown: showMyOrientation,
-        value: selected,
+        value: ORIENTATION_MULTI_SELECT_DATA.find((item) => item.id === selected)?.label,
       })
     );
     dispatch(setNextStep());

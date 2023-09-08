@@ -136,7 +136,6 @@ function* registerNicknameWorker(action: Action<RegisterNickname>) {
 
 function* registerAttributesWorker(action: Action<RegisterAttributes>) {
   const { payload } = action;
-
   try {
     yield put(setIsLoading(true));
 

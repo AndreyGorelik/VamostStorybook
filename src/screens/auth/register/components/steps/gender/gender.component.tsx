@@ -19,15 +19,16 @@ export default function Gender() {
   const { isLoading } = useAppSelector((state) => state.authSlice);
   const { gender } = useAppSelector((state) => state.userSlice);
 
-  const [selected, setSelected] = useState(gender && gender.value ? gender.value : '');
+  const [selected, setSelected] = useState(gender.value ? gender.value : '');
   const [showMyGender, setShowMyGender] = useState(
     gender && gender.isShown ? gender.isShown : false
   );
+
   function onSubmit() {
     dispatch(
       setGender({
         isShown: showMyGender,
-        value: selected,
+        value: ORIENTATION_RADIO_DATA_WITH_OPTIONS.find((item) => item.id === selected)!.label,
       })
     );
     dispatch(setNextStep());

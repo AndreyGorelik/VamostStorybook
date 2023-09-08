@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { OutlinedButton } from '../outlinedBtn';
 import Text from '../text/text.component';
 
+import { createStyles } from './selectList.styles';
 import { SelectListProps, SelectListItem } from './selectList.types';
 
 export default function SelectList({
@@ -18,10 +19,12 @@ export default function SelectList({
     setSelected(label);
   };
 
+  const styles = createStyles(theme);
+
   return (
     <>
       {variant === 'buttonsList' && (
-        <View style={{ gap: 10 }}>
+        <View style={styles.btnList}>
           {listOptions.map((item: SelectListItem) => {
             return (
               <OutlinedButton

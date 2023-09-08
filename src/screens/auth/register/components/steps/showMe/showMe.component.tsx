@@ -9,7 +9,6 @@ import { registerAttributes } from 'src/store/slices/authSlice';
 
 import { ORIENTATION_RADIO_DATA } from './showMe.data';
 import { createStyles } from './showMe.styles';
-import { SelectListData, SelectListItem } from './showMe.types';
 
 export default function ShowMe() {
   const theme = useTheme();
@@ -20,23 +19,15 @@ export default function ShowMe() {
     (state) => state.userSlice
   );
 
-  const defaultValues: SelectListData = ORIENTATION_RADIO_DATA?.map((item: SelectListItem) => {
-    if (item.label === shownGender) {
-      return { ...item, selected: true };
-    }
-    return { ...item, selected: false };
-  });
-  const [list, setList] = useState(defaultValues);
+  const [selected, setSelected] = useState(shownGender ? shownGender : '');
 
   function onSubmit() {
-    const shownGender = list.find((item) => item.selected)?.label || 'Man';
-
     dispatch(
       registerAttributes({
         birthdate,
         gender,
         sexualOrientation,
-        shownGender,
+        shownGender: ORIENTATION_RADIO_DATA.find((item) => item.id === selected)!.value,
       })
     );
   }
@@ -46,14 +37,14 @@ export default function ShowMe() {
       <Text variant="h2">Show me</Text>
 
       <View style={styles.content}>
-        <SelectList list={list} setList={setList} maxSelectCount={1} />
+        <SelectList
+          listOptions={ORIENTATION_RADIO_DATA}
+          selected={selected}
+          setSelected={setSelected}
+          variant="buttonsList"
+        />
       </View>
-      <Button
-        title="Continue"
-        onPress={onSubmit}
-        disabled={!list.some((item) => item.selected)}
-        loading={isLoading}
-      />
+      <Button title="Continue" onPress={onSubmit} disabled={!selected} loading={isLoading} />
     </View>
   );
 }
