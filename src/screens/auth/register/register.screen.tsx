@@ -6,7 +6,7 @@ import { removeTokens } from '@shared/utils/removeTokens';
 import { useNavigation, Link } from 'expo-router';
 import { useLayoutEffect, useState } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
-import { logoutUser, setPrevStep } from 'src/store/slices/authSlice';
+import { logoutUser, setPrevStep, setStep } from 'src/store/slices/authSlice';
 import { initialState, setUser } from 'src/store/slices/userSlice';
 
 import { Birthday } from './components/steps/birthday';
@@ -51,7 +51,14 @@ const RegisterScreen = () => {
             )
           }
           headerRight={
-            <Pressable>
+            <Pressable
+              onPress={() => {
+                dispatch(setUser(initialState));
+                dispatch(logoutUser());
+                removeTokens();
+                dispatch(setStep(1));
+              }}
+            >
               <MaterialIcons name="close" size={24} color={theme.colors.primary} />
             </Pressable>
           }
