@@ -13,7 +13,6 @@ import { BottomSheet } from '../bottomSheet';
 import { BottomSheetRefProps } from '../bottomSheet/bottomSheet.types';
 import { BottomSheetContent } from '../bottomSheet/components/bottomSheetContent';
 import { ContentWrapper } from '../bottomSheet/components/contentWrapper';
-import Button from '../button/button.component';
 
 import { StepFive } from './components/stepFive';
 import { StepFour } from './components/stepFour';
@@ -22,9 +21,9 @@ import { StepSix } from './components/stepSix';
 import { StepThree } from './components/stepThree';
 import { StepTwo } from './components/stepTwo';
 import { createStyles } from './postCreate.styles';
-import { Post } from './postCreate.types';
+import { Post, PostCreateProps } from './postCreate.types';
 
-const PostCreate = () => {
+const PostCreate = ({ open, setOpen }: PostCreateProps) => {
   const [step, setStep] = useState<number>(0);
   const [fullPackageId, setFullPackageId] = useState<string | null>(null);
   const [maxHeight, setMaxHeight] = useState<number>(0);
@@ -59,8 +58,9 @@ const PostCreate = () => {
 
   const hideSheet: () => void = useCallback(() => {
     setStep(0);
+    setOpen(false);
     return bottomSheetRef.current?.scrollTo(0);
-  }, []);
+  }, [setOpen]);
 
   const previousStep = () => {
     if (step === 4) {
@@ -87,12 +87,12 @@ const PostCreate = () => {
       setHasPerformedPreviousStep(false);
     }
   };
+  if (open) openSheet();
 
   return (
     <GestureHandlerRootView style={styles.gestureHandlerRootView}>
       <PanGestureHandler onGestureEvent={goBackSwipe}>
         <SafeAreaView style={styles.gestureHandlerRootView} onLayout={watchHeight}>
-          <Button title="Open sheet" onPress={openSheet} />
           <BottomSheet
             hideSheet={hideSheet}
             ref={bottomSheetRef}

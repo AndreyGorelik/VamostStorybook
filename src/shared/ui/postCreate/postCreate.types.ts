@@ -12,3 +12,8 @@ export interface Post {
   guestsOtherCount: number;
   packageId: string;
 }
+
+export interface PostCreateProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}

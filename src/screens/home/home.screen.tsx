@@ -10,6 +10,7 @@ import { FilterItem } from './components/filterItem';
 import { POSTS } from './home.data';
 import { createStyles } from './home.styles';
 import { PostsData } from './home.types';
+import FloatButton from '@shared/ui/floatButton/floatButton.component';
 
 export enum Filters {
   All = 'All',
@@ -60,6 +61,7 @@ export default function Home() {
           </View>
         </View>
         <PostsList list={filteredPosts} />
+        <FloatButton />
       </View>
       <SelectCity open={open} setOpen={setOpen} setCity={setCity} key={city} />
     </>
