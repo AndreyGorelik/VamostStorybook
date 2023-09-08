@@ -1,14 +1,20 @@
 import useTheme from '@shared/hooks/useTheme.hook';
 import { format } from 'date-fns';
-import React from 'react';
 import { View } from 'react-native';
 
+import { Button } from '../button';
 import Text from '../text/text.component';
 
 import { createStyles } from './packagePage.styles';
 import { PackagePageProps } from './packagePage.types';
 
-export default function PackagePage({ date, place, description, restrictions }: PackagePageProps) {
+export default function PackagePage({
+  date,
+  place,
+  description,
+  restrictions,
+  onSelect,
+}: PackagePageProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
 
@@ -30,6 +36,9 @@ export default function PackagePage({ date, place, description, restrictions }: 
       <Text variant="common" {...styles.descriptions}>
         {description}
       </Text>
+      <View style={styles.selectBtn}>
+        <Button title="Select" onPress={onSelect} />
+      </View>
     </View>
   );
 }

@@ -60,12 +60,14 @@ const RegisterScreen = () => {
     });
   }, [dispatch, navigation, step, theme.colors.primary]);
 
+
   return (
     <KeyboardAvoidingView
       style={styles.wrapper}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       onTouchStart={() => Keyboard.dismiss()}
     >
+
       {step <= 1 && <PhoneAndPass setNumber={setNumber} />}
       {step === 2 && <Code number={number} />}
       {step === 3 && <Email />}
@@ -75,6 +77,7 @@ const RegisterScreen = () => {
       {step === 7 && <Orientation />}
       {step === 8 && <ShowMe />}
       {step === 9 && <Photos />}
+
     </KeyboardAvoidingView>
   );
 };

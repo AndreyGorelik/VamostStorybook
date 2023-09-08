@@ -23,6 +23,7 @@ export default function Layout() {
           fontWeight: 'bold',
           fontSize: 18,
         },
+        lazy: true,
       }}
     >
       <Tab.Screen name="Upcoming" component={Upcoming} />
