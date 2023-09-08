@@ -7,6 +7,7 @@ import { useNavigation, Link } from 'expo-router';
 import { useLayoutEffect, useState } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
 import { logoutUser, setPrevStep, setStep } from 'src/store/slices/authSlice';
+import { setAuthError } from 'src/store/slices/errorsSlice';
 import { initialState, setUser } from 'src/store/slices/userSlice';
 
 import { Birthday } from './components/steps/birthday';
@@ -67,6 +68,7 @@ const RegisterScreen = () => {
         />
       ),
     });
+    dispatch(setAuthError(null));
   }, [dispatch, navigation, step, theme.colors.primary]);
 
   return (
