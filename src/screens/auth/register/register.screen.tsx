@@ -7,7 +7,7 @@ import { useNavigation, Link } from 'expo-router';
 import { useLayoutEffect, useState } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
 import { logoutUser, setPrevStep, setStep } from 'src/store/slices/authSlice';
-import { setAuthError, setPhoneNumberError } from 'src/store/slices/errorsSlice';
+import { setPhoneNumberError } from 'src/store/slices/errorsSlice';
 import { initialState, setUser } from 'src/store/slices/userSlice';
 
 import { Birthday } from './components/steps/birthday';
