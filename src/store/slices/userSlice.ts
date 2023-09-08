@@ -23,6 +23,7 @@ export interface UserState {
   };
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   birthdate: string;
+  images: string[];
 }
 
 const initialState: UserState = {
@@ -39,6 +40,7 @@ const initialState: UserState = {
   },
   shownGender: null,
   birthdate: '',
+  images: [],
 };
 
 const userSlice = createSlice({
@@ -46,7 +48,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<UserState>) {
-      state = action.payload;
+      return { ...action.payload };
     },
     setPhoneNumber(state, action) {
       state.phoneNumber = action.payload;

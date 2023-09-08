@@ -5,7 +5,6 @@ import { Button } from '@shared/ui/button';
 import { Input } from '@shared/ui/input';
 import { PhoneInput } from '@shared/ui/phoneInput';
 import Text from '@shared/ui/text/text.component';
-import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, View } from 'react-native';
@@ -18,6 +17,7 @@ export default function Login() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secure, setSecure] = useState<boolean>(true);
+
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.authSlice);
   const {

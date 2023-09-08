@@ -34,7 +34,7 @@ const RegisterScreen = () => {
             step === 1 ? (
               <Link href="/login">Sign in</Link>
             ) : (
-              <Pressable onPress={() => setStep(step - 1)}>
+              <Pressable onPress={() => dispatch(setPrevStep())}>
                 <MaterialIcons name="arrow-back" size={24} color={theme.colors.primary} />
               </Pressable>
             )
@@ -47,7 +47,7 @@ const RegisterScreen = () => {
         />
       ),
     });
-  }, [navigation, step, theme.colors.primary]);
+  }, [dispatch, navigation, step, theme.colors.primary]);
 
   return (
     <KeyboardAvoidingView
@@ -55,15 +55,15 @@ const RegisterScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       onTouchStart={() => Keyboard.dismiss()}
     >
-      {step <= 1 && <PhoneAndPass goAhead={goAhead} setNumber={setNumber} />}
-      {step === 2 && <Code goAhead={goAhead} number={number} />}
-      {step === 3 && <Email goAhead={goAhead} />}
-      {step === 4 && <Nickname goAhead={goAhead} />}
-      {step === 5 && <Birthday goAhead={goAhead} />}
-      {step === 6 && <Gender goAhead={goAhead} />}
-      {step === 7 && <Orientation goAhead={goAhead} />}
-      {step === 8 && <ShowMe goAhead={goAhead} />}
-      {step === 9 && <Photos goAhead={goAhead} />}
+      {step <= 1 && <PhoneAndPass setNumber={setNumber} />}
+      {step === 2 && <Code number={number} />}
+      {step === 3 && <Email />}
+      {step === 4 && <Nickname />}
+      {step === 5 && <Birthday />}
+      {step === 6 && <Gender />}
+      {step === 7 && <Orientation />}
+      {step === 8 && <ShowMe />}
+      {step === 9 && <Photos />}
       {step >= 10 && <Redirect href="/home" />}
     </KeyboardAvoidingView>
   );

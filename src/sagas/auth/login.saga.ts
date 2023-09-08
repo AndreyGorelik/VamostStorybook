@@ -15,16 +15,18 @@ function* logInRequestWorker(action: Action<LoginUser>) {
     yield put(setIsLoading(true));
     const response: AxiosResponse<SignInResponse> = yield call(signInRequest, action.payload);
     const data = response.data;
+
     yield call(saveTokens, data.tokens.refresh, data.tokens.access, data.id);
     yield put(
       setUser({
         birthdate: data.birthdate,
         email: data.email,
-        gender: data.gender,
+        gender: JSON.parse(`${data.gender}`),
         nickname: data.nickName,
         phoneNumber: data.phoneNumber,
-        sexualOrientation: data.sexualOrientation,
+        sexualOrientation: JSON.parse(`${data.sexualOrientation}`),
         shownGender: data.shownGender,
+        images: data.images,
       })
     );
     yield put(loginUserSuccess());
