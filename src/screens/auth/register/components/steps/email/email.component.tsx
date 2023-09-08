@@ -31,6 +31,7 @@ export default function Email() {
     if (email === data.email) {
       dispatch(setNextStep());
     }
+
     dispatch(registerEmail({ email: data.email.toLowerCase() }));
   }
 

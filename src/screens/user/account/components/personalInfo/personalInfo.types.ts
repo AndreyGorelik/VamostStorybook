@@ -1,3 +1,4 @@
+
 export type PersonalInfoValues = {
   birthdate: string;
   nickname: string;
@@ -16,3 +17,4 @@ export type PersonalInfoValues = {
   email: string;
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
 };
+
