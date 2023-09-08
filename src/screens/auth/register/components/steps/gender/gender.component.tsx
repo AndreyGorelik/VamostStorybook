@@ -11,7 +11,6 @@ import { setGender } from 'src/store/slices/userSlice';
 
 import { ORIENTATION_RADIO_DATA_WITH_OPTIONS } from './gender.data';
 import { createStyles } from './gender.styles';
-import { SelectListData, SelectListItem } from './gender.types';
 
 export default function Gender() {
   const theme = useTheme();
@@ -20,24 +19,15 @@ export default function Gender() {
   const { isLoading } = useAppSelector((state) => state.authSlice);
   const { gender } = useAppSelector((state) => state.userSlice);
 
-  const defaultValues: SelectListData = ORIENTATION_RADIO_DATA_WITH_OPTIONS?.map(
-    (item: SelectListItem) => {
-      if (item.label === gender?.value) {
-        return { ...item, selected: true };
-      }
-      return { ...item, selected: false };
-    }
-  );
-  const [list, setList] = useState(defaultValues);
+  const [selected, setSelected] = useState(gender && gender.value ? gender.value : '');
   const [showMyGender, setShowMyGender] = useState(
     gender && gender.isShown ? gender.isShown : false
   );
   function onSubmit() {
-    const gender = list.find((item) => item.selected)?.label;
     dispatch(
       setGender({
         isShown: showMyGender,
-        value: gender,
+        value: selected,
       })
     );
     dispatch(setNextStep());
@@ -49,11 +39,10 @@ export default function Gender() {
 
       <View style={styles.content}>
         <SelectList
-          list={list}
-          setList={setList}
-          maxSelectCount={1}
-          moreOption={true}
-          moreAction={onSubmit}
+          listOptions={ORIENTATION_RADIO_DATA_WITH_OPTIONS}
+          selected={selected}
+          setSelected={setSelected}
+          variant="buttonsList"
         />
         <CheckBox
           value={showMyGender}
@@ -61,12 +50,7 @@ export default function Gender() {
           label="Show my gender on my profile"
         />
       </View>
-      <Button
-        title="Continue"
-        onPress={onSubmit}
-        disabled={!list.some((item) => item.selected)}
-        loading={isLoading}
-      />
+      <Button title="Continue" onPress={onSubmit} disabled={!selected} loading={isLoading} />
     </View>
   );
 }

@@ -11,7 +11,6 @@ import { setSexualOrientation } from 'src/store/slices/userSlice';
 
 import { ORIENTATION_MULTI_SELECT_DATA } from './orientation.data';
 import { createStyles } from './orientation.styles';
-import { SelectListData, SelectListItem } from './orientation.types';
 
 export default function Orientation() {
   const theme = useTheme();
@@ -20,25 +19,18 @@ export default function Orientation() {
   const { isLoading } = useAppSelector((state) => state.authSlice);
   const { sexualOrientation } = useAppSelector((state) => state.userSlice);
 
-  const defaultValues: SelectListData = ORIENTATION_MULTI_SELECT_DATA?.map(
-    (item: SelectListItem) => {
-      if (item.label === sexualOrientation?.value) {
-        return { ...item, selected: true };
-      }
-      return { ...item, selected: false };
-    }
+  const [selected, setSelected] = useState(
+    sexualOrientation && sexualOrientation.value ? sexualOrientation.value : ''
   );
-  const [list, setList] = useState(defaultValues);
   const [showMyOrientation, setShowMyOrientation] = useState(
     sexualOrientation && sexualOrientation.isShown ? sexualOrientation.isShown : false
   );
 
   function onSubmit() {
-    const orientation = list.find((item) => item.selected)?.label;
     dispatch(
       setSexualOrientation({
         isShown: showMyOrientation,
-        value: orientation,
+        value: selected,
       })
     );
     dispatch(setNextStep());
@@ -50,9 +42,10 @@ export default function Orientation() {
 
       <View style={styles.content}>
         <SelectList
-          list={list}
-          setList={setList}
-          textError="Maximum 3 orientations can be selected."
+          listOptions={ORIENTATION_MULTI_SELECT_DATA}
+          selected={selected}
+          setSelected={setSelected}
+          variant="textList"
         />
       </View>
       <View style={styles.checkBoxContainer}>
@@ -62,12 +55,7 @@ export default function Orientation() {
           label="Show my orientation on my profile"
         />
       </View>
-      <Button
-        title="Continue"
-        onPress={onSubmit}
-        disabled={!list.some((item) => item.selected)}
-        loading={isLoading}
-      />
+      <Button title="Continue" onPress={onSubmit} disabled={!selected} loading={isLoading} />
     </View>
   );
 }
