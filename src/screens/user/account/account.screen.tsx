@@ -27,6 +27,7 @@ export default function Account() {
   const styles = createStyles(theme);
   const { email, nickname } = useAppSelector((state) => state.userSlice);
   const dispatch = useAppDispatch();
+
   const navigation = useNavigation();
 
   function handleBack() {
@@ -62,6 +63,7 @@ export default function Account() {
         isBackground={true}
         variant="right"
       />
+
       <View style={styles.userContent}>
         <View style={styles.actions}>
           {actions.map((action) => (

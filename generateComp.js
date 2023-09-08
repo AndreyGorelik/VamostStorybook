@@ -42,11 +42,12 @@ export type { ${folder}Props };`;
   fs.writeFileSync(path.join(parentFolder, folderName, 'index.ts'), indexContent);
   fs.writeFileSync(path.join(parentFolder, folderName, `${folderName}.styles.ts`), stylesContent);
   fs.writeFileSync(path.join(parentFolder, folderName, `${folderName}.types.ts`), typesContent);
+
 }
 
 const parentFolder = process.argv[2];
 const folderName = process.argv[3];
 
 if (folderName) {
-  generateComponentFiles(parentFolder, folderName);
+  console.error('Please provide a folder name.');
 }

@@ -1,6 +1,8 @@
 import { MaterialIcons, AntDesign, Ionicons } from '@expo/vector-icons';
 import { View } from 'react-native';
 
+import useTheme from '@shared/hooks/useTheme.hook';
+
 import Action from './action.component';
 
 export default {
@@ -9,6 +11,8 @@ export default {
 };
 
 const Template = () => {
+
+  const theme = useTheme();
   return (
     <View
       style={{
@@ -19,25 +23,29 @@ const Template = () => {
         paddingHorizontal: 10,
       }}
     >
+
       <Action
-        Icon={<MaterialIcons size={26} name="share" color="white" />}
-        title="Share"
-        onPress={() => {}}
-      />
-      <Action
-        Icon={<AntDesign size={26} name="heart" color="white" />}
-        title="Favorite"
-        onPress={() => {}}
-      />
-      <Action
-        Icon={<Ionicons name="chatbubble-ellipses" size={24} color="white" />}
-        title="Chat"
-        onPress={() => {}}
-      />
-      <Action
-        Icon={<MaterialIcons name="business-center" size={24} color="white" />}
+        Icon={<MaterialIcons name="business-center" size={24} color={theme.colors.secondary} />}
         title="Request"
         onPress={() => {}}
+      />
+      <Action
+        Icon={<AntDesign size={26} name="heart" color={theme.colors.secondary} />}
+        title="Favorite"
+        onPress={() => {
+        }}
+      />
+      <Action
+        Icon={<Ionicons name="chatbubble-ellipses" size={24} color={theme.colors.secondary} />}
+        title="Chat"
+        onPress={() => {
+        }}
+      />
+      <Action
+        Icon={<MaterialIcons name="business-center" size={24} color={theme.colors.secondary} />}
+        title="Request"
+        onPress={() => {
+        }}
       />
     </View>
   );
