@@ -34,7 +34,9 @@ const RegisterScreen = () => {
         <Header
           headerLeft={
             step === 1 ? (
-              <Link href="/login">Sign in</Link>
+              <Link href="/login" replace={true}>
+                Sign in
+              </Link>
             ) : (
               <Pressable
                 onPress={() => {

@@ -5,10 +5,12 @@ import { Button } from '@shared/ui/button';
 import { Input } from '@shared/ui/input';
 import { PhoneInput } from '@shared/ui/phoneInput';
 import Text from '@shared/ui/text/text.component';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, View } from 'react-native';
 import { loginUser } from 'src/store/slices/authSlice';
+import { setAuthError } from 'src/store/slices/errorsSlice';
+import { initialState, setUser } from 'src/store/slices/userSlice';
 
 import { createStyles } from './login.styles';
 import { LoginData } from './login.types';
@@ -32,7 +34,12 @@ export default function Login() {
     },
   });
 
+  useEffect(() => {
+    dispatch(setAuthError(null));
+  }, [dispatch]);
+
   function onSubmit(value: LoginData) {
+    dispatch(setUser(initialState));
     dispatch(loginUser(value));
   }
 

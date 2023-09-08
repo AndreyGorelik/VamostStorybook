@@ -22,7 +22,7 @@ import userSlice from './slices/userSlice';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['errorsSlice'],
+  blacklist: ['errorsSlice', 'authSlice'],
 };
 
 const rootReducer = combineReducers({

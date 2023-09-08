@@ -18,7 +18,8 @@ function Index() {
 
   useEffect(() => {
     if (rootNavigationState?.key) dispatch(refresh());
-  }, [dispatch, rootNavigationState?.key]);
+    if (!finished) dispatch(setStep(step));
+  }, [dispatch, finished, rootNavigationState?.key, step]);
 
   if (!rootNavigationState?.key) return null;
 
@@ -31,7 +32,6 @@ function Index() {
   }
 
   if (!finished) {
-    dispatch(setStep(step));
     return <Redirect href="/register" />;
   }
 

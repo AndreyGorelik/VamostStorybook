@@ -23,6 +23,7 @@ export default function AuthLayout() {
                     dispatch(setStep(1));
                     dispatch(setUser(initialState));
                   }}
+                  replace={true}
                 >
                   Sign up
                 </Link>

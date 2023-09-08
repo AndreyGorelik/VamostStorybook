@@ -41,6 +41,8 @@ function* logInRequestWorker(action: Action<LoginUser>) {
           yield put(setAuthError(error.response.data));
         }
       }
+    } else {
+      yield put(setAuthError('something went wrong'));
     }
   } finally {
     yield put(setIsLoading(false));

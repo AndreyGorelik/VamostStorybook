@@ -15,12 +15,7 @@ import { registerEmailRequest } from 'src/api/registerEmail';
 import { registerNicknameRequest } from 'src/api/registerNickname';
 import { registerPhotoRequest } from 'src/api/registerPhoto';
 import { signUpRequest } from 'src/api/signUp';
-import {
-  loginUserSuccess,
-  setIsLoading,
-  setNextStep,
-  setSignUpFinished,
-} from 'src/store/slices/authSlice';
+import { setIsLoading, setNextStep, setSignUpFinished } from 'src/store/slices/authSlice';
 import {
   setAttributesError,
   setConfirmCodeError,
@@ -43,6 +38,7 @@ import { ConfirmCodeResponse } from 'src/types/api/confirmCode.types';
 
 function* phoneAndPasswordRequestWorker(action: Action<RegisterUser>) {
   const { payload } = action;
+  payload.phoneNumber = payload.phoneNumber.replace(/[^\d+]/g, '');
 
   try {
     yield put(setIsLoading(true));
@@ -76,7 +72,7 @@ function* confirmCodeWorker(action: Action<ConfirmCode>) {
     const { access, refresh } = request.data.tokens;
     const userId = request.data.userId;
     yield call(saveTokens, refresh, access, userId);
-    yield put(loginUserSuccess());
+
     yield put(setNextStep());
   } catch (error) {
     if (Axios.isAxiosError(error)) {

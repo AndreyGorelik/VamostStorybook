@@ -21,18 +21,20 @@ export default function AppWrapper({ onLayoutRootView }: AppWrapperProps) {
       if (!rootNavigationState || !rootNavigationState.key) return;
       const { step, finished } = checkUserField(user);
 
+      if (signUpFinished || (isAuth && finished)) {
+        router.push('/home');
+        return;
+      }
+
       if (!isAuth) {
         router.push('/login');
         return;
       }
+
       if (isAuth && !finished && !signUpFinished) {
         dispatch(setStep(step));
         router.push('/register');
         return;
-      }
-
-      if (isAuth && (signUpFinished || finished)) {
-        router.push('/home');
       }
     }, [isAuth, signUpFinished]);
   }
