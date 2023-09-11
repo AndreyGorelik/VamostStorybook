@@ -144,6 +144,7 @@ function* registerAttributesWorker(action: Action<RegisterAttributes>) {
     yield call(registerAttributesRequest, { data: payload });
 
     yield put(setShownGender(payload.shownGender));
+    yield put(setAttributesError(null));
     yield put(setNextStep());
   } catch (error) {
     if (Axios.isAxiosError(error)) {
@@ -167,6 +168,7 @@ function* registerPhotoWorker(action: Action<RegisterPhoto[]>) {
       yield call(registerPhotoRequest, { data: image });
     }
     yield put(setSignUpFinished(true));
+    yield put(setPhotosError(null));
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {

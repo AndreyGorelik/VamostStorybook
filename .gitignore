@@ -84,6 +84,6 @@ buck-out/
 # Expo
 .expo/*
 web-build/
-
+ш
 yarn.lock
 
