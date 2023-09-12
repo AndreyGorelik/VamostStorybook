@@ -20,10 +20,10 @@ export default function Orientation() {
   const { sexualOrientation } = useAppSelector((state) => state.userSlice);
 
   const [selected, setSelected] = useState(
-    sexualOrientation && sexualOrientation.value ? sexualOrientation.value : ''
+    sexualOrientation?.value ?? ''
   );
   const [showMyOrientation, setShowMyOrientation] = useState(
-    sexualOrientation && sexualOrientation.isShown ? sexualOrientation.isShown : false
+    sexualOrientation?.isShown === true
   );
 
   function onSubmit() {
