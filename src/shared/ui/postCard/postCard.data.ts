@@ -1,23 +1,22 @@
 import Photo from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
-import UserPic1 from '@assets/images/postCardImages/userpic1.webp';
-import UserPic2 from '@assets/images/postCardImages/userpic2.jpeg';
+import { PostResponse } from 'src/types/actions/actions.types';
 
-export const POST_CARD_DATA = {
-  photo: Photo,
-  postTags: [
-    { tag: 'Dinner', id: '1' },
-    { tag: 'Drinks', id: '2' },
-  ],
-  startDate: new Date(),
-  startTime: new Date(),
-  venueName: 'Miami Design District',
-  venueLocation: 'American',
-  postName: 'Wokabily food & drinks',
-  guestMaleCount: 1,
-  guestFemaleCount: 1,
-  guestOtherCount: 1,
-  guests: [
-    { guestPhoto: UserPic1, id: '1' },
-    { guestPhoto: UserPic2, id: '2' },
-  ],
+export const POST_CARD_DATA: PostResponse = {
+  imageUrl: Photo,
+  tags: ['dinner', 'drinks'],
+  date: '2023-09-11T10:00:00',
+  venue: 'Miami Design District',
+  location: 'American',
+  name: 'Wokabily food & drinks',
+  guestMenCount: 1,
+  guestWomenCount: 1,
+  guestOthersCount: 1,
+  othersCount: 0,
+  menCount: 0,
+  postStatus: 'Created',
+  womenCount: 0,
+  packageId: '',
+  userId: '',
+  description: '',
+  id: '',
 };

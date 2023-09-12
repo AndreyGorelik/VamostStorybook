@@ -13,7 +13,7 @@ export default function PostsList({ list, refreshControl }: PostListProps) {
     <FlatList
       data={list}
       refreshControl={refreshControl}
-      renderItem={({ item }) => <PostCard data={item.data} />}
+      renderItem={({ item }) => <PostCard {...item} />}
       keyExtractor={(item) => item.id}
       ItemSeparatorComponent={() => <View style={styles.separator}></View>}
       contentContainerStyle={styles.wrapper}

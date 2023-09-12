@@ -1,7 +1,4 @@
-import UserPic1 from '@assets/images/postCardImages/userpic1.webp';
-import UserPic2 from '@assets/images/postCardImages/userpic2.jpeg';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
-import { PostData } from '@screens/user/posts/posts.types';
 import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { PageLoader } from '@shared/ui/pageLoader';
@@ -27,25 +24,6 @@ export default function Home() {
   const [filter, setFilter] = useState<Filters>(Filters.Guests);
   const [city, setCity] = useState<string>('Miami');
   const [open, setOpen] = useState<boolean>(false);
-  const mappedPosts: PostData[] = posts.map((post) => ({
-    id: post.id,
-    data: {
-      photo: post.imageUrl,
-      postTags: post.tags,
-      startDate: new Date(),
-      startTime: new Date(),
-      venueName: post.venue,
-      venueLocation: post.location,
-      postName: post.name,
-      guestMaleCount: post.guestMenCount,
-      guestFemaleCount: post.guestWomenCount,
-      guestOtherCount: post.guestOthersCount,
-      guests: [
-        { guestPhoto: UserPic1, id: '1' },
-        { guestPhoto: UserPic2, id: '2' },
-      ],
-    },
-  }));
 
   const theme = useTheme();
   const styles = createStyles(theme);
@@ -93,7 +71,7 @@ export default function Home() {
         ) : (
           <PostsList
             refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleFetch} />}
-            list={mappedPosts}
+            list={posts}
           />
         )}
       </View>

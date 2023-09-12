@@ -1,5 +1,3 @@
-import { PostTag } from '@shared/ui/postCard/postCard.types';
-
 export type LoginUser = { phoneNumber: string; password: string };
 export type RegisterUser = { phoneNumber: string; password: string };
 export type ConfirmCode = { phoneNumber: string; code: string };
@@ -49,5 +47,5 @@ export type PostResponse = {
   guestMenCount: number;
   description: string;
   id: string;
-  tags: PostTag[];
+  tags: string[];
 };
