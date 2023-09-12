@@ -5,6 +5,7 @@ import useTheme from '@shared/hooks/useTheme.hook';
 import Action from '@shared/ui/action/action.component';
 import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
 import Text from '@shared/ui/text/text.component';
+import { removeTokens } from '@shared/utils/removeTokens';
 import { useNavigation } from 'expo-router';
 import {
   View,
@@ -62,6 +63,7 @@ export default function Account() {
         onPress={() => {
           dispatch(logoutUser());
           dispatch(setUser(initialState));
+          removeTokens();
         }}
         icon={'logout'}
         isBackground={true}

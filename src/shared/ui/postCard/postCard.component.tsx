@@ -19,7 +19,9 @@ export default function PostCard({ data }: { data: PostCardProps }) {
         <View>
           <ImageBackground
             imageStyle={styles.photoContainer}
-            source={data.photo}
+            source={{
+              uri: data.photo,
+            }}
             style={styles.postCardCover}
           >
             <LinearGradient

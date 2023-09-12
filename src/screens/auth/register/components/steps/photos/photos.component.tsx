@@ -40,7 +40,7 @@ export default function Photos() {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: false,
-      quality: 1,
+      quality: 0,
       allowsMultipleSelection: true,
       base64: true,
     });

@@ -1,3 +1,5 @@
+import { PostTag } from '@shared/ui/postCard/postCard.types';
+
 export type LoginUser = { phoneNumber: string; password: string };
 export type RegisterUser = { phoneNumber: string; password: string };
 export type ConfirmCode = { phoneNumber: string; code: string };
@@ -29,3 +31,23 @@ export type RegisterPhoto = { imageData: string };
 export type Action<Payload = undefined> = Payload extends undefined
   ? { type: string }
   : { type: string; payload: Payload };
+
+export type PostResponse = {
+  location: string;
+  othersCount: number;
+  menCount: number;
+  postStatus: string;
+  name: string;
+  venue: string;
+  guestWomenCount: number;
+  womenCount: number;
+  date: string;
+  imageUrl: string;
+  packageId: string;
+  guestOthersCount: number;
+  userId: string;
+  guestMenCount: number;
+  description: string;
+  id: string;
+  tags: PostTag[];
+};
