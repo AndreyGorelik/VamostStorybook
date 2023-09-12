@@ -19,7 +19,7 @@ export default function Gender() {
   const { isLoading } = useAppSelector((state) => state.authSlice);
   const { gender } = useAppSelector((state) => state.userSlice);
 
-  const [selected, setSelected] = useState(gender && gender.value ? gender.value : '');
+  const [selected, setSelected] = useState(gender?.value ?? '');
   const [showMyGender, setShowMyGender] = useState(
     gender?.isShown === true
   );
