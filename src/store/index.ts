@@ -17,6 +17,7 @@ import rootSaga from '../sagas';
 
 import authSlice from './slices/authSlice';
 import errorsSlice from './slices/errorsSlice';
+import postsSlice from './slices/postsSlice';
 import userSlice from './slices/userSlice';
 
 const persistConfig = {
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   authSlice,
   userSlice,
   errorsSlice,
+  postsSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
