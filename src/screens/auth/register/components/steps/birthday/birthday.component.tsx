@@ -1,10 +1,11 @@
-import { useAppDispatch } from '@shared/hooks/redux.hook';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { BirthdayInput } from '@shared/ui/birthdayInput';
 import { BirthdayErrors } from '@shared/ui/birthdayInput/birthdayInput.types';
 import { Button } from '@shared/ui/button';
 import Text from '@shared/ui/text/text.component';
 import { validateDate } from '@shared/utils/dateValidate';
+import { getSavedBirthday } from '@shared/utils/getSavedBirthday';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
@@ -17,6 +18,7 @@ export default function Birthday() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
+  const { birthdate } = useAppSelector((state) => state.userSlice);
   const [errors, setErrors] = useState<BirthdayErrors>({
     month: false,
     day: false,
@@ -29,7 +31,7 @@ export default function Birthday() {
     formState: { isValid },
   } = useForm({
     defaultValues: {
-      birthday: '',
+      birthday: birthdate || '',
     },
   });
 
@@ -59,7 +61,11 @@ export default function Birthday() {
           rules={{ required: true }}
           name="birthday"
           render={({ field: { onChange } }) => (
-            <BirthdayInput errors={errors} onChange={onChange} />
+            <BirthdayInput
+              errors={errors}
+              onChange={onChange}
+              savedValues={birthdate ? getSavedBirthday(birthdate) : null}
+            />
           )}
         />
       </View>

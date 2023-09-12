@@ -5,15 +5,8 @@ export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     wrapper: {
       flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
       backgroundColor: theme.colors.background,
-      padding: 20,
-    },
-    content: {
-      flex: 1,
-      paddingVertical: 40,
-      rowGap: 15,
-    },
-    checkBoxContainer: {
-      marginBottom: 15,
     },
   });

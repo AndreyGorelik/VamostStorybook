@@ -1,5 +1,6 @@
 import { MaterialIcons, AntDesign, Ionicons } from '@expo/vector-icons';
 import { View } from 'react-native';
+
 import useTheme from '@shared/hooks/useTheme.hook';
 
 import Action from './action.component';
@@ -10,6 +11,7 @@ export default {
 };
 
 const Template = () => {
+
   const theme = useTheme();
   return (
     <View
@@ -21,11 +23,11 @@ const Template = () => {
         paddingHorizontal: 10,
       }}
     >
+
       <Action
-        Icon={<MaterialIcons size={26} name="share" color={theme.colors.secondary} />}
-        title="Share"
-        onPress={() => {
-        }}
+        Icon={<MaterialIcons name="business-center" size={24} color={theme.colors.secondary} />}
+        title="Request"
+        onPress={() => {}}
       />
       <Action
         Icon={<AntDesign size={26} name="heart" color={theme.colors.secondary} />}

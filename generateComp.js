@@ -43,14 +43,11 @@ export type { ${folder}Props };`;
   fs.writeFileSync(path.join(parentFolder, folderName, `${folderName}.styles.ts`), stylesContent);
   fs.writeFileSync(path.join(parentFolder, folderName, `${folderName}.types.ts`), typesContent);
 
-  console.log(`Generated files for ${folderName}`);
 }
 
 const parentFolder = process.argv[2];
 const folderName = process.argv[3];
 
-if (!folderName) {
+if (folderName) {
   console.error('Please provide a folder name.');
-} else {
-  generateComponentFiles(parentFolder, folderName);
 }

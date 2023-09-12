@@ -2,10 +2,13 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Header } from '@shared/ui/header';
-import { useNavigation, Link, Redirect } from 'expo-router';
+import { removeTokens } from '@shared/utils/removeTokens';
+import { useNavigation, Link } from 'expo-router';
 import { useLayoutEffect, useState } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
-import { setPrevStep } from 'src/store/slices/authSlice';
+import { logoutUser, setPrevStep, setStep } from 'src/store/slices/authSlice';
+import { setPhoneNumberError } from 'src/store/slices/errorsSlice';
+import { initialState, setUser } from 'src/store/slices/userSlice';
 
 import { Birthday } from './components/steps/birthday';
 import { Code } from './components/steps/code';
@@ -32,21 +35,40 @@ const RegisterScreen = () => {
         <Header
           headerLeft={
             step === 1 ? (
-              <Link href="/login">Sign in</Link>
+              <Link href="/login" replace={true}>
+                Sign in
+              </Link>
             ) : (
-              <Pressable onPress={() => dispatch(setPrevStep())}>
+              <Pressable
+                onPress={() => {
+                  if (step <= 2) {
+                    dispatch(setUser(initialState));
+                    dispatch(logoutUser());
+                    removeTokens();
+                  }
+                  dispatch(setPrevStep());
+                }}
+              >
                 <MaterialIcons name="arrow-back" size={24} color={theme.colors.primary} />
               </Pressable>
             )
           }
           headerRight={
-            <Pressable>
+            <Pressable
+              onPress={() => {
+                dispatch(setUser(initialState));
+                dispatch(logoutUser());
+                removeTokens();
+                dispatch(setStep(1));
+              }}
+            >
               <MaterialIcons name="close" size={24} color={theme.colors.primary} />
             </Pressable>
           }
         />
       ),
     });
+    dispatch(setPhoneNumberError(null));
   }, [dispatch, navigation, step, theme.colors.primary]);
 
   return (
@@ -64,7 +86,6 @@ const RegisterScreen = () => {
       {step === 7 && <Orientation />}
       {step === 8 && <ShowMe />}
       {step === 9 && <Photos />}
-      {step >= 10 && <Redirect href="/home" />}
     </KeyboardAvoidingView>
   );
 };

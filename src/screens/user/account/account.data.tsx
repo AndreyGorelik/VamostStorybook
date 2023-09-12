@@ -1,5 +1,5 @@
 import Photo from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
-import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 export const POST_CARD_DATA = {
   photo: Photo,
@@ -16,29 +16,25 @@ export const actions = [
   {
     id: 1,
     title: 'New',
-    onPress: () => {
-    },
+    onPress: () => {},
     Icon: <AntDesign size={26} name="pluscircle" color="white" />,
   },
   {
     id: 2,
     Icon: <MaterialIcons name="edit" size={24} color="white" />,
     title: 'Edit',
-    onPress: () => {
-    },
+    onPress: () => {},
   },
   {
     id: 3,
-    Icon: <Ionicons name="people" size={24} color="white" />,
-    title: 'Friends',
-    onPress: () => {
-    },
+    Icon: <FontAwesome name="inbox" size={24} color="white" />,
+    title: 'Requests',
+    onPress: () => {},
   },
   {
     id: 4,
     Icon: <MaterialIcons size={26} name="share" color="white" />,
     title: 'Share',
-    onPress: () => {
-    },
+    onPress: () => {},
   },
 ];

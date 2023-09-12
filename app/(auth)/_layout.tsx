@@ -1,9 +1,14 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import { useAppDispatch } from '@shared/hooks/redux.hook';
 import { Header } from '@shared/ui/header';
 import { Link, Stack } from 'expo-router';
 import { Pressable } from 'react-native';
+import { setStep } from 'src/store/slices/authSlice';
+import { initialState, setUser } from 'src/store/slices/userSlice';
 
 export default function AuthLayout() {
+  const dispatch = useAppDispatch();
+
   return (
     <Stack>
       <Stack.Screen
@@ -11,7 +16,18 @@ export default function AuthLayout() {
         options={{
           header: () => (
             <Header
-              headerLeft={<Link href="/register">Sign up</Link>}
+              headerLeft={
+                <Link
+                  href="/register"
+                  onPress={() => {
+                    dispatch(setStep(1));
+                    dispatch(setUser(initialState));
+                  }}
+                  replace={true}
+                >
+                  Sign up
+                </Link>
+              }
               headerRight={
                 <Pressable>
                   <MaterialIcons name="close" size={24} color="black" />

@@ -23,7 +23,7 @@ axios.interceptors.response.use(
     const refresh = await SecureStore.getItemAsync('refresh');
     const userId = await SecureStore.getItemAsync('userId');
 
-    if (!refresh || !userId) throw Error;
+    if (!refresh || !userId) return Promise.reject(error);
 
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;

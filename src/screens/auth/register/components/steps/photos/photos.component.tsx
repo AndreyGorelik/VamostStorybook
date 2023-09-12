@@ -22,13 +22,13 @@ export default function Photos() {
   const [images, setImages] = useState<PickedImage[]>([]);
   const [isLoading, setIsLoading] = useState<number | null>(null);
   const [flatListHeight, setFlatListHeight] = useState<number>(0);
+  const { photosError } = useAppSelector((state) => state.errorsSlice);
 
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
   function onSubmit() {
-    images.forEach((item) => {
-      dispatch(registerPhoto({ imageData: item.imageData }));
-    });
+    const photos = images.map((image) => ({ imageData: image.imageData }));
+    dispatch(registerPhoto(photos));
   }
 
   const pickImage = async (id: number) => {
@@ -98,6 +98,7 @@ export default function Photos() {
           keyExtractor={(item) => `${item.id}`}
           numColumns={COLUMN_AMOUNT}
         />
+        {photosError && <Text variant="warning">{photosError}</Text>}
       </View>
       <Button
         title="Finish registration"
