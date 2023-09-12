@@ -9,5 +9,10 @@ export const getPostsRequest = async ({
   place,
   filter,
 }: GetPosts): Promise<AxiosResponse<PostResponse[]>> => {
-  return await axios.get(`${API_ROUTES.post}?location=${place}&filter=${filter}`);
+  return await axios.get(API_ROUTES.post, {
+    params: {
+      location: place,
+      filter,
+    },
+  });
 };

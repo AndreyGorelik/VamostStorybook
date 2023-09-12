@@ -4,7 +4,7 @@ import useTheme from '@shared/hooks/useTheme.hook';
 import { Input } from '@shared/ui/input';
 import { SelectList } from '@shared/ui/selectList';
 import { useState } from 'react';
-import { View, ScrollView, Pressable, Modal } from 'react-native';
+import { View, Pressable, Modal } from 'react-native';
 
 import FixedParam from './components/fixedParam.component';
 import { createStyles } from './selectCity.styles';
@@ -70,14 +70,14 @@ export default function SelectCity({ open, setOpen, setCity }: SelectCityProps) 
               />
             )}
           </View>
-          <ScrollView style={styles.listWrapper}>
+          <View style={styles.listWrapper}>
             <SelectList
               listOptions={items}
               selected={info.city}
               setSelected={handleSelect}
-              variant="buttonsList"
+              variant="textList"
             />
-          </ScrollView>
+          </View>
         </View>
       </Modal>
     </>

@@ -7,5 +7,10 @@ import { API_ROUTES } from '../constants';
 
 export const getPastPostsRequest = async (): Promise<AxiosResponse<PostResponse[]>> => {
   const userId = await SecureStore.getItemAsync('userId');
-  return await axios.get(`${API_ROUTES.post}?postStatus=Completed&userId=${userId}`);
+  return await axios.get(API_ROUTES.post, {
+    params: {
+      postStatus: 'Completed',
+      userId,
+    },
+  });
 };

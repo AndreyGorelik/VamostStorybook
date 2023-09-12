@@ -6,4 +6,7 @@ export const createStyles = (_theme: Theme) =>
     btnList: {
       gap: 10,
     },
+    listItem: {
+      height: 50,
+    },
   });
