@@ -21,7 +21,7 @@ export default function Gender() {
 
   const [selected, setSelected] = useState(gender && gender.value ? gender.value : '');
   const [showMyGender, setShowMyGender] = useState(
-    gender && gender.isShown ? gender.isShown : false
+    gender && gender.isShown ?? false
   );
 
   function onSubmit() {
