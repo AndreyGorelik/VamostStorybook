@@ -26,6 +26,55 @@ export type RegisterAttributes = {
 };
 export type RegisterPhoto = { imageData: string };
 
+export interface PostGetPackages {
+  maxPeople: number;
+  tags: string[];
+  placeId: string;
+}
+
 export type Action<Payload = undefined> = Payload extends undefined
   ? { type: string }
   : { type: string; payload: Payload };
+
+export interface Place {
+  id: string;
+  imageUrl: string;
+  location: string;
+  name: string;
+  tags: string[];
+  userId: string;
+}
+
+export interface Package {
+  minSpend: number;
+  date: string;
+  imageUrl: string;
+  maxPeople: number;
+  userId: string;
+  placeId: string;
+  description: string;
+  id: string;
+  name: string;
+  tags: string[];
+  place: string;
+}
+
+export interface FullPackage {
+  minSpend: number;
+  date: string;
+  imageUrl: string;
+  maxPeople: number;
+  userId: string;
+  placeId: string;
+  description: string;
+  id: string;
+  name: string;
+  tags: string[];
+  place: string;
+}
+
+export interface GetPackages {
+  tags: string[];
+  placeId: string;
+  maxPeople: number;
+}

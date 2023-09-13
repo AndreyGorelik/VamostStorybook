@@ -1,3 +1,5 @@
+import { useAppDispatch } from '@shared/hooks/redux.hook';
+import { format } from 'date-fns';
 import { useCallback, useRef, useState } from 'react';
 import { LayoutChangeEvent, SafeAreaView } from 'react-native';
 import {
@@ -7,6 +9,7 @@ import {
   PanGestureHandlerEventPayload,
 } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
+import { postCreate } from 'src/store/slices/postCreateSlice';
 
 import useTheme from '../../hooks/useTheme.hook';
 import { BottomSheet } from '../bottomSheet';
@@ -24,26 +27,32 @@ import { createStyles } from './postCreate.styles';
 import { Post, PostCreateProps } from './postCreate.types';
 
 const PostCreate = ({ open, setOpen }: PostCreateProps) => {
+  const dispatch = useAppDispatch();
   const [step, setStep] = useState<number>(0);
   const [fullPackageId, setFullPackageId] = useState<string | null>(null);
+  const [placeId, setPlaceId] = useState('');
   const [maxHeight, setMaxHeight] = useState<number>(0);
   const [stepFourTitle, setStepFourTitle] = useState('');
   const [hasPerformedPreviousStep, setHasPerformedPreviousStep] = useState(false);
   const [bottomSheetImageUri, setBottomSheetImageUri] = useState('');
-  const [post, setPost] = useState<Post>({
-    host: false,
+
+  const initialPost = {
+    host: true,
     date: new Date(Date.now() + 24 * 60 * 60 * 1000),
     description: '',
-    location: 'Miami Fl',
+    location: 'Miami',
+    venue: '',
     tags: [],
     menCount: 1,
     womenCount: 0,
-    otherCount: 0,
-    guestsMenCount: 0,
-    guestsWomenCount: 0,
-    guestsOtherCount: 0,
+    othersCount: 0,
+    guestMenCount: 0,
+    guestWomenCount: 0,
+    guestOthersCount: 0,
     packageId: '',
-  });
+  };
+  const [post, setPost] = useState<Post>(initialPost);
+
   const theme = useTheme();
   const styles = createStyles(theme);
   const bottomSheetRef = useRef<BottomSheetRefProps>(null);
@@ -52,6 +61,7 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
   function goAhead() {
     setStep(step + 1);
   }
+
   const openSheet: () => void = useCallback(() => {
     bottomSheetRef.current?.scrollTo(height.value);
   }, [height.value]);
@@ -87,7 +97,20 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
       setHasPerformedPreviousStep(false);
     }
   };
+
   if (open) openSheet();
+
+  function createPost() {
+    const newPost = JSON.parse(JSON.stringify(post));
+    // eslint-disable-next-line quotes
+    newPost.date = format(post.date, "yyyy-MM-dd'T'HH:mm:ss");
+    newPost.name = 'New Post';
+    newPost.imageData =
+      'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wD/AAAB/0nq6gAAAABJRU5ErkJggg==';
+    const { host: _host, ...rest } = newPost;
+    dispatch(postCreate(rest));
+    // setPost(initialPost);
+  }
 
   return (
     <GestureHandlerRootView style={styles.gestureHandlerRootView}>
@@ -96,7 +119,7 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
           <BottomSheet
             hideSheet={hideSheet}
             ref={bottomSheetRef}
-            leftIconName="keyboard-backspace"
+            leftIconName={step === 0 || step === 5 ? undefined : 'keyboard-backspace'}
             rightIconName="close"
             title={bottomSheetTitle}
             leftIconPress={previousStep}
@@ -112,7 +135,7 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
               )}
               {step === 1 && (
                 <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-                  <StepTwo post={post} setPost={setPost} next={goAhead} />
+                  <StepTwo post={post} setPost={setPost} next={goAhead} setPlaceId={setPlaceId} />
                 </BottomSheetContent>
               )}
               {step === 2 && (
@@ -127,6 +150,9 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
                     next={goAhead}
                     changeTitle={setStepFourTitle}
                     changeHeaderImage={setBottomSheetImageUri}
+                    post={post}
+                    placeId={placeId}
+                    setFullPackageId={setFullPackageId}
                   />
                 </BottomSheetContent>
               )}
@@ -136,13 +162,13 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
                     post={post}
                     setPost={setPost}
                     next={goAhead}
-                    packageId={fullPackageId}
+                    fullPackageId={fullPackageId}
                   />
                 </BottomSheetContent>
               )}
               {step === 5 && (
                 <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-                  <StepSix onFinish={hideSheet} />
+                  <StepSix createPost={createPost} onFinish={hideSheet} />
                 </BottomSheetContent>
               )}
             </ContentWrapper>

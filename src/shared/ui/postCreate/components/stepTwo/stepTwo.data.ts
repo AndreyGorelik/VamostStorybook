@@ -1,6 +1,5 @@
 export const TAG_LIST_DATA = [
-  { label: 'Drinks', id: '1' },
-  { label: 'Food', id: '2' },
-  { label: 'Packages', id: '3' },
-  { label: 'Hookah', id: '4' },
+  { label: 'drinks', id: '1' },
+  { label: 'food', id: '2' },
+  { label: 'hookah', id: '3' },
 ];

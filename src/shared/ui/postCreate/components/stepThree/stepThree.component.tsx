@@ -15,10 +15,10 @@ const StepThree = ({ post, setPost, next }: StepThreeProps) => {
   const [counters, setCounters] = useState<PeopleCounter>({
     menCount: post.menCount,
     womenCount: post.womenCount,
-    otherCount: post.otherCount,
-    guestsMenCount: post.guestsMenCount,
-    guestsWomenCount: post.guestsWomenCount,
-    guestsOtherCount: post.guestsOtherCount,
+    othersCount: post.othersCount,
+    guestMenCount: post.guestMenCount,
+    guestWomenCount: post.guestWomenCount,
+    guestOthersCount: post.guestOthersCount,
   });
 
   const handleIncrement = (key: keyof PeopleCounter) => {

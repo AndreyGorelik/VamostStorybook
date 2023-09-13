@@ -1,5 +1,7 @@
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import useTheme from '@shared/hooks/useTheme.hook';
+import FloatButton from '@shared/ui/floatButton/floatButton.component';
+import PostCreate from '@shared/ui/postCreate/postCreate.component';
 import PostsList from '@shared/ui/postsList/postsList.component';
 import { SelectCity } from '@shared/ui/selectCity';
 import Text from '@shared/ui/text/text.component';
@@ -10,7 +12,6 @@ import { FilterItem } from './components/filterItem';
 import { POSTS } from './home.data';
 import { createStyles } from './home.styles';
 import { PostsData } from './home.types';
-import FloatButton from '@shared/ui/floatButton/floatButton.component';
 
 export enum Filters {
   All = 'All',
@@ -23,6 +24,7 @@ export default function Home() {
   const [filter, setFilter] = useState<Filters>(Filters.Guests);
   const [city, setCity] = useState<string>('Miami');
   const [open, setOpen] = useState<boolean>(false);
+  const [postCreateVisible, setPostCreateVisible] = useState(false);
   const filteredPosts =
     filter === 'All'
       ? posts
@@ -61,8 +63,9 @@ export default function Home() {
           </View>
         </View>
         <PostsList list={filteredPosts} />
-        <FloatButton />
+        <PostCreate open={postCreateVisible} setOpen={setPostCreateVisible} />
       </View>
+      <FloatButton onPress={() => setPostCreateVisible(!postCreateVisible)} />
       <SelectCity open={open} setOpen={setOpen} setCity={setCity} key={city} />
     </>
   );

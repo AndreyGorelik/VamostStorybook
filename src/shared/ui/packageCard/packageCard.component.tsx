@@ -6,12 +6,12 @@ import Text from '../text/text.component';
 import { createStyles } from './packageCard.styles';
 import { PackageCardProps } from './packageCard.types';
 export default function PackageCard({
-  title,
+  name,
   date,
   description,
-  restrictions,
+  maxPeople,
   place,
-  uri,
+  imageUrl,
   onPress,
 }: PackageCardProps) {
   const theme = useTheme();
@@ -28,7 +28,7 @@ export default function PackageCard({
       onPress={onPress}
     >
       <View style={styles.imageWrapper}>
-        <Image source={{ uri: uri }} style={styles.image} />
+        <Image source={{ uri: imageUrl }} style={styles.image} />
       </View>
       <View style={styles.content}>
         <View style={styles.header}>
@@ -44,11 +44,11 @@ export default function PackageCard({
             </Text>
           </View>
           <Text variant="h4" {...styles.title}>
-            {title}
+            {name}
           </Text>
         </View>
         <Text variant="small" {...styles.restictions}>
-          {`$${restrictions[0]} Minimum Spend • Max ${restrictions[1]} people`}
+          {`Max ${maxPeople} people`}
         </Text>
         <Text variant="small" {...styles.descriptions}>
           {description}

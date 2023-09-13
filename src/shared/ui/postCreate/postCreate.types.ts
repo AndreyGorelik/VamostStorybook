@@ -6,11 +6,12 @@ export interface Post {
   tags: string[];
   menCount: number;
   womenCount: number;
-  otherCount: number;
-  guestsMenCount: number;
-  guestsWomenCount: number;
-  guestsOtherCount: number;
+  othersCount: number;
+  guestMenCount: number;
+  guestWomenCount: number;
+  guestOthersCount: number;
   packageId: string;
+  venue: string;
 }
 
 export interface PostCreateProps {

@@ -7,8 +7,10 @@ export const createStyles = (theme: Theme) =>
     wrapper: {
       backgroundColor: theme.colors.background,
       flex: 1,
+      height: 30,
     },
     gestureHandlerRootView: {
       flex: 1,
+      height: 30,
     },
   });

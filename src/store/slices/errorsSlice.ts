@@ -8,6 +8,10 @@ export interface ErrorState {
   nicknameError: null | string;
   attributesError: null | string;
   photosError: null | string;
+  postCreateError: null | string;
+  getPackageError: null | string;
+  getVenueError: null | string;
+  getFullPackageError: null | string;
 }
 
 const initialState: ErrorState = {
@@ -18,6 +22,10 @@ const initialState: ErrorState = {
   nicknameError: null,
   attributesError: null,
   photosError: null,
+  postCreateError: null,
+  getPackageError: null,
+  getVenueError: null,
+  getFullPackageError: null,
 };
 
 const errorsSlice = createSlice({
@@ -45,6 +53,18 @@ const errorsSlice = createSlice({
     setPhotosError(state, action) {
       state.photosError = action.payload;
     },
+    setPostCreateError(state, action) {
+      state.postCreateError = action.payload;
+    },
+    setGetPackageError(state, action) {
+      state.getPackageError = action.payload;
+    },
+    setGetVenuesError(state, action) {
+      state.getPackageError = action.payload;
+    },
+    setGetFullPackageError(state, action) {
+      state.getFullPackageError = action.payload;
+    },
   },
 });
 
@@ -56,6 +76,10 @@ export const {
   setNicknameError,
   setAttributesError,
   setPhotosError,
+  setPostCreateError,
+  setGetPackageError,
+  setGetVenuesError,
+  setGetFullPackageError,
 } = errorsSlice.actions;
 
 export default errorsSlice.reducer;
