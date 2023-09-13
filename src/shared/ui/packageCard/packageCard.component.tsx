@@ -1,4 +1,5 @@
 import useTheme from '@shared/hooks/useTheme.hook';
+import { format } from 'date-fns';
 import { Image, Pressable, View } from 'react-native';
 
 import Text from '../text/text.component';
@@ -10,7 +11,6 @@ export default function PackageCard({
   date,
   description,
   maxPeople,
-  place,
   imageUrl,
   onPress,
 }: PackageCardProps) {
@@ -34,13 +34,7 @@ export default function PackageCard({
         <View style={styles.header}>
           <View style={styles.row}>
             <Text variant="small" {...styles.date}>
-              {date}
-            </Text>
-            <Text variant="small" {...styles.separator}>
-              @
-            </Text>
-            <Text variant="small" {...styles.place}>
-              {place}
+              {format(new Date(date), 'EEEE MMM d')}
             </Text>
           </View>
           <Text variant="h4" {...styles.title}>

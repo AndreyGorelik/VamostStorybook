@@ -1,6 +1,6 @@
 import { useAppDispatch } from '@shared/hooks/redux.hook';
 import { format } from 'date-fns';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { LayoutChangeEvent, SafeAreaView } from 'react-native';
 import {
   GestureEvent,
@@ -36,21 +36,25 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
   const [hasPerformedPreviousStep, setHasPerformedPreviousStep] = useState(false);
   const [bottomSheetImageUri, setBottomSheetImageUri] = useState('');
 
-  const initialPost = {
-    host: true,
-    date: new Date(Date.now() + 24 * 60 * 60 * 1000),
-    description: '',
-    location: 'Miami',
-    venue: '',
-    tags: [],
-    menCount: 1,
-    womenCount: 0,
-    othersCount: 0,
-    guestMenCount: 0,
-    guestWomenCount: 0,
-    guestOthersCount: 0,
-    packageId: '',
-  };
+  const initialPost = useMemo(
+    () => ({
+      host: true,
+      date: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      description: '',
+      location: 'Vitebsk',
+      venue: '',
+      tags: [],
+      menCount: 1,
+      womenCount: 0,
+      othersCount: 0,
+      guestMenCount: 0,
+      guestWomenCount: 0,
+      guestOthersCount: 0,
+      packageId: '',
+    }),
+    []
+  );
+
   const [post, setPost] = useState<Post>(initialPost);
 
   const theme = useTheme();
@@ -69,8 +73,9 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
   const hideSheet: () => void = useCallback(() => {
     setStep(0);
     setOpen(false);
+    setPost(initialPost);
     return bottomSheetRef.current?.scrollTo(0);
-  }, [setOpen]);
+  }, [initialPost, setOpen]);
 
   const previousStep = () => {
     if (step === 4) {
@@ -109,7 +114,6 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
       'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wD/AAAB/0nq6gAAAABJRU5ErkJggg==';
     const { host: _host, ...rest } = newPost;
     dispatch(postCreate(rest));
-    // setPost(initialPost);
   }
 
   return (

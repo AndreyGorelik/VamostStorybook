@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 import { getVenues } from 'src/store/slices/postCreateSlice';
+import { Place } from 'src/types/actions/actions.types';
 
 import { Button } from '../button';
 import Text from '../text/text.component';
@@ -32,7 +33,6 @@ function ModalSelectVenue({
 }) {
   const dispatch = useAppDispatch();
   const { postVenues, isLoading } = useAppSelector((state) => state.postCreateSlice);
-  console.log(location);
 
   const theme = useTheme();
   const styles = createStyles(theme);
@@ -41,13 +41,13 @@ function ModalSelectVenue({
     dispatch(getVenues(location));
   }, [location, dispatch]);
 
-  const chooseVenue = (item) => {
+  const chooseVenue = (item: Place) => {
     setPlaceId(item.id);
     setVenue(item.name);
     setOpen(false);
   };
 
-  const renderVenue = ({ item }) => {
+  const renderVenue = ({ item }: { item: Place }) => {
     return (
       <TouchableOpacity activeOpacity={0.8} onPress={() => chooseVenue(item)}>
         <Text variant="h4">{item.name}</Text>
@@ -63,8 +63,6 @@ function ModalSelectVenue({
   };
 
   if (!open) return null;
-
-  console.log(isLoading);
 
   return (
     <Modal animationType="fade">

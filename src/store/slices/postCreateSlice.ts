@@ -40,7 +40,7 @@ export const CREATE_POST = 'postCreateSlice/createPost';
 export const postCreate = createAction(CREATE_POST);
 
 export const GET_VENUES = 'postCreateSlice/getVenues';
-export const getVenues = createAction(GET_VENUES);
+export const getVenues = createAction<string>(GET_VENUES);
 
 export const GET_PACKAGES = 'postCreateSlice/getPackages';
 export const getPackages = createAction<GetPackages>(GET_PACKAGES);
