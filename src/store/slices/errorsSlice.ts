@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface ErrorState {
   authError: null | string;
@@ -12,6 +12,7 @@ export interface ErrorState {
   getPackageError: null | string;
   getVenueError: null | string;
   getFullPackageError: null | string;
+  postsError: null | string;
 }
 
 const initialState: ErrorState = {
@@ -26,31 +27,32 @@ const initialState: ErrorState = {
   getPackageError: null,
   getVenueError: null,
   getFullPackageError: null,
+  postsError: null,
 };
 
 const errorsSlice = createSlice({
   name: 'errorsSlice',
   initialState,
   reducers: {
-    setAuthError(state, action) {
+    setAuthError(state, action: PayloadAction<string | null>) {
       state.authError = action.payload;
     },
-    setPhoneNumberError(state, action) {
+    setPhoneNumberError(state, action: PayloadAction<string | null>) {
       state.phoneNumberError = action.payload;
     },
-    setConfirmCodeError(state, action) {
+    setConfirmCodeError(state, action: PayloadAction<string | null>) {
       state.confirmCodeError = action.payload;
     },
-    setEmailError(state, action) {
+    setEmailError(state, action: PayloadAction<string | null>) {
       state.emailError = action.payload;
     },
-    setNicknameError(state, action) {
+    setNicknameError(state, action: PayloadAction<string | null>) {
       state.nicknameError = action.payload;
     },
-    setAttributesError(state, action) {
+    setAttributesError(state, action: PayloadAction<string | null>) {
       state.attributesError = action.payload;
     },
-    setPhotosError(state, action) {
+    setPhotosError(state, action: PayloadAction<string | null>) {
       state.photosError = action.payload;
     },
     setPostCreateError(state, action) {
@@ -64,6 +66,9 @@ const errorsSlice = createSlice({
     },
     setGetFullPackageError(state, action) {
       state.getFullPackageError = action.payload;
+    },
+    setPostsError(state, action: PayloadAction<string | null>) {
+      state.postsError = action.payload;
     },
   },
 });
@@ -80,6 +85,7 @@ export const {
   setGetPackageError,
   setGetVenuesError,
   setGetFullPackageError,
+  setPostsError,
 } = errorsSlice.actions;
 
 export default errorsSlice.reducer;

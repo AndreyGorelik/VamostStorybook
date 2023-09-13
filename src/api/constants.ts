@@ -11,4 +11,5 @@ export const API_ROUTES = {
   createPost: 'post',
   getPackages: 'package',
   getVenues: 'place',
+  post: '/post',
 };

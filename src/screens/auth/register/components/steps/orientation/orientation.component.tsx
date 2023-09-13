@@ -11,27 +11,26 @@ import { setSexualOrientation } from 'src/store/slices/userSlice';
 
 import { ORIENTATION_MULTI_SELECT_DATA } from './orientation.data';
 import { createStyles } from './orientation.styles';
-import { SelectListData, SelectListItem } from './orientation.types';
 
 export default function Orientation() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.authSlice);
+  const { sexualOrientation } = useAppSelector((state) => state.userSlice);
 
-  const defaultValues: SelectListData = ORIENTATION_MULTI_SELECT_DATA?.map(
-    (item: SelectListItem) => {
-      return { ...item, selected: false };
-    }
+  const [selected, setSelected] = useState(
+    sexualOrientation?.value ?? ''
   );
-  const [list, setList] = useState(defaultValues);
+  const [showMyOrientation, setShowMyOrientation] = useState(
+    sexualOrientation?.isShown === true
+  );
 
   function onSubmit() {
-    const orientation = list.find((item) => item.selected)?.label;
     dispatch(
       setSexualOrientation({
-        isShown: false,
-        value: orientation,
+        isShown: showMyOrientation,
+        value: selected,
       })
     );
     dispatch(setNextStep());
@@ -43,17 +42,20 @@ export default function Orientation() {
 
       <View style={styles.content}>
         <SelectList
-          list={list}
-          setList={setList}
-          textError="Maximum 3 orientations can be selected."
+          listOptions={ORIENTATION_MULTI_SELECT_DATA}
+          selected={selected}
+          setSelected={setSelected}
+          variant="textList"
         />
       </View>
-      <Button
-        title="Continue"
-        onPress={onSubmit}
-        disabled={!list.some((item) => item.selected)}
-        loading={isLoading}
-      />
+      <View style={styles.checkBoxContainer}>
+        <CheckBox
+          value={showMyOrientation}
+          onChange={setShowMyOrientation}
+          label="Show my orientation on my profile"
+        />
+      </View>
+      <Button title="Continue" onPress={onSubmit} disabled={!selected} loading={isLoading} />
     </View>
   );
 }

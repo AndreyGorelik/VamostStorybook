@@ -1,5 +1,3 @@
-interface PersonalInfoProps {
-}
 
 export type PersonalInfoValues = {
   birthdate: string;
@@ -20,4 +18,3 @@ export type PersonalInfoValues = {
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
 };
 
-export type { PersonalInfoProps };

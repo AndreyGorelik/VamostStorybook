@@ -17,19 +17,21 @@ import rootSaga from '../sagas';
 
 import authSlice from './slices/authSlice';
 import errorsSlice from './slices/errorsSlice';
+import postsSlice from './slices/postsSlice';
 import postCreateSlice from './slices/postCreateSlice';
 import userSlice from './slices/userSlice';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['errorsSlice', 'postCreateSlice'],
+  blacklist: ['errorsSlice', 'authSlice', 'postCreateSlice'],
 };
 
 const rootReducer = combineReducers({
   authSlice,
   userSlice,
   errorsSlice,
+  postsSlice,
   postCreateSlice,
 });
 

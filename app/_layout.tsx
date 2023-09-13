@@ -1,8 +1,7 @@
+import { AppWrapper } from '@shared/ui/appWrapper';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import React, { useCallback } from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
+import { useCallback } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from 'src/store';
@@ -29,14 +28,7 @@ export default function Layout() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <SafeAreaView
-          style={{ flex: 1, paddingTop: StatusBar.currentHeight || 0 }}
-          onLayout={onLayoutRootView}
-        >
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="account/index" options={{ animation: 'slide_from_left' }} />
-          </Stack>
-        </SafeAreaView>
+        <AppWrapper onLayoutRootView={onLayoutRootView} />
       </PersistGate>
     </Provider>
   );

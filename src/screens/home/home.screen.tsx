@@ -1,17 +1,19 @@
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
+import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
+import { PageLoader } from '@shared/ui/pageLoader';
 import FloatButton from '@shared/ui/floatButton/floatButton.component';
 import PostCreate from '@shared/ui/postCreate/postCreate.component';
 import PostsList from '@shared/ui/postsList/postsList.component';
 import { SelectCity } from '@shared/ui/selectCity';
 import Text from '@shared/ui/text/text.component';
-import { useState } from 'react';
-import { FlatList, Pressable, View } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
+import { FlatList, Pressable, RefreshControl, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { getPosts } from 'src/store/slices/postsSlice';
 
 import { FilterItem } from './components/filterItem';
-import { POSTS } from './home.data';
 import { createStyles } from './home.styles';
-import { PostsData } from './home.types';
 
 export enum Filters {
   All = 'All',
@@ -20,7 +22,7 @@ export enum Filters {
 }
 
 export default function Home() {
-  const [posts] = useState<PostsData>(POSTS);
+  const { posts, isLoading } = useAppSelector((state) => state.postsSlice);
   const [filter, setFilter] = useState<Filters>(Filters.Guests);
   const [city, setCity] = useState<string>('Miami');
   const [open, setOpen] = useState<boolean>(false);
@@ -32,6 +34,15 @@ export default function Home() {
 
   const theme = useTheme();
   const styles = createStyles(theme);
+  const dispatch = useDispatch();
+
+  const handleFetch = useCallback(() => {
+    dispatch(getPosts({ place: city, filter }));
+  }, [city, dispatch, filter]);
+
+  useEffect(() => {
+    handleFetch();
+  }, [handleFetch]);
 
   return (
     <>
@@ -64,6 +75,14 @@ export default function Home() {
         </View>
         <PostsList list={filteredPosts} />
         <PostCreate open={postCreateVisible} setOpen={setPostCreateVisible} />
+        {isLoading ? (
+          <PageLoader />
+        ) : (
+          <PostsList
+            refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleFetch} />}
+            list={posts}
+          />
+        )}
       </View>
       <FloatButton onPress={() => setPostCreateVisible(!postCreateVisible)} />
       <SelectCity open={open} setOpen={setOpen} setCity={setCity} key={city} />

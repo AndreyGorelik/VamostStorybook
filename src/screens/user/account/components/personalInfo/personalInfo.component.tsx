@@ -16,9 +16,9 @@ export default function PersonalInfo() {
   const { control } = useForm<PersonalInfoValues>({
     defaultValues: {
       birthdate,
-      gender: gender.value,
+      gender: gender?.value,
       phoneNumber,
-      sexualOrientation: sexualOrientation.value,
+      sexualOrientation: sexualOrientation?.value,
       nickname,
       email,
       shownGender,

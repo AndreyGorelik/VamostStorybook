@@ -1,10 +1,11 @@
 import Background from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
 import UserPic from '@assets/images/postCardImages/userpic2.jpeg';
-import { useAppSelector } from '@shared/hooks/redux.hook';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import Action from '@shared/ui/action/action.component';
 import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
 import Text from '@shared/ui/text/text.component';
+import { removeTokens } from '@shared/utils/removeTokens';
 import { useNavigation } from 'expo-router';
 import {
   View,
@@ -14,6 +15,8 @@ import {
   FlatList,
   ActivityIndicatorComponent,
 } from 'react-native';
+import { logoutUser } from 'src/store/slices/authSlice';
+import { initialState, setUser } from 'src/store/slices/userSlice';
 
 import { actions, posts } from './account.data';
 import { createStyles } from './account.styles';
@@ -25,6 +28,8 @@ export default function Account() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const { email, nickname } = useAppSelector((state) => state.userSlice);
+  const dispatch = useAppDispatch();
+
   const navigation = useNavigation();
 
   function handleBack() {
@@ -49,12 +54,22 @@ export default function Account() {
             {nickname}
           </Text>
           <Text variant="common" {...styles.text}>
-            {email.toLowerCase()}
+            {email?.toLowerCase()}
           </Text>
         </View>
       </ImageBackground>
       <HeaderButton onPress={handleBack} icon={'arrow-back'} isBackground={true} variant="left" />
-      <HeaderButton onPress={handleBack} icon={'logout'} isBackground={true} variant="right" />
+      <HeaderButton
+        onPress={() => {
+          dispatch(logoutUser());
+          dispatch(setUser(initialState));
+          removeTokens();
+        }}
+        icon={'logout'}
+        isBackground={true}
+        variant="right"
+      />
+
       <View style={styles.userContent}>
         <View style={styles.actions}>
           {actions.map((action) => (

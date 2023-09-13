@@ -15,7 +15,7 @@ import { registerEmailRequest } from 'src/api/registerEmail';
 import { registerNicknameRequest } from 'src/api/registerNickname';
 import { registerPhotoRequest } from 'src/api/registerPhoto';
 import { signUpRequest } from 'src/api/signUp';
-import { setIsLoading, setNextStep } from 'src/store/slices/authSlice';
+import { setIsLoading, setNextStep, setSignUpFinished } from 'src/store/slices/authSlice';
 import {
   setAttributesError,
   setConfirmCodeError,
@@ -38,6 +38,7 @@ import { ConfirmCodeResponse } from 'src/types/api/confirmCode.types';
 
 function* phoneAndPasswordRequestWorker(action: Action<RegisterUser>) {
   const { payload } = action;
+  payload.phoneNumber = payload.phoneNumber.replace(/[^\d+]/g, '');
 
   try {
     yield put(setIsLoading(true));
@@ -71,12 +72,13 @@ function* confirmCodeWorker(action: Action<ConfirmCode>) {
     const { access, refresh } = request.data.tokens;
     const userId = request.data.userId;
     yield call(saveTokens, refresh, access, userId);
+
     yield put(setNextStep());
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data || error.response.data.message) {
-          yield put(setConfirmCodeError(error.response.data || error.response.data.message));
+        if (error.response.data && error.response.data.message) {
+          yield put(setConfirmCodeError(error.response.data.message));
         }
       }
     }
@@ -136,13 +138,13 @@ function* registerNicknameWorker(action: Action<RegisterNickname>) {
 
 function* registerAttributesWorker(action: Action<RegisterAttributes>) {
   const { payload } = action;
-
   try {
     yield put(setIsLoading(true));
 
     yield call(registerAttributesRequest, { data: payload });
 
     yield put(setShownGender(payload.shownGender));
+    yield put(setAttributesError(null));
     yield put(setNextStep());
   } catch (error) {
     if (Axios.isAxiosError(error)) {
@@ -157,18 +159,21 @@ function* registerAttributesWorker(action: Action<RegisterAttributes>) {
   }
 }
 
-function* registerPhotoWorker(action: Action<RegisterPhoto>) {
+function* registerPhotoWorker(action: Action<RegisterPhoto[]>) {
   const { payload } = action;
 
   try {
     yield put(setIsLoading(true));
-
-    yield call(registerPhotoRequest, { data: payload });
+    for (const image of payload) {
+      yield call(registerPhotoRequest, { data: image });
+    }
+    yield put(setSignUpFinished(true));
+    yield put(setPhotosError(null));
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data || error.response.data.message) {
-          yield put(setPhotosError(error.response.data || error.response.data.message));
+        if (error.response.data && error.response.data.message) {
+          yield put(setPhotosError(error.response.data.message));
         }
       }
     }

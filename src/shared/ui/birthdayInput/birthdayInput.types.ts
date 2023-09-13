@@ -1,6 +1,7 @@
 export interface BirthdayInputProps {
   onChange?: (input: string) => void;
   errors?: BirthdayErrors;
+  savedValues?: BirthdayValues | null;
 }
 
 export type BirthdayErrors = {

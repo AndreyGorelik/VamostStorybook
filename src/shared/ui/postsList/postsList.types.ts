@@ -1,11 +1,6 @@
-import { PostCardProps } from '@shared/ui/postCard/postCard.types';
 import { FlatListProps } from 'react-native';
+import { PostResponse } from 'src/types/actions/actions.types';
 
-export type PostData = {
-  id: number;
-  data: PostCardProps;
-};
-
-export interface PostListProps extends FlatListProps<PostData> {
-  list: PostData[];
+export interface PostListProps extends Partial<FlatListProps<PostResponse>> {
+  list: PostResponse[];
 }

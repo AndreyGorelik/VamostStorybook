@@ -36,6 +36,26 @@ export type Action<Payload = undefined> = Payload extends undefined
   ? { type: string }
   : { type: string; payload: Payload };
 
+export type PostResponse = {
+  location: string;
+  othersCount: number;
+  menCount: number;
+  postStatus: string;
+  name: string;
+  venue: string;
+  guestWomenCount: number;
+  womenCount: number;
+  date: string;
+  imageUrl: string;
+  packageId: string;
+  guestOthersCount: number;
+  userId: string;
+  guestMenCount: number;
+  description: string;
+  id: string;
+  tags: string[];
+};
+
 export interface Place {
   id: string;
   imageUrl: string;
