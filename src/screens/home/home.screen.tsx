@@ -27,10 +27,6 @@ export default function Home() {
   const [city, setCity] = useState<string>('Miami');
   const [open, setOpen] = useState<boolean>(false);
   const [postCreateVisible, setPostCreateVisible] = useState(false);
-  const filteredPosts =
-    filter === 'All'
-      ? posts
-      : posts.filter((item) => item.data.type === filter.slice(0, filter.length - 1));
 
   const theme = useTheme();
   const styles = createStyles(theme);
@@ -73,7 +69,6 @@ export default function Home() {
             />
           </View>
         </View>
-        <PostsList list={filteredPosts} />
         <PostCreate open={postCreateVisible} setOpen={setPostCreateVisible} />
         {isLoading ? (
           <PageLoader />
