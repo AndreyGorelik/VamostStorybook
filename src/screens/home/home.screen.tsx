@@ -1,8 +1,8 @@
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
-import { PageLoader } from '@shared/ui/pageLoader';
 import FloatButton from '@shared/ui/floatButton/floatButton.component';
+import { PageLoader } from '@shared/ui/pageLoader';
 import PostCreate from '@shared/ui/postCreate/postCreate.component';
 import PostsList from '@shared/ui/postsList/postsList.component';
 import { SelectCity } from '@shared/ui/selectCity';
