@@ -1,12 +1,11 @@
 import ModalSelectVenue from '@shared/ui/modalSelectVenue/modalSelectVenue.components';
 import { SelectCity } from '@shared/ui/selectCity';
 import { useState } from 'react';
-import { View } from 'react-native';
+import { TextInput, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import useTheme from '../../../../hooks/useTheme.hook';
 import { Button } from '../../../button';
-import TextInput from '../../../input/input.component';
 import { OutlinedButton } from '../../../outlinedBtn';
 import { PostDateAndTime } from '../../../postDateAndTime';
 import { TagList } from '../../../tagList';
@@ -92,7 +91,7 @@ export default function StepTwo({ post, setPost, next, setPlaceId }: StepTwoProp
       </TouchableOpacity>
       <View>
         {descriptionVisible && (
-          <TextInput multiline={true} value={description} onChangeText={setDescription} />
+          <TextInput value={description} onChangeText={setDescription} style={styles.input} />
         )}
       </View>
       <Button

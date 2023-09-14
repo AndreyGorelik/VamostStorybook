@@ -13,7 +13,6 @@ import {
 import { getVenues } from 'src/store/slices/postCreateSlice';
 import { Place } from 'src/types/actions/actions.types';
 
-import { Button } from '../button';
 import Text from '../text/text.component';
 
 import { createStyles } from './modalSelectVenue.styles';
@@ -68,9 +67,8 @@ function ModalSelectVenue({
     <Modal animationType="fade">
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.wrapper}>
-          {isLoading ? <ActivityIndicator size="large" color={'black'} /> : null}
+          {isLoading ? <ActivityIndicator size="large" color={theme.colors.primary} /> : null}
           {postVenues.length === 0 && <Text>There are no venues meeting your criteria</Text>}
-          <Button title="close" onPress={() => setOpen(false)} />
           <FlatList data={postVenues} renderItem={renderVenue} keyExtractor={(item) => item.id} />
         </View>
       </SafeAreaView>

@@ -69,7 +69,7 @@ export default function Home() {
             />
           </View>
         </View>
-        <PostCreate open={postCreateVisible} setOpen={setPostCreateVisible} />
+
         {isLoading ? (
           <PageLoader />
         ) : (
@@ -81,6 +81,7 @@ export default function Home() {
       </View>
       <FloatButton onPress={() => setPostCreateVisible(!postCreateVisible)} />
       <SelectCity open={open} setOpen={setOpen} setCity={setCity} key={city} />
+      <PostCreate open={postCreateVisible} setOpen={setPostCreateVisible} />
     </>
   );
 }

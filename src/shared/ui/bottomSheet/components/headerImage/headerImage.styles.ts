@@ -1,6 +1,8 @@
 import { Theme } from '@shared/hooks/useTheme.hook';
 import { StyleSheet } from 'react-native';
 
+export const BOTTOMSHEET_HEADER_IMAGE_HEIGHT = 200;
+
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     header: {
@@ -20,7 +22,7 @@ export const createStyles = (theme: Theme) =>
       position: 'relative',
       flex: 1,
       flexDirection: 'row',
-      height: 200,
+      height: BOTTOMSHEET_HEADER_IMAGE_HEIGHT,
       justifyContent: 'center',
     },
 

@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     wrapper: {
-      gap: 10,
+      gap: 20,
     },
     row: {
       flexDirection: 'row',
@@ -13,5 +13,9 @@ export const createStyles = (theme: Theme) =>
     },
     textLink: {
       color: theme.colors.darkBlue,
+    },
+    input: {
+      borderBottomColor: 'black',
+      borderBottomWidth: 1,
     },
   });

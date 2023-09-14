@@ -11,6 +11,5 @@ export const createStyles = (theme: Theme) =>
     },
     gestureHandlerRootView: {
       flex: 1,
-      height: 30,
     },
   });

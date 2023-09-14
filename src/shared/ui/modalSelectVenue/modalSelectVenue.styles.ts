@@ -10,5 +10,5 @@ export const createStyles = (_theme: Theme) =>
       flex: 1,
       padding: 20,
     },
-    image: { width: '100%', height: 200 },
+    image: { width: '100%', height: 200, borderRadius: 15 },
   });

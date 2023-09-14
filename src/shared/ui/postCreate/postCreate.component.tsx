@@ -1,17 +1,9 @@
 import { useAppDispatch } from '@shared/hooks/redux.hook';
 import { format } from 'date-fns';
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { LayoutChangeEvent, SafeAreaView } from 'react-native';
-import {
-  GestureEvent,
-  GestureHandlerRootView,
-  PanGestureHandler,
-  PanGestureHandlerEventPayload,
-} from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 import { postCreate } from 'src/store/slices/postCreateSlice';
 
-import useTheme from '../../hooks/useTheme.hook';
 import { BottomSheet } from '../bottomSheet';
 import { BottomSheetRefProps } from '../bottomSheet/bottomSheet.types';
 import { BottomSheetContent } from '../bottomSheet/components/bottomSheetContent';
@@ -23,7 +15,6 @@ import { StepOne } from './components/stepOne';
 import { StepSix } from './components/stepSix';
 import { StepThree } from './components/stepThree';
 import { StepTwo } from './components/stepTwo';
-import { createStyles } from './postCreate.styles';
 import { Post, PostCreateProps } from './postCreate.types';
 
 const PostCreate = ({ open, setOpen }: PostCreateProps) => {
@@ -31,9 +22,7 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
   const [step, setStep] = useState<number>(0);
   const [fullPackageId, setFullPackageId] = useState<string | null>(null);
   const [placeId, setPlaceId] = useState('');
-  const [maxHeight, setMaxHeight] = useState<number>(0);
   const [stepFourTitle, setStepFourTitle] = useState('');
-  const [hasPerformedPreviousStep, setHasPerformedPreviousStep] = useState(false);
   const [bottomSheetImageUri, setBottomSheetImageUri] = useState('');
 
   const initialPost = useMemo(
@@ -57,8 +46,6 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
 
   const [post, setPost] = useState<Post>(initialPost);
 
-  const theme = useTheme();
-  const styles = createStyles(theme);
   const bottomSheetRef = useRef<BottomSheetRefProps>(null);
   const height = useSharedValue(0);
 
@@ -90,19 +77,6 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
     return 'New post';
   })();
 
-  const watchHeight = (e: LayoutChangeEvent) => {
-    setMaxHeight(e.nativeEvent.layout.height);
-  };
-
-  const goBackSwipe = ({ nativeEvent }: GestureEvent<PanGestureHandlerEventPayload>) => {
-    if (nativeEvent.translationX > 80 && !hasPerformedPreviousStep) {
-      previousStep();
-      setHasPerformedPreviousStep(true);
-    } else if (nativeEvent.translationX <= 80 && hasPerformedPreviousStep) {
-      setHasPerformedPreviousStep(false);
-    }
-  };
-
   if (open) openSheet();
 
   function createPost() {
@@ -117,69 +91,62 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
   }
 
   return (
-    <GestureHandlerRootView style={styles.gestureHandlerRootView}>
-      <PanGestureHandler onGestureEvent={goBackSwipe}>
-        <SafeAreaView style={styles.gestureHandlerRootView} onLayout={watchHeight}>
-          <BottomSheet
-            hideSheet={hideSheet}
-            ref={bottomSheetRef}
-            leftIconName={step === 0 || step === 5 ? undefined : 'keyboard-backspace'}
-            rightIconName="close"
-            title={bottomSheetTitle}
-            leftIconPress={previousStep}
-            rightIconPress={hideSheet}
-            headerStyle={step === 4 ? 'image' : 'default'}
-            uri={bottomSheetImageUri}
+    <BottomSheet
+      hideSheet={hideSheet}
+      ref={bottomSheetRef}
+      leftIconName={step === 0 || step === 5 ? undefined : 'keyboard-backspace'}
+      rightIconName="close"
+      title={bottomSheetTitle}
+      leftIconPress={previousStep}
+      rightIconPress={hideSheet}
+      headerStyle={step === 4 ? 'image' : 'default'}
+      uri={bottomSheetImageUri}
+    >
+      <ContentWrapper height={height} headerStyle="default">
+        {step === 0 && (
+          <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+            <StepOne post={post} setPost={setPost} next={goAhead} />
+          </BottomSheetContent>
+        )}
+        {step === 1 && (
+          <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+            <StepTwo post={post} setPost={setPost} next={goAhead} setPlaceId={setPlaceId} />
+          </BottomSheetContent>
+        )}
+        {step === 2 && (
+          <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+            <StepThree post={post} setPost={setPost} next={goAhead} />
+          </BottomSheetContent>
+        )}
+        {step === 3 && (
+          <BottomSheetContent
+            setHeight={(value: number) => (height.value = height.value = value)}
+            fixed
+            imageHeader
           >
-            <ContentWrapper height={height} maxHeight={maxHeight} headerStyle="default">
-              {step === 0 && (
-                <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-                  <StepOne post={post} setPost={setPost} next={goAhead} />
-                </BottomSheetContent>
-              )}
-              {step === 1 && (
-                <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-                  <StepTwo post={post} setPost={setPost} next={goAhead} setPlaceId={setPlaceId} />
-                </BottomSheetContent>
-              )}
-              {step === 2 && (
-                <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-                  <StepThree post={post} setPost={setPost} next={goAhead} />
-                </BottomSheetContent>
-              )}
-              {step === 3 && (
-                <BottomSheetContent setHeight={() => (height.value = maxHeight)}>
-                  <StepFour
-                    onSelect={setFullPackageId}
-                    next={goAhead}
-                    changeTitle={setStepFourTitle}
-                    changeHeaderImage={setBottomSheetImageUri}
-                    post={post}
-                    placeId={placeId}
-                    setFullPackageId={setFullPackageId}
-                  />
-                </BottomSheetContent>
-              )}
-              {step === 4 && (
-                <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-                  <StepFive
-                    post={post}
-                    setPost={setPost}
-                    next={goAhead}
-                    fullPackageId={fullPackageId}
-                  />
-                </BottomSheetContent>
-              )}
-              {step === 5 && (
-                <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
-                  <StepSix createPost={createPost} onFinish={hideSheet} />
-                </BottomSheetContent>
-              )}
-            </ContentWrapper>
-          </BottomSheet>
-        </SafeAreaView>
-      </PanGestureHandler>
-    </GestureHandlerRootView>
+            <StepFour
+              onSelect={setFullPackageId}
+              next={goAhead}
+              changeTitle={setStepFourTitle}
+              changeHeaderImage={setBottomSheetImageUri}
+              post={post}
+              placeId={placeId}
+              setFullPackageId={setFullPackageId}
+            />
+          </BottomSheetContent>
+        )}
+        {step === 4 && (
+          <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+            <StepFive post={post} setPost={setPost} next={goAhead} fullPackageId={fullPackageId} />
+          </BottomSheetContent>
+        )}
+        {step === 5 && (
+          <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+            <StepSix createPost={createPost} onFinish={hideSheet} />
+          </BottomSheetContent>
+        )}
+      </ContentWrapper>
+    </BottomSheet>
   );
 };
 

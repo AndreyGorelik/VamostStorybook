@@ -11,6 +11,7 @@ export const createStyles = (theme: Theme, SCREEN_HEIGHT: number) =>
       backgroundColor: theme.colors.background,
       paddingTop: 0,
       overflow: 'hidden',
+      zIndex: 999,
     },
     line: {
       width: '100%',
