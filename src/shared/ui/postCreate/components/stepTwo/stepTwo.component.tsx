@@ -1,4 +1,4 @@
-import ModalSelectVenue from '@shared/ui/modalSelectVenue/modalSelectVenue.components';
+import { ModalSelectVenue } from '@shared/ui/modalSelectVenue';
 import { SelectCity } from '@shared/ui/selectCity';
 import { useState } from 'react';
 import { TextInput, View } from 'react-native';
