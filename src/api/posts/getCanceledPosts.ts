@@ -9,7 +9,7 @@ export const getCanceledPostsRequest = async (): Promise<AxiosResponse<PostRespo
   const userId = await SecureStore.getItemAsync('userId');
   return await axios.get(API_ROUTES.post, {
     params: {
-      postStatus: 'Canceled',
+      postStatus: 'Cancelled',
       userId,
     },
   });

@@ -34,7 +34,7 @@ export type PostResponse = {
   location: string;
   othersCount: number;
   menCount: number;
-  postStatus: string;
+  postStatus: PostStatus;
   name: string;
   venue: string;
   guestWomenCount: number;
@@ -43,9 +43,20 @@ export type PostResponse = {
   imageUrl: string;
   packageId: string;
   guestOthersCount: number;
-  userId: string;
+  user: {
+    nickName: string;
+    id: string;
+    gender: {
+      value: 'Man' | 'Woman' | 'Other' | null;
+      isShown: boolean;
+    };
+  };
   guestMenCount: number;
   description: string;
   id: string;
-  tags: string[];
+  tags: PossibleTags[];
 };
+
+export type PossibleTags = 'food' | 'drinks' | 'dance' | 'hookah';
+
+export type PostStatus = 'Confirmed' | 'Completed' | 'Created' | 'Cancelled';

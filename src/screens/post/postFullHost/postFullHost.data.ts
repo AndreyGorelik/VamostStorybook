@@ -25,6 +25,7 @@ export const POST_FULL_HOST_DATA = {
   guests: [
     { guestPhoto: UserPic1, id: '1' },
     { guestPhoto: UserPic2, id: '2' },
+    { guestPhoto: UserPic2, id: '3' },
   ],
   requests: [
     {
@@ -40,6 +41,20 @@ export const POST_FULL_HOST_DATA = {
       phone: '+375291234567',
       telegram: '@account',
       id: '2',
+    },
+    {
+      name: 'Chakrika Joyanto',
+      photo: UserPic1,
+      phone: '+375291234567',
+      telegram: '@account',
+      id: '3',
+    },
+    {
+      name: 'Chakrika Joyanto',
+      photo: UserPic1,
+      phone: '+375291234567',
+      telegram: '@account',
+      id: '4',
     },
   ],
 };

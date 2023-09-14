@@ -3,7 +3,7 @@ import { PostResponse } from 'src/types/actions/actions.types';
 
 export const POST_CARD_DATA: PostResponse = {
   imageUrl: Photo,
-  tags: ['dinner', 'drinks'],
+  tags: ['food', 'drinks'],
   date: '2023-09-11T10:00:00',
   venue: 'Miami Design District',
   location: 'American',
@@ -16,7 +16,14 @@ export const POST_CARD_DATA: PostResponse = {
   postStatus: 'Created',
   womenCount: 0,
   packageId: '',
-  userId: '',
+  user: {
+    id: '1',
+    nickName: 'Chick',
+    gender: {
+      value: 'Man',
+      isShown: false,
+    },
+  },
   description: '',
   id: '',
 };

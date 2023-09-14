@@ -15,7 +15,7 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
             <Image
               key={item.id}
               source={item.guestPhoto}
-              style={[styles.userpic, { marginLeft: -size / 2, width: size, height: size }]}
+              style={[styles.userpic, { marginLeft: -size / 3, width: size, height: size }]}
             />
           );
         } else {

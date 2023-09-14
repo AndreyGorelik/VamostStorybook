@@ -1,6 +1,7 @@
 import useTheme from '@shared/hooks/useTheme.hook';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router';
 import { View, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 import { PostResponse } from 'src/types/actions/actions.types';
 
@@ -9,10 +10,30 @@ import Text from '../text/text.component';
 import UserPicGallery from '../userpicGallery/userPicGallery.component';
 
 import { createStyles } from './postCard.styles';
+import { ButtonStyles } from './postCard.types';
 
 export default function PostCard(props: PostResponse) {
   const theme = useTheme();
   const styles = createStyles(theme);
+
+  const btnStyle: ButtonStyles = {
+    Confirmed: {
+      title: 'Locked',
+      color: theme.colors.postStatus.confirmed,
+    },
+    Created: {
+      title: 'Unlocked',
+      color: theme.colors.postStatus.created,
+    },
+    Cancelled: {
+      title: 'Cancelled',
+      color: theme.colors.postStatus.canceled,
+    },
+    Completed: {
+      title: 'Completed',
+      color: theme.colors.postStatus.completed,
+    },
+  };
 
   function formatDate(date: string) {
     try {
@@ -23,8 +44,12 @@ export default function PostCard(props: PostResponse) {
     }
   }
 
+  function handleNavigate() {
+    router.push(`posts/${props.id}`);
+  }
+
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.8}>
+    <TouchableOpacity style={styles.container} activeOpacity={0.8} onPress={handleNavigate}>
       <View style={styles.photoContainer}>
         <View>
           <ImageBackground
@@ -74,10 +99,10 @@ export default function PostCard(props: PostResponse) {
           <View style={styles.rowSpaceBetween}>
             <UserPicGallery data={[]} />
             <OutlinedButton
-              title={'Lock'}
               onPress={() => Alert.alert('press')}
               height={40}
               width={100}
+              {...btnStyle[props.postStatus]}
             />
           </View>
         </View>

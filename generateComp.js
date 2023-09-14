@@ -49,5 +49,5 @@ const parentFolder = process.argv[2];
 const folderName = process.argv[3];
 
 if (folderName) {
-  console.error('Please provide a folder name.');
+  generateComponentFiles(parentFolder, folderName);
 }
