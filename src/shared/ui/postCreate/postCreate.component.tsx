@@ -1,7 +1,6 @@
 import { useAppDispatch } from '@shared/hooks/redux.hook';
 import { format } from 'date-fns';
-import * as SecureStore from 'expo-secure-store';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
 import { postCreate } from 'src/store/slices/postCreateSlice';
 
@@ -16,6 +15,7 @@ import { StepOne } from './components/stepOne';
 import { StepSix } from './components/stepSix';
 import { StepThree } from './components/stepThree';
 import { StepTwo } from './components/stepTwo';
+import { initialPost } from './postCreate.data';
 import { Post, PostCreateProps } from './postCreate.types';
 
 const PostCreate = ({ open, setOpen }: PostCreateProps) => {
@@ -25,25 +25,6 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
   const [placeId, setPlaceId] = useState('');
   const [stepFourTitle, setStepFourTitle] = useState('');
   const [bottomSheetImageUri, setBottomSheetImageUri] = useState('');
-
-  const initialPost = useMemo(
-    () => ({
-      host: true,
-      date: new Date(Date.now() + 24 * 60 * 60 * 1000),
-      description: '',
-      location: 'Vitebsk',
-      venue: '',
-      tags: [],
-      menCount: 1,
-      womenCount: 0,
-      othersCount: 0,
-      guestMenCount: 0,
-      guestWomenCount: 0,
-      guestOthersCount: 0,
-      packageId: '',
-    }),
-    []
-  );
 
   const [post, setPost] = useState<Post>(initialPost);
 
@@ -63,7 +44,7 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
     setOpen(false);
     setPost(initialPost);
     return bottomSheetRef.current?.scrollTo(0);
-  }, [initialPost, setOpen]);
+  }, [setOpen]);
 
   const previousStep = () => {
     if (step === 4) {
@@ -80,24 +61,16 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
 
   if (open) openSheet();
 
-  async function getUserId() {
-    const userId = await SecureStore.getItemAsync('userId');
-    return userId;
-  }
-
   function createPost() {
-    getUserId().then((id) => {
-      const newPost = JSON.parse(JSON.stringify(post));
-      // eslint-disable-next-line quotes
-      newPost.date = format(post.date, "yyyy-MM-dd'T'HH:mm:ss");
-      newPost.name = 'New Post';
-      newPost.imageData =
-        'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wD/AAAB/0nq6gAAAABJRU5ErkJggg==';
-      newPost.gender = ['Man'];
-      newPost.id = id;
-      const { host: _host, ...rest } = newPost;
-      dispatch(postCreate(rest));
-    });
+    const newPost = JSON.parse(JSON.stringify(post));
+    // eslint-disable-next-line quotes
+    newPost.date = format(post.date, "yyyy-MM-dd'T'HH:mm:ss");
+    newPost.name = 'New Post';
+    newPost.imageData =
+      'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wD/AAAB/0nq6gAAAABJRU5ErkJggg==';
+    newPost.gender = ['Man'];
+
+    dispatch(postCreate(newPost));
   }
 
   return (

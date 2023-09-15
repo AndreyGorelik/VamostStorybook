@@ -1,7 +1,7 @@
 export interface Post {
   date: Date;
   description: string;
-  host: boolean;
+  hostType: 'host' | 'guest';
   location: string;
   tags: string[];
   menCount: number;
