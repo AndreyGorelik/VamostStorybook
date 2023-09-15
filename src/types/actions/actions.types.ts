@@ -98,3 +98,24 @@ export interface GetPackages {
   placeId: string;
   maxPeople: number;
 }
+
+type Gender = 'Man' | 'Woman' | 'Everyone';
+
+export interface CreatePostData {
+  gender: Gender[];
+  date: string;
+  description: string;
+  guestMenCount: number;
+  guestOthersCount: number;
+  guestWomenCount: number;
+  id: string;
+  imageData: string;
+  location: string;
+  menCount: number;
+  name: string;
+  othersCount: number;
+  packageId: string;
+  tags: string[];
+  venue: string;
+  womenCount: number;
+}

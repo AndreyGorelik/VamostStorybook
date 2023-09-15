@@ -1,3 +1,4 @@
+import { MaterialIcons } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { useEffect } from 'react';
@@ -6,6 +7,7 @@ import {
   FlatList,
   Image,
   Modal,
+  Pressable,
   SafeAreaView,
   TouchableOpacity,
   View,
@@ -67,6 +69,18 @@ function ModalSelectVenue({
     <Modal animationType="fade">
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.wrapper}>
+          <View style={styles.close}>
+            <Pressable
+              style={({ pressed }) => [
+                {
+                  opacity: pressed ? 0.6 : 1,
+                },
+              ]}
+              onPress={() => setOpen(false)}
+            >
+              <MaterialIcons name="close" size={24} />
+            </Pressable>
+          </View>
           {isLoading ? <ActivityIndicator size="large" color={theme.colors.primary} /> : null}
           {postVenues.length === 0 && <Text>There are no venues meeting your criteria</Text>}
           <FlatList data={postVenues} renderItem={renderVenue} keyExtractor={(item) => item.id} />

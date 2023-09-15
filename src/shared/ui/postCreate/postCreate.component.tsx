@@ -1,5 +1,6 @@
 import { useAppDispatch } from '@shared/hooks/redux.hook';
 import { format } from 'date-fns';
+import * as SecureStore from 'expo-secure-store';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
 import { postCreate } from 'src/store/slices/postCreateSlice';
@@ -79,15 +80,24 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
 
   if (open) openSheet();
 
+  async function getUserId() {
+    const userId = await SecureStore.getItemAsync('userId');
+    return userId;
+  }
+
   function createPost() {
-    const newPost = JSON.parse(JSON.stringify(post));
-    // eslint-disable-next-line quotes
-    newPost.date = format(post.date, "yyyy-MM-dd'T'HH:mm:ss");
-    newPost.name = 'New Post';
-    newPost.imageData =
-      'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wD/AAAB/0nq6gAAAABJRU5ErkJggg==';
-    const { host: _host, ...rest } = newPost;
-    dispatch(postCreate(rest));
+    getUserId().then((id) => {
+      const newPost = JSON.parse(JSON.stringify(post));
+      // eslint-disable-next-line quotes
+      newPost.date = format(post.date, "yyyy-MM-dd'T'HH:mm:ss");
+      newPost.name = 'New Post';
+      newPost.imageData =
+        'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wD/AAAB/0nq6gAAAABJRU5ErkJggg==';
+      newPost.gender = ['Man'];
+      newPost.id = id;
+      const { host: _host, ...rest } = newPost;
+      dispatch(postCreate(rest));
+    });
   }
 
   return (
@@ -122,7 +132,6 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
           <BottomSheetContent
             setHeight={(value: number) => (height.value = height.value = value)}
             fixed
-            imageHeader
           >
             <StepFour
               onSelect={setFullPackageId}
@@ -136,7 +145,7 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
           </BottomSheetContent>
         )}
         {step === 4 && (
-          <BottomSheetContent setHeight={(value: number) => (height.value = value)}>
+          <BottomSheetContent setHeight={(value: number) => (height.value = value)} imageHeader>
             <StepFive post={post} setPost={setPost} next={goAhead} fullPackageId={fullPackageId} />
           </BottomSheetContent>
         )}

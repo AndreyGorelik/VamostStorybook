@@ -9,8 +9,8 @@ import { ActivityIndicator, Keyboard, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { getPackages } from 'src/store/slices/postCreateSlice';
 
-import { createStyles } from './stepOne.styles';
-import { PackageListItem, StepFourProps } from './stepOne.types';
+import { createStyles } from './stepFour.styles';
+import { PackageListItem, StepFourProps } from './stepFour.types';
 
 export default function StepFour({
   onSelect,

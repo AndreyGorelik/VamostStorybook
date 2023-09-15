@@ -11,4 +11,8 @@ export const createStyles = (_theme: Theme) =>
       padding: 20,
     },
     image: { width: '100%', height: 200, borderRadius: 15 },
+    close: {
+      height: 20,
+      alignItems: 'flex-end',
+    },
   });

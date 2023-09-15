@@ -1,5 +1,11 @@
 import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
-import { FullPackage, GetPackages, Package, Place } from 'src/types/actions/actions.types';
+import {
+  CreatePostData,
+  FullPackage,
+  GetPackages,
+  Package,
+  Place,
+} from 'src/types/actions/actions.types';
 
 export interface PostCreateState {
   posts: string[];
@@ -37,7 +43,7 @@ const postsSlice = createSlice({
 });
 
 export const CREATE_POST = 'postCreateSlice/createPost';
-export const postCreate = createAction(CREATE_POST);
+export const postCreate = createAction<CreatePostData>(CREATE_POST);
 
 export const GET_VENUES = 'postCreateSlice/getVenues';
 export const getVenues = createAction<string>(GET_VENUES);
