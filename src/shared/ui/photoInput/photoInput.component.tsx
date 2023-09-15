@@ -15,7 +15,7 @@ export default function PhotoInput({
 }: PhotoInputProps) {
   const styles = createStyles();
   return (
-    <Animated.View style={[styles.wrapper, { height: height }]}>
+    <Animated.View style={[styles.wrapper, { height: height ?? '100%' }]}>
       {image ? (
         <ImageBox uri={image} onDelete={() => onDelete(id)} />
       ) : (

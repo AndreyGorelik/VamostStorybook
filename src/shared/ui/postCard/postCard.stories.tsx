@@ -7,7 +7,7 @@ export default {
 };
 
 const Template = () => {
-  return <PostCard data={POST_CARD_DATA} />;
+  return <PostCard {...POST_CARD_DATA} />;
 };
 
 export const Default = Template.bind({});

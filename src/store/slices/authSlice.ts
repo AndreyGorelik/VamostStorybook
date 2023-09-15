@@ -6,6 +6,7 @@ import {
   REGISTER_NICKNAME,
   REGISTER_ATTRIBUTES,
   REGISTER_PHOTO,
+  REFRESH,
 } from '@shared/constants/actions';
 
 import {
@@ -24,12 +25,14 @@ export interface AuthState {
   isAuth: boolean;
   step: number;
   isLoading: boolean;
+  signUpFinished: boolean;
 }
 
 const initialState: AuthState = {
   isAuth: false,
-  step: 1,
+  step: 0,
   isLoading: false,
+  signUpFinished: false,
 };
 
 const authSlice = createSlice({
@@ -41,6 +44,7 @@ const authSlice = createSlice({
     },
     logoutUser(state) {
       state.isAuth = false;
+      state.signUpFinished = false;
     },
     setNextStep(state) {
       state.step += 1;
@@ -48,8 +52,14 @@ const authSlice = createSlice({
     setPrevStep(state) {
       state.step -= 1;
     },
+    setStep(state, action: PayloadAction<number>) {
+      state.step = action.payload;
+    },
     setIsLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
+    },
+    setSignUpFinished(state, action: PayloadAction<boolean>) {
+      state.signUpFinished = action.payload;
     },
   },
 });
@@ -66,9 +76,18 @@ export const registerNickname = createAction<RegisterNickname>(REGISTER_NICKNAME
 
 export const registerAttributes = createAction<RegisterAttributes>(REGISTER_ATTRIBUTES);
 
-export const registerPhoto = createAction<RegisterPhoto>(REGISTER_PHOTO);
+export const registerPhoto = createAction<RegisterPhoto[]>(REGISTER_PHOTO);
 
-export const { loginUserSuccess, logoutUser, setNextStep, setPrevStep, setIsLoading } =
-  authSlice.actions;
+export const refresh = createAction(REFRESH);
+
+export const {
+  loginUserSuccess,
+  logoutUser,
+  setNextStep,
+  setPrevStep,
+  setIsLoading,
+  setStep,
+  setSignUpFinished,
+} = authSlice.actions;
 
 export default authSlice.reducer;

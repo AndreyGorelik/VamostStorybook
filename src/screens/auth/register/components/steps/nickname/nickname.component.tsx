@@ -5,7 +5,7 @@ import { Input } from '@shared/ui/input';
 import Text from '@shared/ui/text/text.component';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { registerNickname } from 'src/store/slices/authSlice';
+import { registerNickname, setNextStep } from 'src/store/slices/authSlice';
 
 import { createStyles } from './nickname.styles';
 
@@ -14,17 +14,22 @@ export default function Code() {
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.authSlice);
+  const { nickname } = useAppSelector((state) => state.userSlice);
+  const { nicknameError } = useAppSelector((state) => state.errorsSlice);
   const {
     control,
     handleSubmit,
     formState: { isValid },
   } = useForm({
     defaultValues: {
-      nickName: '',
+      nickName: nickname || '',
     },
   });
 
   function onSubmit(data: { nickName: string }) {
+    if (nickname === data.nickName) {
+      dispatch(setNextStep());
+    }
     dispatch(registerNickname(data));
   }
 
@@ -48,6 +53,7 @@ export default function Code() {
             <Input onChangeText={onChange} onBlur={onBlur} value={value} placeholder="Nickname" />
           )}
         />
+        {nicknameError && <Text variant="warning">{nicknameError}</Text>}
       </View>
       <Button
         title="Continue"

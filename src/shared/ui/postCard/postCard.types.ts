@@ -12,7 +12,7 @@ export interface PostGuests {
 }
 
 export interface PostCardProps {
-  photo: ImageSourcePropType;
+  photo: string;
   postTags: PostTag[];
   startDate: Date;
   startTime: Date;

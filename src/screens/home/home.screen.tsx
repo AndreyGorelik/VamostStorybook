@@ -1,15 +1,17 @@
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
+import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
+import { PageLoader } from '@shared/ui/pageLoader';
 import PostsList from '@shared/ui/postsList/postsList.component';
 import { SelectCity } from '@shared/ui/selectCity';
 import Text from '@shared/ui/text/text.component';
-import { useState } from 'react';
-import { FlatList, Pressable, View } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
+import { FlatList, Pressable, RefreshControl, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { getPosts } from 'src/store/slices/postsSlice';
 
 import { FilterItem } from './components/filterItem';
-import { POSTS } from './home.data';
 import { createStyles } from './home.styles';
-import { PostsData } from './home.types';
 
 export enum Filters {
   All = 'All',
@@ -18,17 +20,22 @@ export enum Filters {
 }
 
 export default function Home() {
-  const [posts] = useState<PostsData>(POSTS);
+  const { posts, isLoading } = useAppSelector((state) => state.postsSlice);
   const [filter, setFilter] = useState<Filters>(Filters.Guests);
   const [city, setCity] = useState<string>('Miami');
   const [open, setOpen] = useState<boolean>(false);
-  const filteredPosts =
-    filter === 'All'
-      ? posts
-      : posts.filter((item) => item.type === filter.slice(0, filter.length - 1));
 
   const theme = useTheme();
   const styles = createStyles(theme);
+  const dispatch = useDispatch();
+
+  const handleFetch = useCallback(() => {
+    dispatch(getPosts({ place: city, filter }));
+  }, [city, dispatch, filter]);
+
+  useEffect(() => {
+    handleFetch();
+  }, [handleFetch]);
 
   return (
     <>
@@ -59,7 +66,14 @@ export default function Home() {
             />
           </View>
         </View>
-        <PostsList list={filteredPosts} />
+        {isLoading ? (
+          <PageLoader />
+        ) : (
+          <PostsList
+            refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleFetch} />}
+            list={posts}
+          />
+        )}
       </View>
       <SelectCity open={open} setOpen={setOpen} setCity={setCity} key={city} />
     </>

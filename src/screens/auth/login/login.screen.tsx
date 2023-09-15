@@ -5,11 +5,12 @@ import { Button } from '@shared/ui/button';
 import { Input } from '@shared/ui/input';
 import { PhoneInput } from '@shared/ui/phoneInput';
 import Text from '@shared/ui/text/text.component';
-import { router } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, View } from 'react-native';
 import { loginUser } from 'src/store/slices/authSlice';
+import { setAuthError } from 'src/store/slices/errorsSlice';
+import { initialState, setUser } from 'src/store/slices/userSlice';
 
 import { createStyles } from './login.styles';
 import { LoginData } from './login.types';
@@ -18,6 +19,8 @@ export default function Login() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secure, setSecure] = useState<boolean>(true);
+  const { authError } = useAppSelector((state) => state.errorsSlice);
+
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.authSlice);
   const {
@@ -31,7 +34,12 @@ export default function Login() {
     },
   });
 
+  useEffect(() => {
+    dispatch(setAuthError(null));
+  }, [dispatch]);
+
   function onSubmit(value: LoginData) {
+    dispatch(setUser(initialState));
     dispatch(loginUser(value));
   }
 
@@ -82,6 +90,7 @@ export default function Login() {
             />
           )}
         />
+        {authError && <Text variant="warning">{authError}</Text>}
       </View>
       <Button
         title="Sign in"

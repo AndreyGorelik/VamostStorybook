@@ -8,6 +8,7 @@ export interface UserState {
     value: 'Man' | 'Woman' | 'Other' | null;
     isShown: boolean;
   };
+  phoneVerified: boolean;
   sexualOrientation: {
     value:
       | 'Straight'
@@ -23,9 +24,10 @@ export interface UserState {
   };
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   birthdate: string;
+  images: string[];
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
   phoneNumber: '',
   email: '',
   nickname: '',
@@ -39,6 +41,8 @@ const initialState: UserState = {
   },
   shownGender: null,
   birthdate: '',
+  images: [],
+  phoneVerified: false,
 };
 
 const userSlice = createSlice({
@@ -46,7 +50,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<UserState>) {
-      state = action.payload;
+      return { ...state, ...action.payload };
     },
     setPhoneNumber(state, action) {
       state.phoneNumber = action.payload;

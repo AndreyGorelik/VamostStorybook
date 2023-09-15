@@ -3,26 +3,36 @@ import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link } from 'expo-router';
 import { View, TouchableOpacity, ImageBackground, Alert } from 'react-native';
+import { PostResponse } from 'src/types/actions/actions.types';
 
 import { OutlinedButton } from '../outlinedBtn';
 import Text from '../text/text.component';
 import UserPicGallery from '../userpicGallery/userPicGallery.component';
 
 import { createStyles } from './postCard.styles';
-import { PostCardProps } from './postCard.types';
 
-export default function PostCard({ data }: { data: PostCardProps }) {
-  // console.log(data);
-
+export default function PostCard(props: PostResponse) {
   const theme = useTheme();
   const styles = createStyles(theme);
+
+  function formatDate(date: string) {
+    try {
+      const formattedDate = format(new Date(date), 'MMMM d, yyyy, h:mm a');
+      return formattedDate;
+    } catch {
+      return '';
+    }
+  }
+
   return (
     <TouchableOpacity style={styles.container} activeOpacity={0.8}>
       <View style={styles.photoContainer}>
         <View>
           <ImageBackground
             imageStyle={styles.photoContainer}
-            source={data.photo}
+            source={{
+              uri: props.imageUrl,
+            }}
             style={styles.postCardCover}
           >
             <LinearGradient
@@ -33,44 +43,37 @@ export default function PostCard({ data }: { data: PostCardProps }) {
         </View>
         <View style={styles.imageInfo}>
           <Text variant="h4" noMargin={true} color={theme.colors.background}>
-            {data.postName}
+            {props.venue}
           </Text>
           <Text variant="h6" color={theme.colors.background}>
-            {data.venueLocation} • {data.venueName}
+            {props.location}
           </Text>
         </View>
       </View>
       <View style={styles.textContainer}>
         <View>
           <Text variant="h5" noMargin={true}>
-            {format(data.startDate, 'MMMM d, yyyy, h:mm a')}
+            {formatDate(props.date)}
           </Text>
         </View>
         <View>
           <View style={styles.row}>
-            {data.postTags.map((item, index, array) => {
+            {props.tags.map((item, index, array) => {
               const isLastElement = index === array.length - 1;
               const separator = array.length > 2 ? ', ' : ' & ';
               return (
-                <Text variant="disabled" key={item.id}>
-                  {isLastElement ? item.tag + ', ' : item.tag + separator}
+                <Text variant="disabled" key={item}>
+                  {isLastElement ? item + ', ' : item + separator}
                 </Text>
               );
             })}
             <Text variant="disabled">
-              {(data.guestFemaleCount + data.guestMaleCount + data.guestOtherCount).toString()}{' '}
+              {(props.guestWomenCount + props.guestMenCount + props.guestOthersCount).toString()}{' '}
               guests
             </Text>
           </View>
           <View style={styles.rowSpaceBetween}>
-            <Link
-              href={{
-                pathname: '/profileslist/',
-                params: { postId: data.id },
-              }}
-            >
-              <UserPicGallery data={data.guests} />
-            </Link>
+            <UserPicGallery data={[]} />
             <OutlinedButton
               title={'Lock'}
               onPress={() => Alert.alert('press')}

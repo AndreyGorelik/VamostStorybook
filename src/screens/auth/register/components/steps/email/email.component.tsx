@@ -5,7 +5,7 @@ import { Input } from '@shared/ui/input';
 import Text from '@shared/ui/text/text.component';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { registerEmail } from 'src/store/slices/authSlice';
+import { registerEmail, setNextStep } from 'src/store/slices/authSlice';
 
 import { createStyles } from './email.styles';
 
@@ -15,6 +15,7 @@ export default function Email() {
   const dispatch = useAppDispatch();
   const { emailError } = useAppSelector((state) => state.errorsSlice);
   const { isLoading } = useAppSelector((state) => state.authSlice);
+  const { email } = useAppSelector((state) => state.userSlice);
 
   const {
     control,
@@ -22,12 +23,16 @@ export default function Email() {
     formState: { isValid },
   } = useForm({
     defaultValues: {
-      email: '',
+      email: email || '',
     },
   });
 
   function onSubmit(data: { email: string }) {
-    dispatch(registerEmail(data));
+    if (email === data.email) {
+      dispatch(setNextStep());
+    }
+
+    dispatch(registerEmail({ email: data.email.toLowerCase() }));
   }
 
   return (

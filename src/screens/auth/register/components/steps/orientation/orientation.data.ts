@@ -1,10 +1,10 @@
 export const ORIENTATION_MULTI_SELECT_DATA = [
-  { value: 'STRAIGHT', label: 'Straight', id: '1' },
-  { value: 'GAY', label: 'Gay', id: '2' },
-  { value: 'LESBIAN', label: 'Lesbian', id: '3' },
-  { value: 'BISEXUAL', label: 'Bisexual', id: '4' },
-  { value: 'ASEXUAL', label: 'Asexual', id: '5' },
-  { value: 'DEMISEXUAL', label: 'Demisexual', id: '6' },
-  { value: 'PANSEXUAL', label: 'Pansexual', id: '7' },
-  { value: 'QUEER', label: 'Queer', id: '8' },
+  { value: 'STRAIGHT', label: 'Straight', id: 'Straight' },
+  { value: 'GAY', label: 'Gay', id: 'Gay' },
+  { value: 'LESBIAN', label: 'Lesbian', id: 'Lesbian' },
+  { value: 'BISEXUAL', label: 'Bisexual', id: 'Bisexual' },
+  { value: 'ASEXUAL', label: 'Asexual', id: 'Asexual' },
+  { value: 'DEMISEXUAL', label: 'Demisexual', id: 'Demisexual' },
+  { value: 'PANSEXUAL', label: 'Pansexual', id: 'Pansexual' },
+  { value: 'QUEER', label: 'Queer', id: 'Queer' },
 ];
