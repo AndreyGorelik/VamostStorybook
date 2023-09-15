@@ -6,7 +6,7 @@ import { PageLoader } from '@shared/ui/pageLoader';
 import { Request } from '@shared/ui/request';
 import { useNavigation } from 'expo-router';
 import { View, ScrollView, Alert } from 'react-native';
-import { updatePostStatus } from 'src/store/slices/postsSlice';
+import { setPost, updatePostStatus } from 'src/store/slices/postSlice';
 
 import { Guests } from './components/Guests';
 import { Header } from './components/Header';
@@ -14,12 +14,13 @@ import { Tags } from './components/Tags';
 import { POST_FULL_HOST_DATA } from './postFullHost.data';
 import { createStyles } from './postFullHost.styles';
 import { RequestProps } from './postFullHost.types';
+import { Requests } from './components/Requests';
 
 export default function PostFullHost() {
   const data = POST_FULL_HOST_DATA;
   const theme = useTheme();
   const styles = createStyles(theme);
-  const { post, isLoading } = useAppSelector((state) => state.postsSlice);
+  const { post, isPostLoading } = useAppSelector((state) => state.postSlice);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
@@ -42,6 +43,7 @@ export default function PostFullHost() {
   ];
 
   function handleBack() {
+    dispatch(setPost(null));
     navigation.goBack();
   }
 
@@ -73,13 +75,15 @@ export default function PostFullHost() {
     Alert.alert('delete');
   }
 
-  if (isLoading || !(post && post.info)) return <PageLoader />;
+  if (isPostLoading || !(post && post.info)) return <PageLoader />;
 
   return (
     <ScrollView
       contentContainerStyle={styles.scrollWrapper}
+      style={styles.wrapper}
       bounces={false}
       showsVerticalScrollIndicator={false}
+      nestedScrollEnabled={true}
     >
       <Header postInfo={post.info} />
       <HeaderButton onPress={handleBack} icon={'arrow-back'} isBackground={true} variant="left" />
@@ -94,18 +98,7 @@ export default function PostFullHost() {
           ))}
         </View>
 
-        <View style={styles.requestsList}>
-          {data.requests.map((item: RequestProps) => {
-            return (
-              <Request
-                key={item.id}
-                data={item}
-                confirmRequest={confirmRequest}
-                deleteRequest={deleteRequest}
-              />
-            );
-          })}
-        </View>
+        <Requests postId={post.info.id} />
       </View>
     </ScrollView>
   );

@@ -9,4 +9,5 @@ export const API_ROUTES = {
   images: 'auth/signup/images',
   refresh: 'auth/refresh',
   post: '/post',
+  request: 'request',
 };

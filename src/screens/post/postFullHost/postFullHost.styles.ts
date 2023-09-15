@@ -3,9 +3,9 @@ import { StyleSheet } from 'react-native';
 
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
+    wrapper: { backgroundColor: theme.colors.background },
     scrollWrapper: {
       rowGap: 20,
-      backgroundColor: theme.colors.background,
     },
 
     tagIcons: {

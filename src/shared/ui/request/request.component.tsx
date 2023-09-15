@@ -1,19 +1,19 @@
-import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Image, View } from 'react-native';
+import { PostRequest } from 'src/types/api/getPosts';
 
 import { OutlinedButton } from '../outlinedBtn';
 import Text from '../text/text.component';
 
 import { createStyles } from './request.styles';
-import { RequestProps } from './request.types';
 
 export default function Request({
   data,
   confirmRequest,
   deleteRequest,
 }: {
-  data: RequestProps;
+  data: PostRequest;
   confirmRequest: () => void;
   deleteRequest: () => void;
 }) {
@@ -22,11 +22,15 @@ export default function Request({
   return (
     <View style={styles.container}>
       <View>
-        <Image source={data.photo} style={styles.userpic} />
+        {data.user?.avatar ? (
+          <Image source={{ uri: data.user.avatar }} style={styles.userpic} />
+        ) : (
+          <Ionicons name="person-circle" size={30} color={theme.colors.lightText} />
+        )}
       </View>
       <View style={styles.flex}>
         <View>
-          <Text variant="h5">{data.name}</Text>
+          <Text variant="h5">{data.user?.nickName}</Text>
         </View>
         <View style={styles.rowSpaceBetween}>
           <View style={styles.row}>
