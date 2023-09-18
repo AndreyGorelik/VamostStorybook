@@ -1,14 +1,16 @@
-import { ImageSourcePropType } from 'react-native';
-
 export interface PostTag {
   tag: string;
   id: string;
 }
 
 export interface PostGuests {
-  photo: ImageSourcePropType;
-  name: string;
+  avatar: string;
+  nickName: string;
   id: string;
+  gender: {
+    value: string;
+    isShown: false;
+  };
 }
 
 export interface PostCardProps {

@@ -14,7 +14,7 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
           return (
             <Image
               key={item.id}
-              source={item.photo}
+              source={{ uri: item.avatar }}
               style={[styles.userpic, { marginLeft: -size / 2, width: size, height: size }]}
             />
           );
@@ -22,7 +22,7 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
           return (
             <Image
               key={item.id}
-              source={item.photo}
+              source={{ uri: item.avatar }}
               style={[styles.userpic, { width: size, height: size }]}
             />
           );

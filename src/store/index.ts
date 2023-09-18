@@ -18,12 +18,13 @@ import rootSaga from '../sagas';
 import authSlice from './slices/authSlice';
 import errorsSlice from './slices/errorsSlice';
 import postsSlice from './slices/postsSlice';
+import profileSlice from './slices/profileSlice';
 import userSlice from './slices/userSlice';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['errorsSlice', 'authSlice'],
+  blacklist: ['errorsSlice', 'authSlice', 'profileSlice'],
 };
 
 const rootReducer = combineReducers({
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   userSlice,
   errorsSlice,
   postsSlice,
+  profileSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

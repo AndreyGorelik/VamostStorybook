@@ -30,6 +30,16 @@ export type Action<Payload = undefined> = Payload extends undefined
   ? { type: string }
   : { type: string; payload: Payload };
 
+export type Guest = {
+  avatar: string;
+  nickName: string;
+  id: string;
+  gender: {
+    value: string;
+    isShown: false;
+  };
+};
+
 export type PostResponse = {
   location: string;
   othersCount: number;
@@ -48,4 +58,5 @@ export type PostResponse = {
   description: string;
   id: string;
   tags: string[];
+  guests: Guest[];
 };

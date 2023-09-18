@@ -73,7 +73,14 @@ export default function PostCard(props: PostResponse) {
             </Text>
           </View>
           <View style={styles.rowSpaceBetween}>
-            <UserPicGallery data={[]} />
+            <Link
+              href={{
+                pathname: '/profileslist',
+                params: { guests: JSON.stringify(props.guests) },
+              }}
+            >
+              <UserPicGallery data={props.guests} />
+            </Link>
             <OutlinedButton
               title={'Lock'}
               onPress={() => Alert.alert('press')}

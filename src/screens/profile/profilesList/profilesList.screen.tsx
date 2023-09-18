@@ -1,20 +1,18 @@
-import { POSTS } from '@screens/home/home.data';
 import useTheme from '@shared/hooks/useTheme.hook';
+import { PostGuests } from '@shared/ui/postCard/postCard.types';
 import Text from '@shared/ui/text/text.component';
 import { Link, useLocalSearchParams } from 'expo-router';
 import { FlatList, Image, View } from 'react-native';
 
 import { createStyles } from './profilesList.styles';
-import { UserProfile } from './profilesList.types';
 
 export default function ProfilesList() {
   const params = useLocalSearchParams();
-  const { postId } = params;
+  const guestsList = JSON.parse(params.guests as string);
   const theme = useTheme();
   const styles = createStyles(theme);
-  const post = POSTS.find((item) => item.id === postId);
 
-  const renderItem = ({ item }: { item: UserProfile }) => {
+  const renderItem = ({ item }: { item: PostGuests }) => {
     return (
       <Link
         href={{
@@ -23,8 +21,8 @@ export default function ProfilesList() {
         }}
       >
         <View style={styles.profile}>
-          <Image style={styles.profilePhoto} source={item.photo} />
-          <Text variant="h5">{item.name}</Text>
+          <Image style={styles.profilePhoto} source={{ uri: item.avatar }} />
+          <Text variant="h5">{item.nickName}</Text>
         </View>
       </Link>
     );
@@ -33,7 +31,7 @@ export default function ProfilesList() {
   return (
     <View style={styles.wrapper}>
       <FlatList
-        data={post?.guests}
+        data={guestsList}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
