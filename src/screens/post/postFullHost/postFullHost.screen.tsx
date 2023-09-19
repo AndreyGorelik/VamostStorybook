@@ -25,7 +25,10 @@ export default function PostFullHost() {
     {
       title: 'Confirm & Lock',
       color: theme.colors.postStatus.confirmed,
-      onPress: confirmPost,
+      onPress: () => {
+        confirmPost();
+        refetchPost();
+      },
     },
     {
       title: 'Change',
@@ -35,7 +38,10 @@ export default function PostFullHost() {
     {
       title: 'Cancel',
       color: theme.colors.postStatus.canceled,
-      onPress: cancelPost,
+      onPress: () => {
+        cancelPost();
+        refetchPost();
+      },
     },
   ];
 

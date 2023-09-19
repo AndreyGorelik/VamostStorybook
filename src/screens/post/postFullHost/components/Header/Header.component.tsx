@@ -6,13 +6,10 @@ import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ImageBackground, View } from 'react-native';
 
-import { POST_FULL_HOST_DATA } from '../../postFullHost.data';
-
 import { createStyles } from './Header.styles';
 import { HeaderProps } from './Header.types';
 
 export default function Header({ postInfo }: HeaderProps) {
-  const data = POST_FULL_HOST_DATA;
   const theme = useTheme();
   const styles = createStyles(theme);
 
@@ -47,7 +44,7 @@ export default function Header({ postInfo }: HeaderProps) {
       <View style={styles.guests}>
         <Text>My guests:</Text>
 
-        {data.guests.length > 3 && <Text>({`${data.guests.length - 3} left`})</Text>}
+        {postInfo.guests.length > 3 && <Text>({`${postInfo.guests.length - 3} left`})</Text>}
       </View>
     </View>
   );

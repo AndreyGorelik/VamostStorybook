@@ -78,10 +78,16 @@ const postsSlice = createSlice({
       state.pendingRequests = [
         ...state.pendingRequests.filter((request) => request.id !== action.payload.id),
       ];
+      state.deletedRequests = [
+        ...state.pendingRequests.filter((request) => request.id !== action.payload.id),
+      ];
       state.allRequests = [...state.allRequests, action.payload];
     },
     deleteRequest(state, action: PayloadAction<PostRequest>) {
       state.pendingRequests = [
+        ...state.pendingRequests.filter((request) => request.id !== action.payload.id),
+      ];
+      state.allRequests = [
         ...state.pendingRequests.filter((request) => request.id !== action.payload.id),
       ];
       state.deletedRequests = [...state.deletedRequests, action.payload];

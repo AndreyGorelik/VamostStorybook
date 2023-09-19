@@ -5,9 +5,7 @@ import axios from '../axios';
 import { API_ROUTES } from '../constants';
 
 export const rejectRequest = async ({ id }: GetRequests): Promise<AxiosResponse<string>> => {
-  return await axios.delete(`${API_ROUTES.request}/${id}`, {
-    params: {
-      requestStatus: 'Rejected',
-    },
+  return await axios.patch(`${API_ROUTES.request}/${id}`, {
+    requestStatus: 'Rejected',
   });
 };
