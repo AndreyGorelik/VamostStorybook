@@ -10,7 +10,8 @@ export type SignInResponse = {
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   email: string;
   birthdate: string;
-  image: string[];
+  images: string[];
   phoneVerified: boolean;
   id: string;
+  avatar: string;
 };

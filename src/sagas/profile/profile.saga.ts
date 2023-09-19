@@ -14,7 +14,6 @@ function* getProfileWorker(action: Action<string>) {
   try {
     yield put(setStartLoading());
     const response: AxiosResponse<Profile> = yield call(getProfileRequest, action.payload);
-
     yield put(setProfile(response.data));
   } catch (error) {
     if (Axios.isAxiosError(error)) {
