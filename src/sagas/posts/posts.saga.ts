@@ -1,5 +1,7 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import {
+  CONFIRM_REQUEST,
+  DELETE_REQUEST,
   GET_ALL_REQUESTS,
   GET_CANCELED_POSTS,
   GET_DELETED_REQUESTS,
@@ -13,6 +15,7 @@ import {
 } from '@shared/constants/actions';
 import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { confirmRequest } from 'src/api/posts/confirmRequest';
 import { getCanceledPostsRequest } from 'src/api/posts/getCanceledPosts';
 import { getPastPostsRequest } from 'src/api/posts/getPastPosts';
 import { getPostRequest } from 'src/api/posts/getPost';
@@ -20,6 +23,7 @@ import { getPostRequestsRequest } from 'src/api/posts/getPostRequests';
 import { getPostsRequest } from 'src/api/posts/getPosts';
 import { getPostsByUserRequest } from 'src/api/posts/getPostsByUser';
 import { getUpcomingPostsRequest } from 'src/api/posts/getUpcomingPosts';
+import { rejectRequest } from 'src/api/posts/rejectRequest';
 import { setPostStatusRequest } from 'src/api/posts/setPostStatus';
 import { setPostsError, setRequestError } from 'src/store/slices/errorsSlice';
 import {
@@ -30,7 +34,9 @@ import {
   setPendingRequests,
   setDeletedRequests,
   setAllRequests,
-  setIsRequestLoading,
+  setDeletedLoading,
+  setAllLoading,
+  setPendingLoading,
 } from 'src/store/slices/postSlice';
 import {
   PostInfo,
@@ -53,7 +59,7 @@ function* workerDecorator<T, P>(
   action: Action<P>,
   request: (data: P) => Promise<AxiosResponse<T>>,
   setLoading: ActionCreatorWithPayload<boolean, string>,
-  setResponse: ActionCreatorWithPayload<T, string>,
+  callback: (data: T) => void,
   setError: ActionCreatorWithPayload<string | null, string>
 ) {
   try {
@@ -61,7 +67,7 @@ function* workerDecorator<T, P>(
     if (!('payload' in action)) return;
     const response: AxiosResponse<T> = yield call(request, action.payload);
 
-    yield put(setResponse(response.data));
+    yield callback(response.data);
     yield put(setError(null));
   } catch (error) {
     if (Axios.isAxiosError(error)) {
@@ -75,21 +81,29 @@ function* workerDecorator<T, P>(
 }
 
 export function* getPostsWorker(action: Action<GetPosts>) {
+  function* callback(data: PostResponse[]) {
+    yield put(setPosts(data));
+  }
+
   yield workerDecorator<PostResponse[], GetPosts>(
     action,
     getPostsRequest,
     setIsLoading,
-    setPosts,
+    callback,
     setPostsError
   );
 }
 
 export function* getPostWorker(action: Action<GetPost>) {
+  function* callback(data: PostInfo) {
+    yield put(setPost(data));
+  }
+
   yield workerDecorator<PostInfo, GetPost>(
     action,
     getPostRequest,
     setIsPostLoading,
-    setPost,
+    callback,
     setPostsError
   );
 }
@@ -179,33 +193,69 @@ export function* updatePostStatusWorker(action: Action<UpdatePostStatus>) {
 }
 
 export function* getPendingRequestsWorker(action: Action<GetRequests>) {
+  function* callback(data: PostRequest[]) {
+    yield put(setPendingRequests(data));
+  }
+
   yield workerDecorator<PostRequest[], GetRequests>(
     action,
     getPostRequestsRequest,
-    setIsRequestLoading,
-    setPendingRequests,
+    setPendingLoading,
+    callback,
     setRequestError
   );
 }
 
 export function* getDeletedRequestsWorker(action: Action<GetRequests>) {
+  function* callback(data: PostRequest[]) {
+    yield put(setDeletedRequests(data));
+  }
+
   yield workerDecorator<PostRequest[], GetRequests>(
     action,
     getPostRequestsRequest,
-    setIsRequestLoading,
-    setDeletedRequests,
+    setDeletedLoading,
+    callback,
     setRequestError
   );
 }
 
 export function* getAllRequestsWorker(action: Action<GetRequests>) {
+  function* callback(data: PostRequest[]) {
+    yield put(setAllRequests(data));
+  }
+
   yield workerDecorator<PostRequest[], GetRequests>(
     action,
     getPostRequestsRequest,
-    setIsRequestLoading,
-    setAllRequests,
+    setAllLoading,
+    callback,
     setRequestError
   );
+}
+
+export function* confirmRequestWorker(action: Action<PostRequest>) {
+  try {
+    yield call(confirmRequest, action.payload);
+  } catch (error) {
+    if (Axios.isAxiosError(error)) {
+      if (error.response && error.response.data && error.response.data.message) {
+        yield put(setRequestError(error.response.data.message));
+      }
+    }
+  }
+}
+
+export function* deleteRequestWorker(action: Action<PostRequest>) {
+  try {
+    yield call(rejectRequest, action.payload);
+  } catch (error) {
+    if (Axios.isAxiosError(error)) {
+      if (error.response && error.response.data && error.response.data.message) {
+        yield put(setRequestError(error.response.data.message));
+      }
+    }
+  }
 }
 
 export function* postsSaga() {
@@ -219,4 +269,6 @@ export function* postsSaga() {
   yield takeLatest(GET_PENDING_REQUESTS, getPendingRequestsWorker);
   yield takeLatest(GET_DELETED_REQUESTS, getDeletedRequestsWorker);
   yield takeLatest(GET_ALL_REQUESTS, getAllRequestsWorker);
+  yield takeLatest(CONFIRM_REQUEST, confirmRequestWorker);
+  yield takeLatest(DELETE_REQUEST, deleteRequestWorker);
 }

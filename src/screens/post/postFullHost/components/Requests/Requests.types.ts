@@ -1,5 +1,13 @@
+import { PostRequest } from 'src/types/api/getPosts';
+
 interface RequestsProps {
   postId: string;
 }
 
-export type { RequestsProps };
+interface TabViewProps {
+  id: string;
+  confirmRequest: (request: PostRequest) => void;
+  deleteRequest: (request: PostRequest) => void;
+}
+
+export type { RequestsProps, TabViewProps };

@@ -3,21 +3,24 @@ import useTheme from '@shared/hooks/useTheme.hook';
 import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
 import { OutlinedButton } from '@shared/ui/outlinedBtn';
 import { PageLoader } from '@shared/ui/pageLoader';
-import { Request } from '@shared/ui/request';
 import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
 import { View, ScrollView, Alert } from 'react-native';
-import { setPost, updatePostStatus } from 'src/store/slices/postSlice';
+import {
+  setAllRequests,
+  setDeletedRequests,
+  setPendingRequests,
+  setPost,
+  updatePostStatus,
+} from 'src/store/slices/postSlice';
 
 import { Guests } from './components/Guests';
 import { Header } from './components/Header';
-import { Tags } from './components/Tags';
-import { POST_FULL_HOST_DATA } from './postFullHost.data';
-import { createStyles } from './postFullHost.styles';
-import { RequestProps } from './postFullHost.types';
 import { Requests } from './components/Requests';
+import { Tags } from './components/Tags';
+import { createStyles } from './postFullHost.styles';
 
 export default function PostFullHost() {
-  const data = POST_FULL_HOST_DATA;
   const theme = useTheme();
   const styles = createStyles(theme);
   const { post, isPostLoading } = useAppSelector((state) => state.postSlice);
@@ -42,8 +45,16 @@ export default function PostFullHost() {
     },
   ];
 
+  useEffect(() => {
+    return () => {
+      dispatch(setPost(null));
+      dispatch(setPendingRequests([]));
+      dispatch(setDeletedRequests([]));
+      dispatch(setAllRequests([]));
+    };
+  }, [dispatch]);
+
   function handleBack() {
-    dispatch(setPost(null));
     navigation.goBack();
   }
 
@@ -68,12 +79,6 @@ export default function PostFullHost() {
       })
     );
   }
-  function confirmRequest() {
-    Alert.alert('confirm');
-  }
-  function deleteRequest() {
-    Alert.alert('delete');
-  }
 
   if (isPostLoading || !(post && post.info)) return <PageLoader />;
 
@@ -83,7 +88,6 @@ export default function PostFullHost() {
       style={styles.wrapper}
       bounces={false}
       showsVerticalScrollIndicator={false}
-      nestedScrollEnabled={true}
     >
       <Header postInfo={post.info} />
       <HeaderButton onPress={handleBack} icon={'arrow-back'} isBackground={true} variant="left" />
@@ -92,13 +96,16 @@ export default function PostFullHost() {
         <Tags tags={post.info.tags} />
         <Guests postInfo={post.info} />
 
-        <View style={styles.actionButtons}>
-          {actionBtns.map((button) => (
-            <OutlinedButton key={button.title} {...button} {...styles.actionBtn} />
-          ))}
-        </View>
-
-        <Requests postId={post.info.id} />
+        {post.info.postStatus === 'Created' && (
+          <>
+            <View style={styles.actionButtons}>
+              {actionBtns.map((button) => (
+                <OutlinedButton key={button.title} {...button} {...styles.actionBtn} />
+              ))}
+            </View>
+            <Requests postId={post.info.id} />
+          </>
+        )}
       </View>
     </ScrollView>
   );

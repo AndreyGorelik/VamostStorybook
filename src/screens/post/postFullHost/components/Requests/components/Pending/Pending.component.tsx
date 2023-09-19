@@ -3,16 +3,16 @@ import useTheme from '@shared/hooks/useTheme.hook';
 import { PageLoader } from '@shared/ui/pageLoader';
 import { Request } from '@shared/ui/request';
 import { useCallback, useEffect } from 'react';
-import { ScrollView } from 'react-native';
+import { RefreshControl, ScrollView } from 'react-native';
 import { getPendingRequests } from 'src/store/slices/postSlice';
 
-import { createStyles } from './Pending.styles';
-import { PendingProps } from './Pending.types';
+import { createStyles } from '../../Requests.styles';
+import { TabViewProps } from '../../Requests.types';
 
-export default function Pending({ id, confirmRequest, deleteRequest }: PendingProps) {
+export default function Pending({ id, confirmRequest, deleteRequest }: TabViewProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const { pendingRequests, isRequestLoading } = useAppSelector((state) => state.postSlice);
+  const { pendingRequests, pendingLoading } = useAppSelector((state) => state.postSlice);
   const dispatch = useAppDispatch();
 
   const handleFetch = useCallback(() => {
@@ -28,15 +28,19 @@ export default function Pending({ id, confirmRequest, deleteRequest }: PendingPr
     if (!pendingRequests.length) handleFetch();
   }, [handleFetch, pendingRequests.length]);
 
-  if (isRequestLoading) return <PageLoader />;
+  if (pendingLoading) return <PageLoader />;
 
   return (
-    <ScrollView contentContainerStyle={styles.contentWrapper}>
+    <ScrollView
+      contentContainerStyle={styles.contentWrapper}
+      nestedScrollEnabled={true}
+      refreshControl={<RefreshControl refreshing={pendingLoading} onRefresh={handleFetch} />}
+    >
       {pendingRequests.map((item) => (
         <Request
           key={item.id}
-          confirmRequest={() => confirmRequest(item.id)}
-          deleteRequest={() => deleteRequest(item.id)}
+          confirmRequest={() => confirmRequest(item)}
+          deleteRequest={() => deleteRequest(item)}
           data={item}
         />
       ))}

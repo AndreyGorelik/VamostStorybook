@@ -33,3 +33,7 @@ export const GET_PENDING_REQUESTS = 'post/getPendingRequests';
 export const GET_ALL_REQUESTS = 'post/getAllRequests';
 
 export const GET_DELETED_REQUESTS = 'post/getDeletedRequests';
+
+export const CONFIRM_REQUEST = 'post/confirmRequest';
+
+export const DELETE_REQUEST = 'post/deleteRequest';

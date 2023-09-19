@@ -1,5 +1,7 @@
 import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
 import {
+  CONFIRM_REQUEST,
+  DELETE_REQUEST,
   GET_ALL_REQUESTS,
   GET_DELETED_REQUESTS,
   GET_PENDING_REQUESTS,
@@ -21,7 +23,9 @@ export interface PostsState {
   post: PostInfo;
   isPostLoading: boolean;
   updateLoading: boolean;
-  isRequestLoading: boolean;
+  pendingLoading: boolean;
+  deletedLoading: boolean;
+  allLoading: boolean;
 }
 
 const initialState: PostsState = {
@@ -31,12 +35,14 @@ const initialState: PostsState = {
   post: null,
   isPostLoading: false,
   updateLoading: false,
-  isRequestLoading: false,
+  pendingLoading: false,
+  deletedLoading: false,
+  allLoading: false,
 };
 
 const postsSlice = createSlice({
   initialState,
-  name: 'posts',
+  name: 'post',
   reducers: {
     setPost(state, action: PayloadAction<PostInfo>) {
       state.post = action.payload;
@@ -56,8 +62,26 @@ const postsSlice = createSlice({
     setIsUpdateLoading(state, action: PayloadAction<boolean>) {
       state.updateLoading = action.payload;
     },
-    setIsRequestLoading(state, action: PayloadAction<boolean>) {
-      state.isRequestLoading = action.payload;
+    setPendingLoading(state, action: PayloadAction<boolean>) {
+      state.pendingLoading = action.payload;
+    },
+    setDeletedLoading(state, action: PayloadAction<boolean>) {
+      state.deletedLoading = action.payload;
+    },
+    setAllLoading(state, action: PayloadAction<boolean>) {
+      state.allLoading = action.payload;
+    },
+    confirmRequest(state, action: PayloadAction<PostRequest>) {
+      state.pendingRequests = [
+        ...state.pendingRequests.filter((request) => request.id !== action.payload.id),
+      ];
+      state.allRequests = [...state.allRequests, action.payload];
+    },
+    deleteRequest(state, action: PayloadAction<PostRequest>) {
+      state.pendingRequests = [
+        ...state.pendingRequests.filter((request) => request.id !== action.payload.id),
+      ];
+      state.deletedRequests = [...state.deletedRequests, action.payload];
     },
   },
 });
@@ -67,6 +91,8 @@ export const updatePostStatus = createAction<UpdatePostStatus>(UPDATE_POST_STATU
 export const getAllRequests = createAction<GetRequests>(GET_ALL_REQUESTS);
 export const getPendingRequests = createAction<GetRequests>(GET_PENDING_REQUESTS);
 export const getDeletedRequests = createAction<GetRequests>(GET_DELETED_REQUESTS);
+export const confirmRequestAction = createAction<PostRequest>(CONFIRM_REQUEST);
+export const deleteRequestAction = createAction<PostRequest>(DELETE_REQUEST);
 
 export const {
   setPost,
@@ -75,7 +101,11 @@ export const {
   setPendingRequests,
   setDeletedRequests,
   setAllRequests,
-  setIsRequestLoading,
+  setPendingLoading,
+  setAllLoading,
+  setDeletedLoading,
+  confirmRequest,
+  deleteRequest,
 } = postsSlice.actions;
 
 export default postsSlice.reducer;

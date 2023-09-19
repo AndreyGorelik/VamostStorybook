@@ -43,20 +43,24 @@ export type PostResponse = {
   imageUrl: string;
   packageId: string;
   guestOthersCount: number;
-  user: {
-    nickName: string;
-    id: string;
-    gender: {
-      value: 'Man' | 'Woman' | 'Other' | null;
-      isShown: boolean;
-    };
-  };
+  host: GuestType;
   guestMenCount: number;
   description: string;
   id: string;
   tags: PossibleTags[];
+  guests: GuestType[];
 };
 
 export type PossibleTags = 'food' | 'drinks' | 'dance' | 'hookah';
 
 export type PostStatus = 'Confirmed' | 'Completed' | 'Created' | 'Cancelled';
+
+export type GuestType = {
+  avatar: string;
+  nickName: string;
+  id: string;
+  gender: {
+    value: 'Man' | 'Woman' | 'Other' | null;
+    isShown: boolean;
+  };
+};
