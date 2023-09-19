@@ -7,6 +7,7 @@ import { UserPicGalleryProps } from './userPicGallery.types';
 export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
+
   return (
     <View style={styles.row}>
       {data?.map((item, index) => {

@@ -5,14 +5,8 @@ import { OutlinedButton } from '@shared/ui/outlinedBtn';
 import { PageLoader } from '@shared/ui/pageLoader';
 import { useNavigation } from 'expo-router';
 import { useEffect } from 'react';
-import { View, ScrollView, Alert } from 'react-native';
-import {
-  setAllRequests,
-  setDeletedRequests,
-  setPendingRequests,
-  setPost,
-  updatePostStatus,
-} from 'src/store/slices/postSlice';
+import { View, ScrollView, Alert, RefreshControl } from 'react-native';
+import { getPost, resetPost, updatePostStatus } from 'src/store/slices/postSlice';
 
 import { Guests } from './components/Guests';
 import { Header } from './components/Header';
@@ -47,12 +41,15 @@ export default function PostFullHost() {
 
   useEffect(() => {
     return () => {
-      dispatch(setPost(null));
-      dispatch(setPendingRequests([]));
-      dispatch(setDeletedRequests([]));
-      dispatch(setAllRequests([]));
+      dispatch(resetPost());
     };
   }, [dispatch]);
+
+  function refetchPost() {
+    if (!post || !post.info) return;
+    dispatch(resetPost());
+    dispatch(getPost({ id: post.info.id as string }));
+  }
 
   function handleBack() {
     navigation.goBack();
@@ -86,8 +83,9 @@ export default function PostFullHost() {
     <ScrollView
       contentContainerStyle={styles.scrollWrapper}
       style={styles.wrapper}
-      bounces={false}
+      bounces={true}
       showsVerticalScrollIndicator={false}
+      refreshControl={<RefreshControl refreshing={isPostLoading} onRefresh={refetchPost} />}
     >
       <Header postInfo={post.info} />
       <HeaderButton onPress={handleBack} icon={'arrow-back'} isBackground={true} variant="left" />

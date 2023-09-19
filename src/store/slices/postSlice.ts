@@ -47,6 +47,9 @@ const postsSlice = createSlice({
     setPost(state, action: PayloadAction<PostInfo>) {
       state.post = action.payload;
     },
+    resetPost() {
+      return { ...initialState };
+    },
     setIsPostLoading(state, action: PayloadAction<boolean>) {
       state.isPostLoading = action.payload;
     },
@@ -106,6 +109,7 @@ export const {
   setDeletedLoading,
   confirmRequest,
   deleteRequest,
+  resetPost,
 } = postsSlice.actions;
 
 export default postsSlice.reducer;

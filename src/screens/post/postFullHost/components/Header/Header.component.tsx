@@ -15,6 +15,7 @@ export default function Header({ postInfo }: HeaderProps) {
   const data = POST_FULL_HOST_DATA;
   const theme = useTheme();
   const styles = createStyles(theme);
+
   return (
     <View style={styles.header}>
       <ImageBackground
