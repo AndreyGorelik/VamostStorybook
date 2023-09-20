@@ -6,6 +6,7 @@ const BORDER_RADIUS = 15;
 
 export const createStyles = (_theme: Theme) =>
   StyleSheet.create({
+    wrapper: { flexDirection: 'row', flexWrap: 'wrap', gap: 5 },
     isTheOnlyOneImage: {
       width: '100%',
       height: HEIGHT,

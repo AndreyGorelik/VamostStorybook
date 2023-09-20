@@ -1,5 +1,10 @@
 import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
 
+export interface Photo {
+  id: string;
+  imageUrl: string;
+}
+
 export interface Profile {
   phoneNumber: string;
   avatar: string;
@@ -10,7 +15,7 @@ export interface Profile {
   birthdate: string;
   shownGender: string;
   nickName: string;
-  images: string[];
+  images: Photo[];
   id: string;
   gender: {
     value: string;

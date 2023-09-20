@@ -20,7 +20,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
 
   return (
     <>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 5 }}>
+      <View style={styles.wrapper}>
         {images.map((item, index, array) => {
           const isTheOnlyOneImage = index === 0 && array.length === 1;
           const isTheFirstImage = index === 0 && array.length > 1;

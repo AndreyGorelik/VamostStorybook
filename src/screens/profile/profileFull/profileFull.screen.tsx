@@ -12,53 +12,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { getProfile } from 'src/store/slices/profileSlice';
 
 import { createStyles } from './profileFull.styles';
-const DATA = [
-  {
-    id: '1',
-    imageUrl:
-      'https://i.kym-cdn.com/entries/icons/facebook/000/027/852/Screen_Shot_2018-12-12_at_1.02.39_PM.jpg',
-  },
-  {
-    id: '2',
-    imageUrl:
-      'https://i.kym-cdn.com/entries/icons/facebook/000/027/852/Screen_Shot_2018-12-12_at_1.02.39_PM.jpg',
-  },
-  {
-    id: '3',
-    imageUrl:
-      'https://i.kym-cdn.com/entries/icons/facebook/000/027/852/Screen_Shot_2018-12-12_at_1.02.39_PM.jpg',
-  },
-  {
-    id: '4',
-    imageUrl:
-      'https://i.kym-cdn.com/entries/icons/facebook/000/027/852/Screen_Shot_2018-12-12_at_1.02.39_PM.jpg',
-  },
-  {
-    id: '5',
-    imageUrl:
-      'https://i.kym-cdn.com/entries/icons/facebook/000/027/852/Screen_Shot_2018-12-12_at_1.02.39_PM.jpg',
-  },
-  {
-    id: '6',
-    imageUrl:
-      'https://i.kym-cdn.com/entries/icons/facebook/000/027/852/Screen_Shot_2018-12-12_at_1.02.39_PM.jpg',
-  },
-  {
-    id: '7',
-    imageUrl:
-      'https://i.kym-cdn.com/entries/icons/facebook/000/027/852/Screen_Shot_2018-12-12_at_1.02.39_PM.jpg',
-  },
-  {
-    id: '8',
-    imageUrl:
-      'https://i.kym-cdn.com/entries/icons/facebook/000/027/852/Screen_Shot_2018-12-12_at_1.02.39_PM.jpg',
-  },
-  {
-    id: '9',
-    imageUrl:
-      'https://i.kym-cdn.com/entries/icons/facebook/000/027/852/Screen_Shot_2018-12-12_at_1.02.39_PM.jpg',
-  },
-];
+
 export default function ProfileFull() {
   const params = useLocalSearchParams();
   const { id } = params;
@@ -114,19 +68,19 @@ export default function ProfileFull() {
           <Text variant="h5">Birthdate</Text>
           <Text>{profile.birthdate}</Text>
         </View>
-        {/* {JSON.parse(profile?.sexualOrientation?.toString()).isShown && (
+        {profile?.sexualOrientation?.isShown && (
           <View style={styles.infoRow}>
             <Text variant="h5">Sexual orientation</Text>
-            <Text>{JSON.parse(profile?.sexualOrientation.toString()).value}</Text>
+            <Text>{profile?.sexualOrientation.value}</Text>
           </View>
         )}
-        {JSON.parse(profile?.gender?.toString()).isShown && (
+        {profile?.gender?.isShown && (
           <View style={styles.infoRow}>
             <Text variant="h5">Gender</Text>
-            <Text>{JSON.parse(profile?.gender.toString()).value}</Text>
+            <Text>{profile?.gender.value}</Text>
           </View>
-        )} */}
-        <PhotoGallery images={DATA} />
+        )}
+        <PhotoGallery images={profile.images} />
       </View>
     </ScrollView>
   );
