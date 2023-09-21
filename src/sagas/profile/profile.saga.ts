@@ -1,18 +1,11 @@
 import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { getProfileRequest } from 'src/api/getProfile';
-import {
-  GET_PROFILE,
-  Profile,
-  setError,
-  setProfile,
-  setStartLoading,
-} from 'src/store/slices/profileSlice';
+import { Profile, getProfile, setError, setProfile } from 'src/store/slices/profileSlice';
 import { Action } from 'src/types/actions/actions.types';
 
 function* getProfileWorker(action: Action<string>) {
   try {
-    yield put(setStartLoading());
     const response: AxiosResponse<Profile> = yield call(getProfileRequest, action.payload);
     yield put(setProfile(response.data));
   } catch (error) {
@@ -27,5 +20,5 @@ function* getProfileWorker(action: Action<string>) {
 }
 
 export function* profileSaga() {
-  yield takeLatest(GET_PROFILE, getProfileWorker);
+  yield takeLatest(getProfile, getProfileWorker);
 }

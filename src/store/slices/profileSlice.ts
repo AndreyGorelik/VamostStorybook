@@ -60,7 +60,7 @@ const profileSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     },
-    setStartLoading(state) {
+    getProfile(state, _action) {
       state.isLoading = true;
       state.error = null;
     },
@@ -71,9 +71,6 @@ const profileSlice = createSlice({
   },
 });
 
-export const GET_PROFILE = 'profileSlice/getProfile';
-export const getProfile = createAction<string>(GET_PROFILE);
-
-export const { setProfile, setStartLoading, setError } = profileSlice.actions;
+export const { setProfile, getProfile, setError } = profileSlice.actions;
 
 export default profileSlice.reducer;
