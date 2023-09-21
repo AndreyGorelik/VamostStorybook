@@ -1,5 +1,4 @@
 import useTheme from '@shared/hooks/useTheme.hook';
-import { HostingLabel } from '@shared/ui/hostingLabel';
 import Text from '@shared/ui/text/text.component';
 import { UserPicGallery } from '@shared/ui/userpicGallery';
 import { format } from 'date-fns';
@@ -36,13 +35,12 @@ export default function Header({ postInfo }: HeaderProps) {
             {format(new Date(postInfo.date), 'MMMM d, yyyy, h:mm a')}
           </Text>
         </View>
-        <HostingLabel type="Host" />
         <View style={styles.guestsGallery}>
           <UserPicGallery data={postInfo.guests.slice(0, 3)} size={65} />
         </View>
       </View>
       <View style={styles.guests}>
-        <Text>My guests:</Text>
+        <Text>Guests:</Text>
 
         {postInfo.guests.length > 3 && <Text>({`${postInfo.guests.length - 3} left`})</Text>}
       </View>

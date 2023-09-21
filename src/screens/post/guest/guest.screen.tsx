@@ -5,19 +5,19 @@ import { OutlinedButton } from '@shared/ui/outlinedBtn';
 import { PageLoader } from '@shared/ui/pageLoader';
 import { useNavigation } from 'expo-router';
 import { useEffect } from 'react';
-import { View, ScrollView, Alert, RefreshControl } from 'react-native';
+import { View, ScrollView, Alert, RefreshControl, Text } from 'react-native';
 import { getPostAction, resetPost, updatePostStatus } from 'src/store/slices/post/post.slice';
 
 import { Guests } from './components/Guests';
 import { Header } from './components/Header';
 import { Requests } from './components/Requests';
 import { Tags } from './components/Tags';
-import { createStyles } from './host.styles';
+import { createStyles } from './guest.styles';
 
-export default function PostFullHost() {
+export default function GuestPost() {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const { post, isPostLoading } = useAppSelector((state) => state.postSlice);
+  const { post, isPostLoading, error } = useAppSelector((state) => state.postSlice);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
@@ -85,6 +85,8 @@ export default function PostFullHost() {
   }
 
   if (isPostLoading || !(post && post.info)) return <PageLoader />;
+
+  if (error) return <Text>{error}</Text>;
 
   return (
     <ScrollView

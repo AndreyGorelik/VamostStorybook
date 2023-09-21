@@ -1,9 +1,9 @@
+import { Ionicons } from '@expo/vector-icons';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { View, Image } from 'react-native';
 
 import { createStyles } from './userPicGallery.styles';
 import { UserPicGalleryProps } from './userPicGallery.types';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps) {
   const theme = useTheme();
@@ -17,17 +17,28 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
             <Image
               key={item.id}
               source={{ uri: item.avatar }}
-              style={[styles.userpic, { marginLeft: -size / 3, width: size, height: size }]}
+              style={[styles.userpic, { marginLeft: -size / 2, width: size, height: size }]}
             />
           ) : (
-            <Ionicons
-              name="person-circle"
-              size={60}
-              color={theme.colors.lightText}
-              style={{
-                marginLeft: -size / 2,
-              }}
-            />
+            <View
+              style={[
+                styles.icon,
+                {
+                  width: size,
+                  height: size,
+                  marginLeft: -size / 2,
+                },
+              ]}
+            >
+              <Ionicons
+                name="person"
+                color={theme.colors.secondary}
+                size={size / 1.5}
+                style={{
+                  alignSelf: 'center',
+                }}
+              ></Ionicons>
+            </View>
           );
         } else {
           return item.avatar ? (
@@ -37,7 +48,24 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
               style={[styles.userpic, { width: size, height: size }]}
             />
           ) : (
-            <Ionicons name="person-circle" size={60} color={theme.colors.lightText} />
+            <View
+              style={[
+                styles.icon,
+                {
+                  width: size,
+                  height: size,
+                },
+              ]}
+            >
+              <Ionicons
+                name="person"
+                color={theme.colors.secondary}
+                size={size / 1.5}
+                style={{
+                  alignSelf: 'center',
+                }}
+              ></Ionicons>
+            </View>
           );
         }
       })}
