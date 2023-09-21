@@ -5,7 +5,6 @@ export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     wrapper: {
       alignItems: 'flex-start',
-      // rowGap: 8,
     },
     date: {
       color: theme.colors.lightText,
