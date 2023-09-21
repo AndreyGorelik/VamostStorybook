@@ -5,6 +5,7 @@ export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     scrollWrapper: {
       flex: 1,
+      backgroundColor: theme.colors.background,
     },
     linearGradient: {
       flex: 1,
@@ -32,5 +33,8 @@ export const createStyles = (theme: Theme) =>
     },
     postInfo: {
       paddingHorizontal: 15,
+      rowGap: 30,
+    },
+    about: {
     },
   });

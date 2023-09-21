@@ -12,7 +12,7 @@ import { Guests } from './components/Guests';
 import { Header } from './components/Header';
 import { Requests } from './components/Requests';
 import { Tags } from './components/Tags';
-import { createStyles } from './postFullHost.styles';
+import { createStyles } from './host.styles';
 
 export default function PostFullHost() {
   const theme = useTheme();
