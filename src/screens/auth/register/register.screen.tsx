@@ -6,9 +6,8 @@ import { removeTokens } from '@shared/utils/removeTokens';
 import { useNavigation, Link } from 'expo-router';
 import { useLayoutEffect, useState } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
-import { logoutUser, setPrevStep, setStep } from 'src/store/slices/authSlice';
-import { setPhoneNumberError } from 'src/store/slices/errorsSlice';
-import { initialState, setUser } from 'src/store/slices/userSlice';
+import { logoutUser, setAuthError, setPrevStep, setStep } from 'src/store/slices/auth.slice';
+import { initialState, setUser } from 'src/store/slices/user.slice';
 
 import { Birthday } from './components/steps/birthday';
 import { Code } from './components/steps/code';
@@ -30,6 +29,12 @@ const RegisterScreen = () => {
   const { step } = useAppSelector((state) => state.authSlice);
 
   useLayoutEffect(() => {
+    function handleLogout() {
+      dispatch(setUser(initialState));
+      dispatch(logoutUser());
+      removeTokens();
+    }
+
     navigation.setOptions({
       header: () => (
         <Header
@@ -42,9 +47,7 @@ const RegisterScreen = () => {
               <Pressable
                 onPress={() => {
                   if (step <= 2) {
-                    dispatch(setUser(initialState));
-                    dispatch(logoutUser());
-                    removeTokens();
+                    handleLogout();
                   }
                   dispatch(setPrevStep());
                 }}
@@ -56,9 +59,7 @@ const RegisterScreen = () => {
           headerRight={
             <Pressable
               onPress={() => {
-                dispatch(setUser(initialState));
-                dispatch(logoutUser());
-                removeTokens();
+                handleLogout();
                 dispatch(setStep(1));
               }}
             >
@@ -68,7 +69,7 @@ const RegisterScreen = () => {
         />
       ),
     });
-    dispatch(setPhoneNumberError(null));
+    dispatch(setAuthError(null));
   }, [dispatch, navigation, step, theme.colors.primary]);
 
   return (

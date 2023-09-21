@@ -21,7 +21,7 @@ export default function Tags({ tags }: TagsProps) {
   return (
     <View style={styles.tags}>
       <Text>Tags: </Text>
-      {tags.map((item: PossibleTags) => {
+      {tags?.map((item: PossibleTags) => {
         return (
           <View key={item} style={styles.tagItem}>
             <MaterialCommunityIcons name={icons[item]} size={24} color={theme.colors.tagIcon} />

@@ -4,7 +4,7 @@ import { PageLoader } from '@shared/ui/pageLoader';
 import { Request } from '@shared/ui/request';
 import { useCallback, useEffect } from 'react';
 import { RefreshControl, ScrollView } from 'react-native';
-import { getAllRequests } from 'src/store/slices/postSlice';
+import { getAllRequests } from 'src/store/slices/post.slice';
 
 import { createStyles } from '../../Requests.styles';
 import { TabViewProps } from '../../Requests.types';

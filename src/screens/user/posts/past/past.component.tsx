@@ -5,18 +5,18 @@ import PostsList from '@shared/ui/postsList/postsList.component';
 import Text from '@shared/ui/text/text.component';
 import { useCallback, useEffect } from 'react';
 import { RefreshControl, ScrollView, View } from 'react-native';
-import { getPastPosts } from 'src/store/slices/postsSlice';
+import { getPastPostsAction } from 'src/store/slices/posts/pastPosts.slice';
 
 import { createStyles } from '../posts.styles';
 
 export default function Past() {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const { pastPosts, isLoading } = useAppSelector((state) => state.postsSlice);
+  const { pastPosts, isLoading } = useAppSelector((state) => state.pastPostsSlice);
   const dispatch = useAppDispatch();
 
   const handleFetch = useCallback(() => {
-    dispatch(getPastPosts());
+    dispatch(getPastPostsAction());
   }, [dispatch]);
 
   useEffect(() => {

@@ -82,7 +82,7 @@ export default function PostCard(props: PostResponse) {
         </View>
         <View>
           <View style={styles.row}>
-            {props.tags.map((item, index, array) => {
+            {props.tags?.map((item, index, array) => {
               const isLastElement = index === array.length - 1;
               const separator = array.length > 2 ? ', ' : ' & ';
               return (

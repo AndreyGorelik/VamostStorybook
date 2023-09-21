@@ -1,4 +1,4 @@
-import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface UserState {
   phoneNumber: string;
@@ -27,6 +27,34 @@ export interface UserState {
   images: string[];
   avatar: string;
 }
+
+export type UserInfo = {
+  phoneNumber: string;
+  email: string;
+  nickname: string;
+  gender: {
+    value: 'Man' | 'Woman' | 'Other' | null;
+    isShown: boolean;
+  };
+  phoneVerified: boolean;
+  sexualOrientation: {
+    value:
+      | 'Straight'
+      | 'Gay'
+      | 'Lesbian'
+      | 'Bisexual'
+      | 'Asexual'
+      | 'Demisexual'
+      | 'Pansexual'
+      | 'Queer'
+      | null;
+    isShown: boolean;
+  };
+  shownGender: 'Man' | 'Woman' | 'Everyone' | null;
+  birthdate: string;
+  images: string[];
+  avatar: string;
+};
 
 export const initialState: UserState = {
   phoneNumber: '',
@@ -77,9 +105,6 @@ const userSlice = createSlice({
     },
   },
 });
-
-export const LOGIN_USER = 'users/loginUser';
-export const loginUser = createAction(LOGIN_USER);
 
 export const {
   setPhoneNumber,

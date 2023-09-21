@@ -2,7 +2,7 @@ import { useAppSelector, useAppDispatch } from '@shared/hooks/redux.hook';
 import { PageLoader } from '@shared/ui/pageLoader';
 import { Redirect, useLocalSearchParams } from 'expo-router';
 import { useEffect } from 'react';
-import { getPost } from 'src/store/slices/postSlice';
+import { getPost } from 'src/store/slices/post.slice';
 
 export default function Index() {
   const { post, isPostLoading } = useAppSelector((state) => state.postSlice);

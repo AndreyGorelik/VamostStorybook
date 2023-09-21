@@ -8,7 +8,7 @@ import Text from '@shared/ui/text/text.component';
 import { useCallback, useEffect, useState } from 'react';
 import { FlatList, Pressable, RefreshControl, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { getPosts } from 'src/store/slices/postsSlice';
+import { getPostsAction } from 'src/store/slices/posts/posts.slice';
 
 import { FilterItem } from './components/filterItem';
 import { createStyles } from './home.styles';
@@ -30,7 +30,7 @@ export default function Home() {
   const dispatch = useDispatch();
 
   const handleFetch = useCallback(() => {
-    dispatch(getPosts({ place: city, filter }));
+    dispatch(getPostsAction({ place: city, filter }));
   }, [city, dispatch, filter]);
 
   useEffect(() => {

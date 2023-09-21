@@ -26,6 +26,12 @@ export interface PostsState {
   pendingLoading: boolean;
   deletedLoading: boolean;
   allLoading: boolean;
+  error: string | null;
+  deletedRequestsError: string | null;
+  pendingRequestsError: string | null;
+  allRequestsError: string | null;
+  confirmPostLoading: boolean;
+  cancelPostLoading: boolean;
 }
 
 const initialState: PostsState = {
@@ -38,6 +44,12 @@ const initialState: PostsState = {
   pendingLoading: false,
   deletedLoading: false,
   allLoading: false,
+  error: null,
+  deletedRequestsError: null,
+  pendingRequestsError: null,
+  allRequestsError: null,
+  confirmPostLoading: false,
+  cancelPostLoading: false,
 };
 
 const postsSlice = createSlice({
@@ -49,6 +61,18 @@ const postsSlice = createSlice({
     },
     resetPost() {
       return { ...initialState };
+    },
+    setPostError(state, action: PayloadAction<string | null>) {
+      state.error = action.payload;
+    },
+    setPendingRequestsError(state, action: PayloadAction<string | null>) {
+      state.pendingRequestsError = action.payload;
+    },
+    setAllRequestsError(state, action: PayloadAction<string | null>) {
+      state.allRequestsError = action.payload;
+    },
+    setDeletedRequestsError(state, action: PayloadAction<string | null>) {
+      state.deletedRequestsError = action.payload;
     },
     setIsPostLoading(state, action: PayloadAction<boolean>) {
       state.isPostLoading = action.payload;
@@ -116,6 +140,10 @@ export const {
   confirmRequest,
   deleteRequest,
   resetPost,
+  setPostError,
+  setPendingRequestsError,
+  setAllRequestsError,
+  setDeletedRequestsError,
 } = postsSlice.actions;
 
 export default postsSlice.reducer;

@@ -1,4 +1,4 @@
-import { Canceled } from './canceled';
+import { Canceled } from './cancelled';
 import { Past } from './past';
 import { Upcoming } from './upcoming';
 

@@ -3,7 +3,7 @@ import useTheme from '@shared/hooks/useTheme.hook';
 import Divider from '@shared/ui/divider/divider.component';
 import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { confirmRequest, deleteRequest } from 'src/store/slices/postSlice';
+import { confirmRequest, deleteRequest } from 'src/store/slices/post.slice';
 import { PostRequest } from 'src/types/api/getPosts';
 
 import { All } from './components/All';

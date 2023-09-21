@@ -5,7 +5,7 @@ import PostsList from '@shared/ui/postsList/postsList.component';
 import Text from '@shared/ui/text/text.component';
 import { useCallback, useEffect } from 'react';
 import { RefreshControl, ScrollView, View } from 'react-native';
-import { getCanceledPosts } from 'src/store/slices/postsSlice';
+import { getCancelledPosts } from 'src/store/slices/posts/cancelledPosts.slice';
 
 import { createStyles } from '../posts.styles';
 
@@ -13,11 +13,11 @@ export default function Canceled() {
   const theme = useTheme();
   const styles = createStyles(theme);
 
-  const { canceledPosts, isLoading } = useAppSelector((state) => state.postsSlice);
+  const { cancelledPosts, isLoading } = useAppSelector((state) => state.cancelledPostsSlice);
   const dispatch = useAppDispatch();
 
   const handleFetch = useCallback(() => {
-    dispatch(getCanceledPosts());
+    dispatch(getCancelledPosts());
   }, [dispatch]);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function Canceled() {
     return <PageLoader />;
   }
 
-  if (!isLoading && !canceledPosts.length) {
+  if (!isLoading && !cancelledPosts.length) {
     return (
       <ScrollView
         refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleFetch} />}
@@ -43,7 +43,7 @@ export default function Canceled() {
     <View style={styles.wrapper}>
       <PostsList
         refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleFetch} />}
-        list={canceledPosts}
+        list={cancelledPosts}
       />
     </View>
   );

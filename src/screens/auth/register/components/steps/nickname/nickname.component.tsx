@@ -5,7 +5,7 @@ import { Input } from '@shared/ui/input';
 import Text from '@shared/ui/text/text.component';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { registerNickname, setNextStep } from 'src/store/slices/authSlice';
+import { registerNicknameAction, setNextStep } from 'src/store/slices/auth.slice';
 
 import { createStyles } from './nickname.styles';
 
@@ -13,9 +13,8 @@ export default function Code() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
-  const { isLoading } = useAppSelector((state) => state.authSlice);
+  const { isLoading, error } = useAppSelector((state) => state.authSlice);
   const { nickname } = useAppSelector((state) => state.userSlice);
-  const { nicknameError } = useAppSelector((state) => state.errorsSlice);
   const {
     control,
     handleSubmit,
@@ -30,7 +29,7 @@ export default function Code() {
     if (nickname === data.nickName) {
       dispatch(setNextStep());
     }
-    dispatch(registerNickname(data));
+    dispatch(registerNicknameAction(data));
   }
 
   return (
@@ -53,7 +52,7 @@ export default function Code() {
             <Input onChangeText={onChange} onBlur={onBlur} value={value} placeholder="Nickname" />
           )}
         />
-        {nicknameError && <Text variant="warning">{nicknameError}</Text>}
+        {error && <Text variant="warning">{error}</Text>}
       </View>
       <Button
         title="Continue"

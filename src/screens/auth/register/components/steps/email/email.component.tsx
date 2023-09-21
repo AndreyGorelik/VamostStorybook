@@ -5,7 +5,7 @@ import { Input } from '@shared/ui/input';
 import Text from '@shared/ui/text/text.component';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { registerEmail, setNextStep } from 'src/store/slices/authSlice';
+import { registerEmailAction, setNextStep } from 'src/store/slices/auth.slice';
 
 import { createStyles } from './email.styles';
 
@@ -13,8 +13,7 @@ export default function Email() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
-  const { emailError } = useAppSelector((state) => state.errorsSlice);
-  const { isLoading } = useAppSelector((state) => state.authSlice);
+  const { isLoading, error } = useAppSelector((state) => state.authSlice);
   const { email } = useAppSelector((state) => state.userSlice);
 
   const {
@@ -32,7 +31,7 @@ export default function Email() {
       dispatch(setNextStep());
     }
 
-    dispatch(registerEmail({ email: data.email.toLowerCase() }));
+    dispatch(registerEmailAction({ email: data.email.toLowerCase() }));
   }
 
   return (
@@ -65,7 +64,7 @@ export default function Email() {
             />
           )}
         />
-        {emailError && <Text variant="warning">{emailError}</Text>}
+        {error && <Text variant="warning">{error}</Text>}
       </View>
       <Button
         title="Continue"

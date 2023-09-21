@@ -15,24 +15,36 @@ import createSagaMiddleware from 'redux-saga';
 
 import rootSaga from '../sagas';
 
-import authSlice from './slices/authSlice';
-import errorsSlice from './slices/errorsSlice';
-import postSlice from './slices/postSlice';
-import postsSlice from './slices/postsSlice';
-import userSlice from './slices/userSlice';
+import authSlice from './slices/auth.slice';
+import postSlice from './slices/post.slice';
+import cancelledPostsSlice from './slices/posts/cancelledPosts.slice';
+import pastPostsSlice from './slices/posts/pastPosts.slice';
+import postsSlice from './slices/posts/posts.slice';
+import upcomingPostsSlice from './slices/posts/upcomingPosts.slice';
+import userSlice from './slices/user.slice';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['errorsSlice', 'authSlice', 'postSlice', 'postsSlice'],
+  blacklist: [
+    'errorsSlice',
+    'authSlice',
+    'postsSlice.error',
+    'upcomingPostsSlice.error',
+    'pastPostsSlice.error',
+    'cancelledPostsSlice.error',
+    'userSlice',
+  ],
 };
 
 const rootReducer = combineReducers({
   authSlice,
   userSlice,
-  errorsSlice,
-  postsSlice,
   postSlice,
+  postsSlice,
+  upcomingPostsSlice,
+  cancelledPostsSlice,
+  pastPostsSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

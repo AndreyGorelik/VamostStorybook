@@ -5,7 +5,7 @@ import PostsList from '@shared/ui/postsList/postsList.component';
 import Text from '@shared/ui/text/text.component';
 import { useCallback, useEffect } from 'react';
 import { RefreshControl, ScrollView, View } from 'react-native';
-import { getUpcomingPosts } from 'src/store/slices/postsSlice';
+import { getUpcomingPostsAction } from 'src/store/slices/posts/upcomingPosts.slice';
 
 import { createStyles } from '../posts.styles';
 
@@ -13,11 +13,11 @@ export default function Upcoming() {
   const theme = useTheme();
   const styles = createStyles(theme);
 
-  const { upcomingPosts, isLoading } = useAppSelector((state) => state.postsSlice);
+  const { upcomingPosts, isLoading } = useAppSelector((state) => state.upcomingPostsSlice);
   const dispatch = useAppDispatch();
 
   const handleFetch = useCallback(() => {
-    dispatch(getUpcomingPosts());
+    dispatch(getUpcomingPostsAction());
   }, [dispatch]);
 
   useEffect(() => {

@@ -6,8 +6,8 @@ import { SelectList } from '@shared/ui/selectList';
 import Text from '@shared/ui/text/text.component';
 import { useState } from 'react';
 import { View } from 'react-native';
-import { setNextStep } from 'src/store/slices/authSlice';
-import { setSexualOrientation } from 'src/store/slices/userSlice';
+import { setNextStep } from 'src/store/slices/auth.slice';
+import { setSexualOrientation } from 'src/store/slices/user.slice';
 
 import { ORIENTATION_MULTI_SELECT_DATA } from './orientation.data';
 import { createStyles } from './orientation.styles';
@@ -19,12 +19,8 @@ export default function Orientation() {
   const { isLoading } = useAppSelector((state) => state.authSlice);
   const { sexualOrientation } = useAppSelector((state) => state.userSlice);
 
-  const [selected, setSelected] = useState(
-    sexualOrientation?.value ?? ''
-  );
-  const [showMyOrientation, setShowMyOrientation] = useState(
-    sexualOrientation?.isShown === true
-  );
+  const [selected, setSelected] = useState(sexualOrientation?.value ?? '');
+  const [showMyOrientation, setShowMyOrientation] = useState(sexualOrientation?.isShown === true);
 
   function onSubmit() {
     dispatch(

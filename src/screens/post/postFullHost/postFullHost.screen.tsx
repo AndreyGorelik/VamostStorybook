@@ -6,7 +6,7 @@ import { PageLoader } from '@shared/ui/pageLoader';
 import { useNavigation } from 'expo-router';
 import { useEffect } from 'react';
 import { View, ScrollView, Alert, RefreshControl } from 'react-native';
-import { getPost, resetPost, updatePostStatus } from 'src/store/slices/postSlice';
+import { getPost, resetPost, updatePostStatus } from 'src/store/slices/post.slice';
 
 import { Guests } from './components/Guests';
 import { Header } from './components/Header';
@@ -25,6 +25,7 @@ export default function PostFullHost() {
     {
       title: 'Confirm & Lock',
       color: theme.colors.postStatus.confirmed,
+      disabled: Boolean(post?.info?.guests.length && post.info.guests.length < 2),
       onPress: () => {
         confirmPost();
         refetchPost();

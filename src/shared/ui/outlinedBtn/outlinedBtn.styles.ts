@@ -30,6 +30,7 @@ export const createStyles = ({
         : selected
         ? theme.colors.selected
         : theme.colors.button,
+      opacity: disabled ? 0.6 : 1,
     },
     text: {
       letterSpacing: 0.25,

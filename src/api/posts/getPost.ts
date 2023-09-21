@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import * as SecureStore from 'expo-secure-store';
-import { PostInfo } from 'src/store/slices/postsSlice';
+import { PostInfo } from 'src/store/slices/post.slice';
 import { PostResponse } from 'src/types/actions/actions.types';
 import { GetPost } from 'src/types/api/getPosts';
 
