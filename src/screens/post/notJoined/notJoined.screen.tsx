@@ -50,7 +50,7 @@ export default function NotJoined() {
 
   if (isPostLoading) return <PageLoader />;
 
-  // if (error) return <Text>{error}</Text>;
+  if (error) return <Text>{error}</Text>;
 
   return (
     <ScrollView
