@@ -21,7 +21,7 @@ export enum Filters {
 
 export default function Home() {
   const { posts, isLoading } = useAppSelector((state) => state.postsSlice);
-  const [filter, setFilter] = useState<Filters>(Filters.Guests);
+  const [filter, setFilter] = useState<Filters>(Filters.All);
   const [city, setCity] = useState<string>('Miami');
   const [open, setOpen] = useState<boolean>(false);
 
