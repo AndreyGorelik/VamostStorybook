@@ -49,6 +49,7 @@ export type PostResponse = {
   id: string;
   tags: PossibleTags[];
   guests: GuestType[];
+  hostType: 'Guest' | 'Host';
 };
 
 export type PossibleTags = 'food' | 'drinks' | 'dance' | 'hookah';

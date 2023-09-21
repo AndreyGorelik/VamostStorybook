@@ -16,7 +16,7 @@ export const REFRESH = 'auth/refresh';
 
 export const GET_POSTS = 'posts/getPosts';
 
-export const GET_POST = 'post/post';
+export const GET_POST = 'post/getPost';
 
 export const GET_POSTS_BY_USER = 'posts/postsByUser';
 
@@ -28,11 +28,11 @@ export const GET_PAST_POSTS = 'pastPosts/getPastPosts';
 
 export const UPDATE_POST_STATUS = 'post/updatePostStatus';
 
-export const GET_PENDING_REQUESTS = 'post/getPendingRequests';
+export const GET_PENDING_REQUESTS = 'pendingRequests/getPendingRequests';
 
-export const GET_ALL_REQUESTS = 'post/getAllRequests';
+export const GET_ALL_REQUESTS = 'allRequests/getAllRequests';
 
-export const GET_DELETED_REQUESTS = 'post/getDeletedRequests';
+export const GET_DELETED_REQUESTS = 'deletedRequests/getDeletedRequests';
 
 export const CONFIRM_REQUEST = 'post/confirmRequest';
 

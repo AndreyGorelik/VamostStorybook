@@ -4,7 +4,7 @@ import { PageLoader } from '@shared/ui/pageLoader';
 import { Request } from '@shared/ui/request';
 import { useCallback, useEffect } from 'react';
 import { RefreshControl, ScrollView } from 'react-native';
-import { getAllRequests } from 'src/store/slices/post.slice';
+import { getAllRequests } from 'src/store/slices/post/requests/allRequests.slice';
 
 import { createStyles } from '../../Requests.styles';
 import { TabViewProps } from '../../Requests.types';
@@ -12,7 +12,7 @@ import { TabViewProps } from '../../Requests.types';
 export default function All({ id, confirmRequest, deleteRequest }: TabViewProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const { allRequests, allLoading } = useAppSelector((state) => state.postSlice);
+  const { allRequests, allRequestsLoading } = useAppSelector((state) => state.allRequestsSlice);
   const dispatch = useAppDispatch();
 
   const handleFetch = useCallback(() => {
@@ -27,13 +27,13 @@ export default function All({ id, confirmRequest, deleteRequest }: TabViewProps)
     if (!allRequests.length) handleFetch();
   }, [handleFetch, allRequests.length]);
 
-  if (allLoading) return <PageLoader />;
+  if (allRequestsLoading) return <PageLoader />;
 
   return (
     <ScrollView
       contentContainerStyle={styles.contentWrapper}
       nestedScrollEnabled={true}
-      refreshControl={<RefreshControl refreshing={allLoading} onRefresh={handleFetch} />}
+      refreshControl={<RefreshControl refreshing={allRequestsLoading} onRefresh={handleFetch} />}
     >
       {allRequests.map((item) => (
         <Request

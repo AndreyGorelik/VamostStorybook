@@ -6,7 +6,7 @@ import { PageLoader } from '@shared/ui/pageLoader';
 import { useNavigation } from 'expo-router';
 import { useEffect } from 'react';
 import { View, ScrollView, Alert, RefreshControl } from 'react-native';
-import { getPost, resetPost, updatePostStatus } from 'src/store/slices/post.slice';
+import { getPostAction, resetPost, updatePostStatus } from 'src/store/slices/post/post.slice';
 
 import { Guests } from './components/Guests';
 import { Header } from './components/Header';
@@ -55,7 +55,7 @@ export default function PostFullHost() {
   function refetchPost() {
     if (!post || !post.info) return;
     dispatch(resetPost());
-    dispatch(getPost({ id: post.info.id as string }));
+    dispatch(getPostAction({ id: post.info.id as string }));
   }
 
   function handleBack() {

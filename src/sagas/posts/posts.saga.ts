@@ -23,19 +23,19 @@ import { getPostsByUserRequest } from 'src/api/posts/getPostsByUser';
 import { getUpcomingPostsRequest } from 'src/api/posts/getUpcomingPosts';
 import { rejectRequest } from 'src/api/posts/rejectRequest';
 import { setPostStatusRequest } from 'src/api/posts/setPostStatus';
+import { setPost, PostInfo, setPostError, getPostAction } from 'src/store/slices/post/post.slice';
 import {
-  setPost,
-  setIsUpdateLoading,
-  getPost,
-  setPendingRequests,
-  setDeletedRequests,
   setAllRequests,
-  PostInfo,
-  setPostError,
-  setPendingRequestsError,
-  setDeletedRequestsError,
   setAllRequestsError,
-} from 'src/store/slices/post.slice';
+} from 'src/store/slices/post/requests/allRequests.slice';
+import {
+  setDeletedRequests,
+  setDeletedRequestsError,
+} from 'src/store/slices/post/requests/deletedRequests.slice';
+import {
+  setPendingRequests,
+  setPendingRequestsError,
+} from 'src/store/slices/post/requests/pendingRequests.slice';
 import {
   setCancelledPosts,
   setCancelledPostsError,
@@ -84,11 +84,12 @@ export function* getPostsByUserWorker() {
 export function* getPostWorker(action: Action<GetPost>) {
   try {
     const response: AxiosResponse<PostInfo> = yield call(getPostRequest, action.payload);
+
     yield put(setPost(response.data));
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response && error.response.data && error.response.data.message) {
-        yield put(setPostError(error.response.data));
+        yield put(setPostError(error.response.data.message));
       }
     }
   }
@@ -134,18 +135,14 @@ export function* getPastPostsWorker() {
 
 export function* updatePostStatusWorker(action: Action<UpdatePostStatus>) {
   try {
-    yield put(setIsUpdateLoading(true));
     yield call(setPostStatusRequest, action.payload);
-    yield put(getPost({ id: action.payload.id }));
-    yield put(setPostsError(null));
+    yield put(getPostAction({ id: action.payload.id }));
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response && error.response.data && error.response.data.message) {
-        yield put(setPostsError(error.response.data));
+        yield put(setPostError(error.response.data));
       }
     }
-  } finally {
-    yield put(setIsUpdateLoading(false));
   }
 }
 

@@ -16,7 +16,10 @@ import createSagaMiddleware from 'redux-saga';
 import rootSaga from '../sagas';
 
 import authSlice from './slices/auth.slice';
-import postSlice from './slices/post.slice';
+import postSlice from './slices/post/post.slice';
+import allRequestsSlice from './slices/post/requests/allRequests.slice';
+import deletedRequestsSlice from './slices/post/requests/deletedRequests.slice';
+import pendingRequestsSlice from './slices/post/requests/pendingRequests.slice';
 import cancelledPostsSlice from './slices/posts/cancelledPosts.slice';
 import pastPostsSlice from './slices/posts/pastPosts.slice';
 import postsSlice from './slices/posts/posts.slice';
@@ -34,6 +37,10 @@ const persistConfig = {
     'pastPostsSlice.error',
     'cancelledPostsSlice.error',
     'userSlice',
+    'postSlice',
+    'allRequestsSlice',
+    'deletedRequestsSlice',
+    'pendingRequestsSlice',
   ],
 };
 
@@ -45,6 +52,9 @@ const rootReducer = combineReducers({
   upcomingPostsSlice,
   cancelledPostsSlice,
   pastPostsSlice,
+  allRequestsSlice,
+  deletedRequestsSlice,
+  pendingRequestsSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
