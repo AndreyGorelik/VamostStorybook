@@ -22,9 +22,10 @@ export default function StepFive({ post, setPost, next, fullPackageId }: StepFiv
   const { getFullPackageError } = useAppSelector((state) => state.errorsSlice);
 
   const selectPackage = () => {
+    if (!fullPackageId) return;
     setPost({
       ...post,
-      packageId: fullPackageId!,
+      packageId: fullPackageId,
     });
     next();
   };

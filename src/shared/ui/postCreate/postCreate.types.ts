@@ -1,7 +1,9 @@
+export type HostType = 'Host' | 'Guest';
+
 export interface Post {
   date: Date;
   description: string;
-  hostType: 'host' | 'guest';
+  hostType: HostType;
   location: string;
   tags: string[];
   menCount: number;

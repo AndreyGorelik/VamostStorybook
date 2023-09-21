@@ -1,7 +1,7 @@
 import { Post } from './postCreate.types';
 
 export const initialPost: Post = {
-  hostType: 'host',
+  hostType: 'Host',
   date: new Date(Date.now() + 24 * 60 * 60 * 1000),
   description: '',
   location: 'Vitebsk',

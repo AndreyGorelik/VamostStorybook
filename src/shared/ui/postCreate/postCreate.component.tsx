@@ -1,4 +1,4 @@
-import { useAppDispatch } from '@shared/hooks/redux.hook';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import { format } from 'date-fns';
 import { useCallback, useRef, useState } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
@@ -20,6 +20,7 @@ import { Post, PostCreateProps } from './postCreate.types';
 
 const PostCreate = ({ open, setOpen }: PostCreateProps) => {
   const dispatch = useAppDispatch();
+  const { gender } = useAppSelector((state) => state.userSlice);
   const [step, setStep] = useState<number>(0);
   const [fullPackageId, setFullPackageId] = useState<string | null>(null);
   const [placeId, setPlaceId] = useState('');
@@ -68,7 +69,7 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
     newPost.name = 'New Post';
     newPost.imageData =
       'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wD/AAAB/0nq6gAAAABJRU5ErkJggg==';
-    newPost.gender = ['Man'];
+    newPost.gender = [gender.value];
 
     dispatch(postCreate(newPost));
   }
