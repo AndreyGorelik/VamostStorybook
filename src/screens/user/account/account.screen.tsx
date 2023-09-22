@@ -1,5 +1,6 @@
 import Background from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
 import UserPic from '@assets/images/postCardImages/userpic2.jpeg';
+import { MaterialIcons } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import Action from '@shared/ui/action/action.component';
@@ -7,6 +8,7 @@ import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
 import Text from '@shared/ui/text/text.component';
 import { removeTokens } from '@shared/utils/removeTokens';
 import { useNavigation } from 'expo-router';
+import { useState } from 'react';
 import {
   View,
   ScrollView,
@@ -28,6 +30,7 @@ export default function Account() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const { email, nickname } = useAppSelector((state) => state.userSlice);
+  const [editMode, setEditMode] = useState(false);
   const dispatch = useAppDispatch();
 
   const navigation = useNavigation();
@@ -75,6 +78,17 @@ export default function Account() {
           {actions.map((action) => (
             <Action key={action.id} {...action} />
           ))}
+          <Action
+            Icon={<MaterialIcons name="edit" size={24} color="white" />}
+            title="Edit"
+            onPress={() => setEditMode(true)}
+          />
+        </View>
+
+        <PersonalInfo editMode={editMode} setEditMode={setEditMode} />
+        <View>
+          <Text variant="h3">Photos</Text>
+          <PersonalPhotos />
         </View>
         <View style={styles.recentMeetups}>
           <Text variant="h3">Recent meetups</Text>
@@ -89,11 +103,6 @@ export default function Account() {
               <ActivityIndicatorComponent size="large" color={theme.colors.primary} />
             )}
           />
-        </View>
-        <PersonalInfo />
-        <View>
-          <Text variant="h3">Photos</Text>
-          <PersonalPhotos />
         </View>
       </View>
     </ScrollView>

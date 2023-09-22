@@ -1,5 +1,5 @@
 import Photo from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
-import { AntDesign, FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 
 export const POST_CARD_DATA = {
   photo: Photo,
@@ -18,12 +18,6 @@ export const actions = [
     title: 'New',
     onPress: () => {},
     Icon: <AntDesign size={26} name="pluscircle" color="white" />,
-  },
-  {
-    id: 2,
-    Icon: <MaterialIcons name="edit" size={24} color="white" />,
-    title: 'Edit',
-    onPress: () => {},
   },
   {
     id: 3,

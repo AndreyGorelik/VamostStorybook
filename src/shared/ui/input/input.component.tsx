@@ -16,7 +16,18 @@ const AnimatedInput = Animated.createAnimatedComponent(NativeTextInput);
 
 const TextInput = forwardRef<NativeTextInput, InputProps>(
   (
-    { placeholder, value, onChangeText, onBlur, onFocus, fontSize, error, rightIcon, ...rest },
+    {
+      placeholder,
+      value,
+      onChangeText,
+      onBlur,
+      onFocus,
+      fontSize,
+      error,
+      rightIcon,
+      noGap,
+      ...rest
+    },
     ref
   ) => {
     const theme = useTheme();
@@ -63,7 +74,7 @@ const TextInput = forwardRef<NativeTextInput, InputProps>(
     }, []);
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { marginVertical: noGap ? 0 : 10 }]}>
         <Animated.View style={[styles.placeholder, reanimatedStyle]}>
           <Animated.Text style={[styles.text, textReanimatedStyle]}>{placeholder}</Animated.Text>
         </Animated.View>
@@ -85,7 +96,7 @@ const TextInput = forwardRef<NativeTextInput, InputProps>(
             ref={ref}
             value={value}
             onChangeText={onChangeText}
-            style={[styles.input]}
+            style={[styles.input, { paddingVertical: noGap ? 0 : 10 }]}
             placeholderTextColor={'white'}
             {...rest}
           />

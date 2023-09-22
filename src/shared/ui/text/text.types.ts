@@ -14,7 +14,6 @@ export type TextVariant =
   | 'disabled';
 
 export interface CustomText extends TextProps {
-  children: string | string[];
   color?: string;
   variant?: TextVariant;
   margin?: number;

@@ -1,20 +1,31 @@
-
 export type PersonalInfoValues = {
   birthdate: string;
   nickname: string;
-  gender: 'Man' | 'Woman' | 'Other' | null;
+  gender: {
+    value: 'Man' | 'Woman' | 'Other' | null;
+    isShown: boolean;
+  };
+  genderShown: boolean;
   phoneNumber: string;
-  sexualOrientation:
-    | 'Straight'
-    | 'Gay'
-    | 'Lesbian'
-    | 'Bisexual'
-    | 'Asexual'
-    | 'Demisexual'
-    | 'Pansexual'
-    | 'Queer'
-    | null;
+  sexualOrientation: {
+    value:
+      | 'Straight'
+      | 'Gay'
+      | 'Lesbian'
+      | 'Bisexual'
+      | 'Asexual'
+      | 'Demisexual'
+      | 'Pansexual'
+      | 'Queer'
+      | null;
+    isShown: boolean;
+  };
+
+  sexualOrientationShown: boolean;
   email: string;
-  shownGender: 'Man' | 'Woman' | 'Everyone' | null;
 };
 
+export interface PersonalInfoProps {
+  editMode: boolean;
+  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+}

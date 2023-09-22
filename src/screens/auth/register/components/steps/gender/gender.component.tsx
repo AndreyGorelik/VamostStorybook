@@ -9,7 +9,7 @@ import { View } from 'react-native';
 import { setNextStep } from 'src/store/slices/authSlice';
 import { setGender } from 'src/store/slices/userSlice';
 
-import { ORIENTATION_RADIO_DATA_WITH_OPTIONS } from './gender.data';
+import { GENDER_OPTIONS } from './gender.data';
 import { createStyles } from './gender.styles';
 
 export default function Gender() {
@@ -20,9 +20,7 @@ export default function Gender() {
   const { gender } = useAppSelector((state) => state.userSlice);
 
   const [selected, setSelected] = useState(gender?.value ?? '');
-  const [showMyGender, setShowMyGender] = useState(
-    gender?.isShown === true
-  );
+  const [showMyGender, setShowMyGender] = useState(gender?.isShown === true);
 
   function onSubmit() {
     dispatch(
@@ -40,7 +38,7 @@ export default function Gender() {
 
       <View style={styles.content}>
         <SelectList
-          listOptions={ORIENTATION_RADIO_DATA_WITH_OPTIONS}
+          listOptions={GENDER_OPTIONS}
           selected={selected}
           setSelected={setSelected}
           variant="buttonsList"

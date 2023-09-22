@@ -1,4 +1,5 @@
 import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
+import { PersonalInfoValues } from '@screens/user/account/components/personalInfo/personalInfo.types';
 
 export interface UserState {
   phoneNumber: string;
@@ -73,6 +74,14 @@ const userSlice = createSlice({
     setBirthdate(state, action) {
       state.birthdate = action.payload;
     },
+    setEditedUserInfo(state, action: PayloadAction<PersonalInfoValues>) {
+      state.phoneNumber = action.payload.phoneNumber;
+      state.email = action.payload.email;
+      state.nickname = action.payload.nickname;
+      state.gender = action.payload.gender;
+      state.sexualOrientation = action.payload.sexualOrientation;
+      state.birthdate = action.payload.birthdate;
+    },
   },
 });
 
@@ -88,6 +97,7 @@ export const {
   setShownGender,
   setBirthdate,
   setUser,
+  setEditedUserInfo,
 } = userSlice.actions;
 
 export default userSlice.reducer;
