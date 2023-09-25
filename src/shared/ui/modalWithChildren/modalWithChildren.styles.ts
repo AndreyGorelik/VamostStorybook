@@ -1,7 +1,7 @@
 import { Theme } from '@shared/hooks/useTheme.hook';
 import { StyleSheet } from 'react-native';
 
-export const createStyles = (_theme: Theme) =>
+export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     backdrop: {
       flex: 1,
@@ -17,7 +17,7 @@ export const createStyles = (_theme: Theme) =>
     modalContent: {
       width: '50%',
       margin: 20,
-      backgroundColor: 'white',
+      backgroundColor: theme.colors.secondary,
       borderRadius: 15,
       padding: 35,
       alignItems: 'center',

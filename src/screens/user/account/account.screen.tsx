@@ -79,7 +79,7 @@ export default function Account() {
             <Action key={action.id} {...action} />
           ))}
           <Action
-            Icon={<MaterialIcons name="edit" size={24} color="white" />}
+            Icon={<MaterialIcons name="edit" size={24} color={theme.colors.secondary} />}
             title="Edit"
             onPress={() => setEditMode(true)}
           />
