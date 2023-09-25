@@ -37,7 +37,7 @@ function* postCreatePostWorker(action: Action<Post>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data.message) {
+        if (error.response.data && error.response.data.message) {
           yield put(setPostCreateError(error.response.data.message));
         }
       }
