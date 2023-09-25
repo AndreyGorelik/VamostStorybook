@@ -101,7 +101,7 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
           );
         }}
       />
-      {errors.phoneNumber && <Text variant="warning">{errors.phoneNumber?.message}</Text>}
+      {errors.phoneNumber && <Text variant="warning">Invalid phone number</Text>}
 
       <Controller
         control={control}
