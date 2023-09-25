@@ -5,7 +5,6 @@ export type PersonalInfoValues = {
     value: 'Man' | 'Woman' | 'Other' | null;
     isShown: boolean;
   };
-  genderShown: boolean;
   phoneNumber: string;
   sexualOrientation: {
     value:
@@ -20,7 +19,6 @@ export type PersonalInfoValues = {
       | null;
     isShown: boolean;
   };
-
   sexualOrientationShown: boolean;
   email: string;
 };

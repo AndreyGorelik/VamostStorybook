@@ -1,10 +1,15 @@
 import useTheme from '@shared/hooks/useTheme.hook';
+import { PropsWithChildren } from 'react';
 import { Modal, TouchableOpacity, View } from 'react-native';
 
 import { createStyles } from './modalWithChildren.styles';
 import { ModalWithChildrenProps } from './modalWithChildren.types';
 
-function ModalWithChildren({ children, visible, setVisible }: ModalWithChildrenProps) {
+function ModalWithChildren({
+  children,
+  visible,
+  setVisible,
+}: PropsWithChildren<ModalWithChildrenProps>) {
   const theme = useTheme();
   const styles = createStyles(theme);
   return (
