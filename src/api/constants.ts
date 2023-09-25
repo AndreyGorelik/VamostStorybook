@@ -12,4 +12,5 @@ export const API_ROUTES = {
   getPackages: 'package',
   getVenues: 'place',
   post: '/post',
+  request: 'request',
 };

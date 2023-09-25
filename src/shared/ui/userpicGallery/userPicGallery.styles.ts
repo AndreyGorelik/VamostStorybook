@@ -10,5 +10,6 @@ export const createStyles = (theme: Theme) =>
       borderRadius: 100,
       borderWidth: 3,
       borderColor: theme.colors.background,
+      backgroundColor: theme.colors.background,
     },
   });

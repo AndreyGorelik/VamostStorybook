@@ -8,7 +8,7 @@ export const colors = {
   blackCoral: 'rgba(0,0,0,0.3)',
   cyan: 'rgb(34, 127, 158)',
   red: 'rgb(255, 38, 80)',
-  secondRed: '#ff2147',
+  secondRed: '#d23013',
   darkBlue: 'rgb(0, 35, 69)',
   lime: 'rgb(126, 235, 81)',
   transparent: 'transparent',
@@ -17,4 +17,5 @@ export const colors = {
   blackTransparetFull: 'rgba(0, 0, 0, 0)',
   blackTranparentQuarter: 'rgba(0, 0, 0, 0.75)',
   blue: 'rgb(5, 99, 193)',
+  green: '#0c903e',
 };
