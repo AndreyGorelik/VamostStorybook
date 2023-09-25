@@ -11,7 +11,6 @@ export const createStyles = (theme: Theme) =>
       bottom: 30,
       right: 20,
       backgroundColor: theme.colors.background,
-      zIndex: 999,
       shadowColor: theme.colors.shadow,
       shadowOffset: { width: 1, height: 2 },
       shadowOpacity: 0.2,
