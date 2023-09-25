@@ -1,7 +1,7 @@
 import { Theme } from '@shared/hooks/useTheme.hook';
 import { StyleSheet } from 'react-native';
 
-export const createStyles = (theme: Theme) =>
+export const createStyles = (theme: Theme, size: number) =>
   StyleSheet.create({
     scrollWrapper: {
       flex: 1,
@@ -38,4 +38,18 @@ export const createStyles = (theme: Theme) =>
       paddingTop: 30,
     },
     mainInfo: { rowGap: 10 },
+    guests: {
+      flexDirection: 'row',
+    },
+    more: {
+      width: size,
+      height: size,
+      backgroundColor: theme.colors.primary,
+      borderRadius: 99,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 3,
+      borderColor: theme.colors.secondary,
+      marginLeft: -(size / 2),
+    },
   });

@@ -21,6 +21,7 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
             />
           ) : (
             <View
+              key={item.id}
               style={[
                 styles.icon,
                 {
@@ -49,6 +50,7 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
             />
           ) : (
             <View
+              key={item.id}
               style={[
                 styles.icon,
                 {

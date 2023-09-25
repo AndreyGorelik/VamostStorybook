@@ -11,20 +11,38 @@ import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from 'expo-router';
 import { useState } from 'react';
-import { View, Image, ImageBackground, ScrollView, Alert, RefreshControl } from 'react-native';
+import {
+  View,
+  Image,
+  ImageBackground,
+  ScrollView,
+  Alert,
+  RefreshControl,
+  Pressable,
+} from 'react-native';
 import { sendRequest } from 'src/api/posts/sendRequest';
 import { getPostAction, resetPost } from 'src/store/slices/post/post.slice';
 
 import { createStyles } from './notJoined.styles';
 
+const AVATAR_SIZE = 60;
+
 export default function NotJoined() {
   const post = useAppSelector((state) => state.postsSlice.posts[0]);
   const { post: data, isPostLoading, error } = useAppSelector((state) => state.postSlice);
   const theme = useTheme();
-  const styles = createStyles(theme);
+  const styles = createStyles(theme, AVATAR_SIZE);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+
+  const mock = [
+    { ...post.guests[0] },
+    { ...post.guests[0], id: '2' },
+    { ...post.guests[0], id: '3' },
+    { ...post.guests[0], id: '4' },
+    { ...post.guests[0], id: '5' },
+  ];
 
   function handleBack() {
     navigation.goBack();
@@ -95,7 +113,16 @@ export default function NotJoined() {
             {post.guestMenCount > 0 ? ' +' + post.guestMenCount.toString() + ' Men' : ''}
             {post.guestOthersCount > 0 ? ' +' + post.guestOthersCount.toString() + ' Other' : ''}
           </Text>
-          <UserPicGallery data={post.guests} size={60} />
+          <View style={styles.guests}>
+            <UserPicGallery data={mock.slice(0, 3)} size={AVATAR_SIZE} />
+            {mock.length > 3 && (
+              <Pressable style={styles.more}>
+                <Text variant="h3" style={{ color: theme.colors.secondary }}>
+                  +{`${mock.length - 3}`}
+                </Text>
+              </Pressable>
+            )}
+          </View>
         </View>
 
         <Divider />
