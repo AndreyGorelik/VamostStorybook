@@ -2,12 +2,13 @@ import Background from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
+import { PageLoader } from '@shared/ui/pageLoader';
 import PhotoGallery from '@shared/ui/photoGallery/photoGallery.component';
 import Text from '@shared/ui/text/text.component';
 import Constants from 'expo-constants';
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect } from 'react';
-import { ActivityIndicator, Image, ImageBackground, ScrollView, Share, View } from 'react-native';
+import { Image, ImageBackground, ScrollView, Share, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { getProfile } from 'src/store/slices/profileSlice';
 
@@ -33,7 +34,7 @@ export default function ProfileFull() {
     });
   };
 
-  if (isLoading) return <ActivityIndicator size={50} />;
+  if (isLoading) return <PageLoader />;
   if (error) return <Text>{error}</Text>;
 
   return (

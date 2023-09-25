@@ -11,7 +11,7 @@ function* getProfileWorker(action: Action<string>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data) {
+        if (error.response.data && error.response.data.message) {
           yield put(setError(error.response.data.message));
         }
       }

@@ -1,21 +1,14 @@
 import Background from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
-import UserPic from '@assets/images/postCardImages/userpic2.jpeg';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import Action from '@shared/ui/action/action.component';
 import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
+import { PageLoader } from '@shared/ui/pageLoader';
 import PhotoGallery from '@shared/ui/photoGallery/photoGallery.component';
 import Text from '@shared/ui/text/text.component';
 import { removeTokens } from '@shared/utils/removeTokens';
 import { useNavigation } from 'expo-router';
-import {
-  View,
-  ScrollView,
-  ImageBackground,
-  Image,
-  FlatList,
-  ActivityIndicatorComponent,
-} from 'react-native';
+import { View, ScrollView, ImageBackground, Image, FlatList } from 'react-native';
 import { logoutUser } from 'src/store/slices/authSlice';
 import { initialState, setUser } from 'src/store/slices/userSlice';
 
@@ -85,9 +78,7 @@ export default function Account() {
             contentContainerStyle={styles.meetupsWrapper}
             maxToRenderPerBatch={5}
             keyExtractor={(item) => `${item.id}`}
-            ListEmptyComponent={() => (
-              <ActivityIndicatorComponent size="large" color={theme.colors.primary} />
-            )}
+            ListEmptyComponent={() => <PageLoader />}
           />
         </View>
         <PersonalInfo />
