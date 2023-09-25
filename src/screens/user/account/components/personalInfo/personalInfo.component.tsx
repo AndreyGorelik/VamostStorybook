@@ -6,7 +6,7 @@ import { CheckBox } from '@shared/ui/checkBox';
 import ModalWithChildren from '@shared/ui/modalWithChildren/modalWithChildren.component';
 import { SelectList } from '@shared/ui/selectList';
 import Text from '@shared/ui/text/text.component';
-import { format } from 'date-fns';
+import { format, subYears } from 'date-fns';
 import { useRef, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { TouchableOpacity, View } from 'react-native';
@@ -128,9 +128,10 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
                 isVisible={datePickerVisible}
                 date={new Date()}
                 mode="date"
+                maximumDate={subYears(new Date(), 18)}
                 onConfirm={(date: Date) => {
-                  onChange(format(date, 'yyyy/dd/MM'));
                   setDatePickerVisible(false);
+                  onChange(format(date, 'yyyy/dd/MM'));
                 }}
                 onCancel={() => setDatePickerVisible(false)}
               />
@@ -138,6 +139,8 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
           );
         }}
       />
+      {errors.birthdate && <Text variant="warning">{errors.birthdate?.message}</Text>}
+
       <Controller
         control={control}
         name="gender.value"
