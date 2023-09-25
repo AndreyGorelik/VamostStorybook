@@ -10,6 +10,7 @@ export const createStyles = (theme: Theme) =>
       flexDirection: 'row',
       gap: 10,
       alignItems: 'center',
+      paddingVertical: 5,
     },
     row: {
       flexDirection: 'row',

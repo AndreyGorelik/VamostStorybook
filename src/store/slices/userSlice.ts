@@ -25,6 +25,7 @@ export interface UserState {
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   birthdate: string;
   images: string[];
+  avatar: string;
 }
 
 export const initialState: UserState = {
@@ -43,6 +44,7 @@ export const initialState: UserState = {
   birthdate: '',
   images: [],
   phoneVerified: false,
+  avatar: '',
 };
 
 const userSlice = createSlice({

@@ -1,6 +1,6 @@
-import { PostGuests } from '../postCard/postCard.types';
+import { GuestType } from 'src/types/actions/actions.types';
 
 export interface UserPicGalleryProps {
-  data: PostGuests[];
+  data: GuestType[];
   size?: number;
 }
