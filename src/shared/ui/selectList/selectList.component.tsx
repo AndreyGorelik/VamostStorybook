@@ -1,6 +1,6 @@
 import useTheme from '@shared/hooks/useTheme.hook';
 import { useCallback } from 'react';
-import { ActivityIndicator, FlatList, View } from 'react-native';
+import { ActivityIndicator, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { OutlinedButton } from '../outlinedBtn';
@@ -57,44 +57,40 @@ export default function SelectList({
   return (
     <>
       {variant === 'buttonsList' && (
-        <View>
-          <FlatList
-            data={listOptions}
-            contentContainerStyle={styles.btnList}
-            renderItem={renderOutlinedButton}
-            keyExtractor={(item) => `${item.id}`}
-            maxToRenderPerBatch={10}
-            initialNumToRender={10}
-            extraData={selected}
-            ListEmptyComponent={() => <ActivityIndicator size="small" color={theme.colors.text} />}
-            getItemLayout={(data, index) => ({
-              length: OUTLINED_BTN_HEIGHT,
-              offset: OUTLINED_BTN_HEIGHT * index + styles.btnList.gap,
-              index,
-            })}
-            removeClippedSubviews={true}
-          />
-        </View>
+        <FlatList
+          data={listOptions}
+          contentContainerStyle={styles.btnList}
+          renderItem={renderOutlinedButton}
+          keyExtractor={(item) => `${item.id}`}
+          maxToRenderPerBatch={10}
+          initialNumToRender={10}
+          extraData={selected}
+          ListEmptyComponent={() => <ActivityIndicator size="small" color={theme.colors.text} />}
+          getItemLayout={(data, index) => ({
+            length: OUTLINED_BTN_HEIGHT,
+            offset: OUTLINED_BTN_HEIGHT * index + styles.btnList.gap,
+            index,
+          })}
+          removeClippedSubviews={true}
+        />
       )}
       {variant === 'textList' && (
-        <View>
-          <FlatList
-            data={listOptions}
-            contentContainerStyle={styles.btnList}
-            renderItem={renderListItem}
-            keyExtractor={(item) => `${item.id}`}
-            maxToRenderPerBatch={10}
-            initialNumToRender={10}
-            extraData={selected}
-            ListEmptyComponent={() => <ActivityIndicator size="small" color={theme.colors.text} />}
-            getItemLayout={(data, index) => ({
-              length: OUTLINED_BTN_HEIGHT,
-              offset: OUTLINED_BTN_HEIGHT * index + styles.btnList.gap,
-              index,
-            })}
-            removeClippedSubviews={true}
-          />
-        </View>
+        <FlatList
+          data={listOptions}
+          contentContainerStyle={styles.btnList}
+          renderItem={renderListItem}
+          keyExtractor={(item) => `${item.id}`}
+          maxToRenderPerBatch={10}
+          initialNumToRender={10}
+          extraData={selected}
+          ListEmptyComponent={() => <ActivityIndicator size="small" color={theme.colors.text} />}
+          getItemLayout={(data, index) => ({
+            length: OUTLINED_BTN_HEIGHT,
+            offset: OUTLINED_BTN_HEIGHT * index + styles.btnList.gap,
+            index,
+          })}
+          removeClippedSubviews={true}
+        />
       )}
     </>
   );

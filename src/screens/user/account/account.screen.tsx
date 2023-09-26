@@ -1,6 +1,6 @@
 import Background from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
 import UserPic from '@assets/images/postCardImages/userpic2.jpeg';
-import { AntDesign } from '@expo/vector-icons';
+import { MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import Action from '@shared/ui/action/action.component';
@@ -30,6 +30,7 @@ import { RecentMeetup } from './components/recentMeetup';
 export default function Account() {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const [editMode, setEditMode] = useState(false);
   const { email, nickname, images } = useAppSelector((state) => state.userSlice);
   const dispatch = useAppDispatch();
   const [openPostCreate, setOpenPostCreate] = useState(false);
@@ -81,11 +82,17 @@ export default function Account() {
               title="New"
               onPress={() => setOpenPostCreate(true)}
             />
-
+            <Action
+              Icon={<MaterialIcons name="edit" size={24} color={theme.colors.secondary} />}
+              title="Edit"
+              onPress={() => setEditMode(true)}
+            />
             {actions.map((action) => (
               <Action key={action.id} {...action} />
             ))}
           </View>
+
+          <PersonalInfo editMode={editMode} setEditMode={setEditMode} />
           <View style={styles.recentMeetups}>
             <Text variant="h3">Recent meetups</Text>
             <FlatList
@@ -100,13 +107,13 @@ export default function Account() {
               )}
             />
           </View>
-          <PersonalInfo />
           <View>
             <Text variant="h3">Photos</Text>
             <PhotoGallery images={images} />
           </View>
         </View>
       </ScrollView>
+
       <PostCreate open={openPostCreate} setOpen={setOpenPostCreate} />
     </>
   );

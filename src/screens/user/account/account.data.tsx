@@ -14,14 +14,6 @@ export const posts = [
 
 export const actions = [
   {
-    id: 2,
-    Icon: <MaterialIcons name="edit" size={24} color="white" />,
-    title: 'Edit',
-    onPress: () => {
-      return;
-    },
-  },
-  {
     id: 3,
     Icon: <FontAwesome name="inbox" size={24} color="white" />,
     title: 'Requests',

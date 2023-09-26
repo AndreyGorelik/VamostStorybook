@@ -7,4 +7,7 @@ export const createStyles = () =>
       columnGap: 10,
       alignItems: 'center',
     },
+    container: {
+      gap: 10,
+    },
   });
