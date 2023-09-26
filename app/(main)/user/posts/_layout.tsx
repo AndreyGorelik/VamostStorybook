@@ -28,7 +28,7 @@ export default function Layout() {
     >
       <Tab.Screen name="Upcoming" component={Upcoming} />
       <Tab.Screen name="Past" component={Past} />
-      <Tab.Screen name="Canceled" component={Canceled} />
+      <Tab.Screen name="Cancelled" component={Canceled} />
     </Tab.Navigator>
   );
 }

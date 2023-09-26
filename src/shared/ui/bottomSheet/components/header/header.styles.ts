@@ -1,13 +1,15 @@
 import { Theme } from '@shared/hooks/useTheme.hook';
 import { StyleSheet } from 'react-native';
 
+export const BOTTOMSHEET_HEADER_HEIGHT = 90;
+
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
     header: {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      height: 90,
+      height: BOTTOMSHEET_HEADER_HEIGHT,
       borderBottomWidth: 1,
       borderBottomColor: theme.colors.placeholder,
     },

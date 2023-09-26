@@ -9,6 +9,11 @@ import {
 import { PostResponse } from 'src/types/actions/actions.types';
 import { GetPosts } from 'src/types/api/getPosts';
 
+export type PostInfo = {
+  info: PostResponse | null;
+  isUsersPost: boolean;
+} | null;
+
 export interface PostsState {
   upcomingPosts: PostResponse[];
   canceledPosts: PostResponse[];

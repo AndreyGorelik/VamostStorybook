@@ -12,4 +12,7 @@ export const createStyles = (_theme: Theme) =>
       padding: 5,
       borderRadius: 5,
     },
+    textCapitalize: {
+      textTransform: 'capitalize',
+    },
   });

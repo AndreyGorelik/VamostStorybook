@@ -20,10 +20,17 @@ export const LIGHT_THEME: Theme = {
     textDisabled: colors.gray,
     button: colors.black,
     buttonDisabled: colors.lightGray,
+    postStatus: {
+      confirmed: colors.lime,
+      created: colors.green,
+      canceled: colors.secondRed,
+      completed: colors.lightGray,
+    },
     placeholder: colors.lightGray,
     imagePlaceholder: colors.cloud,
     darkGray: colors.darkGray,
     selected: colors.cyan,
+    tagIcon: colors.cyan,
     red: colors.red,
     secondRed: colors.secondRed,
     darkBlue: colors.darkBlue,
@@ -68,6 +75,7 @@ export type Theme = {
     imagePlaceholder: string;
     darkGray: string;
     selected: string;
+    tagIcon: string;
     red: string;
     secondRed: string;
     darkBlue: string;
@@ -91,6 +99,12 @@ export type Theme = {
     textLink: string;
     drawerActive: string;
     drawerInactive: string;
+    postStatus: {
+      confirmed: string;
+      created: string;
+      canceled: string;
+      completed: string;
+    };
   };
   styleConstants: StyleConstants;
 };

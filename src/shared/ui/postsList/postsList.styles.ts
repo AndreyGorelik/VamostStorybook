@@ -3,7 +3,8 @@ import { StyleSheet } from 'react-native';
 export const createStyles = () =>
   StyleSheet.create({
     wrapper: {
-      paddingVertical: 15,
+      paddingTop: 10,
+      paddingBottom: 80,
     },
     separator: {
       height: 20,

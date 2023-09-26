@@ -1,14 +1,22 @@
+export type HostType = 'Host' | 'Guest';
+
 export interface Post {
   date: Date;
   description: string;
-  host: boolean;
+  hostType: HostType;
   location: string;
   tags: string[];
   menCount: number;
   womenCount: number;
-  otherCount: number;
-  guestsMenCount: number;
-  guestsWomenCount: number;
-  guestsOtherCount: number;
+  othersCount: number;
+  guestMenCount: number;
+  guestWomenCount: number;
+  guestOthersCount: number;
   packageId: string;
+  venue: string;
+}
+
+export interface PostCreateProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
