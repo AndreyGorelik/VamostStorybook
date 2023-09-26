@@ -1,4 +1,5 @@
 import { ImageSourcePropType } from 'react-native';
+import { PostStatus } from 'src/types/actions/actions.types';
 
 export interface PostTag {
   tag: string;
@@ -23,3 +24,10 @@ export interface PostCardProps {
   guestOtherCount: number;
   guests: PostGuests[];
 }
+
+export type ButtonStyle = {
+  title: string;
+  color: string;
+};
+
+export type ButtonStyles = Record<PostStatus, ButtonStyle>;

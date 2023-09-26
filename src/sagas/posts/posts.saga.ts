@@ -1,19 +1,45 @@
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import {
+  CONFIRM_REQUEST,
+  DELETE_REQUEST,
+  GET_ALL_REQUESTS,
   GET_CANCELED_POSTS,
+  GET_DELETED_REQUESTS,
   GET_PAST_POSTS,
+  GET_PENDING_REQUESTS,
+  GET_POST,
   GET_POSTS,
   GET_POSTS_BY_USER,
   GET_UPCOMING_POSTS,
+  UPDATE_POST_STATUS,
 } from '@shared/constants/actions';
 import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { confirmRequest } from 'src/api/posts/confirmRequest';
 import { getCanceledPostsRequest } from 'src/api/posts/getCanceledPosts';
 import { getPastPostsRequest } from 'src/api/posts/getPastPosts';
+import { getPostRequest } from 'src/api/posts/getPost';
+import { getPostRequestsRequest } from 'src/api/posts/getPostRequests';
 import { getPostsRequest } from 'src/api/posts/getPosts';
 import { getPostsByUserRequest } from 'src/api/posts/getPostsByUser';
 import { getUpcomingPostsRequest } from 'src/api/posts/getUpcomingPosts';
-import { setPostsError } from 'src/store/slices/errorsSlice';
+import { rejectRequest } from 'src/api/posts/rejectRequest';
+import { setPostStatusRequest } from 'src/api/posts/setPostStatus';
+import { setPostsError, setRequestError } from 'src/store/slices/errorsSlice';
 import {
+  setPost,
+  setIsUpdateLoading,
+  getPost,
+  setIsPostLoading,
+  setPendingRequests,
+  setDeletedRequests,
+  setAllRequests,
+  setDeletedLoading,
+  setAllLoading,
+  setPendingLoading,
+} from 'src/store/slices/postSlice';
+import {
+  PostInfo,
   setCanceledPosts,
   setIsLoading,
   setPastPosts,
@@ -21,23 +47,65 @@ import {
   setUpcomingPosts,
 } from 'src/store/slices/postsSlice';
 import { Action, PostResponse } from 'src/types/actions/actions.types';
-import { GetPosts } from 'src/types/api/getPosts';
+import {
+  GetPost,
+  GetPosts,
+  GetRequests,
+  PostRequest,
+  UpdatePostStatus,
+} from 'src/types/api/getPosts';
 
-export function* getPostsWorker(action: Action<GetPosts>) {
+function* workerDecorator<T, P>(
+  action: Action<P>,
+  request: (data: P) => Promise<AxiosResponse<T>>,
+  setLoading: ActionCreatorWithPayload<boolean, string>,
+  callback: (data: T) => void,
+  setError: ActionCreatorWithPayload<string | null, string>
+) {
   try {
-    yield put(setIsLoading(true));
-    const response: AxiosResponse<PostResponse[]> = yield call(getPostsRequest, action.payload);
+    yield put(setLoading(true));
+    if (!('payload' in action)) return;
+    const response: AxiosResponse<T> = yield call(request, action.payload);
 
-    yield put(setPosts(response.data));
-    yield put(setIsLoading(false));
-    yield put(setPostsError(null));
+    yield callback(response.data);
+    yield put(setError(null));
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response && error.response.data && error.response.data.message) {
-        yield put(setPostsError(error.response.data));
+        yield put(setError(error.response.data.message));
       }
     }
+  } finally {
+    yield put(setLoading(false));
   }
+}
+
+export function* getPostsWorker(action: Action<GetPosts>) {
+  function* callback(data: PostResponse[]) {
+    yield put(setPosts(data));
+  }
+
+  yield workerDecorator<PostResponse[], GetPosts>(
+    action,
+    getPostsRequest,
+    setIsLoading,
+    callback,
+    setPostsError
+  );
+}
+
+export function* getPostWorker(action: Action<GetPost>) {
+  function* callback(data: PostInfo) {
+    yield put(setPost(data));
+  }
+
+  yield workerDecorator<PostInfo, GetPost>(
+    action,
+    getPostRequest,
+    setIsPostLoading,
+    callback,
+    setPostsError
+  );
 }
 
 export function* getPostsByUserWorker() {
@@ -45,7 +113,6 @@ export function* getPostsByUserWorker() {
     yield put(setIsLoading(true));
     const response: AxiosResponse<PostResponse[]> = yield call(getPostsByUserRequest);
     yield put(setPosts(response.data));
-    yield put(setIsLoading(false));
     yield put(setPostsError(null));
   } catch (error) {
     if (Axios.isAxiosError(error)) {
@@ -53,6 +120,8 @@ export function* getPostsByUserWorker() {
         yield put(setPostsError(error.response.data));
       }
     }
+  } finally {
+    yield put(setIsLoading(false));
   }
 }
 
@@ -61,7 +130,6 @@ export function* getCanceledPostsWorker() {
     yield put(setIsLoading(true));
     const response: AxiosResponse<PostResponse[]> = yield call(getCanceledPostsRequest);
     yield put(setCanceledPosts(response.data));
-    yield put(setIsLoading(false));
     yield put(setPostsError(null));
   } catch (error) {
     if (Axios.isAxiosError(error)) {
@@ -69,6 +137,8 @@ export function* getCanceledPostsWorker() {
         yield put(setPostsError(error.response.data));
       }
     }
+  } finally {
+    yield put(setIsLoading(false));
   }
 }
 
@@ -77,7 +147,6 @@ export function* getUpcomingPostsWorker() {
     yield put(setIsLoading(true));
     const response: AxiosResponse<PostResponse[]> = yield call(getUpcomingPostsRequest);
     yield put(setUpcomingPosts(response.data));
-    yield put(setIsLoading(false));
     yield put(setPostsError(null));
   } catch (error) {
     if (Axios.isAxiosError(error)) {
@@ -85,6 +154,8 @@ export function* getUpcomingPostsWorker() {
         yield put(setPostsError(error.response.data));
       }
     }
+  } finally {
+    yield put(setIsLoading(false));
   }
 }
 export function* getPastPostsWorker() {
@@ -92,7 +163,6 @@ export function* getPastPostsWorker() {
     yield put(setIsLoading(true));
     const response: AxiosResponse<PostResponse[]> = yield call(getPastPostsRequest);
     yield put(setPastPosts(response.data));
-    yield put(setIsLoading(false));
     yield put(setPostsError(null));
   } catch (error) {
     if (Axios.isAxiosError(error)) {
@@ -100,13 +170,105 @@ export function* getPastPostsWorker() {
         yield put(setPostsError(error.response.data));
       }
     }
+  } finally {
+    yield put(setIsLoading(false));
+  }
+}
+
+export function* updatePostStatusWorker(action: Action<UpdatePostStatus>) {
+  try {
+    yield put(setIsUpdateLoading(true));
+    yield call(setPostStatusRequest, action.payload);
+    yield put(getPost({ id: action.payload.id }));
+    yield put(setPostsError(null));
+  } catch (error) {
+    if (Axios.isAxiosError(error)) {
+      if (error.response && error.response.data && error.response.data.message) {
+        yield put(setPostsError(error.response.data));
+      }
+    }
+  } finally {
+    yield put(setIsUpdateLoading(false));
+  }
+}
+
+export function* getPendingRequestsWorker(action: Action<GetRequests>) {
+  function* callback(data: PostRequest[]) {
+    yield put(setPendingRequests(data));
+  }
+
+  yield workerDecorator<PostRequest[], GetRequests>(
+    action,
+    getPostRequestsRequest,
+    setPendingLoading,
+    callback,
+    setRequestError
+  );
+}
+
+export function* getDeletedRequestsWorker(action: Action<GetRequests>) {
+  function* callback(data: PostRequest[]) {
+    yield put(setDeletedRequests(data));
+  }
+
+  yield workerDecorator<PostRequest[], GetRequests>(
+    action,
+    getPostRequestsRequest,
+    setDeletedLoading,
+    callback,
+    setRequestError
+  );
+}
+
+export function* getAllRequestsWorker(action: Action<GetRequests>) {
+  function* callback(data: PostRequest[]) {
+    yield put(setAllRequests(data));
+  }
+
+  yield workerDecorator<PostRequest[], GetRequests>(
+    action,
+    getPostRequestsRequest,
+    setAllLoading,
+    callback,
+    setRequestError
+  );
+}
+
+export function* confirmRequestWorker(action: Action<PostRequest>) {
+  try {
+    yield call(confirmRequest, action.payload);
+  } catch (error) {
+    if (Axios.isAxiosError(error)) {
+      if (error.response && error.response.data && error.response.data.message) {
+        yield put(setRequestError(error.response.data.message));
+      }
+    }
+  }
+}
+
+export function* deleteRequestWorker(action: Action<PostRequest>) {
+  try {
+    yield call(rejectRequest, action.payload);
+  } catch (error) {
+    if (Axios.isAxiosError(error)) {
+      if (error.response && error.response.data && error.response.data.message) {
+        yield put(setRequestError(error.response.data.message));
+      }
+    }
   }
 }
 
 export function* postsSaga() {
   yield takeLatest(GET_POSTS, getPostsWorker);
+  yield takeLatest(GET_POST, getPostWorker);
   yield takeLatest(GET_POSTS_BY_USER, getPostsByUserWorker);
   yield takeLatest(GET_UPCOMING_POSTS, getUpcomingPostsWorker);
   yield takeLatest(GET_PAST_POSTS, getPastPostsWorker);
   yield takeLatest(GET_CANCELED_POSTS, getCanceledPostsWorker);
+  yield takeLatest(UPDATE_POST_STATUS, updatePostStatusWorker);
+  yield takeLatest(GET_PENDING_REQUESTS, getPendingRequestsWorker);
+  yield takeLatest(GET_DELETED_REQUESTS, getDeletedRequestsWorker);
+  yield takeLatest(GET_ALL_REQUESTS, getAllRequestsWorker);
+  yield takeLatest(CONFIRM_REQUEST, confirmRequestWorker);
+  yield takeLatest(DELETE_REQUEST, deleteRequestWorker);
 }

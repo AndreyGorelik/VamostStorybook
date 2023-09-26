@@ -28,7 +28,8 @@ function* logInRequestWorker(action: Action<LoginUser>) {
         phoneNumber: data.phoneNumber && data.phoneNumber,
         sexualOrientation: data.sexualOrientation && JSON.parse(data.sexualOrientation),
         shownGender: data.shownGender && data.shownGender,
-        images: data.image && data.image,
+        images: data.images && data.images,
+        avatar: data.avatar && data.avatar,
         phoneVerified: data.phoneVerified && data.phoneVerified,
       })
     );

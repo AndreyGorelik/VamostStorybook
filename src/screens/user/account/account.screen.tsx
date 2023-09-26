@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import Action from '@shared/ui/action/action.component';
 import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
+import PhotoGallery from '@shared/ui/photoGallery/photoGallery.component';
 import PostCreate from '@shared/ui/postCreate/postCreate.component';
 import Text from '@shared/ui/text/text.component';
 import { removeTokens } from '@shared/utils/removeTokens';
@@ -24,13 +25,12 @@ import { initialState, setUser } from 'src/store/slices/userSlice';
 import { actions, posts } from './account.data';
 import { createStyles } from './account.styles';
 import { PersonalInfo } from './components/personalInfo';
-import { PersonalPhotos } from './components/personalPhotos';
 import { RecentMeetup } from './components/recentMeetup';
 
 export default function Account() {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const { email, nickname } = useAppSelector((state) => state.userSlice);
+  const { email, nickname, images } = useAppSelector((state) => state.userSlice);
   const dispatch = useAppDispatch();
   const [openPostCreate, setOpenPostCreate] = useState(false);
   const navigation = useNavigation();
@@ -103,7 +103,7 @@ export default function Account() {
           <PersonalInfo />
           <View>
             <Text variant="h3">Photos</Text>
-            <PersonalPhotos />
+            <PhotoGallery images={images} />
           </View>
         </View>
       </ScrollView>

@@ -7,6 +7,7 @@ import { UserPicGalleryProps } from './userPicGallery.types';
 export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
+
   return (
     <View style={styles.row}>
       {data?.map((item, index) => {
@@ -14,15 +15,15 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
           return (
             <Image
               key={item.id}
-              source={item.guestPhoto}
-              style={[styles.userpic, { marginLeft: -size / 2, width: size, height: size }]}
+              source={{ uri: item.avatar }}
+              style={[styles.userpic, { marginLeft: -size / 3, width: size, height: size }]}
             />
           );
         } else {
           return (
             <Image
               key={item.id}
-              source={item.guestPhoto}
+              source={{ uri: item.avatar }}
               style={[styles.userpic, { width: size, height: size }]}
             />
           );
