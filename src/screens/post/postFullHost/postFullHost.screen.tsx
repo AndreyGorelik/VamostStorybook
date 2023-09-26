@@ -1,127 +1,115 @@
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
-import { HostingLabel } from '@shared/ui/hostingLabel';
+import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
 import { OutlinedButton } from '@shared/ui/outlinedBtn';
-import { Request } from '@shared/ui/request';
-import Text from '@shared/ui/text/text.component';
-import { UserPicGallery } from '@shared/ui/userpicGallery';
-import { format } from 'date-fns';
-import { LinearGradient } from 'expo-linear-gradient';
-import { View, Image, ImageBackground, ScrollView, Alert } from 'react-native';
+import { PageLoader } from '@shared/ui/pageLoader';
+import { useNavigation } from 'expo-router';
+import { useEffect } from 'react';
+import { View, ScrollView, Alert, RefreshControl } from 'react-native';
+import { getPost, resetPost, updatePostStatus } from 'src/store/slices/postSlice';
 
-import { POST_FULL_HOST_DATA } from './postFullHost.data';
+import { Guests } from './components/Guests';
+import { Header } from './components/Header';
+import { Requests } from './components/Requests';
+import { Tags } from './components/Tags';
 import { createStyles } from './postFullHost.styles';
-import { PostTag, RequestProps } from './postFullHost.types';
 
 export default function PostFullHost() {
-  const data = POST_FULL_HOST_DATA;
   const theme = useTheme();
   const styles = createStyles(theme);
-  const confirmRequest = () => {
-    Alert.alert('confirm');
-  };
-  const changeRequest = () => {
+  const { post, isPostLoading } = useAppSelector((state) => state.postSlice);
+  const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+
+  const actionBtns = [
+    {
+      title: 'Confirm & Lock',
+      color: theme.colors.postStatus.confirmed,
+      onPress: () => {
+        confirmPost();
+        refetchPost();
+      },
+    },
+    {
+      title: 'Change',
+      color: theme.colors.postStatus.created,
+      onPress: changePost,
+    },
+    {
+      title: 'Cancel',
+      color: theme.colors.postStatus.canceled,
+      onPress: () => {
+        cancelPost();
+        refetchPost();
+      },
+    },
+  ];
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetPost());
+    };
+  }, [dispatch]);
+
+  function refetchPost() {
+    if (!post || !post.info) return;
+    dispatch(resetPost());
+    dispatch(getPost({ id: post.info.id as string }));
+  }
+
+  function handleBack() {
+    navigation.goBack();
+  }
+
+  function confirmPost() {
+    if (!post || !post.info) return;
+    dispatch(
+      updatePostStatus({
+        id: post?.info.id,
+        postStatus: 'Confirmed',
+      })
+    );
+  }
+  function changePost() {
     Alert.alert('change');
-  };
-  const cancelRequest = () => {
-    Alert.alert('cancel');
-  };
-  const deleteRequest = () => {
-    Alert.alert('delete');
-  };
+  }
+  function cancelPost() {
+    if (!post || !post.info) return;
+    dispatch(
+      updatePostStatus({
+        id: post?.info.id,
+        postStatus: 'Cancelled',
+      })
+    );
+  }
+
+  if (isPostLoading || !(post && post.info)) return <PageLoader />;
 
   return (
-    <ScrollView style={styles.scrollWrapper}>
-      <View style={styles.header}>
-        <ImageBackground
-          imageStyle={styles.postCardCover}
-          source={data.photo}
-          style={styles.photoContainer}
-        >
-          <LinearGradient
-            colors={[theme.colors.gradientStart, theme.colors.gradientFinish]}
-            style={styles.linearGradient}
-          ></LinearGradient>
-        </ImageBackground>
-        <View style={styles.textOnPhoto}>
-          <View style={styles.textHeader}>
-            <Text variant="h3" color={theme.colors.secondary}>
-              {data.postName}
-            </Text>
-            <Text variant="h5" color={theme.colors.secondary}>
-              {format(data.startDate, 'MMMM d, yyyy, h:mm a')}
-            </Text>
-          </View>
-          <HostingLabel />
-        </View>
+    <ScrollView
+      contentContainerStyle={styles.scrollWrapper}
+      style={styles.wrapper}
+      bounces={true}
+      showsVerticalScrollIndicator={false}
+      refreshControl={<RefreshControl refreshing={isPostLoading} onRefresh={refetchPost} />}
+    >
+      <Header postInfo={post.info} />
+      <HeaderButton onPress={handleBack} icon={'arrow-back'} isBackground={true} variant="left" />
 
-        <View style={styles.guests}>
-          <Text>My guests:</Text>
-          <UserPicGallery data={data.guests} size={65} />
-          <Text>(2 left)</Text>
-        </View>
-      </View>
       <View style={styles.postInfo}>
-        <View style={styles.tags}>
-          {data.postTags.map((item: PostTag) => {
-            return (
-              <View key={item.id} style={styles.tagItem}>
-                <Image source={item.icon} style={styles.tagIcons} />
-                <Text>{item.label}</Text>
-              </View>
-            );
-          })}
-        </View>
+        <Tags tags={post.info.tags} />
+        <Guests postInfo={post.info} />
 
-        <View>
-          <Text variant="h5" margin={10}>
-            Guest(s)
-          </Text>
-          <Text>
-            From my side:
-            {data?.guestMaleCount > 0 ? ' +' + data.guestMaleCount.toString() + ' men' : '0'}
-          </Text>
-          <Text>Guest invited: +{data.guests.length.toString()} women</Text>
-        </View>
-
-        <View style={styles.actionButtons}>
-          <OutlinedButton
-            title={'Confirm & Lock'}
-            borderRadius={15}
-            height={30}
-            onPress={confirmRequest}
-            fontSize={12}
-            flex={1}
-          />
-          <OutlinedButton
-            title={'Change'}
-            borderRadius={15}
-            height={30}
-            onPress={changeRequest}
-            fontSize={12}
-            flex={1}
-          />
-          <OutlinedButton
-            title={'Cancel'}
-            borderRadius={15}
-            height={30}
-            onPress={cancelRequest}
-            fontSize={12}
-            flex={1}
-          />
-        </View>
-
-        <View style={styles.requestsList}>
-          {data.requests.map((item: RequestProps) => {
-            return (
-              <Request
-                key={item.id}
-                data={item}
-                confirmRequest={confirmRequest}
-                deleteRequest={deleteRequest}
-              />
-            );
-          })}
-        </View>
+        {post.info.postStatus === 'Created' && (
+          <>
+            <View style={styles.actionButtons}>
+              {actionBtns.map((button) => (
+                <OutlinedButton key={button.title} {...button} {...styles.actionBtn} />
+              ))}
+            </View>
+            <Requests postId={post.info.id} />
+          </>
+        )}
       </View>
     </ScrollView>
   );

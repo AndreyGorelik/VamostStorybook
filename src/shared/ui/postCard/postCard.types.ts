@@ -1,16 +1,14 @@
+import { ImageSourcePropType } from 'react-native';
+import { PostStatus } from 'src/types/actions/actions.types';
+
 export interface PostTag {
   tag: string;
   id: string;
 }
 
 export interface PostGuests {
-  avatar: string;
-  nickName: string;
+  guestPhoto: ImageSourcePropType;
   id: string;
-  gender: {
-    value: string;
-    isShown: false;
-  };
 }
 
 export interface PostCardProps {
@@ -25,5 +23,11 @@ export interface PostCardProps {
   guestFemaleCount: number;
   guestOtherCount: number;
   guests: PostGuests[];
-  id: string;
 }
+
+export type ButtonStyle = {
+  title: string;
+  color: string;
+};
+
+export type ButtonStyles = Record<PostStatus, ButtonStyle>;

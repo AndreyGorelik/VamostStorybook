@@ -9,6 +9,7 @@ export interface ErrorState {
   attributesError: null | string;
   photosError: null | string;
   postsError: null | string;
+  requestError: null | string;
 }
 
 const initialState: ErrorState = {
@@ -20,6 +21,7 @@ const initialState: ErrorState = {
   attributesError: null,
   photosError: null,
   postsError: null,
+  requestError: null,
 };
 
 const errorsSlice = createSlice({
@@ -50,6 +52,9 @@ const errorsSlice = createSlice({
     setPostsError(state, action: PayloadAction<string | null>) {
       state.postsError = action.payload;
     },
+    setRequestError(state, action: PayloadAction<string | null>) {
+      state.requestError = action.payload;
+    },
   },
 });
 
@@ -62,6 +67,7 @@ export const {
   setAttributesError,
   setPhotosError,
   setPostsError,
+  setRequestError,
 } = errorsSlice.actions;
 
 export default errorsSlice.reducer;

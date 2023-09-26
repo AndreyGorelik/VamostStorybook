@@ -10,4 +10,5 @@ export const API_ROUTES = {
   refresh: 'auth/refresh',
   post: '/post',
   users: 'users',
+  request: 'request',
 };
