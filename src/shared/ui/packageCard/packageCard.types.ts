@@ -1,10 +1,11 @@
 export interface PackageCardProps {
   date: string;
-  title: string;
+  name: string;
   place: string;
   description: string;
-  restrictions: string[];
-  uri: string;
+  maxPeople: number;
+  imageUrl: string;
   onPress: () => void | React.Dispatch<React.SetStateAction<number>>;
   id?: string;
+  placeId?: string;
 }

@@ -1,7 +1,9 @@
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
+import FloatButton from '@shared/ui/floatButton/floatButton.component';
 import { PageLoader } from '@shared/ui/pageLoader';
+import PostCreate from '@shared/ui/postCreate/postCreate.component';
 import PostsList from '@shared/ui/postsList/postsList.component';
 import { SelectCity } from '@shared/ui/selectCity';
 import Text from '@shared/ui/text/text.component';
@@ -24,6 +26,7 @@ export default function Home() {
   const [filter, setFilter] = useState<Filters>(Filters.Guests);
   const [city, setCity] = useState<string>('Miami');
   const [open, setOpen] = useState<boolean>(false);
+  const [postCreateVisible, setPostCreateVisible] = useState(false);
 
   const theme = useTheme();
   const styles = createStyles(theme);
@@ -66,6 +69,7 @@ export default function Home() {
             />
           </View>
         </View>
+
         {isLoading ? (
           <PageLoader />
         ) : (
@@ -75,7 +79,9 @@ export default function Home() {
           />
         )}
       </View>
+      <FloatButton onPress={() => setPostCreateVisible(!postCreateVisible)} />
       <SelectCity open={open} setOpen={setOpen} setCity={setCity} key={city} />
+      <PostCreate open={postCreateVisible} setOpen={setPostCreateVisible} />
     </>
   );
 }

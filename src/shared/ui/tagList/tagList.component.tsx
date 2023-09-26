@@ -33,7 +33,7 @@ export default function TagList({ selectedList, setSelectedList, tagsList }: Tag
             },
           ]}
         >
-          <Text>{item.label}</Text>
+          <Text style={styles.textCapitalize}>{item.label}</Text>
         </TouchableOpacity>
       ))}
     </View>

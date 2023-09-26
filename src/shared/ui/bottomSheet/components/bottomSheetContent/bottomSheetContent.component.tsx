@@ -1,6 +1,12 @@
+import { useHeaderHeight } from '@react-navigation/elements';
+import Constants from 'expo-constants';
 import { PropsWithChildren } from 'react';
 import { Dimensions, LayoutChangeEvent } from 'react-native';
 import Animated, { withTiming } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { BOTTOMSHEET_HEADER_HEIGHT } from '../header/header.styles';
+import { BOTTOMSHEET_HEADER_IMAGE_HEIGHT } from '../headerImage/headerImage.styles';
 
 import {
   OPACITY_ENTERTING_ANIMATION_DURATION,
@@ -8,12 +14,13 @@ import {
   ORIGIN_X_ANIMATION_DURATION,
 } from './bottomSheetContent.data';
 import { BottomSheetContentProps, ExitingAnimationType } from './bottomSheetContent.types';
-
 const { width } = Dimensions.get('window');
 
 export default function BottomSheetContent({
   setHeight,
   children,
+  fixed = false,
+  imageHeader = false,
 }: PropsWithChildren<BottomSheetContentProps>) {
   const exiting = ({ currentOriginX }: ExitingAnimationType) => {
     'worklet';
@@ -47,12 +54,33 @@ export default function BottomSheetContent({
     };
   };
 
+  const headerHeight = useHeaderHeight();
+  const windowHeight = Dimensions.get('window').height;
+  const bottom = useSafeAreaInsets().bottom;
+  const top = useSafeAreaInsets().top;
+
   return (
     <Animated.View
       entering={entering}
       exiting={exiting}
       onLayout={(e: LayoutChangeEvent) => {
-        setHeight?.(e.nativeEvent.layout.height);
+        const availableHeight =
+          windowHeight -
+          headerHeight -
+          Constants.statusBarHeight -
+          bottom -
+          top -
+          (imageHeader ? BOTTOMSHEET_HEADER_IMAGE_HEIGHT : BOTTOMSHEET_HEADER_HEIGHT);
+
+        let height = 0;
+
+        if (e.nativeEvent.layout.height > windowHeight || fixed) {
+          height = availableHeight;
+        } else {
+          height = e.nativeEvent.layout.height;
+        }
+
+        setHeight?.(height);
       }}
     >
       {children}
