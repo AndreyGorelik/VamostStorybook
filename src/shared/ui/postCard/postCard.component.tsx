@@ -2,6 +2,7 @@ import useTheme from '@shared/hooks/useTheme.hook';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
+import { Link } from 'expo-router';
 import { View, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 import { PostResponse } from 'src/types/actions/actions.types';
 
@@ -97,7 +98,14 @@ export default function PostCard(props: PostResponse) {
             </Text>
           </View>
           <View style={styles.rowSpaceBetween}>
-            <UserPicGallery data={[]} />
+            <Link
+              href={{
+                pathname: '/profileslist',
+                params: { guests: JSON.stringify(props.guests) },
+              }}
+            >
+              <UserPicGallery data={props.guests} />
+            </Link>
             <OutlinedButton
               onPress={() => Alert.alert('press')}
               height={40}

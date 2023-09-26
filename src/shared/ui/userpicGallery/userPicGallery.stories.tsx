@@ -1,5 +1,5 @@
-import { USERPIC_GALLERY_DATA } from './userPicGallery.data';
 import UserPicGallery from './userPicGallery.component';
+import { USERPIC_GALLERY_DATA } from './userPicGallery.data';
 export default {
   title: 'UserPicGallery',
   component: UserPicGallery,

@@ -1,13 +1,13 @@
-import useTheme from '@shared/hooks/useTheme.hook';
 import { PostCard } from '@shared/ui/postCard';
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import { View, FlatList } from 'react-native';
+
+import Text from '../text/text.component';
 
 import { createStyles } from './postsList.styles';
 import { PostListProps } from './postsList.types';
 
 export default function PostsList({ list, refreshControl }: PostListProps) {
   const styles = createStyles();
-  const theme = useTheme();
 
   return (
     <FlatList
@@ -17,7 +17,7 @@ export default function PostsList({ list, refreshControl }: PostListProps) {
       keyExtractor={(item) => item.id}
       ItemSeparatorComponent={() => <View style={styles.separator}></View>}
       contentContainerStyle={styles.wrapper}
-      ListEmptyComponent={() => <ActivityIndicator size={24} color={theme.colors.primary} />}
+      ListEmptyComponent={() => <Text variant="h4">Nothing found</Text>}
       maxToRenderPerBatch={5}
     />
   );
