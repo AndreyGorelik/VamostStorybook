@@ -8,6 +8,10 @@ export const API_ROUTES = {
   userAttributes: 'auth/signup/user-attributes',
   images: 'auth/signup/images',
   refresh: 'auth/refresh',
+  createPost: 'post',
+  getPackages: 'package',
+  getVenues: 'place',
   post: '/post',
+  users: 'users',
   request: 'request',
 };

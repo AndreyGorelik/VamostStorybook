@@ -9,7 +9,7 @@ import { View } from 'react-native';
 import { setNextStep } from 'src/store/slices/auth.slice';
 import { setGender } from 'src/store/slices/user.slice';
 
-import { ORIENTATION_RADIO_DATA_WITH_OPTIONS } from './gender.data';
+import { GENDER_OPTIONS } from './gender.data';
 import { createStyles } from './gender.styles';
 
 export default function Gender() {
@@ -38,7 +38,7 @@ export default function Gender() {
 
       <View style={styles.content}>
         <SelectList
-          listOptions={ORIENTATION_RADIO_DATA_WITH_OPTIONS}
+          listOptions={GENDER_OPTIONS}
           selected={selected}
           setSelected={setSelected}
           variant="buttonsList"

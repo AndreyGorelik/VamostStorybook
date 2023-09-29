@@ -7,4 +7,5 @@ export interface InputProps extends TextInputProps {
   fontSize?: number;
   error?: boolean;
   rightIcon?: ReactElement;
+  noGap?: boolean;
 }

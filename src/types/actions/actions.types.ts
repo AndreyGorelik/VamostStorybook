@@ -26,6 +26,12 @@ export type RegisterAttributes = {
 };
 export type RegisterPhoto = { imageData: string };
 
+export interface PostGetPackages {
+  maxPeople: number;
+  tags: string[];
+  placeId: string;
+}
+
 export type Action<Payload = undefined> = Payload extends undefined
   ? { type: string }
   : { type: string; payload: Payload };
@@ -52,6 +58,69 @@ export type PostResponse = {
   hostType: 'Guest' | 'Host';
 };
 
+export interface Place {
+  id: string;
+  imageUrl: string;
+  location: string;
+  name: string;
+  tags: string[];
+  userId: string;
+}
+
+export interface Package {
+  minSpend: number;
+  date: string;
+  imageUrl: string;
+  maxPeople: number;
+  userId: string;
+  placeId: string;
+  description: string;
+  id: string;
+  name: string;
+  tags: string[];
+  place: string;
+}
+
+export interface FullPackage {
+  minSpend: number;
+  date: string;
+  imageUrl: string;
+  maxPeople: number;
+  userId: string;
+  placeId: string;
+  description: string;
+  id: string;
+  name: string;
+  tags: string[];
+  place: string;
+}
+
+export interface GetPackages {
+  tags: string[];
+  placeId: string;
+  maxPeople: number;
+}
+
+type Gender = 'Man' | 'Woman' | 'Everyone';
+
+export interface CreatePostData {
+  gender: Gender[];
+  date: string;
+  description: string;
+  guestMenCount: number;
+  guestOthersCount: number;
+  guestWomenCount: number;
+  id: string;
+  imageData: string;
+  location: string;
+  menCount: number;
+  name: string;
+  othersCount: number;
+  packageId: string;
+  tags: string[];
+  venue: string;
+  womenCount: number;
+}
 export type PossibleTags = 'food' | 'drinks' | 'dance' | 'hookah';
 
 export type PostStatus = 'Confirmed' | 'Completed' | 'Created' | 'Cancelled';

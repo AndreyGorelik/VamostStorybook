@@ -25,6 +25,9 @@ import pastPostsSlice from './slices/posts/pastPosts.slice';
 import postsSlice from './slices/posts/posts.slice';
 import upcomingPostsSlice from './slices/posts/upcomingPosts.slice';
 import userSlice from './slices/user.slice';
+import errorsSlice from './slices/errorsSlice';
+import postCreateSlice from './slices/postCreateSlice';
+import profileSlice from './slices/profileSlice';
 
 const persistConfig = {
   key: 'root',
@@ -41,6 +44,8 @@ const persistConfig = {
     'allRequestsSlice',
     'deletedRequestsSlice',
     'pendingRequestsSlice',
+    'profileSlice',
+    'postCreateSlice',
   ],
 };
 
@@ -49,6 +54,8 @@ const rootReducer = combineReducers({
   userSlice,
   postSlice,
   postsSlice,
+  postCreateSlice,
+  profileSlice,
   upcomingPostsSlice,
   cancelledPostsSlice,
   pastPostsSlice,

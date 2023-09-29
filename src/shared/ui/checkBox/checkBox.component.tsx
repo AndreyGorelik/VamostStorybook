@@ -13,7 +13,7 @@ import Text from '../text/text.component';
 import { createStyles } from './checkBox.styles';
 import { CheckBoxProps } from './checkBox.types';
 
-export default function CheckBox({ value, onChange, label }: CheckBoxProps) {
+export default function CheckBox({ value, onChange, label, disabled = false }: CheckBoxProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
   const transformSize = useSharedValue(1);
@@ -36,6 +36,7 @@ export default function CheckBox({ value, onChange, label }: CheckBoxProps) {
       onPress={toggleCheckbox}
       style={styles.container}
       activeOpacity={0.8}
+      disabled={disabled}
     >
       <Text>{label}</Text>
       <Animated.View style={animatedIconStyle}>

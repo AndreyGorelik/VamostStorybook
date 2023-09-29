@@ -28,7 +28,7 @@ function Index() {
   }
 
   if (isAuth === false) {
-    return <Redirect href="/login" />;
+    return <Redirect href="/home" />;
   }
 
   if (!finished) {

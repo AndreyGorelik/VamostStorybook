@@ -10,14 +10,11 @@ export const createStyles = (
   StyleSheet.create({
     container: {
       position: 'relative',
-      marginVertical: 10,
       flex: 1,
     },
     input: {
-      paddingVertical: 10,
       fontSize: fontSize ? fontSize : 17,
       paddingHorizontal: 0,
-      fontFamily: 'NunitoSans10pt-Regular',
       color: error ? theme.colors.red : theme.colors.primary,
       textAlign: placeholder.length === 1 ? 'center' : 'auto',
       minWidth: 24,

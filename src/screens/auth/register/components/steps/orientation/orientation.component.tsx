@@ -9,7 +9,7 @@ import { View } from 'react-native';
 import { setNextStep } from 'src/store/slices/auth.slice';
 import { setSexualOrientation } from 'src/store/slices/user.slice';
 
-import { ORIENTATION_MULTI_SELECT_DATA } from './orientation.data';
+import { ORIENTATION_OPTIONS } from './orientation.data';
 import { createStyles } from './orientation.styles';
 
 export default function Orientation() {
@@ -38,7 +38,7 @@ export default function Orientation() {
 
       <View style={styles.content}>
         <SelectList
-          listOptions={ORIENTATION_MULTI_SELECT_DATA}
+          listOptions={ORIENTATION_OPTIONS}
           selected={selected}
           setSelected={setSelected}
           variant="textList"
