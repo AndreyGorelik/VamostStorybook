@@ -23,7 +23,6 @@ export default function StepFour({
 }: StepFourProps) {
   const dispatch = useAppDispatch();
   const { postPackages, isLoading } = useAppSelector((state) => state.postCreateSlice);
-  const { getPackageError } = useAppSelector((state) => state.errorsSlice);
   const [search, setSearch] = useState('');
 
   useEffect(() => {
@@ -61,7 +60,6 @@ export default function StepFour({
   };
 
   if (isLoading) return <ActivityIndicator size={50} />;
-  if (getPackageError) return <Text>{getPackageError}</Text>;
 
   return (
     <View>
