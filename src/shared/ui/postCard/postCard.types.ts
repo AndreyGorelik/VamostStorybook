@@ -11,6 +11,12 @@ export interface PostGuests {
   id: string;
 }
 
+export interface Guest {
+  avatar: string;
+  id: string;
+  nickName: string;
+}
+
 export interface PostCardProps {
   photo: string;
   postTags: PostTag[];

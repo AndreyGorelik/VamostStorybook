@@ -1,5 +1,5 @@
 import useTheme from '@shared/hooks/useTheme.hook';
-import { PostGuests } from '@shared/ui/postCard/postCard.types';
+import { Guest } from '@shared/ui/postCard/postCard.types';
 import Text from '@shared/ui/text/text.component';
 import { Link, useLocalSearchParams } from 'expo-router';
 import { FlatList, Image, View } from 'react-native';
@@ -12,7 +12,7 @@ export default function ProfilesList() {
   const theme = useTheme();
   const styles = createStyles(theme);
 
-  const renderItem = ({ item }: { item: PostGuests }) => {
+  const renderItem = ({ item }: { item: Guest }) => {
     return (
       <Link
         href={{

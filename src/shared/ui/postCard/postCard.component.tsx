@@ -1,8 +1,7 @@
 import useTheme from '@shared/hooks/useTheme.hook';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
-import { router } from 'expo-router';
-import { Link } from 'expo-router';
+import { router, Link } from 'expo-router';
 import { View, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 import { PostResponse } from 'src/types/actions/actions.types';
 
