@@ -20,14 +20,13 @@ import postSlice from './slices/post/post.slice';
 import allRequestsSlice from './slices/post/requests/allRequests.slice';
 import deletedRequestsSlice from './slices/post/requests/deletedRequests.slice';
 import pendingRequestsSlice from './slices/post/requests/pendingRequests.slice';
+import postCreateSlice from './slices/postCreateSlice';
 import cancelledPostsSlice from './slices/posts/cancelledPosts.slice';
 import pastPostsSlice from './slices/posts/pastPosts.slice';
 import postsSlice from './slices/posts/posts.slice';
 import upcomingPostsSlice from './slices/posts/upcomingPosts.slice';
-import userSlice from './slices/user.slice';
-import errorsSlice from './slices/errorsSlice';
-import postCreateSlice from './slices/postCreateSlice';
 import profileSlice from './slices/profileSlice';
+import userSlice from './slices/user.slice';
 
 const persistConfig = {
   key: 'root',
