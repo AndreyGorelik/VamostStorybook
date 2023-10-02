@@ -3,8 +3,8 @@ import useTheme from '@shared/hooks/useTheme.hook';
 import { PageLoader } from '@shared/ui/pageLoader';
 import { Request } from '@shared/ui/request';
 import { useCallback, useEffect } from 'react';
-import { ScrollView } from 'react-native';
-import { getDeletedRequests } from 'src/store/slices/postSlice';
+import { RefreshControl, ScrollView } from 'react-native';
+import { getDeletedRequests } from 'src/store/slices/post/requests/deletedRequests.slice';
 
 import { createStyles } from '../../Requests.styles';
 import { TabViewProps } from '../../Requests.types';
@@ -12,7 +12,9 @@ import { TabViewProps } from '../../Requests.types';
 export default function Deleted({ id, confirmRequest, deleteRequest }: TabViewProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const { deletedRequests, deletedLoading } = useAppSelector((state) => state.postSlice);
+  const { deletedRequests, deletedRequestsLoading } = useAppSelector(
+    (state) => state.deletedRequestsSlice
+  );
   const dispatch = useAppDispatch();
 
   const handleFetch = useCallback(() => {
@@ -28,10 +30,15 @@ export default function Deleted({ id, confirmRequest, deleteRequest }: TabViewPr
     if (!deletedRequests.length) handleFetch();
   }, [handleFetch, deletedRequests.length]);
 
-  if (deletedLoading) return <PageLoader />;
+  if (deletedRequestsLoading) return <PageLoader />;
 
   return (
-    <ScrollView contentContainerStyle={styles.contentWrapper}>
+    <ScrollView
+      contentContainerStyle={styles.contentWrapper}
+      refreshControl={
+        <RefreshControl refreshing={deletedRequestsLoading} onRefresh={handleFetch} />
+      }
+    >
       {deletedRequests.map((item) => (
         <Request
           key={item.id}

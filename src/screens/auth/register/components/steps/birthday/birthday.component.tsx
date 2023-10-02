@@ -9,8 +9,8 @@ import { getSavedBirthday } from '@shared/utils/getSavedBirthday';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { setNextStep } from 'src/store/slices/authSlice';
-import { setBirthdate } from 'src/store/slices/userSlice';
+import { setNextStep } from 'src/store/slices/auth.slice';
+import { setBirthdate } from 'src/store/slices/user.slice';
 
 import { createStyles } from './birthday.styles';
 

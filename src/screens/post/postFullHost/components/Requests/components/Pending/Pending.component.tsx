@@ -4,7 +4,7 @@ import { PageLoader } from '@shared/ui/pageLoader';
 import { Request } from '@shared/ui/request';
 import { useCallback, useEffect } from 'react';
 import { RefreshControl, ScrollView } from 'react-native';
-import { getPendingRequests } from 'src/store/slices/postSlice';
+import { getPendingRequests } from 'src/store/slices/post/requests/pendingRequests.slice';
 
 import { createStyles } from '../../Requests.styles';
 import { TabViewProps } from '../../Requests.types';
@@ -12,7 +12,9 @@ import { TabViewProps } from '../../Requests.types';
 export default function Pending({ id, confirmRequest, deleteRequest }: TabViewProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const { pendingRequests, pendingLoading } = useAppSelector((state) => state.postSlice);
+  const { pendingRequests, pendingRequestsLoading } = useAppSelector(
+    (state) => state.pendingRequestsSlice
+  );
   const dispatch = useAppDispatch();
 
   const handleFetch = useCallback(() => {
@@ -28,13 +30,15 @@ export default function Pending({ id, confirmRequest, deleteRequest }: TabViewPr
     if (!pendingRequests.length) handleFetch();
   }, [handleFetch, pendingRequests.length]);
 
-  if (pendingLoading) return <PageLoader />;
+  if (pendingRequestsLoading) return <PageLoader />;
 
   return (
     <ScrollView
       contentContainerStyle={styles.contentWrapper}
       nestedScrollEnabled={true}
-      refreshControl={<RefreshControl refreshing={pendingLoading} onRefresh={handleFetch} />}
+      refreshControl={
+        <RefreshControl refreshing={pendingRequestsLoading} onRefresh={handleFetch} />
+      }
     >
       {pendingRequests.map((item) => (
         <Request

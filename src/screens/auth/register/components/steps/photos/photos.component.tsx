@@ -6,7 +6,7 @@ import Text from '@shared/ui/text/text.component';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { registerPhoto } from 'src/store/slices/authSlice';
+import { registerPhotoAction } from 'src/store/slices/auth.slice';
 
 import { PhotosData } from './photos.data';
 import { createStyles } from './photos.styles';
@@ -18,17 +18,16 @@ export default function Photos() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
-  const { isLoading: loading } = useAppSelector((state) => state.authSlice);
+  const { isLoading: loading, error } = useAppSelector((state) => state.authSlice);
   const [images, setImages] = useState<PickedImage[]>([]);
   const [isLoading, setIsLoading] = useState<number | null>(null);
   const [flatListHeight, setFlatListHeight] = useState<number>(0);
-  const { photosError } = useAppSelector((state) => state.errorsSlice);
 
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
   function onSubmit() {
     const photos = images.map((image) => ({ imageData: image.imageData }));
-    dispatch(registerPhoto(photos));
+    dispatch(registerPhotoAction(photos));
   }
 
   const pickImage = async (id: number) => {
@@ -98,7 +97,7 @@ export default function Photos() {
           keyExtractor={(item) => `${item.id}`}
           numColumns={COLUMN_AMOUNT}
         />
-        {photosError && <Text variant="warning">{photosError}</Text>}
+        {error && <Text variant="warning">{error}</Text>}
       </View>
       <Button
         title="Finish registration"

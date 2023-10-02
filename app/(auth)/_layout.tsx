@@ -3,8 +3,9 @@ import { useAppDispatch } from '@shared/hooks/redux.hook';
 import { Header } from '@shared/ui/header';
 import { Link, Stack } from 'expo-router';
 import { Pressable } from 'react-native';
-import { setStep } from 'src/store/slices/authSlice';
-import { initialState, setUser } from 'src/store/slices/userSlice';
+import { setStep } from 'src/store/slices/auth.slice';
+import { initialState, setUser } from 'src/store/slices/user.slice';
+
 export default function AuthLayout() {
   const dispatch = useAppDispatch();
 

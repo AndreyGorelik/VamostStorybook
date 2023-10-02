@@ -8,7 +8,7 @@ import Text from '@shared/ui/text/text.component';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Pressable, View } from 'react-native';
-import { registerUser } from 'src/store/slices/authSlice';
+import { registerUser } from 'src/store/slices/auth.slice';
 
 import { createStyles } from './phoneAndPass.styles';
 import { PhoneAndPassProps } from './phoneAndPass.types';
@@ -18,8 +18,7 @@ export default function PhoneAndPass({ setNumber }: PhoneAndPassProps) {
   const styles = createStyles(theme);
   const [secure, setSecure] = useState<boolean>(true);
   const dispatch = useAppDispatch();
-  const { phoneNumberError } = useAppSelector((state) => state.errorsSlice);
-  const { isLoading } = useAppSelector((state) => state.authSlice);
+  const { isLoading, error } = useAppSelector((state) => state.authSlice);
   const {
     control,
     handleSubmit,
@@ -79,7 +78,7 @@ export default function PhoneAndPass({ setNumber }: PhoneAndPassProps) {
             />
           )}
         />
-        {phoneNumberError && <Text variant="warning">{phoneNumberError}</Text>}
+        {error && <Text variant="warning">{error}</Text>}
 
         <View style={styles.agreement}>
           <Text variant="small" align="center">

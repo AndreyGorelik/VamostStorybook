@@ -1,4 +1,3 @@
-import { Post } from '@shared/ui/postCreate/postCreate.types';
 import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { createPostRequest } from 'src/api/createPost';
@@ -6,30 +5,26 @@ import { getFullPackageRequest } from 'src/api/getFullPackage';
 import { getPackagesRequest } from 'src/api/getPackages';
 import { getVenuesRequest } from 'src/api/getVenues';
 import {
-  setGetFullPackageError,
-  setGetPackageError,
-  setGetVenuesError,
-  setPostCreateError,
-} from 'src/store/slices/errorsSlice';
-import {
   CREATE_POST,
   GET_FULL_PACKAGE,
   GET_PACKAGES,
   GET_VENUES,
   setLoading,
+  setPostCreateError,
   setPostFullPackage,
   setPostPackages,
   setPostVenues,
 } from 'src/store/slices/postCreateSlice';
 import {
   Action,
+  CreatePostData,
   FullPackage,
   Package,
   Place,
   PostGetPackages,
 } from 'src/types/actions/actions.types';
 
-function* postCreatePostWorker(action: Action<Post>) {
+function* postCreatePostWorker(action: Action<CreatePostData>) {
   const { payload } = action;
   try {
     yield put(setLoading(true));
@@ -57,8 +52,8 @@ function* postGetVenues(action: Action<string>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data || error.response.data.message) {
-          yield put(setGetVenuesError(error.response.data || error.response.data.message));
+        if (error.response.data && error.response.data.message) {
+          yield put(setPostCreateError(error.response.data.message));
         }
       }
     }
@@ -78,8 +73,8 @@ function* postGetPackages(action: Action<PostGetPackages>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data || error.response.data.message) {
-          yield put(setGetPackageError(error.response.data || error.response.data.message));
+        if (error.response.data && error.response.data.message) {
+          yield put(setPostCreateError(error.response.data.message));
         }
       }
     }
@@ -98,8 +93,8 @@ function* postGetFullPackage(action: Action<string>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data || error.response.data.message) {
-          yield put(setGetFullPackageError(error.response.data || error.response.data.message));
+        if (error.response.data && error.response.data.message) {
+          yield put(setPostCreateError(error.response.data.message));
         }
       }
     }

@@ -55,6 +55,7 @@ export type PostResponse = {
   id: string;
   tags: PossibleTags[];
   guests: GuestType[];
+  hostType: 'Guest' | 'Host';
 };
 
 export interface Place {
@@ -133,3 +134,8 @@ export type GuestType = {
     isShown: boolean;
   };
 };
+
+export type PostInfo = {
+  info: PostResponse | null;
+  isUsersPost: boolean;
+} | null;

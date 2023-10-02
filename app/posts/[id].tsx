@@ -2,27 +2,30 @@ import { useAppSelector, useAppDispatch } from '@shared/hooks/redux.hook';
 import { PageLoader } from '@shared/ui/pageLoader';
 import { Redirect, useLocalSearchParams } from 'expo-router';
 import { useEffect } from 'react';
-import { getPost } from 'src/store/slices/postSlice';
+import { Text } from 'react-native';
+import { getPostAction } from 'src/store/slices/post/post.slice';
 
 export default function Index() {
-  const { post, isPostLoading } = useAppSelector((state) => state.postSlice);
-
-  const host = true;
+  const { post, isPostLoading, error } = useAppSelector((state) => state.postSlice);
 
   const dispatch = useAppDispatch();
   const { id } = useLocalSearchParams();
 
   useEffect(() => {
-    if (id) dispatch(getPost({ id: id as string }));
+    if (id) dispatch(getPostAction({ id: id as string }));
   }, [dispatch, id]);
 
   if (isPostLoading) return <PageLoader />;
 
-  if (post?.isUsersPost && host) {
+  if (error) {
+    return <Text>{error}</Text>;
+  }
+
+  if (post?.isUsersPost && post.info?.hostType === 'Host') {
     return <Redirect href="posts/post/host" />;
   }
 
-  if (post?.isUsersPost && !host) {
+  if (post?.isUsersPost && post.info?.hostType === 'Guest') {
     return <Redirect href="posts/post/host" />;
   }
 

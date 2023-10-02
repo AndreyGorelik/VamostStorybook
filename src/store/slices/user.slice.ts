@@ -1,4 +1,4 @@
-import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { PersonalInfoValues } from '@screens/user/account/components/personalInfo/personalInfo.types';
 
 interface Photo {
@@ -33,6 +33,34 @@ export interface UserState {
   images: Photo[];
   avatar: string;
 }
+
+export type UserInfo = {
+  phoneNumber: string;
+  email: string;
+  nickname: string;
+  gender: {
+    value: 'Man' | 'Woman' | 'Other' | null;
+    isShown: boolean;
+  };
+  phoneVerified: boolean;
+  sexualOrientation: {
+    value:
+      | 'Straight'
+      | 'Gay'
+      | 'Lesbian'
+      | 'Bisexual'
+      | 'Asexual'
+      | 'Demisexual'
+      | 'Pansexual'
+      | 'Queer'
+      | null;
+    isShown: boolean;
+  };
+  shownGender: 'Man' | 'Woman' | 'Everyone' | null;
+  birthdate: string;
+  images: string[];
+  avatar: string;
+};
 
 export const initialState: UserState = {
   phoneNumber: '',
@@ -91,9 +119,6 @@ const userSlice = createSlice({
     },
   },
 });
-
-export const LOGIN_USER = 'users/loginUser';
-export const loginUser = createAction(LOGIN_USER);
 
 export const {
   setPhoneNumber,
