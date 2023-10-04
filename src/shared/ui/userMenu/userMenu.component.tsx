@@ -1,4 +1,3 @@
-import UserPic from '@assets/images/postCardImages/userpic2.jpeg';
 import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { LinearGradient } from 'expo-linear-gradient';
