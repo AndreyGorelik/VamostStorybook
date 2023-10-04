@@ -1,7 +1,7 @@
 export type ConfirmCodeResponse = {
   tokens: {
-    access: string;
-    refresh: string;
+    accessToken: string;
+    refreshToken: string;
   };
-  userId: string;
+  _id: string;
 };

@@ -23,7 +23,6 @@ import {
   RegisterAttributes,
   RegisterEmail,
   RegisterNickname,
-  RegisterPhoto,
   RegisterUser,
 } from 'src/types/actions/actions.types';
 import { ConfirmCodeResponse } from 'src/types/api/confirmCode.types';
@@ -40,8 +39,8 @@ function* phoneAndPasswordRequestWorker(action: Action<RegisterUser>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data || error.response.data.message) {
-          yield put(setAuthError(error.response.data || error.response.data.message));
+        if (error.response.data.message) {
+          yield put(setAuthError(error.response.data.message));
         }
       }
     }
@@ -53,9 +52,9 @@ function* confirmCodeWorker(action: Action<ConfirmCode>) {
   try {
     const request: AxiosResponse<ConfirmCodeResponse> = yield call(confirmCodeRequest, payload);
 
-    const { access, refresh } = request.data.tokens;
-    const userId = request.data.userId;
-    yield call(saveTokens, refresh, access, userId);
+    const { accessToken, refreshToken } = request.data.tokens;
+    const userId = request.data._id;
+    yield call(saveTokens, refreshToken, accessToken, userId);
 
     yield put(setNextStep());
   } catch (error) {
@@ -82,8 +81,8 @@ function* registerEmailWorker(action: Action<RegisterEmail>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data || error.response.data.message) {
-          yield put(setAuthError(error.response.data || error.response.data.message));
+        if (error.response.data && error.response.data.message) {
+          yield put(setAuthError(error.response.data.message));
         }
       }
     }
@@ -101,8 +100,8 @@ function* registerNicknameWorker(action: Action<RegisterNickname>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data || error.response.data.message) {
-          yield put(setAuthError(error.response.data || error.response.data.message));
+        if (error.response.data && error.response.data.message) {
+          yield put(setAuthError(error.response.data.message));
         }
       }
     }
@@ -119,15 +118,15 @@ function* registerAttributesWorker(action: Action<RegisterAttributes>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data || error.response.data.message) {
-          yield put(setAuthError(error.response.data || error.response.data.message));
+        if (error.response.data && error.response.data.message) {
+          yield put(setAuthError(error.response.data.message));
         }
       }
     }
   }
 }
 
-function* registerPhotoWorker(action: Action<RegisterPhoto[]>) {
+function* registerPhotoWorker(action: Action<FormData[]>) {
   const { payload } = action;
 
   try {
@@ -136,7 +135,11 @@ function* registerPhotoWorker(action: Action<RegisterPhoto[]>) {
     }
     yield put(setSignUpFinished(true));
   } catch (error) {
+    console.log(error);
+
     if (Axios.isAxiosError(error)) {
+      console.log(error);
+
       if (error.response) {
         if (error.response.data && error.response.data.message) {
           yield put(setAuthError(error.response.data.message));

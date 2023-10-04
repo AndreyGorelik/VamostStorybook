@@ -28,7 +28,7 @@ function Index() {
   }
 
   if (isAuth === false) {
-    return <Redirect href="/home" />;
+    return <Redirect href="/register" />;
   }
 
   if (!finished) {

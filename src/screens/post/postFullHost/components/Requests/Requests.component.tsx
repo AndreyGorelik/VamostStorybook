@@ -3,6 +3,7 @@ import useTheme from '@shared/hooks/useTheme.hook';
 import Divider from '@shared/ui/divider/divider.component';
 import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
+import { deleteRequest, confirmRequest } from 'src/store/slices/post/post.slice';
 import { addAllRequest, removeAllRequest } from 'src/store/slices/post/requests/allRequests.slice';
 import {
   addDeletedRequest,
@@ -28,11 +29,13 @@ export default function Requests({ postId }: RequestsProps) {
     dispatch(removePendingRequest(request));
     dispatch(removeDeletedRequest(request));
     dispatch(addAllRequest(request));
+    dispatch(confirmRequest({ postId, requestId: request.id, decision: 'Approve' }));
   }
   function handleDeleteRequest(request: PostRequest) {
     dispatch(removePendingRequest(request));
     dispatch(removeAllRequest(request));
     dispatch(addDeletedRequest(request));
+    dispatch(deleteRequest({ postId, requestId: request.id, decision: 'Rejected' }));
   }
 
   return (

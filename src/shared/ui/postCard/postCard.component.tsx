@@ -1,8 +1,7 @@
 import useTheme from '@shared/hooks/useTheme.hook';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
-import { router } from 'expo-router';
-import { Link } from 'expo-router';
+import { router, Link } from 'expo-router';
 import { View, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 import { PostResponse } from 'src/types/actions/actions.types';
 
@@ -18,11 +17,11 @@ export default function PostCard(props: PostResponse) {
   const styles = createStyles(theme);
 
   const btnStyle: ButtonStyles = {
-    Confirmed: {
+    Active: {
       title: 'Locked',
       color: theme.colors.postStatus.confirmed,
     },
-    Created: {
+    New: {
       title: 'Unlocked',
       color: theme.colors.postStatus.created,
     },
@@ -30,7 +29,7 @@ export default function PostCard(props: PostResponse) {
       title: 'Cancelled',
       color: theme.colors.postStatus.canceled,
     },
-    Completed: {
+    Complete: {
       title: 'Completed',
       color: theme.colors.postStatus.completed,
     },

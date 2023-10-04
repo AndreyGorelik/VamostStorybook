@@ -67,7 +67,7 @@ export default function PostFullHost() {
     dispatch(
       updatePostStatus({
         id: post?.info.id,
-        postStatus: 'Confirmed',
+        postStatus: 'Active',
       })
     );
   }
@@ -101,7 +101,7 @@ export default function PostFullHost() {
         <Tags tags={post.info.tags} />
         <Guests postInfo={post.info} />
 
-        {post.info.postStatus === 'Created' && (
+        {post.info.postStatus === 'New' && (
           <>
             <View style={styles.actionButtons}>
               {actionBtns.map((button) => (

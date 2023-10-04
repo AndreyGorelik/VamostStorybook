@@ -4,27 +4,25 @@ export type ConfirmCode = { phoneNumber: string; code: string };
 export type RegisterEmail = { email: string };
 export type RegisterNickname = { nickName: string };
 export type RegisterAttributes = {
-  gender: {
-    value: 'Man' | 'Woman' | 'Other' | null;
-    isShown: boolean;
-  };
-  sexualOrientation: {
-    value:
-      | 'Straight'
-      | 'Gay'
-      | 'Lesbian'
-      | 'Bisexual'
-      | 'Asexual'
-      | 'Demisexual'
-      | 'Pansexual'
-      | 'Queer'
-      | null;
-    isShown: boolean;
-  };
+  gender: UserGender;
+  sexualOrientation: SexualOrientation;
   shownGender: 'Man' | 'Woman' | 'Everyone' | null | string;
   birthdate: string;
 };
-export type RegisterPhoto = { imageData: string };
+export type RegisterPhoto = FormData;
+export type SexualOrientation = {
+  value:
+    | 'Straight'
+    | 'Gay'
+    | 'Lesbian'
+    | 'Bisexual'
+    | 'Asexual'
+    | 'Demisexual'
+    | 'Pansexual'
+    | 'Queer'
+    | null;
+  isShown: boolean;
+};
 
 export interface PostGetPackages {
   maxPeople: number;
@@ -101,29 +99,33 @@ export interface GetPackages {
   maxPeople: number;
 }
 
-type Gender = 'Man' | 'Woman' | 'Everyone';
+export type ShownGender = 'Man' | 'Woman' | 'Everyone';
+export type UserGender = {
+  value: 'Man' | 'Woman' | 'Other' | null;
+  isShown: boolean;
+};
 
 export interface CreatePostData {
-  gender: Gender[];
+  name: string;
   date: string;
+  location: string;
+  tags: string[];
+  venue: string;
+  menCount: number;
+  womenCount: number;
+  othersCount: number;
+  gender: ShownGender[];
   description: string;
   guestMenCount: number;
   guestOthersCount: number;
   guestWomenCount: number;
   id: string;
   imageData: string;
-  location: string;
-  menCount: number;
-  name: string;
-  othersCount: number;
   packageId: string;
-  tags: string[];
-  venue: string;
-  womenCount: number;
 }
 export type PossibleTags = 'food' | 'drinks' | 'dance' | 'hookah';
 
-export type PostStatus = 'Confirmed' | 'Completed' | 'Created' | 'Cancelled';
+export type PostStatus = 'Active' | 'Complete' | 'New' | 'Cancelled';
 
 export type GuestType = {
   avatar: string;

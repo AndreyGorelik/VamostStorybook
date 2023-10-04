@@ -5,12 +5,12 @@ import { PhotoInput } from '@shared/ui/photoInput';
 import Text from '@shared/ui/text/text.component';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, Platform, View } from 'react-native';
 import { registerPhotoAction } from 'src/store/slices/auth.slice';
 
 import { PhotosData } from './photos.data';
 import { createStyles } from './photos.styles';
-import { PickedImage } from './photos.types';
+import mime from 'mime';
 
 const COLUMN_AMOUNT = 3;
 
@@ -19,14 +19,14 @@ export default function Photos() {
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
   const { isLoading: loading, error } = useAppSelector((state) => state.authSlice);
-  const [images, setImages] = useState<PickedImage[]>([]);
+  const [images, setImages] = useState<{ uri: string; imageData: FormData }[]>([]);
   const [isLoading, setIsLoading] = useState<number | null>(null);
   const [flatListHeight, setFlatListHeight] = useState<number>(0);
 
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
   function onSubmit() {
-    const photos = images.map((image) => ({ imageData: image.imageData }));
+    const photos = images.map((image) => image.imageData);
     dispatch(registerPhotoAction(photos));
   }
 
@@ -41,28 +41,31 @@ export default function Photos() {
       allowsEditing: false,
       quality: 0,
       allowsMultipleSelection: true,
-      base64: true,
     });
 
     if (!result.canceled) {
-      if (id <= images.length) {
-        setImages(
-          result.assets.map((asset) => ({
-            uri: asset.uri,
-            imageData: 'data:image/jpeg;base64,' + asset.base64,
-          }))
-        );
-      } else {
-        setImages([
-          ...images,
-          ...result.assets
-            .map((asset) => ({
-              uri: asset.uri,
-              imageData: 'data:image/jpeg;base64,' + asset.base64,
-            }))
-            .slice(0, 6 - images.length),
-        ]);
-      }
+      const newImages = id <= images.length ? [] : [...images];
+      result.assets.forEach(async (asset) => {
+        const formData = new FormData();
+        const uri = Platform.OS === 'ios' ? asset.uri.replace('file://', '') : asset.uri;
+        const fileData = {
+          name: `${asset.fileName}`,
+          type: mime.getType(uri),
+          uri,
+        };
+        formData.append('imageData', fileData as any);
+        console.log(mime.getType(uri));
+
+        console.log(`${asset.type}/${asset.fileName?.split('.')[1]}`);
+
+        const image = {
+          uri: asset.uri,
+          imageData: formData,
+        };
+
+        newImages.push(image);
+      });
+      setImages(newImages);
     }
     setIsLoading(null);
   };

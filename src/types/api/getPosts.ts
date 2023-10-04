@@ -20,11 +20,17 @@ export type UpdatePostStatus = {
   postStatus: PostStatus;
 };
 
-export type RequestStatus = 'Pending' | 'Approved' | 'Rejected';
+export type RequestStatus = 'New' | 'Approve' | 'Rejected';
 
 export type GetRequests = {
   id: string;
   requestStatus?: RequestStatus;
+};
+
+export type TakeDecision = {
+  postId: string;
+  requestId: string;
+  decision?: RequestStatus;
 };
 
 export type PostRequest = {

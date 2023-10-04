@@ -14,7 +14,7 @@ export default function ShowMe() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
-  const { isLoading } = useAppSelector((state) => state.authSlice);
+  const { isLoading, error } = useAppSelector((state) => state.authSlice);
   const { birthdate, gender, sexualOrientation, shownGender } = useAppSelector(
     (state) => state.userSlice
   );
@@ -41,6 +41,7 @@ export default function ShowMe() {
           setSelected={setSelected}
           variant="buttonsList"
         />
+        {error && <Text variant="warning">{error}</Text>}
       </View>
       <Button title="Continue" onPress={onSubmit} disabled={!selected} loading={isLoading} />
     </View>

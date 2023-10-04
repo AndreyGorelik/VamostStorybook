@@ -21,7 +21,7 @@ export default function Pending({ id, confirmRequest, deleteRequest }: TabViewPr
     dispatch(
       getPendingRequests({
         id,
-        requestStatus: 'Pending',
+        requestStatus: 'New',
       })
     );
   }, [dispatch, id]);

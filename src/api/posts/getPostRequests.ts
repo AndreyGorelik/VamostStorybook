@@ -8,7 +8,7 @@ export const getPostRequestsRequest = async ({
   id,
   requestStatus,
 }: GetRequests): Promise<AxiosResponse<PostRequest[]>> => {
-  return await axios.get(`${API_ROUTES.request}`, {
+  return await axios.get(`${API_ROUTES.post}/${id}/${API_ROUTES.getRequests}`, {
     params: {
       postId: id,
       requestStatus,
