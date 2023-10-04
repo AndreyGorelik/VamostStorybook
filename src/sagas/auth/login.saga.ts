@@ -2,6 +2,7 @@ import { LOGIN_USER, REFRESH } from '@shared/constants/actions';
 import { saveTokens } from '@shared/utils/saveTokens';
 import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { API_ROUTES } from 'src/api/constants';
 import { refreshRequest } from 'src/api/refresh';
 import { signInRequest } from 'src/api/signIn';
 import { loginUserSuccess, logoutUser, setAuthError } from 'src/store/slices/auth.slice';
@@ -25,8 +26,13 @@ function* logInRequestWorker(action: Action<LoginUser>) {
         phoneNumber: data.phoneNumber && data.phoneNumber,
         sexualOrientation: data.sexualOrientation && data.sexualOrientation,
         shownGender: data.shownGender && data.shownGender,
-        images: data.images && data.images,
-        avatar: data.avatar && data.avatar,
+        images:
+          data.images &&
+          data.images.map((image) => ({
+            ...image,
+            imagePath: `${API_ROUTES.pictures}/${image.imagePath}`,
+          })),
+        avatar: data.avatar && `${API_ROUTES.pictures}/${data.avatar.imagePath}`,
         phoneVerified: data.phoneVerified && data.phoneVerified,
       })
     );

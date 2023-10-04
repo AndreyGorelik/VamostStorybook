@@ -1,5 +1,4 @@
 import Background from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
-import UserPic from '@assets/images/postCardImages/userpic2.jpeg';
 import { MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';

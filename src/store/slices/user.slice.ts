@@ -2,10 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { PersonalInfoValues } from '@screens/user/account/components/personalInfo/personalInfo.types';
 import { UserGender } from 'src/types/actions/actions.types';
 
-interface Photo {
-  id: string;
-  imageUrl: string;
-}
+import { Photo } from './profileSlice';
 
 export interface UserState {
   phoneNumber: string;

@@ -12,7 +12,7 @@ import { createStyles } from './userMenu.styles';
 export default function UserMenu() {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const { email, nickname } = useAppSelector((state) => state.userSlice);
+  const { email, nickname, avatar } = useAppSelector((state) => state.userSlice);
 
   function handleNavigate() {
     router.push('account');
@@ -23,7 +23,11 @@ export default function UserMenu() {
       style={({ pressed }) => [styles.wrapper, { opacity: pressed ? 0.9 : 1 }]}
       onPress={handleNavigate}
     >
-      <ImageBackground style={styles.imageWrapper} imageStyle={{ opacity: 0.8 }} source={UserPic}>
+      <ImageBackground
+        style={styles.imageWrapper}
+        imageStyle={{ opacity: 0.8 }}
+        source={{ uri: avatar }}
+      >
         <LinearGradient
           colors={[theme.colors.primary, theme.colors.secondary]}
           start={{ x: 0, y: 1 }}
@@ -31,7 +35,7 @@ export default function UserMenu() {
           style={styles.linearGradient}
         ></LinearGradient>
         <View style={styles.userInfo}>
-          <Image source={UserPic} style={styles.image} />
+          <Image source={{ uri: avatar }} style={styles.image} />
           <View style={styles.textWrapper}>
             <Text
               variant="common"

@@ -27,7 +27,7 @@ function ModalGallery({ close, images }: ModalGalleryProps) {
               pagingEnabled
               bounces={false}
               scrollEventThrottle={32}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => item._id}
             />
           </View>
         </SafeAreaView>

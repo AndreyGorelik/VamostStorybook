@@ -15,7 +15,7 @@ export type SignInResponse = {
   email: string;
   birthDate: string;
   images: Photo[];
-  avatar: string;
+  avatar: Photo;
   phoneVerified: boolean;
   _id: string;
 };
