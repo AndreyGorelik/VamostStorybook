@@ -3,11 +3,12 @@ export type RegisterUser = { phoneNumber: string; password: string };
 export type ConfirmCode = { phoneNumber: string; code: string };
 export type RegisterEmail = { email: string };
 export type RegisterNickname = { nickName: string };
+export type RegisterBirthDate = { birthDate: string };
 export type RegisterAttributes = {
   gender: UserGender;
   sexualOrientation: SexualOrientation;
   shownGender: 'Man' | 'Woman' | 'Everyone' | null | string;
-  birthdate: string;
+  birthDate: string;
 };
 export type RegisterPhoto = FormData;
 export type SexualOrientation = {

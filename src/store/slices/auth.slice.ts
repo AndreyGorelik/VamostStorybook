@@ -4,6 +4,7 @@ import {
   LOGIN_USER,
   REFRESH,
   REGISTER_ATTRIBUTES,
+  REGISTER_BIRTHDATE,
   REGISTER_EMAIL,
   REGISTER_NICKNAME,
   REGISTER_PHOTO,
@@ -14,6 +15,7 @@ import {
   ConfirmCode,
   LoginUser,
   RegisterAttributes,
+  RegisterBirthDate,
   RegisterEmail,
   RegisterNickname,
   RegisterUser,
@@ -94,6 +96,10 @@ const authSlice = createSlice({
       state.isLoading = true;
       state.error = null;
     },
+    registerBirthDate(state) {
+      state.isLoading = true;
+      state.error = null;
+    },
     registerPhotos(state) {
       state.isLoading = true;
       state.error = null;
@@ -114,6 +120,8 @@ export const confirmCodeAction = createAction<ConfirmCode>(CONFIRM_CODE);
 export const registerEmailAction = createAction<RegisterEmail>(REGISTER_EMAIL);
 
 export const registerNicknameAction = createAction<RegisterNickname>(REGISTER_NICKNAME);
+
+export const registerBirthDateAction = createAction<RegisterBirthDate>(REGISTER_BIRTHDATE);
 
 export const registerAttributesAction = createAction<RegisterAttributes>(REGISTER_ATTRIBUTES);
 

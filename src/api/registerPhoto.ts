@@ -7,5 +7,9 @@ import { API_ROUTES } from './constants';
 export const registerPhotoRequest = async ({
   data,
 }: RegisterPhotoRequest): Promise<AxiosResponse<string>> => {
-  return await axios.patch(`${API_ROUTES.image}`, data);
+  return await axios.patch(`${API_ROUTES.image}`, data, {
+    headers: {
+      'content-type': 'multipart/form-data',
+    },
+  });
 };

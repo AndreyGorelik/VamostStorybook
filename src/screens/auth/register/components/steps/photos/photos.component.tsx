@@ -4,13 +4,13 @@ import { Button } from '@shared/ui/button';
 import { PhotoInput } from '@shared/ui/photoInput';
 import Text from '@shared/ui/text/text.component';
 import * as ImagePicker from 'expo-image-picker';
+import mime from 'mime';
 import { useState } from 'react';
 import { FlatList, Platform, View } from 'react-native';
 import { registerPhotoAction } from 'src/store/slices/auth.slice';
 
 import { PhotosData } from './photos.data';
 import { createStyles } from './photos.styles';
-import mime from 'mime';
 
 const COLUMN_AMOUNT = 3;
 
@@ -49,15 +49,11 @@ export default function Photos() {
         const formData = new FormData();
         const uri = Platform.OS === 'ios' ? asset.uri.replace('file://', '') : asset.uri;
         const fileData = {
-          name: `${asset.fileName}`,
+          name: `image.${mime.getType(uri)?.split('/')[1]}`,
           type: mime.getType(uri),
           uri,
         };
         formData.append('imageData', fileData as any);
-        console.log(mime.getType(uri));
-
-        console.log(`${asset.type}/${asset.fileName?.split('.')[1]}`);
-
         const image = {
           uri: asset.uri,
           imageData: formData,

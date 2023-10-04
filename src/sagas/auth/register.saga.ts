@@ -5,22 +5,31 @@ import {
   REGISTER_NICKNAME,
   REGISTER_ATTRIBUTES,
   REGISTER_PHOTO,
+  REGISTER_BIRTHDATE,
 } from '@shared/constants/actions';
 import { saveTokens } from '@shared/utils/saveTokens';
 import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { confirmCodeRequest } from 'src/api/confirmCode';
 import { registerAttributesRequest } from 'src/api/registerAttributes';
+import { registerBirthDateRequest } from 'src/api/registerBirthDate';
 import { registerEmailRequest } from 'src/api/registerEmail';
 import { registerNicknameRequest } from 'src/api/registerNickname';
 import { registerPhotoRequest } from 'src/api/registerPhoto';
 import { signUpRequest } from 'src/api/signUp';
 import { setAuthError, setNextStep, setSignUpFinished } from 'src/store/slices/auth.slice';
-import { setEmail, setNickname, setPhoneNumber, setShownGender } from 'src/store/slices/user.slice';
+import {
+  setBirthDate,
+  setEmail,
+  setNickname,
+  setPhoneNumber,
+  setShownGender,
+} from 'src/store/slices/user.slice';
 import {
   Action,
   ConfirmCode,
   RegisterAttributes,
+  RegisterBirthDate,
   RegisterEmail,
   RegisterNickname,
   RegisterUser,
@@ -108,6 +117,25 @@ function* registerNicknameWorker(action: Action<RegisterNickname>) {
   }
 }
 
+function* registerBirthDateWorker(action: Action<RegisterBirthDate>) {
+  const { payload } = action;
+
+  try {
+    yield call(registerBirthDateRequest, { data: payload });
+
+    yield put(setBirthDate(payload.birthDate));
+    yield put(setNextStep());
+  } catch (error) {
+    if (Axios.isAxiosError(error)) {
+      if (error.response) {
+        if (error.response.data && error.response.data.message) {
+          yield put(setAuthError(error.response.data.message));
+        }
+      }
+    }
+  }
+}
+
 function* registerAttributesWorker(action: Action<RegisterAttributes>) {
   const { payload } = action;
   try {
@@ -135,11 +163,7 @@ function* registerPhotoWorker(action: Action<FormData[]>) {
     }
     yield put(setSignUpFinished(true));
   } catch (error) {
-    console.log(error);
-
     if (Axios.isAxiosError(error)) {
-      console.log(error);
-
       if (error.response) {
         if (error.response.data && error.response.data.message) {
           yield put(setAuthError(error.response.data.message));
@@ -154,6 +178,7 @@ export function* signUpSaga() {
   yield takeLatest(CONFIRM_CODE, confirmCodeWorker);
   yield takeLatest(REGISTER_EMAIL, registerEmailWorker);
   yield takeLatest(REGISTER_NICKNAME, registerNicknameWorker);
+  yield takeLatest(REGISTER_BIRTHDATE, registerBirthDateWorker);
   yield takeLatest(REGISTER_ATTRIBUTES, registerAttributesWorker);
   yield takeLatest(REGISTER_PHOTO, registerPhotoWorker);
 }

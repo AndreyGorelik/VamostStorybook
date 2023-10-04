@@ -104,7 +104,7 @@ const userSlice = createSlice({
     setShownGender(state, action) {
       state.shownGender = action.payload;
     },
-    setBirthdate(state, action) {
+    setBirthDate(state, action) {
       state.birthdate = action.payload;
     },
     setEditedUserInfo(state, action: PayloadAction<PersonalInfoValues>) {
@@ -125,7 +125,7 @@ export const {
   setGender,
   setSexualOrientation,
   setShownGender,
-  setBirthdate,
+  setBirthDate,
   setUser,
   setEditedUserInfo,
 } = userSlice.actions;

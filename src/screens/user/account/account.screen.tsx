@@ -31,7 +31,7 @@ export default function Account() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [editMode, setEditMode] = useState(false);
-  const { email, nickname, images } = useAppSelector((state) => state.userSlice);
+  const { email, nickname, images, avatar } = useAppSelector((state) => state.userSlice);
   const dispatch = useAppDispatch();
   const [openPostCreate, setOpenPostCreate] = useState(false);
   const navigation = useNavigation();
@@ -54,7 +54,7 @@ export default function Account() {
         >
           <View style={styles.linearGradient}></View>
           <View style={styles.userInfo}>
-            <Image source={UserPic} style={styles.image} />
+            <Image source={{ uri: avatar }} style={styles.image} />
             <Text variant="h3" {...styles.text} style={styles.nickname}>
               {nickname}
             </Text>

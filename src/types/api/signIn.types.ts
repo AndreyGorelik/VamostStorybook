@@ -13,7 +13,7 @@ export type SignInResponse = {
   nickName: string;
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   email: string;
-  birthdate: string;
+  birthDate: string;
   images: Photo[];
   avatar: string;
   phoneVerified: boolean;

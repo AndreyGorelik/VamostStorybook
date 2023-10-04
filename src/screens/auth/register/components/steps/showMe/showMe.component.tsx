@@ -22,7 +22,7 @@ export default function ShowMe() {
   function onSubmit() {
     dispatch(
       registerAttributesAction({
-        birthdate,
+        birthDate: birthdate,
         gender,
         sexualOrientation,
         shownGender: selected,

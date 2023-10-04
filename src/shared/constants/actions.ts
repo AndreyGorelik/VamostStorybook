@@ -8,6 +8,8 @@ export const REGISTER_EMAIL = 'auth/registerEmail';
 
 export const REGISTER_NICKNAME = 'auth/registerNickname';
 
+export const REGISTER_BIRTHDATE = 'auth/registerBirthDate';
+
 export const REGISTER_ATTRIBUTES = 'auth/registerAttributes';
 
 export const REGISTER_PHOTO = 'auth/registerPhotos';

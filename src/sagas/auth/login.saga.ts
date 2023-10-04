@@ -18,7 +18,7 @@ function* logInRequestWorker(action: Action<LoginUser>) {
     yield call(saveTokens, data.tokens.refreshToken, data.tokens.accessToken, data._id);
     yield put(
       setUser({
-        birthdate: data.birthdate && data.birthdate,
+        birthdate: data.birthDate && data.birthDate,
         email: data.email && data.email,
         gender: data.gender && data.gender,
         nickname: data.nickName && data.nickName,
@@ -55,7 +55,7 @@ function* refreshRequestWorker() {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data) {
+        if (error.response.data && error.response.data.message) {
           yield put(setAuthError(error.response.data.message));
         }
       }

@@ -18,4 +18,5 @@ export const API_ROUTES = {
   setAvatar: 'user/set-avatar',
   getRequests: 'get-requests',
   takeDecision: 'take-decision',
+  auth: 'auth',
 };
