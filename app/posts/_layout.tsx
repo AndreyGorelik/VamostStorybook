@@ -20,6 +20,12 @@ export default function Layout() {
           animation: 'fade',
         }}
       />
+      <Stack.Screen
+        name="post/not-joined/index"
+        options={{
+          animation: 'fade',
+        }}
+      />
     </Stack>
   );
 }

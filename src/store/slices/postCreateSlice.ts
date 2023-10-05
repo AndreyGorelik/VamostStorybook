@@ -13,6 +13,7 @@ export interface PostCreateState {
   fullPackage: FullPackage | null;
   isLoading: boolean;
   postVenues: Place[];
+  error?: string;
 }
 
 const initialState: PostCreateState = {
@@ -39,6 +40,9 @@ const postsSlice = createSlice({
     setPostFullPackage(state, action: PayloadAction<FullPackage>) {
       state.fullPackage = action.payload;
     },
+    setPostCreateError(state, action: PayloadAction<string>) {
+      state.error = action.payload;
+    },
   },
 });
 
@@ -54,7 +58,12 @@ export const getPackages = createAction<GetPackages>(GET_PACKAGES);
 export const GET_FULL_PACKAGE = 'postCreateSlice/getFullPackage';
 export const getFullPackage = createAction<string>(GET_FULL_PACKAGE);
 
-export const { setLoading, setPostPackages, setPostVenues, setPostFullPackage } =
-  postsSlice.actions;
+export const {
+  setLoading,
+  setPostPackages,
+  setPostVenues,
+  setPostFullPackage,
+  setPostCreateError,
+} = postsSlice.actions;
 
 export default postsSlice.reducer;

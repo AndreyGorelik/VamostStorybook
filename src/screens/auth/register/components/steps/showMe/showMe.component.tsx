@@ -5,7 +5,7 @@ import { SelectList } from '@shared/ui/selectList';
 import Text from '@shared/ui/text/text.component';
 import { useState } from 'react';
 import { View } from 'react-native';
-import { registerAttributes } from 'src/store/slices/authSlice';
+import { registerAttributesAction } from 'src/store/slices/auth.slice';
 
 import { ORIENTATION_RADIO_DATA } from './showMe.data';
 import { createStyles } from './showMe.styles';
@@ -21,7 +21,7 @@ export default function ShowMe() {
   const [selected, setSelected] = useState(shownGender ? shownGender : '');
   function onSubmit() {
     dispatch(
-      registerAttributes({
+      registerAttributesAction({
         birthdate,
         gender,
         sexualOrientation,

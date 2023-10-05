@@ -1,6 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import { PackagePage } from '@shared/ui/packagePage';
-import Text from '@shared/ui/text/text.component';
 import { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { getFullPackage } from 'src/store/slices/postCreateSlice';
@@ -19,7 +18,6 @@ export default function StepFive({ post, setPost, next, fullPackageId }: StepFiv
   }, [dispatch, fullPackageId]);
 
   const { fullPackage, isLoading } = useAppSelector((state) => state.postCreateSlice);
-  const { getFullPackageError } = useAppSelector((state) => state.errorsSlice);
 
   const selectPackage = () => {
     if (!fullPackageId) return;
@@ -30,7 +28,6 @@ export default function StepFive({ post, setPost, next, fullPackageId }: StepFiv
     next();
   };
 
-  if (getFullPackageError) return <Text>{getFullPackageError}</Text>;
   if (isLoading) return <ActivityIndicator size={50} />;
 
   return (

@@ -3,7 +3,7 @@ import { checkUserField } from '@shared/utils/checkUserFields';
 import { Stack, useRouter, useRootNavigationState } from 'expo-router';
 import { useEffect } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
-import { setStep } from 'src/store/slices/authSlice';
+import { setStep } from 'src/store/slices/auth.slice';
 
 import { AppWrapperProps } from './appWrapper.types';
 

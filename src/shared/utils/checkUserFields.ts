@@ -1,4 +1,4 @@
-import { UserState } from 'src/store/slices/userSlice';
+import { UserState } from 'src/store/slices/user.slice';
 
 export function checkUserField(user: UserState) {
   let finished = false;

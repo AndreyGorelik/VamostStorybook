@@ -15,13 +15,18 @@ import createSagaMiddleware from 'redux-saga';
 
 import rootSaga from '../sagas';
 
-import authSlice from './slices/authSlice';
-import errorsSlice from './slices/errorsSlice';
+import authSlice from './slices/auth.slice';
+import postSlice from './slices/post/post.slice';
+import allRequestsSlice from './slices/post/requests/allRequests.slice';
+import deletedRequestsSlice from './slices/post/requests/deletedRequests.slice';
+import pendingRequestsSlice from './slices/post/requests/pendingRequests.slice';
 import postCreateSlice from './slices/postCreateSlice';
-import postSlice from './slices/postSlice';
-import postsSlice from './slices/postsSlice';
+import cancelledPostsSlice from './slices/posts/cancelledPosts.slice';
+import pastPostsSlice from './slices/posts/pastPosts.slice';
+import postsSlice from './slices/posts/posts.slice';
+import upcomingPostsSlice from './slices/posts/upcomingPosts.slice';
 import profileSlice from './slices/profileSlice';
-import userSlice from './slices/userSlice';
+import userSlice from './slices/user.slice';
 
 const persistConfig = {
   key: 'root',
@@ -29,8 +34,15 @@ const persistConfig = {
   blacklist: [
     'errorsSlice',
     'authSlice',
+    'postsSlice.error',
+    'upcomingPostsSlice.error',
+    'pastPostsSlice.error',
+    'cancelledPostsSlice.error',
+    'userSlice',
     'postSlice',
-    'postsSlice',
+    'allRequestsSlice',
+    'deletedRequestsSlice',
+    'pendingRequestsSlice',
     'profileSlice',
     'postCreateSlice',
   ],
@@ -39,11 +51,16 @@ const persistConfig = {
 const rootReducer = combineReducers({
   authSlice,
   userSlice,
-  errorsSlice,
+  postSlice,
   postsSlice,
   postCreateSlice,
   profileSlice,
-  postSlice,
+  upcomingPostsSlice,
+  cancelledPostsSlice,
+  pastPostsSlice,
+  allRequestsSlice,
+  deletedRequestsSlice,
+  pendingRequestsSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
