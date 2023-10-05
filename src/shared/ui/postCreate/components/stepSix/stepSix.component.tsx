@@ -14,6 +14,7 @@ export default function StepSix({ onFinish, createPost }: StepSixProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
 
+  const { postCreateError } = useAppSelector((state) => state.errorsSlice);
   const { isLoading } = useAppSelector((state) => state.postCreateSlice);
 
   useEffect(() => {
@@ -21,6 +22,7 @@ export default function StepSix({ onFinish, createPost }: StepSixProps) {
   }, [createPost]);
 
   if (isLoading) return <ActivityIndicator size={50} />;
+  if (postCreateError) return <Text>{postCreateError}</Text>;
 
   return (
     <>
