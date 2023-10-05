@@ -1,3 +1,4 @@
+import ErrorPage from '@screens/errorPage/errorPage.component';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
@@ -84,9 +85,13 @@ export default function PostFullHost() {
     );
   }
 
-  if (isPostLoading || !(post && post.info)) return <PageLoader />;
+  if (isPostLoading) return <PageLoader />;
 
   if (error) return <Text>{error}</Text>;
+
+  if (!post?.info) {
+    return <ErrorPage retry={async () => refetchPost()} error="Nothing found" />;
+  }
 
   return (
     <ScrollView
