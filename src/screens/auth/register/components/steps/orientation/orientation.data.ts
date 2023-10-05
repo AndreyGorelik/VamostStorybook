@@ -1,4 +1,4 @@
-export const ORIENTATION_MULTI_SELECT_DATA = [
+export const ORIENTATION_OPTIONS = [
   { value: 'STRAIGHT', label: 'Straight', id: 'Straight' },
   { value: 'GAY', label: 'Gay', id: 'Gay' },
   { value: 'LESBIAN', label: 'Lesbian', id: 'Lesbian' },

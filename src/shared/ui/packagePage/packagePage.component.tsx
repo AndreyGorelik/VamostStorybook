@@ -12,7 +12,8 @@ export default function PackagePage({
   date,
   place,
   description,
-  restrictions,
+  maxPeople,
+  minSpend,
   onSelect,
 }: PackagePageProps) {
   const theme = useTheme();
@@ -31,7 +32,7 @@ export default function PackagePage({
         </Text>
       </View>
       <Text variant="common" {...styles.restictions}>
-        {`$${restrictions[0]} Minimum Spend • Max ${restrictions[1]} people`}
+        {`$${minSpend} Minimum Spend • Max ${maxPeople} people`}
       </Text>
       <Text variant="common" {...styles.descriptions}>
         {description}

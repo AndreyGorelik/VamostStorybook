@@ -7,10 +7,10 @@ export interface StepOneProps {
 export interface PeopleCounter {
   menCount: number;
   womenCount: number;
-  otherCount: number;
-  guestsMenCount: number;
-  guestsWomenCount: number;
-  guestsOtherCount: number;
+  othersCount: number;
+  guestMenCount: number;
+  guestWomenCount: number;
+  guestOthersCount: number;
   [key: string]: number;
 }
 

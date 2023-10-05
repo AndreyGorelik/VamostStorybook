@@ -1,16 +1,27 @@
 import { FontAwesome } from '@expo/vector-icons';
+import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import Text from '@shared/ui/text/text.component';
-import { View } from 'react-native';
+import { useEffect } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 
 import { Button } from '../../../button';
 
 import { createStyles } from './stepSix.styles';
 import { StepSixProps } from './stepSix.types';
 
-export default function StepSix({ onFinish }: StepSixProps) {
+export default function StepSix({ onFinish, createPost }: StepSixProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
+
+  const { isLoading } = useAppSelector((state) => state.postCreateSlice);
+
+  useEffect(() => {
+    createPost();
+  }, [createPost]);
+
+  if (isLoading) return <ActivityIndicator size={50} />;
+
   return (
     <>
       <View style={styles.finishMessage}>
