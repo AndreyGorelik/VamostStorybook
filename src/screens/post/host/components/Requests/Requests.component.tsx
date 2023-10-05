@@ -29,13 +29,13 @@ export default function Requests({ postId }: RequestsProps) {
     dispatch(removePendingRequest(request));
     dispatch(removeDeletedRequest(request));
     dispatch(addAllRequest(request));
-    dispatch(confirmRequest({ postId, requestId: request.id, decision: 'Approve' }));
+    dispatch(confirmRequest({ postId, requestId: request._id, decision: 'Approve' }));
   }
   function handleDeleteRequest(request: PostRequest) {
     dispatch(removePendingRequest(request));
     dispatch(removeAllRequest(request));
     dispatch(addDeletedRequest(request));
-    dispatch(deleteRequest({ postId, requestId: request.id, decision: 'Rejected' }));
+    dispatch(deleteRequest({ postId, requestId: request._id, decision: 'Rejected' }));
   }
 
   return (

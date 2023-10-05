@@ -42,7 +42,7 @@ export default function Pending({ id, confirmRequest, deleteRequest }: TabViewPr
     >
       {pendingRequests.map((item) => (
         <Request
-          key={item.id}
+          key={item._id}
           confirmRequest={() => confirmRequest(item)}
           deleteRequest={() => deleteRequest(item)}
           data={item}
