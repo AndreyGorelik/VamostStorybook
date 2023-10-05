@@ -1,28 +1,41 @@
+import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
+import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
 import { Button } from '@shared/ui/button';
 import Divider from '@shared/ui/divider/divider.component';
+import { PageLoader } from '@shared/ui/pageLoader';
 import Text from '@shared/ui/text/text.component';
 import { UserPicGallery } from '@shared/ui/userpicGallery';
+import { getImagePath } from '@shared/utils/getImagePath';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from 'expo-router';
 import { View, Image, ImageBackground, ScrollView, Alert } from 'react-native';
 
-import { POST_FULL_GUEST_DATA } from './postFullGuest.data';
 import { createStyles } from './postFullGuest.styles';
 
 export default function PostFullGuest() {
-  const data = POST_FULL_GUEST_DATA;
+  const { post, isPostLoading } = useAppSelector((state) => state.postSlice);
   const theme = useTheme();
   const styles = createStyles(theme);
   const requestInvite = () => {
     Alert.alert('confirm');
   };
+  const navigation = useNavigation();
+
+  function handleBack() {
+    navigation.goBack();
+  }
+
+  if (isPostLoading) return <PageLoader />;
 
   return (
     <ScrollView style={styles.scrollWrapper}>
       <ImageBackground
         imageStyle={styles.postCardCover}
-        source={data.photo}
+        source={{
+          uri: post?.info?.images[0] && getImagePath(post.info.images[0]),
+        }}
         style={styles.photoContainer}
       >
         <LinearGradient
@@ -30,25 +43,37 @@ export default function PostFullGuest() {
           style={styles.linearGradient}
         ></LinearGradient>
       </ImageBackground>
+      <HeaderButton onPress={handleBack} icon={'arrow-back'} isBackground={true} variant="left" />
 
-      <Image source={data.host.userPic} style={styles.userPicture} />
+      <Image
+        source={{
+          uri: post?.info?.owner.avatar && getImagePath(post.info.owner.avatar),
+        }}
+        style={styles.userPicture}
+      />
       <View style={styles.postInfo}>
-        <Text variant="h4">TODO: {data.venueName}</Text>
-        <Text>Hosted by: {data.host.name}</Text>
+        <Text variant="h4">TODO: {post?.info?.location}</Text>
+        <Text>Hosted by: {post?.info?.owner.nickName}</Text>
         <Button title="Request" onPress={requestInvite} />
         <Text variant="disabled" fontSize={14}>
-          {format(data.date, 'MMMM d, yyyy, h:mm a')}
+          {post?.info?.date && format(new Date(post.info.date), 'MMMM d, yyyy, h:mm a')}
         </Text>
         <Text>
           Guest(s):
-          {data.guestFemaleCount > 0 ? ' +' + data.guestFemaleCount.toString() + ' Women' : ''}
-          {data.guestMaleCount > 0 ? ' +' + data.guestFemaleCount.toString() + ' Men' : ''}
-          {data.guestOtherCount > 0 ? ' +' + data.guestFemaleCount.toString() + ' Other' : ''}
+          {post?.info?.guestWomenCount && post.info.guestWomenCount > 0
+            ? ' +' + post?.info?.guestWomenCount.toString() + ' Women'
+            : ''}
+          {post?.info?.guestMenCount && post.info.guestMenCount > 0
+            ? ' +' + post?.info?.guestMenCount.toString() + ' Men'
+            : ''}
+          {post?.info?.guestOthersCount && post.info.guestOthersCount > 0
+            ? ' +' + post.info.guestOthersCount.toString() + ' Other'
+            : ''}
         </Text>
-        <UserPicGallery data={data.guests} size={60} />
+        {post?.info?.guests && <UserPicGallery data={post.info.guests} size={60} />}
         <Divider />
-        <Text variant="h5">About {data.postName}</Text>
-        <Text>{data.description}</Text>
+        <Text variant="h5">About {post?.info?.name}</Text>
+        <Text>{post?.info?.description}</Text>
       </View>
     </ScrollView>
   );

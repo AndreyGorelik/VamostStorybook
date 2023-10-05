@@ -25,8 +25,8 @@ export default function Index() {
     return <Redirect href="posts/post/host" />;
   }
 
-  if (post?.isUsersPost && post.info?.hostType === 'Guest') {
-    return <Redirect href="posts/post/host" />;
+  if (post?.isUsersPost && post?.info?.hostType === 'Guest') {
+    return <Redirect href="posts/post/guest" />;
   }
 
   return <Redirect href="/home" />;

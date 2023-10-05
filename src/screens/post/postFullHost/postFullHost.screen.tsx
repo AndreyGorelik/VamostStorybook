@@ -25,7 +25,7 @@ export default function PostFullHost() {
     {
       title: 'Confirm & Lock',
       color: theme.colors.postStatus.confirmed,
-      disabled: Boolean(post?.info?.guests.length && post.info.guests.length < 2),
+      disabled: Boolean(post?.info?.guests?.length && post.info.guests.length < 2),
       onPress: () => {
         confirmPost();
         refetchPost();
@@ -55,7 +55,7 @@ export default function PostFullHost() {
   function refetchPost() {
     if (!post || !post.info) return;
     dispatch(resetPost());
-    dispatch(getPostAction({ id: post.info.id as string }));
+    dispatch(getPostAction({ id: post.info._id as string }));
   }
 
   function handleBack() {
@@ -66,7 +66,7 @@ export default function PostFullHost() {
     if (!post || !post.info) return;
     dispatch(
       updatePostStatus({
-        id: post?.info.id,
+        id: post?.info._id,
         postStatus: 'Active',
       })
     );
@@ -78,7 +78,7 @@ export default function PostFullHost() {
     if (!post || !post.info) return;
     dispatch(
       updatePostStatus({
-        id: post?.info.id,
+        id: post?.info._id,
         postStatus: 'Cancelled',
       })
     );
@@ -108,7 +108,7 @@ export default function PostFullHost() {
                 <OutlinedButton key={button.title} {...button} {...styles.actionBtn} />
               ))}
             </View>
-            <Requests postId={post.info.id} />
+            <Requests postId={post.info._id} />
           </>
         )}
       </View>

@@ -1,8 +1,8 @@
 import { LOGIN_USER, REFRESH } from '@shared/constants/actions';
+import { getImagePath } from '@shared/utils/getImagePath';
 import { saveTokens } from '@shared/utils/saveTokens';
 import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { API_ROUTES } from 'src/api/constants';
 import { refreshRequest } from 'src/api/refresh';
 import { signInRequest } from 'src/api/signIn';
 import { loginUserSuccess, logoutUser, setAuthError } from 'src/store/slices/auth.slice';
@@ -30,9 +30,9 @@ function* logInRequestWorker(action: Action<LoginUser>) {
           data.images &&
           data.images.map((image) => ({
             ...image,
-            imagePath: `${API_ROUTES.pictures}/${image.imagePath}`,
+            imagePath: getImagePath(image),
           })),
-        avatar: data.avatar && `${API_ROUTES.pictures}/${data.avatar.imagePath}`,
+        avatar: data.avatar && getImagePath(data.avatar),
         phoneVerified: data.phoneVerified && data.phoneVerified,
       })
     );

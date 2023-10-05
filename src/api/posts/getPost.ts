@@ -15,7 +15,7 @@ export const getPostRequest = async ({ id }: GetPost): Promise<AxiosResponse<Pos
     ...response,
     data: {
       info: response.data,
-      isUsersPost: response.data.host.id === userId,
+      isUsersPost: response.data.owner._id === userId,
     },
   };
 };

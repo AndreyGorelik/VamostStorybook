@@ -4,6 +4,7 @@ import Divider from '@shared/ui/divider/divider.component';
 import TextInput from '@shared/ui/input/input.component';
 import { PackageCard } from '@shared/ui/packageCard';
 import Text from '@shared/ui/text/text.component';
+import { getImagePath } from '@shared/utils/getImagePath';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Keyboard, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -51,11 +52,11 @@ export default function StepFour({
   });
 
   const showFullPackage = (item: PackageListItem) => {
-    setFullPackageId(item.id);
+    setFullPackageId(item._id);
     changeTitle(item.name);
-    changeHeaderImage(item.imageUrl);
+    item.avatar && changeHeaderImage(getImagePath(item.avatar));
     Keyboard.dismiss();
-    onSelect(item.id);
+    onSelect(item._id);
     next();
   };
 
@@ -72,7 +73,7 @@ export default function StepFour({
             const isLastElement = index === array.length - 1;
 
             return (
-              <View key={item.id}>
+              <View key={item._id}>
                 <PackageCard {...item} date={item.date} onPress={() => showFullPackage(item)} />
                 {!isLastElement && <Divider />}
               </View>

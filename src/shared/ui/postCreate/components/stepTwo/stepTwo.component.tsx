@@ -86,7 +86,7 @@ export default function StepTwo({ post, setPost, next, setPlaceId }: StepTwoProp
       </View>
       <TouchableOpacity activeOpacity={0.8} onPress={changeDescriptionVisibility}>
         <Text color={theme.colors.textLink}>
-          {descriptionVisible ? '- Cancel' : '+ Add description (optional)'}
+          {descriptionVisible ? '- Cancel' : '+ Add description'}
         </Text>
       </TouchableOpacity>
       <View>
@@ -96,7 +96,11 @@ export default function StepTwo({ post, setPost, next, setPlaceId }: StepTwoProp
       </View>
       <Button
         title="Next"
-        disabled={date < new Date() || selectedTagList.length === 0 ? true : false || !venue}
+        disabled={
+          date < new Date() || selectedTagList.length === 0
+            ? true
+            : false || !venue || !description.length
+        }
         onPress={saveAndGoAhead}
       />
       <SelectCity open={openCitySelectList} setOpen={setOpenCitySelectList} setCity={selectCity} />

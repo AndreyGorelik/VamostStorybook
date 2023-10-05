@@ -1,3 +1,6 @@
+import { HostType } from '@shared/ui/postCreate/postCreate.types';
+import { Photo } from 'src/store/slices/profileSlice';
+
 export type LoginUser = { phoneNumber: string; password: string };
 export type RegisterUser = { phoneNumber: string; password: string };
 export type ConfirmCode = { phoneNumber: string; code: string };
@@ -45,21 +48,23 @@ export type PostResponse = {
   guestWomenCount: number;
   womenCount: number;
   date: string;
-  imageUrl: string;
+  images: Photo[];
+  avatar?: Photo;
   packageId: string;
   guestOthersCount: number;
-  host: GuestType;
+  owner: GuestType;
   guestMenCount: number;
   description: string;
-  id: string;
+  _id: string;
   tags: PossibleTags[];
   guests: GuestType[];
-  hostType: 'Guest' | 'Host';
+  hostType: HostType;
 };
 
 export interface Place {
-  id: string;
-  imageUrl: string;
+  _id: string;
+  images: Photo[];
+  avatar?: Photo;
   location: string;
   name: string;
   tags: string[];
@@ -69,12 +74,13 @@ export interface Place {
 export interface Package {
   minSpend: number;
   date: string;
-  imageUrl: string;
+  images: Photo[];
+  avatar?: Photo;
   maxPeople: number;
   userId: string;
   placeId: string;
   description: string;
-  id: string;
+  _id: string;
   name: string;
   tags: string[];
   place: string;
@@ -83,7 +89,8 @@ export interface Package {
 export interface FullPackage {
   minSpend: number;
   date: string;
-  imageUrl: string;
+  images: Photo[];
+  avatar?: Photo;
   maxPeople: number;
   userId: string;
   placeId: string;
@@ -115,27 +122,22 @@ export interface CreatePostData {
   menCount: number;
   womenCount: number;
   othersCount: number;
-  gender: ShownGender[];
-  description: string;
+  guestWomenCount: number;
   guestMenCount: number;
   guestOthersCount: number;
-  guestWomenCount: number;
-  id: string;
-  imageData: string;
   packageId: string;
+  description: string;
+  gender: ShownGender[];
+  hostType: HostType;
 }
 export type PossibleTags = 'food' | 'drinks' | 'dance' | 'hookah';
 
 export type PostStatus = 'Active' | 'Complete' | 'New' | 'Cancelled';
 
 export type GuestType = {
-  avatar: string;
+  avatar: Photo;
   nickName: string;
-  id: string;
-  gender: {
-    value: 'Man' | 'Woman' | 'Other' | null;
-    isShown: boolean;
-  };
+  _id: string;
 };
 
 export type PostInfo = {
