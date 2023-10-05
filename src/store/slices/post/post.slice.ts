@@ -4,8 +4,9 @@ import {
   DELETE_REQUEST,
   GET_POST,
   UPDATE_POST_STATUS,
+  SEND_REQUEST,
 } from '@shared/constants/actions';
-import { PostResponse } from 'src/types/actions/actions.types';
+import { PostResponse, SendRequest } from 'src/types/actions/actions.types';
 import { GetPost, TakeDecision, UpdatePostStatus } from 'src/types/api/getPosts';
 
 export type PostInfo = {
@@ -54,6 +55,7 @@ export const getPostAction = createAction<GetPost>(GET_POST);
 export const updatePostStatus = createAction<UpdatePostStatus>(UPDATE_POST_STATUS);
 export const confirmRequest = createAction<TakeDecision>(CONFIRM_REQUEST);
 export const deleteRequest = createAction<TakeDecision>(DELETE_REQUEST);
+export const sendRequest = createAction<SendRequest>(SEND_REQUEST);
 
 export const { setPost, resetPost, setPostError, getPost } = postsSlice.actions;
 
