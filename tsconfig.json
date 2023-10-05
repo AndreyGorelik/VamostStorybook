@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "types": ["node", "jest"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
@@ -17,6 +18,7 @@
     "strict": true,
     "target": "esnext"
   },
+  "include": ["src/**/*.ts", "tests/*.ts"],
   "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"],
   "extends": "expo/tsconfig.base"
 }
