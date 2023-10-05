@@ -139,3 +139,8 @@ export type PostInfo = {
   info: PostResponse | null;
   isUsersPost: boolean;
 } | null;
+
+export type SendRequest = {
+  id: string;
+  type: 'Host' | 'Guest';
+};

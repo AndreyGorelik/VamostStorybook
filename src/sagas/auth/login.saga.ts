@@ -34,8 +34,8 @@ function* logInRequestWorker(action: Action<LoginUser>) {
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data) {
-          yield put(setAuthError(error.response.data));
+        if (error.response.data && error.response.data.message) {
+          yield put(setAuthError(error.response.data.message));
         }
       }
     } else {

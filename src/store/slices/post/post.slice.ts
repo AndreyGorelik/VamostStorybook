@@ -1,6 +1,6 @@
 import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
-import { GET_POST, UPDATE_POST_STATUS } from '@shared/constants/actions';
-import { PostResponse } from 'src/types/actions/actions.types';
+import { GET_POST, SEND_REQUEST, UPDATE_POST_STATUS } from '@shared/constants/actions';
+import { PostResponse, SendRequest } from 'src/types/actions/actions.types';
 import { GetPost, UpdatePostStatus } from 'src/types/api/getPosts';
 
 export type PostInfo = {
@@ -47,6 +47,7 @@ const postsSlice = createSlice({
 
 export const getPostAction = createAction<GetPost>(GET_POST);
 export const updatePostStatus = createAction<UpdatePostStatus>(UPDATE_POST_STATUS);
+export const sendRequest = createAction<SendRequest>(SEND_REQUEST);
 
 export const { setPost, resetPost, setPostError, getPost } = postsSlice.actions;
 
