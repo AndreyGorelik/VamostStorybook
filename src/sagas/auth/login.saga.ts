@@ -55,7 +55,7 @@ function* refreshRequestWorker() {
     const response: AxiosResponse<RefreshResponse> = yield call(refreshRequest);
     const data = response.data;
 
-    yield call(saveTokens, data.tokens.refresh, data.tokens.access);
+    yield call(saveTokens, data.tokens.refreshToken, data.tokens.accessToken);
 
     yield put(loginUserSuccess());
   } catch (error) {

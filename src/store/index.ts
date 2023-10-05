@@ -38,7 +38,6 @@ const persistConfig = {
     'upcomingPostsSlice.error',
     'pastPostsSlice.error',
     'cancelledPostsSlice.error',
-    'userSlice',
     'postSlice',
     'allRequestsSlice',
     'deletedRequestsSlice',
