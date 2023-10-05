@@ -15,7 +15,13 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [openModalGallery, setOpenModalGallery] = useState(false);
+  const [imageIdGallery, setImageIdGallery] = useState<null | number>(null);
 
+  const openGallery = (id: string) => {
+    const index = images.findIndex((item) => item._id === id);
+    setImageIdGallery(index);
+    setOpenModalGallery(true);
+  };
   if (!images) return null;
 
   return (
@@ -25,35 +31,53 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
           const isTheOnlyOneImage = index === 0 && array.length === 1;
           const isTheFirstImage = index === 0 && array.length > 1;
           const notTheFirstImage = index < MAX_IMAGES && index !== 0;
-          const isLastImage = index === array.length - 1;
+          const isLastImage = index === MAX_IMAGES + 1;
 
           if (isTheOnlyOneImage) {
             return (
-              <Image
+              <TouchableOpacity
                 key={item._id}
-                source={{ uri: item.imagePath }}
                 style={styles.isTheOnlyOneImage}
-              />
+                onPress={() => openGallery(item._id)}
+              >
+                <Image
+                  key={item._id}
+                  source={{ uri: item.imagePath }}
+                  style={styles.isTheOnlyOneImage}
+                />
+              </TouchableOpacity>
             );
           }
 
           if (isTheFirstImage) {
             return (
-              <Image
+              <TouchableOpacity
                 key={item._id}
-                source={{ uri: item.imagePath }}
                 style={styles.isTheFirstImage}
-              />
+                onPress={() => openGallery(item._id)}
+              >
+                <Image
+                  key={item._id}
+                  source={{ uri: item.imagePath }}
+                  style={styles.isTheFirstImage}
+                />
+              </TouchableOpacity>
             );
           }
 
           if (notTheFirstImage && !isLastImage) {
             return (
-              <Image
+              <TouchableOpacity
                 key={item._id}
-                source={{ uri: item.imagePath }}
                 style={styles.notTheFirstImage}
-              />
+                onPress={() => openGallery(item._id)}
+              >
+                <Image
+                  key={item._id}
+                  source={{ uri: item.imagePath }}
+                  style={styles.notTheFirstImage}
+                />
+              </TouchableOpacity>
             );
           }
 
@@ -64,7 +88,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
                   key={item._id}
                   style={styles.isLastImage}
                   activeOpacity={0.8}
-                  onPress={() => setOpenModalGallery(true)}
+                  onPress={() => openGallery(item._id)}
                 >
                   <ImageBackground
                     imageStyle={styles.isLastImage}
@@ -86,7 +110,18 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
               );
             } else {
               return (
-                <Image key={item._id} source={{ uri: item.imagePath }} style={styles.isLastImage} />
+                <TouchableOpacity
+                  key={item._id}
+                  style={styles.isLastImage}
+                  activeOpacity={0.8}
+                  onPress={() => openGallery(item._id)}
+                >
+                  <Image
+                    key={item._id}
+                    source={{ uri: item.imagePath }}
+                    style={styles.isLastImage}
+                  />
+                </TouchableOpacity>
               );
             }
           }
@@ -95,7 +130,11 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
         })}
       </View>
       {openModalGallery && (
-        <ModalGallery close={() => setOpenModalGallery(false)} images={images} />
+        <ModalGallery
+          close={() => setOpenModalGallery(false)}
+          images={images}
+          imageScaleId={imageIdGallery}
+        />
       )}
     </>
   );

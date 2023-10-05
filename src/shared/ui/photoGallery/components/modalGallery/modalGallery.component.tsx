@@ -1,14 +1,15 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import useTheme from '@shared/hooks/useTheme.hook';
-import { FlatList, Modal, SafeAreaView, TouchableOpacity, View } from 'react-native';
+import { Dimensions, FlatList, Modal, SafeAreaView, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import GalleryImage from '../galleryImage/galleryImage.component';
 
 import { createStyles } from './modalGallery.styles';
 import { ModalGalleryProps } from './modalGallery.types';
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-function ModalGallery({ close, images }: ModalGalleryProps) {
+function ModalGallery({ close, images, imageScaleId }: ModalGalleryProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
 
@@ -28,6 +29,12 @@ function ModalGallery({ close, images }: ModalGalleryProps) {
               bounces={false}
               scrollEventThrottle={32}
               keyExtractor={(item) => item._id}
+              initialScrollIndex={imageScaleId}
+              getItemLayout={(data, index) => ({
+                length: SCREEN_WIDTH,
+                offset: SCREEN_WIDTH * index,
+                index,
+              })}
             />
           </View>
         </SafeAreaView>
