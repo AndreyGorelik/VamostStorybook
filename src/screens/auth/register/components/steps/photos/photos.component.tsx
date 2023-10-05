@@ -11,6 +11,7 @@ import { registerPhotoAction } from 'src/store/slices/auth.slice';
 
 import { PhotosData } from './photos.data';
 import { createStyles } from './photos.styles';
+import { PickedImage } from './photos.types';
 
 const COLUMN_AMOUNT = 3;
 
@@ -19,7 +20,7 @@ export default function Photos() {
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
   const { isLoading: loading, error } = useAppSelector((state) => state.authSlice);
-  const [images, setImages] = useState<{ uri: string; imageData: FormData }[]>([]);
+  const [images, setImages] = useState<PickedImage[]>([]);
   const [isLoading, setIsLoading] = useState<number | null>(null);
   const [flatListHeight, setFlatListHeight] = useState<number>(0);
 
@@ -44,7 +45,7 @@ export default function Photos() {
     });
 
     if (!result.canceled) {
-      const newImages = id <= images.length ? [] : [...images];
+      const newImages = [...images];
       result.assets.forEach(async (asset) => {
         const formData = new FormData();
         const uri = Platform.OS === 'ios' ? asset.uri.replace('file://', '') : asset.uri;

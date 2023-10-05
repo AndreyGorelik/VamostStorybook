@@ -1,5 +1,5 @@
 export const API_ROUTES = {
-  baseURL: 'https://f7d4-185-53-133-78.ngrok-free.app',
+  baseURL: 'https://c9be-185-53-133-78.ngrok-free.app',
   signIn: 'auth/sign-in',
   signUp: 'auth/sign-up',
   confirm: 'auth/confirm',
@@ -19,5 +19,5 @@ export const API_ROUTES = {
   getRequests: 'get-requests',
   takeDecision: 'take-decision',
   auth: 'auth',
-  pictures: 'https://f7d4-185-53-133-78.ngrok-free.app/pictures',
+  pictures: 'https://c9be-185-53-133-78.ngrok-free.app/pictures',
 };
