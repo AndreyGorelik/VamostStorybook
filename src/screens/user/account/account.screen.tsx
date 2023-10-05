@@ -19,8 +19,8 @@ import {
   FlatList,
   ActivityIndicatorComponent,
 } from 'react-native';
-import { logoutUser } from 'src/store/slices/authSlice';
-import { initialState, setUser } from 'src/store/slices/userSlice';
+import { logoutUser } from 'src/store/slices/auth.slice';
+import { initialState, setUser } from 'src/store/slices/user.slice';
 
 import { actions, posts } from './account.data';
 import { createStyles } from './account.styles';

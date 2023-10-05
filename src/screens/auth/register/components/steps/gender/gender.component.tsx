@@ -6,8 +6,8 @@ import { SelectList } from '@shared/ui/selectList';
 import Text from '@shared/ui/text/text.component';
 import { useState } from 'react';
 import { View } from 'react-native';
-import { setNextStep } from 'src/store/slices/authSlice';
-import { setGender } from 'src/store/slices/userSlice';
+import { setNextStep } from 'src/store/slices/auth.slice';
+import { setGender } from 'src/store/slices/user.slice';
 
 import { GENDER_OPTIONS } from './gender.data';
 import { createStyles } from './gender.styles';

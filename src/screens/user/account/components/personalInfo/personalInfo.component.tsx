@@ -12,7 +12,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { TouchableOpacity, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import LibPhoneInput from 'react-native-phone-input';
-import { setEditedUserInfo } from 'src/store/slices/userSlice';
+import { setEditedUserInfo } from 'src/store/slices/user.slice';
 
 import { InfoRow } from '../infoRow';
 

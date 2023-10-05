@@ -4,7 +4,7 @@ import { checkUserField } from '@shared/utils/checkUserFields';
 import { Redirect, useRootNavigationState } from 'expo-router';
 import { useEffect } from 'react';
 import { View } from 'react-native';
-import { refresh, setStep } from 'src/store/slices/authSlice';
+import { refresh, setStep } from 'src/store/slices/auth.slice';
 export { ErrorBoundary } from 'expo-router';
 
 const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true';

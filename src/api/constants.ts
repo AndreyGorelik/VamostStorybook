@@ -14,4 +14,5 @@ export const API_ROUTES = {
   post: '/post',
   users: 'users',
   request: 'request',
+  invite: 'invite',
 };

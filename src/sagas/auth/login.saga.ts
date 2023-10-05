@@ -4,17 +4,14 @@ import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { refreshRequest } from 'src/api/refresh';
 import { signInRequest } from 'src/api/signIn';
-import { loginUserSuccess, logoutUser, setIsLoading } from 'src/store/slices/authSlice';
-import { setAuthError } from 'src/store/slices/errorsSlice';
-import { setUser } from 'src/store/slices/userSlice';
+import { loginUserSuccess, logoutUser, setAuthError } from 'src/store/slices/auth.slice';
+import { setUser } from 'src/store/slices/user.slice';
 import { Action, LoginUser } from 'src/types/actions/actions.types';
 import { RefreshResponse } from 'src/types/api/refresh.types';
 import { SignInResponse } from 'src/types/api/signIn.types';
 
 function* logInRequestWorker(action: Action<LoginUser>) {
-  action.payload.phoneNumber = action.payload.phoneNumber.replace(/[^\d+]/g, '');
   try {
-    yield put(setIsLoading(true));
     const response: AxiosResponse<SignInResponse> = yield call(signInRequest, action.payload);
     const data = response.data;
 
@@ -34,25 +31,21 @@ function* logInRequestWorker(action: Action<LoginUser>) {
       })
     );
     yield put(loginUserSuccess());
-    yield put(setAuthError(null));
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data) {
-          yield put(setAuthError(error.response.data));
+        if (error.response.data && error.response.data.message) {
+          yield put(setAuthError(error.response.data.message));
         }
       }
     } else {
       yield put(setAuthError('something went wrong'));
     }
-  } finally {
-    yield put(setIsLoading(false));
   }
 }
 
 function* refreshRequestWorker() {
   try {
-    yield put(setIsLoading(true));
     const response: AxiosResponse<RefreshResponse> = yield call(refreshRequest);
     const data = response.data;
 
@@ -68,8 +61,6 @@ function* refreshRequestWorker() {
       }
     }
     yield put(logoutUser());
-  } finally {
-    yield put(setIsLoading(false));
   }
 }
 

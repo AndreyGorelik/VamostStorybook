@@ -8,9 +8,8 @@ import Text from '@shared/ui/text/text.component';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, View } from 'react-native';
-import { loginUser } from 'src/store/slices/authSlice';
-import { setAuthError } from 'src/store/slices/errorsSlice';
-import { initialState, setUser } from 'src/store/slices/userSlice';
+import { loginUserAction, setAuthError } from 'src/store/slices/auth.slice';
+import { initialState, setUser } from 'src/store/slices/user.slice';
 
 import { createStyles } from './login.styles';
 import { LoginData } from './login.types';
@@ -19,10 +18,9 @@ export default function Login() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [secure, setSecure] = useState<boolean>(true);
-  const { authError } = useAppSelector((state) => state.errorsSlice);
 
   const dispatch = useAppDispatch();
-  const { isLoading } = useAppSelector((state) => state.authSlice);
+  const { isLoading, error } = useAppSelector((state) => state.authSlice);
   const {
     control,
     handleSubmit,
@@ -40,7 +38,12 @@ export default function Login() {
 
   function onSubmit(value: LoginData) {
     dispatch(setUser(initialState));
-    dispatch(loginUser(value));
+    dispatch(
+      loginUserAction({
+        ...value,
+        phoneNumber: value.phoneNumber.replace(/[^\d+]/g, ''),
+      })
+    );
   }
 
   return (
@@ -90,7 +93,7 @@ export default function Login() {
             />
           )}
         />
-        {authError && <Text variant="warning">{authError}</Text>}
+        {error && <Text variant="warning">{error}</Text>}
       </View>
       <Button
         title="Sign in"

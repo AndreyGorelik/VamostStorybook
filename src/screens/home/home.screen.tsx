@@ -10,7 +10,7 @@ import Text from '@shared/ui/text/text.component';
 import { useCallback, useEffect, useState } from 'react';
 import { FlatList, Pressable, RefreshControl, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { getPosts } from 'src/store/slices/postsSlice';
+import { getPostsAction } from 'src/store/slices/posts/posts.slice';
 
 import { FilterItem } from './components/filterItem';
 import { createStyles } from './home.styles';
@@ -23,7 +23,7 @@ export enum Filters {
 
 export default function Home() {
   const { posts, isLoading } = useAppSelector((state) => state.postsSlice);
-  const [filter, setFilter] = useState<Filters>(Filters.Guests);
+  const [filter, setFilter] = useState<Filters>(Filters.All);
   const [city, setCity] = useState<string>('Miami');
   const [open, setOpen] = useState<boolean>(false);
   const [postCreateVisible, setPostCreateVisible] = useState(false);
@@ -33,7 +33,7 @@ export default function Home() {
   const dispatch = useDispatch();
 
   const handleFetch = useCallback(() => {
-    dispatch(getPosts({ place: city, filter }));
+    dispatch(getPostsAction({ place: city, filter }));
   }, [city, dispatch, filter]);
 
   useEffect(() => {
