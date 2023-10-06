@@ -52,6 +52,7 @@ import {
   GetPosts,
   GetRequests,
   PostRequest,
+  TakeDecision,
   UpdatePostStatus,
 } from 'src/types/api/getPosts';
 
@@ -194,11 +195,11 @@ export function* getAllRequestsWorker(action: Action<GetRequests>) {
   }
 }
 
-export function* confirmRequestWorker(action: Action<PostRequest>) {
+export function* confirmRequestWorker(action: Action<TakeDecision>) {
   yield call(confirmRequest, action.payload);
 }
 
-export function* deleteRequestWorker(action: Action<PostRequest>) {
+export function* deleteRequestWorker(action: Action<TakeDecision>) {
   yield call(rejectRequest, action.payload);
 }
 

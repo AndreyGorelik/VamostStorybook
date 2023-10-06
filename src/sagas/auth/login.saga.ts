@@ -1,4 +1,5 @@
 import { LOGIN_USER, REFRESH } from '@shared/constants/actions';
+import { getImagePath } from '@shared/utils/getImagePath';
 import { saveTokens } from '@shared/utils/saveTokens';
 import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
@@ -15,18 +16,23 @@ function* logInRequestWorker(action: Action<LoginUser>) {
     const response: AxiosResponse<SignInResponse> = yield call(signInRequest, action.payload);
     const data = response.data;
 
-    yield call(saveTokens, data.tokens.refresh, data.tokens.access, data.id);
+    yield call(saveTokens, data.tokens.refreshToken, data.tokens.accessToken, data._id);
     yield put(
       setUser({
-        birthdate: data.birthdate && data.birthdate,
+        birthdate: data.birthDate && data.birthDate,
         email: data.email && data.email,
-        gender: data.gender && JSON.parse(data.gender),
+        gender: data.gender && data.gender,
         nickname: data.nickName && data.nickName,
         phoneNumber: data.phoneNumber && data.phoneNumber,
-        sexualOrientation: data.sexualOrientation && JSON.parse(data.sexualOrientation),
+        sexualOrientation: data.sexualOrientation && data.sexualOrientation,
         shownGender: data.shownGender && data.shownGender,
-        images: data.images && data.images,
-        avatar: data.avatar && data.avatar,
+        images:
+          data.images &&
+          data.images.map((image) => ({
+            ...image,
+            imagePath: getImagePath(image),
+          })),
+        avatar: data.avatar && getImagePath(data.avatar),
         phoneVerified: data.phoneVerified && data.phoneVerified,
       })
     );
@@ -49,13 +55,13 @@ function* refreshRequestWorker() {
     const response: AxiosResponse<RefreshResponse> = yield call(refreshRequest);
     const data = response.data;
 
-    yield call(saveTokens, data.tokens.refresh, data.tokens.access);
+    yield call(saveTokens, data.tokens.refreshToken, data.tokens.accessToken);
 
     yield put(loginUserSuccess());
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
-        if (error.response.data) {
+        if (error.response.data && error.response.data.message) {
           yield put(setAuthError(error.response.data.message));
         }
       }

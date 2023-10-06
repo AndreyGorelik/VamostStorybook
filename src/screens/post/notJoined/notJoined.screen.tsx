@@ -1,3 +1,4 @@
+import ErrorPage from '@screens/errorPage/errorPage.component';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
@@ -6,6 +7,7 @@ import Divider from '@shared/ui/divider/divider.component';
 import { PageLoader } from '@shared/ui/pageLoader';
 import Text from '@shared/ui/text/text.component';
 import { UserPicGallery } from '@shared/ui/userpicGallery';
+import { getImagePath } from '@shared/utils/getImagePath';
 import Axios from 'axios';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -28,30 +30,23 @@ import { createStyles } from './notJoined.styles';
 const AVATAR_SIZE = 60;
 
 export default function NotJoined() {
-  const post = useAppSelector((state) => state.postsSlice.posts[0]);
-  const { post: data, isPostLoading, error } = useAppSelector((state) => state.postSlice);
+  const { post, isPostLoading, error } = useAppSelector((state) => state.postSlice);
   const theme = useTheme();
   const styles = createStyles(theme, AVATAR_SIZE);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
-  const mock = [
-    { ...post.guests[0] },
-    { ...post.guests[0], id: '2' },
-    { ...post.guests[0], id: '3' },
-    { ...post.guests[0], id: '4' },
-    { ...post.guests[0], id: '5' },
-  ];
-
   function handleBack() {
     navigation.goBack();
   }
 
   const requestInvite = async () => {
+    if (!post?.info) return;
+
     try {
       setIsLoading(true);
-      await sendRequest({ id: post.id, type: post.hostType });
+      await sendRequest({ id: post.info._id, type: post.info.hostType });
     } catch (err) {
       if (Axios.isAxiosError(err)) Alert.alert(err?.response?.data.message);
     } finally {
@@ -60,15 +55,19 @@ export default function NotJoined() {
   };
 
   function refetchPost() {
-    if (!data || !data.info) return;
+    if (!post?.info) return;
 
     dispatch(resetPost());
-    dispatch(getPostAction({ id: data.info.id as string }));
+    dispatch(getPostAction({ id: post.info._id as string }));
   }
 
   if (isPostLoading) return <PageLoader />;
 
-  if (error) return <Text>{error}</Text>;
+  if (error) return <ErrorPage retry={async () => refetchPost()} error={error} />;
+
+  if (!post?.info) {
+    return <ErrorPage retry={async () => refetchPost()} error="Nothing found" />;
+  }
 
   return (
     <ScrollView
@@ -78,7 +77,7 @@ export default function NotJoined() {
       <ImageBackground
         imageStyle={styles.postCardCover}
         source={{
-          uri: post.imageUrl,
+          uri: post.info.images[0] && getImagePath(post.info.images[0]),
         }}
         style={styles.photoContainer}
       >
@@ -91,44 +90,50 @@ export default function NotJoined() {
 
       <Image
         source={{
-          uri: post.host.avatar,
+          uri: post.info.owner.avatar && getImagePath(post.info.owner.avatar),
         }}
         style={styles.userPicture}
       />
       <View style={styles.postInfo}>
-        <Text variant="h4">{post.venue}</Text>
+        <Text variant="h4">{post.info.location}</Text>
         <View style={styles.mainInfo}>
-          <Text>Hosted by: {post.hostType === 'Host' ? post.host.nickName : ''}</Text>
+          <Text>Hosted by: {post.info.hostType === 'Host' ? post.info.owner.nickName : ''}</Text>
           <Button
-            title={post.hostType === 'Host' ? 'Request' : 'Request to be host'}
+            title={post.info.hostType === 'Host' ? 'Request' : 'Request to be host'}
             onPress={requestInvite}
             loading={isLoading}
           />
           <Text variant="disabled" fontSize={14}>
-            {format(new Date(post.date), 'MMMM d, yyyy, h:mm a')}
+            {post.info.date && format(new Date(post.info.date), 'MMMM d, yyyy, h:mm a')}
           </Text>
           <Text>
             Guest(s):
-            {post.guestWomenCount > 0 ? ' +' + post.guestWomenCount.toString() + ' Women' : ''}
-            {post.guestMenCount > 0 ? ' +' + post.guestMenCount.toString() + ' Men' : ''}
-            {post.guestOthersCount > 0 ? ' +' + post.guestOthersCount.toString() + ' Other' : ''}
+            {post.info.guestWomenCount && post.info.guestWomenCount > 0
+              ? ' +' + post.info.guestWomenCount.toString() + ' Women'
+              : ''}
+            {post.info.guestMenCount > 0 ? ' +' + post.info.guestMenCount.toString() + ' Men' : ''}
+            {post.info.guestOthersCount > 0
+              ? ' +' + post.info.guestOthersCount.toString() + ' Other'
+              : ''}
           </Text>
-          <View style={styles.guests}>
-            <UserPicGallery data={mock.slice(0, 3)} size={AVATAR_SIZE} />
-            {mock.length > 3 && (
-              <Pressable style={styles.more}>
-                <Text variant="h3" style={{ color: theme.colors.secondary }}>
-                  +{`${mock.length - 3}`}
-                </Text>
-              </Pressable>
-            )}
-          </View>
+          {post.info.guests && (
+            <View style={styles.guests}>
+              <UserPicGallery data={post.info.guests.slice(0, 3)} size={AVATAR_SIZE} />
+              {post.info.guests.length > 3 && (
+                <Pressable style={styles.more}>
+                  <Text variant="h3" style={{ color: theme.colors.secondary }}>
+                    +{`${post.info.guests.length - 3}`}
+                  </Text>
+                </Pressable>
+              )}
+            </View>
+          )}
         </View>
 
         <Divider />
         <View>
-          <Text variant="h5">About {post.name}</Text>
-          <Text>{post.description}</Text>
+          <Text variant="h5">About {post.info.name}</Text>
+          <Text>{post.info.description}</Text>
         </View>
       </View>
     </ScrollView>

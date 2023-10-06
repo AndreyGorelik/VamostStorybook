@@ -30,8 +30,8 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
           if (isTheOnlyOneImage) {
             return (
               <Image
-                key={item.id}
-                source={{ uri: item.imageUrl }}
+                key={item._id}
+                source={{ uri: item.imagePath }}
                 style={styles.isTheOnlyOneImage}
               />
             );
@@ -39,15 +39,19 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
 
           if (isTheFirstImage) {
             return (
-              <Image key={item.id} source={{ uri: item.imageUrl }} style={styles.isTheFirstImage} />
+              <Image
+                key={item._id}
+                source={{ uri: item.imagePath }}
+                style={styles.isTheFirstImage}
+              />
             );
           }
 
           if (notTheFirstImage && !isLastImage) {
             return (
               <Image
-                key={item.id}
-                source={{ uri: item.imageUrl }}
+                key={item._id}
+                source={{ uri: item.imagePath }}
                 style={styles.notTheFirstImage}
               />
             );
@@ -57,7 +61,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
             if (array.length > MAX_IMAGES) {
               return (
                 <TouchableOpacity
-                  key={item.id}
+                  key={item._id}
                   style={styles.isLastImage}
                   activeOpacity={0.8}
                   onPress={() => setOpenModalGallery(true)}
@@ -65,7 +69,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
                   <ImageBackground
                     imageStyle={styles.isLastImage}
                     source={{
-                      uri: item.imageUrl,
+                      uri: item.imagePath,
                     }}
                     style={styles.flex}
                   >
@@ -82,7 +86,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
               );
             } else {
               return (
-                <Image key={item.id} source={{ uri: item.imageUrl }} style={styles.isLastImage} />
+                <Image key={item._id} source={{ uri: item.imagePath }} style={styles.isLastImage} />
               );
             }
           }

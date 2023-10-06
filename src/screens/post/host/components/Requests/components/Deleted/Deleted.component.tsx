@@ -41,7 +41,7 @@ export default function Deleted({ id, confirmRequest, deleteRequest }: TabViewPr
     >
       {deletedRequests.map((item) => (
         <Request
-          key={item.id}
+          key={item._id}
           confirmRequest={() => confirmRequest(item)}
           deleteRequest={() => deleteRequest(item)}
           data={item}

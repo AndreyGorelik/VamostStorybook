@@ -1,7 +1,4 @@
-export interface Photo {
-  id: string;
-  imageUrl: string;
-}
+import { Photo } from 'src/store/slices/profileSlice';
 
 export interface PhotoGalleryProps {
   images: Photo[];

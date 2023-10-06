@@ -4,8 +4,9 @@ import { Button } from '@shared/ui/button';
 import { PhotoInput } from '@shared/ui/photoInput';
 import Text from '@shared/ui/text/text.component';
 import * as ImagePicker from 'expo-image-picker';
+import mime from 'mime';
 import { useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, Platform, View } from 'react-native';
 import { registerPhotoAction } from 'src/store/slices/auth.slice';
 
 import { PhotosData } from './photos.data';
@@ -26,7 +27,7 @@ export default function Photos() {
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
   function onSubmit() {
-    const photos = images.map((image) => ({ imageData: image.imageData }));
+    const photos = images.map((image) => image.imageData);
     dispatch(registerPhotoAction(photos));
   }
 
@@ -41,28 +42,27 @@ export default function Photos() {
       allowsEditing: false,
       quality: 0,
       allowsMultipleSelection: true,
-      base64: true,
     });
 
     if (!result.canceled) {
-      if (id <= images.length) {
-        setImages(
-          result.assets.map((asset) => ({
-            uri: asset.uri,
-            imageData: 'data:image/jpeg;base64,' + asset.base64,
-          }))
-        );
-      } else {
-        setImages([
-          ...images,
-          ...result.assets
-            .map((asset) => ({
-              uri: asset.uri,
-              imageData: 'data:image/jpeg;base64,' + asset.base64,
-            }))
-            .slice(0, 6 - images.length),
-        ]);
-      }
+      const newImages = [...images];
+      result.assets.forEach(async (asset) => {
+        const formData = new FormData();
+        const uri = Platform.OS === 'ios' ? asset.uri.replace('file://', '') : asset.uri;
+        const fileData = {
+          name: `image.${mime.getType(uri)?.split('/')[1]}`,
+          type: mime.getType(uri),
+          uri,
+        };
+        formData.append('imageData', fileData as any);
+        const image = {
+          uri: asset.uri,
+          imageData: formData,
+        };
+
+        newImages.push(image);
+      });
+      setImages(newImages);
     }
     setIsLoading(null);
   };

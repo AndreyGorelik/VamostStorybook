@@ -67,8 +67,7 @@ const PostCreate = ({ open, setOpen }: PostCreateProps) => {
     // eslint-disable-next-line quotes
     newPost.date = format(post.date, "yyyy-MM-dd'T'HH:mm:ss");
     newPost.name = 'New Post';
-    newPost.imageData =
-      'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wD/AAAB/0nq6gAAAABJRU5ErkJggg==';
+
     newPost.gender = [gender.value];
 
     dispatch(postCreate(newPost));

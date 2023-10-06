@@ -10,7 +10,7 @@ export const getUpcomingPostsRequest = async (): Promise<AxiosResponse<PostRespo
 
   return await axios.get(API_ROUTES.post, {
     params: {
-      postStatus: 'Created',
+      postStatus: 'New',
       userId,
     },
   });

@@ -1,4 +1,5 @@
 import useTheme from '@shared/hooks/useTheme.hook';
+import { getImagePath } from '@shared/utils/getImagePath';
 import { format } from 'date-fns';
 import { Image, Pressable, View } from 'react-native';
 
@@ -6,12 +7,13 @@ import Text from '../text/text.component';
 
 import { createStyles } from './packageCard.styles';
 import { PackageCardProps } from './packageCard.types';
+
 export default function PackageCard({
   name,
   date,
   description,
   maxPeople,
-  imageUrl,
+  avatar,
   onPress,
 }: PackageCardProps) {
   const theme = useTheme();
@@ -28,7 +30,7 @@ export default function PackageCard({
       onPress={onPress}
     >
       <View style={styles.imageWrapper}>
-        <Image source={{ uri: imageUrl }} style={styles.image} />
+        {avatar && <Image source={{ uri: getImagePath(avatar) }} style={styles.image} />}
       </View>
       <View style={styles.content}>
         <View style={styles.header}>

@@ -1,3 +1,4 @@
+import ErrorPage from '@screens/errorPage/errorPage.component';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
@@ -55,7 +56,7 @@ export default function GuestPost() {
   function refetchPost() {
     if (!post || !post.info) return;
     dispatch(resetPost());
-    dispatch(getPostAction({ id: post.info.id as string }));
+    dispatch(getPostAction({ id: post.info._id as string }));
   }
 
   function handleBack() {
@@ -66,8 +67,8 @@ export default function GuestPost() {
     if (!post || !post.info) return;
     dispatch(
       updatePostStatus({
-        id: post?.info.id,
-        postStatus: 'Confirmed',
+        id: post?.info._id,
+        postStatus: 'Active',
       })
     );
   }
@@ -78,15 +79,19 @@ export default function GuestPost() {
     if (!post || !post.info) return;
     dispatch(
       updatePostStatus({
-        id: post?.info.id,
+        id: post?.info._id,
         postStatus: 'Cancelled',
       })
     );
   }
 
-  if (isPostLoading || !(post && post.info)) return <PageLoader />;
+  if (isPostLoading) return <PageLoader />;
 
   if (error) return <Text>{error}</Text>;
+
+  if (!post?.info) {
+    return <ErrorPage retry={async () => refetchPost()} error="Nothing found" />;
+  }
 
   return (
     <ScrollView
@@ -103,14 +108,14 @@ export default function GuestPost() {
         <Tags tags={post.info.tags} />
         <Guests postInfo={post.info} />
 
-        {post.info.postStatus === 'Created' && (
+        {post.info.postStatus === 'New' && (
           <>
             <View style={styles.actionButtons}>
               {actionBtns.map((button) => (
                 <OutlinedButton key={button.title} {...button} {...styles.actionBtn} />
               ))}
             </View>
-            <Requests postId={post.info.id} />
+            <Requests postId={post.info._id} />
           </>
         )}
       </View>

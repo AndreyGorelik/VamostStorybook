@@ -14,6 +14,7 @@ export default function PhotoInput({
   height,
 }: PhotoInputProps) {
   const styles = createStyles();
+
   return (
     <Animated.View style={[styles.wrapper, { height: height ?? '100%' }]}>
       {image ? (

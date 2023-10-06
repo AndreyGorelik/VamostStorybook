@@ -1,30 +1,32 @@
+import { HostType } from '@shared/ui/postCreate/postCreate.types';
+import { Photo } from 'src/store/slices/profileSlice';
+
 export type LoginUser = { phoneNumber: string; password: string };
 export type RegisterUser = { phoneNumber: string; password: string };
 export type ConfirmCode = { phoneNumber: string; code: string };
 export type RegisterEmail = { email: string };
 export type RegisterNickname = { nickName: string };
+export type RegisterBirthDate = { birthDate: string };
 export type RegisterAttributes = {
-  gender: {
-    value: 'Man' | 'Woman' | 'Other' | null;
-    isShown: boolean;
-  };
-  sexualOrientation: {
-    value:
-      | 'Straight'
-      | 'Gay'
-      | 'Lesbian'
-      | 'Bisexual'
-      | 'Asexual'
-      | 'Demisexual'
-      | 'Pansexual'
-      | 'Queer'
-      | null;
-    isShown: boolean;
-  };
+  gender: UserGender;
+  sexualOrientation: SexualOrientation;
   shownGender: 'Man' | 'Woman' | 'Everyone' | null | string;
-  birthdate: string;
+  birthDate: string;
 };
-export type RegisterPhoto = { imageData: string };
+export type RegisterPhoto = FormData;
+export type SexualOrientation = {
+  value:
+    | 'Straight'
+    | 'Gay'
+    | 'Lesbian'
+    | 'Bisexual'
+    | 'Asexual'
+    | 'Demisexual'
+    | 'Pansexual'
+    | 'Queer'
+    | null;
+  isShown: boolean;
+};
 
 export interface PostGetPackages {
   maxPeople: number;
@@ -46,21 +48,23 @@ export type PostResponse = {
   guestWomenCount: number;
   womenCount: number;
   date: string;
-  imageUrl: string;
+  images: Photo[];
+  avatar?: Photo;
   packageId: string;
   guestOthersCount: number;
-  host: GuestType;
+  owner: GuestType;
   guestMenCount: number;
   description: string;
-  id: string;
+  _id: string;
   tags: PossibleTags[];
   guests: GuestType[];
-  hostType: 'Guest' | 'Host';
+  hostType: HostType;
 };
 
 export interface Place {
-  id: string;
-  imageUrl: string;
+  _id: string;
+  images: Photo[];
+  avatar?: Photo;
   location: string;
   name: string;
   tags: string[];
@@ -70,12 +74,13 @@ export interface Place {
 export interface Package {
   minSpend: number;
   date: string;
-  imageUrl: string;
+  images: Photo[];
+  avatar?: Photo;
   maxPeople: number;
   userId: string;
   placeId: string;
   description: string;
-  id: string;
+  _id: string;
   name: string;
   tags: string[];
   place: string;
@@ -84,7 +89,8 @@ export interface Package {
 export interface FullPackage {
   minSpend: number;
   date: string;
-  imageUrl: string;
+  images: Photo[];
+  avatar?: Photo;
   maxPeople: number;
   userId: string;
   placeId: string;
@@ -101,38 +107,37 @@ export interface GetPackages {
   maxPeople: number;
 }
 
-type Gender = 'Man' | 'Woman' | 'Everyone';
+export type ShownGender = 'Man' | 'Woman' | 'Everyone';
+export type UserGender = {
+  value: 'Man' | 'Woman' | 'Other' | null;
+  isShown: boolean;
+};
 
 export interface CreatePostData {
-  gender: Gender[];
-  date: string;
-  description: string;
-  guestMenCount: number;
-  guestOthersCount: number;
-  guestWomenCount: number;
-  id: string;
-  imageData: string;
-  location: string;
-  menCount: number;
   name: string;
-  othersCount: number;
-  packageId: string;
+  date: string;
+  location: string;
   tags: string[];
   venue: string;
+  menCount: number;
   womenCount: number;
+  othersCount: number;
+  guestWomenCount: number;
+  guestMenCount: number;
+  guestOthersCount: number;
+  packageId: string;
+  description: string;
+  gender: ShownGender[];
+  hostType: HostType;
 }
 export type PossibleTags = 'food' | 'drinks' | 'dance' | 'hookah';
 
-export type PostStatus = 'Confirmed' | 'Completed' | 'Created' | 'Cancelled';
+export type PostStatus = 'Active' | 'Complete' | 'New' | 'Cancelled';
 
 export type GuestType = {
-  avatar: string;
+  avatar: Photo;
   nickName: string;
-  id: string;
-  gender: {
-    value: 'Man' | 'Woman' | 'Other' | null;
-    isShown: boolean;
-  };
+  _id: string;
 };
 
 export type PostInfo = {

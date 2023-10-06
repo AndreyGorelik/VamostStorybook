@@ -1,9 +1,10 @@
 import { Theme } from '@shared/hooks/useTheme.hook';
+import { DimensionValue } from 'react-native';
 
 export interface CustomButton {
   title: string;
   onPress: () => void;
-  width?: number;
+  width?: DimensionValue;
   height?: number;
   disabled?: boolean;
   color?: string;
@@ -13,6 +14,6 @@ export interface CustomButton {
 export type StylesOptions = {
   theme: Theme;
   disabled?: boolean;
-  width?: number;
+  width?: DimensionValue;
   color?: string;
 };

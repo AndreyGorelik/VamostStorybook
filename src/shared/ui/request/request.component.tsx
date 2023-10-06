@@ -56,7 +56,7 @@ export default function Request({
             </View>
           </View>
           <View style={styles.row}>
-            {data.requestStatus !== 'Approved' && (
+            {data.requestStatus !== 'Approve' && (
               <OutlinedButton title="Confirm" onPress={confirmRequest} height={30} width={70} />
             )}
             {data.requestStatus !== 'Rejected' && (

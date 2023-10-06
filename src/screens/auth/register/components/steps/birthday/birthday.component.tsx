@@ -9,8 +9,7 @@ import { getSavedBirthday } from '@shared/utils/getSavedBirthday';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { setNextStep } from 'src/store/slices/auth.slice';
-import { setBirthdate } from 'src/store/slices/user.slice';
+import { registerBirthDateAction, setNextStep } from 'src/store/slices/auth.slice';
 
 import { createStyles } from './birthday.styles';
 
@@ -19,6 +18,8 @@ export default function Birthday() {
   const styles = createStyles(theme);
   const dispatch = useAppDispatch();
   const { birthdate } = useAppSelector((state) => state.userSlice);
+  const { isLoading, error } = useAppSelector((state) => state.authSlice);
+
   const [errors, setErrors] = useState<BirthdayErrors>({
     month: false,
     day: false,
@@ -43,8 +44,11 @@ export default function Birthday() {
       setErrors(newErrors);
       return;
     }
-    dispatch(setBirthdate(formattedDate));
-    dispatch(setNextStep());
+
+    if (birthdate === formattedDate) {
+      dispatch(setNextStep());
+    }
+    dispatch(registerBirthDateAction({ birthDate: formattedDate }));
   }
 
   return (
@@ -68,8 +72,14 @@ export default function Birthday() {
             />
           )}
         />
+        {error && <Text variant="warning">{error}</Text>}
       </View>
-      <Button title="Continue" onPress={handleSubmit(onSubmit)} disabled={!isValid} />
+      <Button
+        title="Continue"
+        onPress={handleSubmit(onSubmit)}
+        disabled={!isValid}
+        loading={isLoading}
+      />
     </View>
   );
 }

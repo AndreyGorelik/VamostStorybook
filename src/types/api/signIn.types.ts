@@ -1,17 +1,21 @@
+import { Photo } from 'src/store/slices/profileSlice';
+
+import { SexualOrientation, UserGender } from '../actions/actions.types';
+
 export type SignInResponse = {
   tokens: {
-    access: string;
-    refresh: string;
+    accessToken: string;
+    refreshToken: string;
   };
   phoneNumber: string;
-  gender: string;
-  sexualOrientation: string;
+  gender: UserGender;
+  sexualOrientation: SexualOrientation;
   nickName: string;
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   email: string;
-  birthdate: string;
-  images: string[];
-  avatar: string;
+  birthDate: string;
+  images: Photo[];
+  avatar: Photo;
   phoneVerified: boolean;
-  id: string;
+  _id: string;
 };

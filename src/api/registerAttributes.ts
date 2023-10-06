@@ -7,5 +7,5 @@ import { API_ROUTES } from './constants';
 export const registerAttributesRequest = async ({
   data,
 }: RegisterAttributesRequest): Promise<AxiosResponse<string>> => {
-  return await axios.patch(`${API_ROUTES.userAttributes}`, data);
+  return await axios.patch(`${API_ROUTES.personalInfo}`, data);
 };

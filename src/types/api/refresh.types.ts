@@ -5,7 +5,7 @@ export type Refresh = {
 
 export type RefreshResponse = {
   tokens: {
-    access: string;
-    refresh: string;
+    accessToken: string;
+    refreshToken: string;
   };
 };

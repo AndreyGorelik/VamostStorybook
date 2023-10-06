@@ -1,8 +1,8 @@
-import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface Photo {
-  id: string;
-  imageUrl: string;
+  _id: string;
+  imagePath: string;
 }
 
 export interface Profile {

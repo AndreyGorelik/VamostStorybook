@@ -58,7 +58,7 @@ export default function GalleryImage({ image }: GalleryImageProps) {
           rStyle,
         ]}
         source={{
-          uri: image.imageUrl,
+          uri: image.imagePath,
         }}
       />
     </PinchGestureHandler>

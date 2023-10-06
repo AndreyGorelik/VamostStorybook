@@ -1,5 +1,6 @@
-import Axios from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 import * as SecureStore from 'expo-secure-store';
+import { RefreshResponse } from 'src/types/api/refresh.types';
 
 import { API_ROUTES } from './constants';
 
@@ -7,10 +8,13 @@ const axios = Axios.create({
   baseURL: API_ROUTES.baseURL,
 });
 
-async function refreshAccessToken(refresh: string, userId: string) {
-  const data = { refresh, userId };
+async function refreshAccessToken(refreshToken: string, userId: string) {
+  const data = { refreshToken };
 
-  const response = await axios.post(`${API_ROUTES.refresh}`, data);
+  const response: AxiosResponse<RefreshResponse> = await axios.post(
+    `${API_ROUTES.auth}/${userId}/${API_ROUTES.refresh}`,
+    data
+  );
 
   return response.data;
 }
@@ -25,15 +29,15 @@ axios.interceptors.response.use(
 
     if (!refresh || !userId) return Promise.reject(error);
 
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       const newData = await refreshAccessToken(refresh, userId);
-      const { access, refresh: newRefresh } = newData.tokens;
+      const { accessToken, refreshToken: newRefresh } = newData.tokens;
       await SecureStore.setItemAsync('refresh', newRefresh);
-      await SecureStore.setItemAsync('access', access);
+      await SecureStore.setItemAsync('access', accessToken);
 
-      originalRequest.headers['Authorization'] = `Bearer ${access}`;
+      originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
 
       return axios(originalRequest);
     }

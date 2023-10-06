@@ -4,6 +4,7 @@ import {
   LOGIN_USER,
   REFRESH,
   REGISTER_ATTRIBUTES,
+  REGISTER_BIRTHDATE,
   REGISTER_EMAIL,
   REGISTER_NICKNAME,
   REGISTER_PHOTO,
@@ -14,9 +15,9 @@ import {
   ConfirmCode,
   LoginUser,
   RegisterAttributes,
+  RegisterBirthDate,
   RegisterEmail,
   RegisterNickname,
-  RegisterPhoto,
   RegisterUser,
 } from '../../types/actions/actions.types';
 
@@ -73,27 +74,39 @@ const authSlice = createSlice({
     },
     loginUser(state) {
       state.isLoading = true;
+      state.error = null;
     },
     signUpUser(state) {
       state.isLoading = true;
+      state.error = null;
     },
     confirmCode(state) {
       state.isLoading = true;
+      state.error = null;
     },
     registerEmail(state) {
       state.isLoading = true;
+      state.error = null;
     },
     registerNickname(state) {
       state.isLoading = true;
+      state.error = null;
     },
     registerAttributes(state) {
       state.isLoading = true;
+      state.error = null;
+    },
+    registerBirthDate(state) {
+      state.isLoading = true;
+      state.error = null;
     },
     registerPhotos(state) {
       state.isLoading = true;
+      state.error = null;
     },
     refresh(state) {
       state.isLoading = true;
+      state.error = null;
     },
   },
 });
@@ -108,9 +121,11 @@ export const registerEmailAction = createAction<RegisterEmail>(REGISTER_EMAIL);
 
 export const registerNicknameAction = createAction<RegisterNickname>(REGISTER_NICKNAME);
 
+export const registerBirthDateAction = createAction<RegisterBirthDate>(REGISTER_BIRTHDATE);
+
 export const registerAttributesAction = createAction<RegisterAttributes>(REGISTER_ATTRIBUTES);
 
-export const registerPhotoAction = createAction<RegisterPhoto[]>(REGISTER_PHOTO);
+export const registerPhotoAction = createAction<FormData[]>(REGISTER_PHOTO);
 
 export const refresh = createAction(REFRESH);
 export const {
