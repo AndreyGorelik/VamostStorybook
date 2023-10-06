@@ -23,6 +23,7 @@ import { initialState, setUser } from 'src/store/slices/user.slice';
 
 import { actions, posts } from './account.data';
 import { createStyles } from './account.styles';
+import AddImage from './components/addImage/addImage.component';
 import { PersonalInfo } from './components/personalInfo';
 import { RecentMeetup } from './components/recentMeetup';
 
@@ -35,9 +36,9 @@ export default function Account() {
   const [openPostCreate, setOpenPostCreate] = useState(false);
   const navigation = useNavigation();
 
-  function handleBack() {
+  const handleBack = () => {
     navigation.goBack();
-  }
+  };
 
   return (
     <>
@@ -106,9 +107,10 @@ export default function Account() {
               )}
             />
           </View>
-          <View>
+          <View style={styles.photoContainer}>
             <Text variant="h3">Photos</Text>
             <PhotoGallery images={images} />
+            <AddImage />
           </View>
         </View>
       </ScrollView>

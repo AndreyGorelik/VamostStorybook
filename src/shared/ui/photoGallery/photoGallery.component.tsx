@@ -1,7 +1,8 @@
 import useTheme from '@shared/hooks/useTheme.hook';
+import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
-import { Image, ImageBackground, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, TouchableOpacity, View } from 'react-native';
 
 import Text from '../text/text.component';
 
@@ -14,11 +15,12 @@ const MAX_IMAGES = 6;
 function PhotoGallery({ images }: PhotoGalleryProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const reversedImages = [...images].reverse();
   const [openModalGallery, setOpenModalGallery] = useState(false);
   const [imageIdGallery, setImageIdGallery] = useState<null | number>(null);
 
   const openGallery = (id: string) => {
-    const index = images.findIndex((item) => item._id === id);
+    const index = reversedImages.findIndex((item) => item._id === id);
     setImageIdGallery(index);
     setOpenModalGallery(true);
   };
@@ -27,11 +29,11 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
   return (
     <>
       <View style={styles.wrapper}>
-        {images.map((item, index, array) => {
+        {reversedImages.map((item, index, array) => {
           const isTheOnlyOneImage = index === 0 && array.length === 1;
           const isTheFirstImage = index === 0 && array.length > 1;
           const notTheFirstImage = index < MAX_IMAGES && index !== 0;
-          const isLastImage = index === MAX_IMAGES + 1;
+          const isLastImage = index === MAX_IMAGES;
 
           if (isTheOnlyOneImage) {
             return (
@@ -132,7 +134,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
       {openModalGallery && (
         <ModalGallery
           close={() => setOpenModalGallery(false)}
-          images={images}
+          images={reversedImages}
           imageScaleId={imageIdGallery}
         />
       )}
