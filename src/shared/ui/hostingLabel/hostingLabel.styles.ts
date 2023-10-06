@@ -11,6 +11,7 @@ export const createStyles = (theme: Theme) =>
       gap: 10,
       borderRadius: 100,
       padding: 5,
-      width: '50%',
+      minWidth: '50%',
+      paddingHorizontal: 15,
     },
   });

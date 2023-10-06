@@ -8,7 +8,7 @@ import { getPostAction } from 'src/store/slices/post/post.slice';
 
 export default function Index() {
   const { post, isPostLoading, error } = useAppSelector((state) => state.postSlice);
-  const [_, setUserId] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
 
   const dispatch = useAppDispatch();
   const { id } = useLocalSearchParams();
@@ -37,11 +37,11 @@ export default function Index() {
     return <ErrorPage error={error} retry={async () => handleFetch(id as string)} />;
   }
 
-  if (post?.isUsersPost && post.info?.hostType === 'Host') {
+  if (post?.isUsersPost) {
     return <Redirect href="posts/post/host" />;
   }
 
-  if (post?.isUsersPost && post?.info?.hostType === 'Guest') {
+  if (post?.info.members.find((member) => member._id === userId)) {
     return <Redirect href="posts/post/guest" />;
   }
 

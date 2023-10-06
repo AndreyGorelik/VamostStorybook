@@ -37,7 +37,7 @@ export default function Header({ postInfo }: HeaderProps) {
             {format(new Date(postInfo.date), 'MMMM d, yyyy, h:mm a')}
           </Text>
         </View>
-        <HostingLabel type="Host" />
+        <HostingLabel type={postInfo.hostType} />
         <View style={styles.guestsGallery}>
           <UserPicGallery data={postInfo.members?.slice(0, 3)} size={65} />
         </View>
