@@ -11,6 +11,7 @@ import { createStyles } from './photoGallery.styles';
 import { PhotoGalleryProps } from './photoGallery.types';
 
 const MAX_IMAGES = 6;
+const PLACEHOLDER = '../../../assets/images/loader.gif';
 
 function PhotoGallery({ images }: PhotoGalleryProps) {
   const theme = useTheme();
@@ -46,6 +47,8 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
                   key={item._id}
                   source={{ uri: item.imagePath }}
                   style={styles.isTheOnlyOneImage}
+                  placeholder={require(PLACEHOLDER)}
+                  cachePolicy="memory-disk"
                 />
               </TouchableOpacity>
             );
@@ -62,6 +65,8 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
                   key={item._id}
                   source={{ uri: item.imagePath }}
                   style={styles.isTheFirstImage}
+                  placeholder={require(PLACEHOLDER)}
+                  cachePolicy="memory-disk"
                 />
               </TouchableOpacity>
             );
@@ -78,6 +83,8 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
                   key={item._id}
                   source={{ uri: item.imagePath }}
                   style={styles.notTheFirstImage}
+                  placeholder={require(PLACEHOLDER)}
+                  cachePolicy="memory-disk"
                 />
               </TouchableOpacity>
             );
@@ -122,6 +129,8 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
                     key={item._id}
                     source={{ uri: item.imagePath }}
                     style={styles.isLastImage}
+                    placeholder={require(PLACEHOLDER)}
+                    cachePolicy="memory-disk"
                   />
                 </TouchableOpacity>
               );

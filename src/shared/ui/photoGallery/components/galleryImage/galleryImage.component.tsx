@@ -1,4 +1,5 @@
-import { Image, Dimensions } from 'react-native';
+import { Image } from 'expo-image';
+import { Dimensions } from 'react-native';
 import { PinchGestureHandler, PinchGestureHandlerGestureEvent } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedGestureHandler,
@@ -9,14 +10,12 @@ import Animated, {
 
 import { GalleryImageProps } from './galleryImage.types';
 
-const AnimatedImage = Animated.createAnimatedComponent(Image);
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export default function GalleryImage({ image }: GalleryImageProps) {
   const scale = useSharedValue(1);
   const focalX = useSharedValue(0);
   const focalY = useSharedValue(0);
-
   const pinchHandler = useAnimatedGestureHandler<PinchGestureHandlerGestureEvent>({
     onStart: (event) => {
       focalX.value = event.focalX;
@@ -30,7 +29,7 @@ export default function GalleryImage({ image }: GalleryImageProps) {
     },
   });
 
-  const rStyle = useAnimatedStyle(() => {
+  const animatedImageStyle = useAnimatedStyle(() => {
     return {
       transform: [
         { translateX: focalX.value },
@@ -48,19 +47,20 @@ export default function GalleryImage({ image }: GalleryImageProps) {
 
   return (
     <PinchGestureHandler onGestureEvent={pinchHandler}>
-      <AnimatedImage
-        style={[
-          {
+      <Animated.View style={[animatedImageStyle]}>
+        <Image
+          style={{
             width: SCREEN_WIDTH,
             height: SCREEN_HEIGHT,
-            resizeMode: 'contain',
-          },
-          rStyle,
-        ]}
-        source={{
-          uri: image.imagePath,
-        }}
-      />
+          }}
+          contentFit="contain"
+          source={{
+            uri: image.imagePath,
+          }}
+          placeholder={require('../../../../../assets/images/loader.gif')}
+          cachePolicy="memory-disk"
+        />
+      </Animated.View>
     </PinchGestureHandler>
   );
 }

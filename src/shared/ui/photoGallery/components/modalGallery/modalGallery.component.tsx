@@ -30,7 +30,7 @@ function ModalGallery({ close, images, imageScaleId }: ModalGalleryProps) {
               scrollEventThrottle={32}
               keyExtractor={(item) => item._id}
               initialScrollIndex={imageScaleId}
-              getItemLayout={(data, index) => ({
+              getItemLayout={(_, index) => ({
                 length: SCREEN_WIDTH,
                 offset: SCREEN_WIDTH * index,
                 index,
