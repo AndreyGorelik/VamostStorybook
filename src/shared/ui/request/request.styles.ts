@@ -11,6 +11,8 @@ export const createStyles = (theme: Theme) =>
       gap: 10,
       alignItems: 'center',
       paddingVertical: 5,
+      paddingHorizontal: 20,
+      height: 70,
     },
     row: {
       flexDirection: 'row',
@@ -26,6 +28,13 @@ export const createStyles = (theme: Theme) =>
       borderRadius: 100,
       width: 60,
       height: 60,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'row',
+    },
+    picOnt: {
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     iconWrapper: {
       width: 25,
@@ -34,5 +43,12 @@ export const createStyles = (theme: Theme) =>
       borderRadius: 100,
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    loader: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
     },
   });

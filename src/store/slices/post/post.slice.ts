@@ -5,17 +5,18 @@ import {
   GET_POST,
   UPDATE_POST_STATUS,
   SEND_REQUEST,
+  GET_ALL_REQUESTS,
 } from '@shared/constants/actions';
 import { PostResponse, SendRequest } from 'src/types/actions/actions.types';
-import { GetPost, TakeDecision, UpdatePostStatus } from 'src/types/api/getPosts';
+import { GetPost, GetRequests, TakeDecision, UpdatePostStatus } from 'src/types/api/getPosts';
 
 export type PostInfo = {
-  info: PostResponse | null;
+  info: PostResponse;
   isUsersPost: boolean;
-} | null;
+};
 
 export interface PostsState {
-  post: PostInfo;
+  post: PostInfo | null;
   isPostLoading: boolean;
   error: string | null;
 }
@@ -56,6 +57,7 @@ export const updatePostStatus = createAction<UpdatePostStatus>(UPDATE_POST_STATU
 export const confirmRequest = createAction<TakeDecision>(CONFIRM_REQUEST);
 export const deleteRequest = createAction<TakeDecision>(DELETE_REQUEST);
 export const sendRequest = createAction<SendRequest>(SEND_REQUEST);
+export const getAllRequests = createAction<GetRequests>(GET_ALL_REQUESTS);
 
 export const { setPost, resetPost, setPostError, getPost } = postsSlice.actions;
 

@@ -5,7 +5,6 @@ export const createStyles = (_theme: Theme) =>
   StyleSheet.create({
     wrapper: {
       marginTop: 20,
-      height: 300,
     },
     tab: {
       paddingVertical: 10,
@@ -17,8 +16,5 @@ export const createStyles = (_theme: Theme) =>
     },
     selected: {
       fontWeight: '700',
-    },
-    contentWrapper: {
-      paddingVertical: 10,
     },
   });

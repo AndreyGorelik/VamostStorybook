@@ -9,8 +9,8 @@ export const rejectRequest = async ({
   requestId,
   decision = 'Rejected',
 }: TakeDecision): Promise<AxiosResponse<string>> => {
-  return await axios.patch(`${API_ROUTES.post}/${postId}/${API_ROUTES.request}`, {
-    requestId,
+  return await axios.patch(`${API_ROUTES.request}/${requestId}`, {
+    postId,
     decision,
   });
 };

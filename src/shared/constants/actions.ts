@@ -34,6 +34,8 @@ export const GET_PENDING_REQUESTS = 'pendingRequests/getPendingRequests';
 
 export const GET_ALL_REQUESTS = 'allRequests/getAllRequests';
 
+export const GET_APPROVE_REQUESTS = 'approveRequests/getApproveRequests';
+
 export const GET_DELETED_REQUESTS = 'deletedRequests/getDeletedRequests';
 
 export const CONFIRM_REQUEST = 'post/confirmRequest';
