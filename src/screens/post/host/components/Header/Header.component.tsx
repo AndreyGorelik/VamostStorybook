@@ -39,13 +39,13 @@ export default function Header({ postInfo }: HeaderProps) {
         </View>
         <HostingLabel type="Host" />
         <View style={styles.guestsGallery}>
-          <UserPicGallery data={postInfo.guests?.slice(0, 3)} size={65} />
+          <UserPicGallery data={postInfo.members?.slice(0, 3)} size={65} />
         </View>
       </View>
       <View style={styles.guests}>
         <Text>My guests:</Text>
 
-        {postInfo.guests?.length > 3 && <Text>({`${postInfo.guests?.length - 3} left`})</Text>}
+        {postInfo.members?.length > 3 && <Text>({`${postInfo.members?.length - 3} left`})</Text>}
       </View>
     </View>
   );

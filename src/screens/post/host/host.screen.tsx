@@ -5,7 +5,7 @@ import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
 import { PageLoader } from '@shared/ui/pageLoader';
 import { Request } from '@shared/ui/request';
 import { useNavigation } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { View, RefreshControl, Text, FlatList } from 'react-native';
 import {
   confirmRequest,
@@ -73,12 +73,6 @@ export default function PostFullHost() {
       deleteRequest({ postId: post.info._id, requestId: request._id, decision: 'Rejected' })
     );
   }
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetPost());
-    };
-  }, [dispatch]);
 
   function refetchPost() {
     if (!post || !post.info) return;

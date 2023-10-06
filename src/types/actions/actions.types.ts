@@ -57,7 +57,7 @@ export type PostResponse = {
   description: string;
   _id: string;
   tags: PossibleTags[];
-  guests: GuestType[];
+  members: GuestType[];
   hostType: HostType;
 };
 

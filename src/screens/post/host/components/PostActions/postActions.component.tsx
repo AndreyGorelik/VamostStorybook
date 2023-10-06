@@ -17,7 +17,7 @@ export default function PostActions({ post, refetchPost }: PostActionsProps) {
     {
       title: 'Confirm & Lock',
       color: theme.colors.postStatus.confirmed,
-      disabled: Boolean(post?.info?.guests?.length && post.info.guests.length < 2),
+      disabled: Boolean(post?.info?.members?.length && post.info.members.length < 2),
       onPress: () => {
         confirmPost();
         refetchPost();
