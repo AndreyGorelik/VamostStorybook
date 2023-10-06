@@ -12,6 +12,7 @@ import {
   deleteRequest,
   getPostAction,
   resetPost,
+  updatePostStatus,
 } from 'src/store/slices/post/post.slice';
 import {
   addApproveRequest,
@@ -59,6 +60,15 @@ export default function PostFullHost() {
     dispatch(
       confirmRequest({ postId: post.info._id, requestId: request._id, decision: 'Approve' })
     );
+
+    if (post.info.hostType === 'Guest') {
+      dispatch(
+        updatePostStatus({
+          id: post.info._id,
+          postStatus: 'Active',
+        })
+      );
+    }
   }
 
   function handleDeleteRequest(request: PostRequest) {

@@ -1,1 +1,1 @@
-export { default as PostFullHost } from './guest.screen';
+export { default as GuestPost } from './guest.screen';

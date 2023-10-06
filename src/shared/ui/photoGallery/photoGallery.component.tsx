@@ -1,4 +1,5 @@
 import useTheme from '@shared/hooks/useTheme.hook';
+import { getImagePath } from '@shared/utils/getImagePath';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
 import { Image, ImageBackground, TouchableOpacity, View } from 'react-native';
@@ -31,7 +32,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
             return (
               <Image
                 key={item._id}
-                source={{ uri: item.imagePath }}
+                source={{ uri: getImagePath(item) }}
                 style={styles.isTheOnlyOneImage}
               />
             );
@@ -41,7 +42,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
             return (
               <Image
                 key={item._id}
-                source={{ uri: item.imagePath }}
+                source={{ uri: getImagePath(item) }}
                 style={styles.isTheFirstImage}
               />
             );
@@ -51,7 +52,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
             return (
               <Image
                 key={item._id}
-                source={{ uri: item.imagePath }}
+                source={{ uri: getImagePath(item) }}
                 style={styles.notTheFirstImage}
               />
             );
@@ -69,7 +70,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
                   <ImageBackground
                     imageStyle={styles.isLastImage}
                     source={{
-                      uri: item.imagePath,
+                      uri: getImagePath(item),
                     }}
                     style={styles.flex}
                   >
@@ -86,7 +87,11 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
               );
             } else {
               return (
-                <Image key={item._id} source={{ uri: item.imagePath }} style={styles.isLastImage} />
+                <Image
+                  key={item._id}
+                  source={{ uri: getImagePath(item) }}
+                  style={styles.isLastImage}
+                />
               );
             }
           }

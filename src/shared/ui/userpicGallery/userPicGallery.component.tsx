@@ -1,7 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { getImagePath } from '@shared/utils/getImagePath';
-import { View, Image } from 'react-native';
+import { router } from 'expo-router';
+import { View, Image, Pressable } from 'react-native';
 
 import { createStyles } from './userPicGallery.styles';
 import { UserPicGalleryProps } from './userPicGallery.types';
@@ -11,7 +12,17 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
   const styles = createStyles(theme);
 
   return (
-    <View style={styles.row}>
+    <Pressable
+      onPress={() =>
+        router.push({
+          params: {
+            guests: JSON.stringify(data ? data : []),
+          },
+          pathname: '/profileslist',
+        })
+      }
+      style={styles.row}
+    >
       {data?.map((item, index) => {
         if (index > 0) {
           return item.avatar ? (
@@ -72,6 +83,6 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
           );
         }
       })}
-    </View>
+    </Pressable>
   );
 }

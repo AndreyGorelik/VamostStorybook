@@ -8,6 +8,7 @@ import { GuestsProps } from './Guests.types';
 export default function Guests({ postInfo }: GuestsProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
+
   return (
     <View>
       <Text variant="h5" margin={10}>

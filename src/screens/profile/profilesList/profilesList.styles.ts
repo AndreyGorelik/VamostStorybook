@@ -21,4 +21,7 @@ export const createStyles = (theme: Theme) =>
     separator: {
       height: 10,
     },
+    list: {
+      paddingTop: 10,
+    },
   });
