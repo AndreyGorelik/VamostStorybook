@@ -137,9 +137,8 @@ export default function PostFullHost() {
       )}
       refreshControl={<RefreshControl refreshing={isPostLoading} onRefresh={refetchPost} />}
       extraData={active}
-      style={{
-        backgroundColor: theme.colors.background,
-      }}
+      style={styles.listStyle}
+      contentContainerStyle={styles.contentStyle}
     />
   );
 }

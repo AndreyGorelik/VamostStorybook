@@ -12,7 +12,8 @@ import Axios from 'axios';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from 'expo-router';
-import { useState } from 'react';
+import * as SecureStore from 'expo-secure-store';
+import { useEffect, useState } from 'react';
 import {
   View,
   Image,
@@ -31,6 +32,8 @@ const AVATAR_SIZE = 60;
 
 export default function NotJoined() {
   const { post, isPostLoading, error } = useAppSelector((state) => state.postSlice);
+  const { pendingRequests } = useAppSelector((state) => state.pendingRequestsSlice);
+  const [disabled, setDisabled] = useState<boolean>(true);
   const theme = useTheme();
   const styles = createStyles(theme, AVATAR_SIZE);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -41,12 +44,26 @@ export default function NotJoined() {
     navigation.goBack();
   }
 
+  useEffect(() => {
+    async function getUserId() {
+      const userId = await SecureStore.getItemAsync('userId');
+      if (pendingRequests.find((request) => request.user._id === userId)) {
+        setDisabled(true);
+        return;
+      }
+      setDisabled(false);
+    }
+
+    getUserId();
+  }, [pendingRequests]);
+
   const requestInvite = async () => {
     if (!post?.info) return;
 
     try {
       setIsLoading(true);
       await sendRequest({ id: post.info._id, type: post.info.hostType });
+      setDisabled(true);
     } catch (err) {
       if (Axios.isAxiosError(err)) Alert.alert(err?.response?.data.message);
     } finally {
@@ -73,6 +90,7 @@ export default function NotJoined() {
     <ScrollView
       style={styles.scrollWrapper}
       refreshControl={<RefreshControl refreshing={isPostLoading} onRefresh={refetchPost} />}
+      contentContainerStyle={styles.scrollContent}
     >
       <ImageBackground
         imageStyle={styles.postCardCover}
@@ -102,6 +120,7 @@ export default function NotJoined() {
             title={post.info.hostType === 'Host' ? 'Request' : 'Request to be host'}
             onPress={requestInvite}
             loading={isLoading}
+            disabled={disabled}
           />
           <Text variant="disabled" fontSize={14}>
             {post.info.date && format(new Date(post.info.date), 'MMMM d, yyyy, h:mm a')}
@@ -116,13 +135,13 @@ export default function NotJoined() {
               ? ' +' + post.info.guestOthersCount.toString() + ' Other'
               : ''}
           </Text>
-          {post.info.guests && (
+          {post.info.members && (
             <View style={styles.guests}>
-              <UserPicGallery data={post.info.guests.slice(0, 3)} size={AVATAR_SIZE} />
-              {post.info.guests.length > 3 && (
+              <UserPicGallery data={post.info.members.slice(0, 3)} size={AVATAR_SIZE} />
+              {post.info.members.length > 3 && (
                 <Pressable style={styles.more}>
                   <Text variant="h3" style={{ color: theme.colors.secondary }}>
-                    +{`${post.info.guests.length - 3}`}
+                    +{`${post.info.members.length - 3}`}
                   </Text>
                 </Pressable>
               )}

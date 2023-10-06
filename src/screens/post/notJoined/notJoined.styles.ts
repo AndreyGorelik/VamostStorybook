@@ -7,6 +7,9 @@ export const createStyles = (theme: Theme, size: number) =>
       flex: 1,
       backgroundColor: theme.colors.background,
     },
+    scrollContent: {
+      paddingBottom: 50,
+    },
     linearGradient: {
       flex: 1,
       borderBottomLeftRadius: 15,
