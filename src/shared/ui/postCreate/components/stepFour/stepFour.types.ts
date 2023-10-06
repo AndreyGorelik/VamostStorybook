@@ -1,4 +1,5 @@
 import React from 'react';
+import { Photo } from 'src/store/slices/profileSlice';
 
 import { Post } from '../../postCreate.types';
 
@@ -15,9 +16,10 @@ export interface StepFourProps {
 export interface PackageListItem {
   date: string;
   description: string;
-  id: string;
+  _id: string;
   place: string;
   maxPeople: number;
   name: string;
-  imageUrl: string;
+  images: Photo[];
+  avatar?: Photo;
 }

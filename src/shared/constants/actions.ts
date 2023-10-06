@@ -39,3 +39,5 @@ export const GET_DELETED_REQUESTS = 'deletedRequests/getDeletedRequests';
 export const CONFIRM_REQUEST = 'post/confirmRequest';
 
 export const DELETE_REQUEST = 'post/deleteRequest';
+
+export const SEND_REQUEST = 'post/sendRequest';

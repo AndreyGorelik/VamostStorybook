@@ -14,7 +14,7 @@ export default function PostsList({ list, refreshControl }: PostListProps) {
       data={list}
       refreshControl={refreshControl}
       renderItem={({ item }) => <PostCard {...item} />}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item._id}
       ItemSeparatorComponent={() => <View style={styles.separator}></View>}
       contentContainerStyle={styles.wrapper}
       ListEmptyComponent={() => <Text variant="h4">Nothing found</Text>}

@@ -1,6 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
+import { getImagePath } from '@shared/utils/getImagePath';
 import { useEffect } from 'react';
 import {
   ActivityIndicator,
@@ -43,7 +44,7 @@ function ModalSelectVenue({
   }, [location, dispatch]);
 
   const chooseVenue = (item: Place) => {
-    setPlaceId(item.id);
+    setPlaceId(item._id);
     setVenue(item.name);
     setOpen(false);
   };
@@ -52,13 +53,15 @@ function ModalSelectVenue({
     return (
       <TouchableOpacity activeOpacity={0.8} onPress={() => chooseVenue(item)}>
         <Text variant="h4">{item.name}</Text>
-        <Image
-          resizeMode="cover"
-          style={styles.image}
-          source={{
-            uri: item.imageUrl,
-          }}
-        />
+        {item.avatar && (
+          <Image
+            resizeMode="cover"
+            style={styles.image}
+            source={{
+              uri: getImagePath(item.avatar),
+            }}
+          />
+        )}
       </TouchableOpacity>
     );
   };
@@ -83,7 +86,7 @@ function ModalSelectVenue({
           </View>
           {isLoading ? <ActivityIndicator size="large" color={theme.colors.primary} /> : null}
           {postVenues.length === 0 && <Text>There are no venues meeting your criteria</Text>}
-          <FlatList data={postVenues} renderItem={renderVenue} keyExtractor={(item) => item.id} />
+          <FlatList data={postVenues} renderItem={renderVenue} keyExtractor={(item) => item._id} />
         </View>
       </SafeAreaView>
     </Modal>

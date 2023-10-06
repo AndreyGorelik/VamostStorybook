@@ -35,7 +35,7 @@ export type TakeDecision = {
 
 export type PostRequest = {
   postId: string;
-  id: string;
+  _id: string;
   requestStatus: RequestStatus;
   user: {
     avatar: string;

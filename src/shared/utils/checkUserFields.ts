@@ -3,8 +3,8 @@ import { UserState } from 'src/store/slices/user.slice';
 export function checkUserField(user: UserState) {
   let finished = false;
   let step = 0;
-
-  if (!user.phoneVerified) step = 2;
+  if (!user.phoneNumber) step = 1;
+  else if (!user.phoneVerified) step = 2;
   else if (!user.email) step = 3;
   else if (!user.nickname) step = 4;
   else if (!user.birthdate) step = 5;

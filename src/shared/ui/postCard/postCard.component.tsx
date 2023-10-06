@@ -1,7 +1,8 @@
 import useTheme from '@shared/hooks/useTheme.hook';
+import { getImagePath } from '@shared/utils/getImagePath';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
-import { router, Link } from 'expo-router';
+import { router } from 'expo-router';
 import { View, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 import { PostResponse } from 'src/types/actions/actions.types';
 
@@ -45,7 +46,7 @@ export default function PostCard(props: PostResponse) {
   }
 
   function handleNavigate() {
-    router.push(`posts/${props.id}`);
+    router.push(`posts/${props._id}`);
   }
 
   return (
@@ -55,7 +56,7 @@ export default function PostCard(props: PostResponse) {
           <ImageBackground
             imageStyle={styles.photoContainer}
             source={{
-              uri: props.imageUrl,
+              uri: props.images[0] && getImagePath(props.images[0]),
             }}
             style={styles.postCardCover}
           >
@@ -92,19 +93,11 @@ export default function PostCard(props: PostResponse) {
               );
             })}
             <Text variant="disabled">
-              {(props.guestWomenCount + props.guestMenCount + props.guestOthersCount).toString()}{' '}
-              guests
+              {`${props.guestWomenCount + props.guestMenCount + props.guestOthersCount}`} guests
             </Text>
           </View>
           <View style={styles.rowSpaceBetween}>
-            <Link
-              href={{
-                pathname: '/profileslist',
-                params: { guests: JSON.stringify(props.guests) },
-              }}
-            >
-              <UserPicGallery data={props.guests} />
-            </Link>
+            <UserPicGallery data={props.guests} />
             <OutlinedButton
               onPress={() => Alert.alert('press')}
               height={40}
