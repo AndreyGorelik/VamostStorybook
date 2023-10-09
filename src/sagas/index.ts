@@ -4,7 +4,7 @@ import authSaga from './auth';
 import createPostSaga from './postCreate';
 import postsSaga from './posts';
 import profileSaga from './profile';
-import { requestsSaga } from './requests/requests.saga';
+import requestsSaga from './requests';
 
 export default function* rootSaga() {
   yield spawn(authSaga);
