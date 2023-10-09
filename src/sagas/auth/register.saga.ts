@@ -10,13 +10,13 @@ import {
 import { saveTokens } from '@shared/utils/saveTokens';
 import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { confirmCodeRequest } from 'src/api/confirmCode';
-import { registerAttributesRequest } from 'src/api/registerAttributes';
-import { registerBirthDateRequest } from 'src/api/registerBirthDate';
-import { registerEmailRequest } from 'src/api/registerEmail';
-import { registerNicknameRequest } from 'src/api/registerNickname';
-import { registerPhotoRequest } from 'src/api/registerPhoto';
-import { signUpRequest } from 'src/api/signUp';
+import { confirmCodeRequest } from 'src/api/auth/confirmCode';
+import { registerAttributesRequest } from 'src/api/auth/registerAttributes';
+import { registerBirthDateRequest } from 'src/api/auth/registerBirthDate';
+import { registerEmailRequest } from 'src/api/auth/registerEmail';
+import { registerNicknameRequest } from 'src/api/auth/registerNickname';
+import { registerPhotoRequest } from 'src/api/auth/registerPhoto';
+import { signUpRequest } from 'src/api/auth/signUp';
 import { setAuthError, setNextStep, setSignUpFinished } from 'src/store/slices/auth.slice';
 import {
   setBirthDate,

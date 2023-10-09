@@ -19,5 +19,5 @@ export const API_ROUTES = {
   getRequests: 'get-requests',
   takeDecision: 'take-decision',
   auth: 'auth',
-  pictures: 'https://a578-2a02-d247-2100-6311-6844-c115-f04b-a32e.ngrok-free.app/pictures',
+  pictures: 'pictures',
 };
