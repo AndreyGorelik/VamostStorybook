@@ -32,6 +32,7 @@ export default function Account() {
   const styles = createStyles(theme);
   const [editMode, setEditMode] = useState(false);
   const { email, nickname, images, avatar } = useAppSelector((state) => state.userSlice);
+  
   const dispatch = useAppDispatch();
   const [openPostCreate, setOpenPostCreate] = useState(false);
   const navigation = useNavigation();

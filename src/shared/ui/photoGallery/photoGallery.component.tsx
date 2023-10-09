@@ -25,6 +25,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
     setImageIdGallery(index);
     setOpenModalGallery(true);
   };
+
   if (!images) return null;
 
   return (

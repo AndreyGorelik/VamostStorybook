@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
 import { PersonalInfoValues } from '@screens/user/account/components/personalInfo/personalInfo.types';
 import { UserGender } from 'src/types/actions/actions.types';
 
@@ -27,6 +27,8 @@ export interface UserState {
   birthdate: string;
   images: Photo[];
   avatar: string;
+  editInfoError?: string;
+  updatePhotoError?: string;
 }
 
 export type UserInfo = {
@@ -112,8 +114,15 @@ const userSlice = createSlice({
       state.sexualOrientation = action.payload.sexualOrientation;
       state.birthdate = action.payload.birthdate;
     },
+    setPhoto(state, action) {
+      state.updatePhotoError = undefined;
+      state.images = action.payload;
+    },
   },
 });
+
+export const UPDATE_PHOTO = 'userSlice/updatePhoto';
+export const updatePhoto = createAction<any>(UPDATE_PHOTO);
 
 export const {
   setPhoneNumber,
@@ -125,6 +134,7 @@ export const {
   setBirthDate,
   setUser,
   setEditedUserInfo,
+  setPhoto,
 } = userSlice.actions;
 
 export default userSlice.reducer;

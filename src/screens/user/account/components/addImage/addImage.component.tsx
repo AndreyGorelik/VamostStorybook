@@ -4,7 +4,7 @@ import { Button } from '@shared/ui/button';
 import * as ImagePicker from 'expo-image-picker';
 import mime from 'mime';
 import { Platform } from 'react-native';
-import { registerPhotoAction } from 'src/store/slices/auth.slice';
+import { updatePhoto } from 'src/store/slices/user.slice';
 
 const AddImage = () => {
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
@@ -43,7 +43,7 @@ const AddImage = () => {
         newImages.push(image);
 
         const photos = newImages.map((image) => image.imageData);
-        dispatch(registerPhotoAction(photos));
+        dispatch(updatePhoto(photos));
       });
     }
   };

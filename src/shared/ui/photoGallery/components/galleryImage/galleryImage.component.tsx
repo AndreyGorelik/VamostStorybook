@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { Dimensions } from 'react-native';
+import { ActivityIndicator, Dimensions } from 'react-native';
 import { PinchGestureHandler, PinchGestureHandlerGestureEvent } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedGestureHandler,
@@ -60,6 +60,7 @@ export default function GalleryImage({ image }: GalleryImageProps) {
           placeholder={require('../../../../../assets/images/loader.gif')}
           cachePolicy="memory-disk"
         />
+        <ActivityIndicator />
       </Animated.View>
     </PinchGestureHandler>
   );
