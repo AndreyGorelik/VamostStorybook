@@ -28,8 +28,6 @@ export const createStyles = (theme: Theme, size: number) =>
       height: 70,
       borderRadius: 50,
       borderWidth: 3,
-      borderColor: theme.colors.background,
-      backgroundColor: theme.colors.secondary,
       position: 'relative',
       top: -35,
       left: 15,

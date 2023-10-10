@@ -7,6 +7,7 @@ import Divider from '@shared/ui/divider/divider.component';
 import { PageLoader } from '@shared/ui/pageLoader';
 import Text from '@shared/ui/text/text.component';
 import { UserPicGallery } from '@shared/ui/userpicGallery';
+import { AvatarPlaceholder } from '@shared/ui/userpicGallery/components/avatarPlaceholder';
 import { getImagePath } from '@shared/utils/getImagePath';
 import Axios from 'axios';
 import { format } from 'date-fns';
@@ -14,15 +15,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect, useState } from 'react';
-import {
-  View,
-  Image,
-  ImageBackground,
-  ScrollView,
-  Alert,
-  RefreshControl,
-  Pressable,
-} from 'react-native';
+import { View, ImageBackground, ScrollView, Alert, RefreshControl, Pressable } from 'react-native';
 import { sendRequest } from 'src/api/posts/sendRequest';
 import { getPostAction, resetPost } from 'src/store/slices/post/post.slice';
 
@@ -106,12 +99,13 @@ export default function NotJoined() {
       </ImageBackground>
       <HeaderButton onPress={handleBack} icon={'arrow-back'} isBackground={true} variant="left" />
 
-      <Image
-        source={{
-          uri: post.info.owner.avatar && getImagePath(post.info.owner.avatar),
-        }}
+      <AvatarPlaceholder
+        item={post.info.owner}
+        size={70}
         style={styles.userPicture}
+        imageStyle={styles.userPicture}
       />
+
       <View style={styles.postInfo}>
         <Text variant="h4">{post.info.location}</Text>
         <View style={styles.mainInfo}>

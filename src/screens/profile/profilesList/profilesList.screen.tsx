@@ -1,9 +1,9 @@
 import useTheme from '@shared/hooks/useTheme.hook';
 import { PostGuests } from '@shared/ui/postCard/postCard.types';
 import Text from '@shared/ui/text/text.component';
-import { getImagePath } from '@shared/utils/getImagePath';
+import { AvatarPlaceholder } from '@shared/ui/userpicGallery/components/avatarPlaceholder';
 import { Link, useLocalSearchParams } from 'expo-router';
-import { FlatList, Image, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 
 import { createStyles } from './profilesList.styles';
 
@@ -22,7 +22,7 @@ export default function ProfilesList() {
         }}
       >
         <View style={styles.profile}>
-          <Image style={styles.profilePhoto} source={{ uri: getImagePath(item.avatar) }} />
+          <AvatarPlaceholder size={50} item={item} />
           <Text variant="h5">{item.nickName}</Text>
         </View>
       </Link>
