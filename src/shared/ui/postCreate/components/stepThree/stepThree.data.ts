@@ -9,3 +9,9 @@ export const INVITE_GUESTS = [
   { key: 'guestWomenCount', title: 'women' },
   { key: 'guestOthersCount', title: 'OTHER' },
 ];
+
+export const HOST_GENDERS = [
+  { id: 'guestMenCount', label: 'Man' },
+  { id: 'guestWomenCount', label: 'Woman' },
+  { id: 'guestOthersCount', label: 'Other' },
+];
