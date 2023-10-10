@@ -30,7 +30,7 @@ function ModalSelectVenue({
   location: string;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setVenue: React.Dispatch<React.SetStateAction<string>>;
+  setVenue: (place: Place) => void;
   setPlaceId: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const dispatch = useAppDispatch();
@@ -45,7 +45,7 @@ function ModalSelectVenue({
 
   const chooseVenue = (item: Place) => {
     setPlaceId(item._id);
-    setVenue(item.name);
+    setVenue(item);
     setOpen(false);
   };
 
