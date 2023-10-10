@@ -24,14 +24,8 @@ export const createStyles = (theme: Theme, size: number) =>
       height: 250,
     },
     userPicture: {
-      width: 70,
-      height: 70,
-      borderRadius: 50,
-      borderWidth: 3,
-      position: 'relative',
       top: -35,
       left: 15,
-      marginBottom: -35,
     },
     postInfo: {
       paddingHorizontal: 15,
