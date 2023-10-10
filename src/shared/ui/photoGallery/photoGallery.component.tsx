@@ -1,3 +1,4 @@
+import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -19,6 +20,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
   const reversedImages = [...images].reverse();
   const [openModalGallery, setOpenModalGallery] = useState(false);
   const [imageIdGallery, setImageIdGallery] = useState<null | number>(null);
+  const { deletingPhoto, deletePhotoError } = useAppSelector((state) => state.userSlice);
 
   const openGallery = (id: string) => {
     const index = reversedImages.findIndex((item) => item._id === id);
@@ -146,6 +148,8 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
           close={() => setOpenModalGallery(false)}
           images={reversedImages}
           imageScaleId={imageIdGallery}
+          deletingPhoto={deletingPhoto || false}
+          deletePhotoError={deletePhotoError || ''}
         />
       )}
     </>

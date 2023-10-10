@@ -22,7 +22,13 @@ import { createStyles } from './modalGallery.styles';
 import { ModalGalleryProps } from './modalGallery.types';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-function ModalGallery({ close, images, imageScaleId }: ModalGalleryProps) {
+function ModalGallery({
+  close,
+  images,
+  imageScaleId,
+  deletingPhoto,
+  deletePhotoError,
+}: ModalGalleryProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
   const safeArea = useSafeAreaInsets();
@@ -53,7 +59,13 @@ function ModalGallery({ close, images, imageScaleId }: ModalGalleryProps) {
         <View style={{ backgroundColor: theme.colors.primary }}>
           <FlatList
             data={images}
-            renderItem={({ item }) => <GalleryImage image={item} />}
+            renderItem={({ item }) => (
+              <GalleryImage
+                image={item}
+                deletingPhoto={deletingPhoto}
+                deletePhotoError={deletePhotoError}
+              />
+            )}
             horizontal
             pagingEnabled
             bounces={false}

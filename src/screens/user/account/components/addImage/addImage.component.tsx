@@ -44,6 +44,7 @@ const AddImage = () => {
         newImages.push(image);
 
         const photos = newImages.map((image) => image.imageData);
+
         dispatch(addNewPhoto(photos));
       });
     }

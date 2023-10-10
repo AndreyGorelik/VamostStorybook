@@ -1,4 +1,3 @@
-import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import Text from '@shared/ui/text/text.component';
 import { Image } from 'expo-image';
@@ -16,8 +15,11 @@ import { GalleryImageProps } from './galleryImage.types';
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 
-export default function GalleryImage({ image }: GalleryImageProps) {
-  const { deletingPhoto, deletePhotoError } = useAppSelector((state) => state.userSlice);
+export default function GalleryImage({
+  image,
+  deletingPhoto,
+  deletePhotoError,
+}: GalleryImageProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
 
