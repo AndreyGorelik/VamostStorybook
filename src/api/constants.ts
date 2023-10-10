@@ -20,5 +20,5 @@ export const API_ROUTES = {
   takeDecision: 'take-decision',
   setStatus: 'set-status',
   auth: 'auth',
-  pictures: 'https://f386-185-53-133-78.ngrok-free.app/pictures',
+  pictures: 'pictures',
 };
