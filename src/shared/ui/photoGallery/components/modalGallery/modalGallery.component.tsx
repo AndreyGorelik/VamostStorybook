@@ -2,9 +2,19 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useAppDispatch } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { useRef, useState } from 'react';
-import { Dimensions, FlatList, Modal, Pressable, StatusBar, View, ViewToken } from 'react-native';
+import {
+  Alert,
+  Dimensions,
+  FlatList,
+  Modal,
+  Pressable,
+  StatusBar,
+  View,
+  ViewToken,
+} from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { deleteUserPhoto } from 'src/store/slices/user.slice';
 
 import GalleryImage from '../galleryImage/galleryImage.component';
 
@@ -16,6 +26,7 @@ function ModalGallery({ close, images, imageScaleId }: ModalGalleryProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
   const safeArea = useSafeAreaInsets();
+  const dispatch = useAppDispatch();
   const [currentImageId, setCurrentImageId] = useState('');
   StatusBar.setBarStyle('light-content');
 
@@ -28,7 +39,12 @@ function ModalGallery({ close, images, imageScaleId }: ModalGalleryProps) {
   }).current;
 
   const deletePhoto = (id: string) => {
-    console.log('delete this', id);
+    Alert.alert('Are you sure you want to delete the photo?', 'This action cannot be undone', [
+      {
+        text: 'Cancel',
+      },
+      { text: 'Delete', onPress: () => dispatch(deleteUserPhoto(id)) },
+    ]);
   };
 
   return (
@@ -55,10 +71,24 @@ function ModalGallery({ close, images, imageScaleId }: ModalGalleryProps) {
             }}
           />
           <View style={[styles.headerBtns, { top: safeArea.top }]}>
-            <Pressable onPress={close}>
+            <Pressable
+              onPress={close}
+              style={({ pressed }) => [
+                {
+                  opacity: pressed ? 0.8 : 1,
+                },
+              ]}
+            >
               <MaterialIcons name="arrow-back" size={24} color={theme.colors.secondary} />
             </Pressable>
-            <Pressable onPress={() => deletePhoto(currentImageId)}>
+            <Pressable
+              onPress={() => deletePhoto(currentImageId)}
+              style={({ pressed }) => [
+                {
+                  opacity: pressed ? 0.8 : 1,
+                },
+              ]}
+            >
               <MaterialIcons name="delete" size={24} color={theme.colors.secondary} />
             </Pressable>
           </View>

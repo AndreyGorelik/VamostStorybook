@@ -8,13 +8,13 @@ import PhotoGallery from '@shared/ui/photoGallery/photoGallery.component';
 import PostCreate from '@shared/ui/postCreate/postCreate.component';
 import Text from '@shared/ui/text/text.component';
 import { removeTokens } from '@shared/utils/removeTokens';
+import { Image } from 'expo-image';
 import { useNavigation } from 'expo-router';
 import { useState } from 'react';
 import {
   View,
   ScrollView,
   ImageBackground,
-  Image,
   FlatList,
   ActivityIndicatorComponent,
 } from 'react-native';

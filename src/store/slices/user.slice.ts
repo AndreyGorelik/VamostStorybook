@@ -30,6 +30,8 @@ export interface UserState {
   editInfoError?: string;
   photoError?: string;
   uploadingPhoto?: boolean;
+  deletingPhoto?: boolean;
+  deletePhotoError?: string;
 }
 
 export type UserInfo = {
@@ -79,6 +81,8 @@ export const initialState: UserState = {
   avatar: '',
   photoError: '',
   uploadingPhoto: false,
+  deletingPhoto: false,
+  deletePhotoError: '',
 };
 
 const userSlice = createSlice({
@@ -129,11 +133,27 @@ const userSlice = createSlice({
       state.photoError = action.payload;
       state.uploadingPhoto = false;
     },
+    setDeletePhotoError(state, action) {
+      state.deletePhotoError = action.payload;
+      state.deletingPhoto = false;
+    },
+    setDeletingPhoto(state, action) {
+      state.deletingPhoto = action.payload;
+      state.deletePhotoError = '';
+    },
+    removePhoto(state, action) {
+      state.images = state.images.filter((item) => item._id !== action.payload);
+      state.deletePhotoError = '';
+      state.deletingPhoto = false;
+    },
   },
 });
 
 export const ADD_NEW_PHOTO = 'userSlice/addNewPhoto';
 export const addNewPhoto = createAction<FormData[]>(ADD_NEW_PHOTO);
+
+export const DELETE_USER_PHOTO = 'userSlice/deletePhoto';
+export const deleteUserPhoto = createAction<string>(DELETE_USER_PHOTO);
 
 export const {
   setPhoneNumber,
@@ -148,6 +168,9 @@ export const {
   setPhotoError,
   setUploadingPhoto,
   setPhoto,
+  removePhoto,
+  setDeletePhotoError,
+  setDeletingPhoto,
 } = userSlice.actions;
 
 export default userSlice.reducer;
