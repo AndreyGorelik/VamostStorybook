@@ -11,8 +11,9 @@ export default function AvatarPlaceholder({ style, item, size }: AvatarPlacehold
   const theme = useTheme();
   const styles = createStyles(theme);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState(false);
 
-  return item.avatar ? (
+  return item.avatar && !error ? (
     <View style={style}>
       <Image
         key={item._id}
@@ -20,6 +21,7 @@ export default function AvatarPlaceholder({ style, item, size }: AvatarPlacehold
         style={[styles.userpic, { width: size, height: size }]}
         onLoadStart={() => setLoading(true)}
         onLoadEnd={() => setLoading(false)}
+        onError={() => setError(true)}
       />
       {loading && (
         <ActivityIndicator size={size / 3} color={theme.colors.text} style={styles.loader} />
