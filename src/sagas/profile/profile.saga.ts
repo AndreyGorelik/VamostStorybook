@@ -1,6 +1,6 @@
 import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { getProfileRequest } from 'src/api/getProfile';
+import { getProfileRequest } from 'src/api/postCreate/getProfile';
 import { Profile, getProfile, setError, setProfile } from 'src/store/slices/profileSlice';
 import { Action } from 'src/types/actions/actions.types';
 

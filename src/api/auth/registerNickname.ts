@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios';
 import { RegisterNicknameRequest } from 'src/types/api/registerNickname.types';
 
-import axios from './axios';
-import { API_ROUTES } from './constants';
+import axios from '../axios';
+import { API_ROUTES } from '../constants';
 
 export const registerNicknameRequest = async ({
   data,
