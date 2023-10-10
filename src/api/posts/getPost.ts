@@ -9,7 +9,7 @@ import { API_ROUTES } from '../constants';
 
 export const getPostRequest = async ({ id }: GetPost): Promise<AxiosResponse<PostInfo>> => {
   const userId = await SecureStore.getItemAsync('userId');
-  const response: AxiosResponse<PostResponse> = await axios.get(`${API_ROUTES.post}/${id}`);
+  const response: AxiosResponse<PostResponse> = await axios.get(`/${API_ROUTES.post}/${id}`);
 
   return {
     ...response,
