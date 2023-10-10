@@ -1,8 +1,8 @@
 import { getImagePath } from '@shared/utils/getImagePath';
 import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
+import { registerPhotoRequest } from 'src/api/auth/registerPhoto';
 import { deleteUserPhotoRequest } from 'src/api/deleteUserPhoto';
-import { registerPhotoRequest } from 'src/api/registerPhoto';
 import { Photo } from 'src/store/slices/profileSlice';
 import {
   ADD_NEW_PHOTO,
