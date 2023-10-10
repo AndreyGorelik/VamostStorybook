@@ -1,5 +1,5 @@
 import { Input } from '@shared/ui/input';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { View, TextInput, NativeSyntheticEvent, TextInputKeyPressEventData } from 'react-native';
 
@@ -31,25 +31,26 @@ export default function CodeInput({ onChange }: CodeInputProps) {
     onChange?.(Object.values(watchedValues).join(''));
   }, [onChange, watchedValues]);
 
-  const handleInput = (inputValue: string, nextInputRef?: React.RefObject<TextInput>) => {
-    if (inputValue.length >= 1) {
-      const cleanedText = inputValue.replace(/[^0-9]/g, '');
-      if (cleanedText.length === 0) return '';
+  const handleKeyPress = useCallback(
+    (
+      e: NativeSyntheticEvent<TextInputKeyPressEventData>,
+      nextInputRef?: React.RefObject<TextInput>,
+      prevInputRef?: React.RefObject<TextInput>
+    ) => {
+      if (e.nativeEvent.key === 'Backspace') {
+        prevInputRef?.current?.focus();
+        return '';
+      } else {
+        const cleanedKey = e.nativeEvent.key.replace(/[^0-9]/g, '');
+        if (cleanedKey.length === 0) return '';
 
-      nextInputRef?.current?.focus();
-      return cleanedText.slice(cleanedText.length - 1);
-    }
-    return '';
-  };
+        nextInputRef?.current?.focus();
+        return cleanedKey;
+      }
+    },
+    []
+  );
 
-  const handleBack = (
-    e: NativeSyntheticEvent<TextInputKeyPressEventData>,
-    prevInputRef: React.RefObject<TextInput>
-  ) => {
-    if (e.nativeEvent.key === 'Backspace') {
-      prevInputRef.current?.focus();
-    }
-  };
   return (
     <View style={styles.wrapper}>
       <Controller
@@ -60,9 +61,12 @@ export default function CodeInput({ onChange }: CodeInputProps) {
             ref={digit1}
             placeholder="."
             value={value}
-            onChangeText={(text: string) => onChange(handleInput(text, digit2))}
+            onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
+              onChange(handleKeyPress(e, digit2))
+            }
             keyboardType="numeric"
             onBlur={onBlur}
+            maxLength={1}
           />
         )}
       />
@@ -74,12 +78,12 @@ export default function CodeInput({ onChange }: CodeInputProps) {
             ref={digit2}
             placeholder="."
             value={value}
-            onChangeText={(text: string) => onChange(handleInput(text, digit3))}
             onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
-              handleBack(e, digit1)
+              onChange(handleKeyPress(e, digit3, digit1))
             }
             keyboardType="numeric"
             onBlur={onBlur}
+            maxLength={1}
           />
         )}
       />
@@ -92,12 +96,12 @@ export default function CodeInput({ onChange }: CodeInputProps) {
             ref={digit3}
             placeholder="."
             value={value}
-            onChangeText={(text: string) => onChange(handleInput(text, digit4))}
             onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
-              handleBack(e, digit2)
+              onChange(handleKeyPress(e, digit4, digit2))
             }
             keyboardType="numeric"
             onBlur={onBlur}
+            maxLength={1}
           />
         )}
       />
@@ -110,12 +114,12 @@ export default function CodeInput({ onChange }: CodeInputProps) {
             ref={digit4}
             placeholder="."
             value={value}
-            onChangeText={(text: string) => onChange(handleInput(text, digit5))}
             onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
-              handleBack(e, digit3)
+              onChange(handleKeyPress(e, digit5, digit3))
             }
             keyboardType="numeric"
             onBlur={onBlur}
+            maxLength={1}
           />
         )}
       />
@@ -128,12 +132,12 @@ export default function CodeInput({ onChange }: CodeInputProps) {
             ref={digit5}
             placeholder="."
             value={value}
-            onChangeText={(text: string) => onChange(handleInput(text, digit6))}
             onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
-              handleBack(e, digit4)
+              onChange(handleKeyPress(e, digit6, digit4))
             }
             keyboardType="numeric"
             onBlur={onBlur}
+            maxLength={1}
           />
         )}
       />
@@ -149,11 +153,8 @@ export default function CodeInput({ onChange }: CodeInputProps) {
             ref={digit6}
             placeholder="."
             value={value}
-            onChangeText={(text: string) => {
-              onChange(handleInput(text));
-            }}
             onKeyPress={(e: NativeSyntheticEvent<TextInputKeyPressEventData>) =>
-              handleBack(e, digit5)
+              onChange(handleKeyPress(e, undefined, digit5))
             }
             keyboardType="numeric"
             onBlur={onBlur}

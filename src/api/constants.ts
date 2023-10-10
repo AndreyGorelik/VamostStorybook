@@ -19,5 +19,5 @@ export const API_ROUTES = {
   getRequests: 'get-requests',
   takeDecision: 'take-decision',
   auth: 'auth',
-  pictures: 'https://69bc-185-53-133-78.ngrok-free.app/pictures',
+  pictures: 'pictures',
 };

@@ -1,9 +1,9 @@
 import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { createPostRequest } from 'src/api/createPost';
-import { getFullPackageRequest } from 'src/api/getFullPackage';
-import { getPackagesRequest } from 'src/api/getPackages';
-import { getVenuesRequest } from 'src/api/getVenues';
+import { createPostRequest } from 'src/api/postCreate/createPost';
+import { getFullPackageRequest } from 'src/api/postCreate/getFullPackage';
+import { getPackagesRequest } from 'src/api/postCreate/getPackages';
+import { getVenuesRequest } from 'src/api/postCreate/getVenues';
 import {
   CREATE_POST,
   GET_FULL_PACKAGE,
