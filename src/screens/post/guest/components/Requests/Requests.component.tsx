@@ -3,7 +3,6 @@ import useTheme from '@shared/hooks/useTheme.hook';
 import Divider from '@shared/ui/divider/divider.component';
 import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { addAllRequest, removeAllRequest } from 'src/store/slices/post/requests/allRequests.slice';
 import {
   addDeletedRequest,
   removeDeletedRequest,
@@ -11,12 +10,13 @@ import {
 import { removePendingRequest } from 'src/store/slices/post/requests/pendingRequests.slice';
 import { PostRequest } from 'src/types/api/getPosts';
 
-import { All } from './components/All';
-import { Deleted } from './components/Deleted';
-import { Pending } from './components/Pending';
 import { tabs } from './Requests.data';
 import { createStyles } from './Requests.styles';
 import { RequestsProps } from './Requests.types';
+import {
+  addApproveRequest,
+  removeApproveRequest,
+} from 'src/store/slices/post/requests/approveRequests.slice';
 
 export default function Requests({ postId }: RequestsProps) {
   const theme = useTheme();
@@ -27,11 +27,11 @@ export default function Requests({ postId }: RequestsProps) {
   function handleConfirmRequest(request: PostRequest) {
     dispatch(removePendingRequest(request));
     dispatch(removeDeletedRequest(request));
-    dispatch(addAllRequest(request));
+    dispatch(addApproveRequest(request));
   }
   function handleDeleteRequest(request: PostRequest) {
     dispatch(removePendingRequest(request));
-    dispatch(removeAllRequest(request));
+    dispatch(removeApproveRequest(request));
     dispatch(addDeletedRequest(request));
   }
 
@@ -47,27 +47,6 @@ export default function Requests({ postId }: RequestsProps) {
         ))}
       </View>
       <Divider />
-      {index === 1 && (
-        <Pending
-          id={postId}
-          confirmRequest={handleConfirmRequest}
-          deleteRequest={handleDeleteRequest}
-        />
-      )}
-      {index === 2 && (
-        <Deleted
-          id={postId}
-          confirmRequest={handleConfirmRequest}
-          deleteRequest={handleDeleteRequest}
-        />
-      )}
-      {index === 3 && (
-        <All
-          id={postId}
-          confirmRequest={handleConfirmRequest}
-          deleteRequest={handleDeleteRequest}
-        />
-      )}
     </View>
   );
 }

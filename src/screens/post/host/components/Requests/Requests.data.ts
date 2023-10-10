@@ -1,14 +1,7 @@
-export const tabs = [
-  {
-    id: 1,
-    title: 'Pending',
-  },
-  {
-    id: 2,
-    title: 'Deleted',
-  },
-  {
-    id: 3,
-    title: 'All',
-  },
-];
+import { RequestStatus } from 'src/types/api/getPosts';
+
+export const tabs: Record<RequestStatus, string> = {
+  New: 'Pending',
+  Rejected: 'Rejected',
+  Approve: 'Approved',
+};

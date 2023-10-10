@@ -2,15 +2,31 @@ import ErrorPage from '@screens/errorPage/errorPage.component';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
-import { OutlinedButton } from '@shared/ui/outlinedBtn';
 import { PageLoader } from '@shared/ui/pageLoader';
+import { Request } from '@shared/ui/request';
 import { useNavigation } from 'expo-router';
-import { useEffect } from 'react';
-import { View, ScrollView, Alert, RefreshControl, Text } from 'react-native';
-import { getPostAction, resetPost, updatePostStatus } from 'src/store/slices/post/post.slice';
+import { useState } from 'react';
+import { View, RefreshControl, Text, FlatList } from 'react-native';
+import {
+  confirmRequest,
+  deleteRequest,
+  getPostAction,
+  resetPost,
+} from 'src/store/slices/post/post.slice';
+import {
+  addApproveRequest,
+  removeApproveRequest,
+} from 'src/store/slices/post/requests/approveRequests.slice';
+import {
+  removeDeletedRequest,
+  addDeletedRequest,
+} from 'src/store/slices/post/requests/deletedRequests.slice';
+import { removePendingRequest } from 'src/store/slices/post/requests/pendingRequests.slice';
+import { PostRequest, RequestStatus } from 'src/types/api/getPosts';
 
 import { Guests } from './components/Guests';
 import { Header } from './components/Header';
+import { PostActions } from './components/PostActions';
 import { Requests } from './components/Requests';
 import { Tags } from './components/Tags';
 import { createStyles } from './host.styles';
@@ -21,37 +37,42 @@ export default function PostFullHost() {
   const { post, isPostLoading, error } = useAppSelector((state) => state.postSlice);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+  const [active, setActive] = useState<RequestStatus>('New');
+  const { approveRequests } = useAppSelector((state) => state.approveRequestsSlice);
+  const { pendingRequests } = useAppSelector((state) => state.pendingRequestsSlice);
+  const { deletedRequests } = useAppSelector((state) => state.deletedRequestsSlice);
 
-  const actionBtns = [
-    {
-      title: 'Confirm & Lock',
-      color: theme.colors.postStatus.confirmed,
-      disabled: Boolean(post?.info?.guests?.length && post.info.guests.length < 2),
-      onPress: () => {
-        confirmPost();
-        refetchPost();
-      },
-    },
-    {
-      title: 'Change',
-      color: theme.colors.postStatus.created,
-      onPress: changePost,
-    },
-    {
-      title: 'Cancel',
-      color: theme.colors.postStatus.canceled,
-      onPress: () => {
-        cancelPost();
-        refetchPost();
-      },
-    },
-  ];
+  const data: Record<RequestStatus, PostRequest[]> = {
+    New: pendingRequests,
+    Approve: approveRequests,
+    Rejected: deletedRequests,
+  };
 
-  useEffect(() => {
-    return () => {
-      dispatch(resetPost());
-    };
-  }, [dispatch]);
+  function handleConfirmRequest(request: PostRequest) {
+    if (!post?.info._id) return;
+
+    const approvedRequest: PostRequest = { ...request, requestStatus: 'Approve' };
+
+    dispatch(removePendingRequest(request));
+    dispatch(removeDeletedRequest(request));
+    dispatch(addApproveRequest(approvedRequest));
+    dispatch(
+      confirmRequest({ postId: post.info._id, requestId: request._id, decision: 'Approve' })
+    );
+  }
+
+  function handleDeleteRequest(request: PostRequest) {
+    if (!post?.info._id) return;
+
+    const rejectedRequest: PostRequest = { ...request, requestStatus: 'Rejected' };
+
+    dispatch(removePendingRequest(request));
+    dispatch(removeApproveRequest(request));
+    dispatch(addDeletedRequest(rejectedRequest));
+    dispatch(
+      deleteRequest({ postId: post.info._id, requestId: request._id, decision: 'Rejected' })
+    );
+  }
 
   function refetchPost() {
     if (!post || !post.info) return;
@@ -63,28 +84,6 @@ export default function PostFullHost() {
     navigation.goBack();
   }
 
-  function confirmPost() {
-    if (!post || !post.info) return;
-    dispatch(
-      updatePostStatus({
-        id: post?.info._id,
-        postStatus: 'Active',
-      })
-    );
-  }
-  function changePost() {
-    Alert.alert('change');
-  }
-  function cancelPost() {
-    if (!post || !post.info) return;
-    dispatch(
-      updatePostStatus({
-        id: post?.info._id,
-        postStatus: 'Cancelled',
-      })
-    );
-  }
-
   if (isPostLoading) return <PageLoader />;
 
   if (error) return <Text>{error}</Text>;
@@ -94,31 +93,43 @@ export default function PostFullHost() {
   }
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.scrollWrapper}
-      style={styles.wrapper}
-      bounces={true}
-      showsVerticalScrollIndicator={false}
+    <FlatList
+      ListHeaderComponent={
+        <View style={styles.wrapper}>
+          <Header postInfo={post.info} />
+          <HeaderButton
+            onPress={handleBack}
+            icon={'arrow-back'}
+            isBackground={true}
+            variant="left"
+          />
+
+          <View style={styles.postInfo}>
+            <Tags tags={post.info.tags} />
+            <Guests postInfo={post.info} />
+
+            {post.info.postStatus === 'New' && (
+              <>
+                <PostActions post={post} refetchPost={refetchPost} />
+                <Requests postId={post.info._id} active={active} setActive={setActive} />
+              </>
+            )}
+          </View>
+        </View>
+      }
+      data={data[active]}
+      renderItem={({ item }) => (
+        <Request
+          data={item}
+          confirmRequest={() => handleConfirmRequest(item)}
+          deleteRequest={() => handleDeleteRequest(item)}
+        />
+      )}
       refreshControl={<RefreshControl refreshing={isPostLoading} onRefresh={refetchPost} />}
-    >
-      <Header postInfo={post.info} />
-      <HeaderButton onPress={handleBack} icon={'arrow-back'} isBackground={true} variant="left" />
-
-      <View style={styles.postInfo}>
-        <Tags tags={post.info.tags} />
-        <Guests postInfo={post.info} />
-
-        {post.info.postStatus === 'New' && (
-          <>
-            <View style={styles.actionButtons}>
-              {actionBtns.map((button) => (
-                <OutlinedButton key={button.title} {...button} {...styles.actionBtn} />
-              ))}
-            </View>
-            <Requests postId={post.info._id} />
-          </>
-        )}
-      </View>
-    </ScrollView>
+      extraData={active}
+      style={{
+        backgroundColor: theme.colors.background,
+      }}
+    />
   );
 }

@@ -17,7 +17,7 @@ import rootSaga from '../sagas';
 
 import authSlice from './slices/auth.slice';
 import postSlice from './slices/post/post.slice';
-import allRequestsSlice from './slices/post/requests/allRequests.slice';
+import approveRequestsSlice from './slices/post/requests/approveRequests.slice';
 import deletedRequestsSlice from './slices/post/requests/deletedRequests.slice';
 import pendingRequestsSlice from './slices/post/requests/pendingRequests.slice';
 import postCreateSlice from './slices/postCreateSlice';
@@ -39,7 +39,7 @@ const persistConfig = {
     'pastPostsSlice.error',
     'cancelledPostsSlice.error',
     'postSlice',
-    'allRequestsSlice',
+    'approveRequestsSlice',
     'deletedRequestsSlice',
     'pendingRequestsSlice',
     'profileSlice',
@@ -57,7 +57,7 @@ const rootReducer = combineReducers({
   upcomingPostsSlice,
   cancelledPostsSlice,
   pastPostsSlice,
-  allRequestsSlice,
+  approveRequestsSlice,
   deletedRequestsSlice,
   pendingRequestsSlice,
 });

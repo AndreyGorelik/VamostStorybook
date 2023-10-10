@@ -1,4 +1,5 @@
 import { Filters } from '@screens/home/home.screen';
+import { Photo } from 'src/store/slices/profileSlice';
 
 import { PostStatus } from '../actions/actions.types';
 
@@ -38,12 +39,8 @@ export type PostRequest = {
   _id: string;
   requestStatus: RequestStatus;
   user: {
-    avatar: string;
+    avatar: Photo;
     nickName: string;
-    id: string;
-    gender: {
-      value: 'Man' | 'Woman' | 'Other' | null;
-      isShown: boolean;
-    };
+    _id: string;
   };
 };
