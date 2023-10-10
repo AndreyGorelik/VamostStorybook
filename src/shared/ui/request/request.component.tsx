@@ -1,5 +1,6 @@
 import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import useTheme from '@shared/hooks/useTheme.hook';
+import { getImagePath } from '@shared/utils/getImagePath';
 import { useState } from 'react';
 import { ActivityIndicator, Image, View } from 'react-native';
 import { PostRequest } from 'src/types/api/getPosts';
@@ -25,10 +26,10 @@ export default function Request({
   return (
     <View style={styles.container}>
       <View>
-        {loading && <ActivityIndicator size={24} color={theme.colors.text} />}
+        {loading && <ActivityIndicator size={24} color={theme.colors.text} style={styles.loader} />}
         {data.user?.avatar ? (
           <Image
-            source={{ uri: data.user.avatar }}
+            source={{ uri: getImagePath(data.user.avatar) }}
             style={styles.userpic}
             onLoadStart={() => setLoading(true)}
             onLoadEnd={() => setLoading(false)}

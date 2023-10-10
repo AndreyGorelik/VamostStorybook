@@ -13,7 +13,7 @@ export default function HostingLabel({ type }: { type: 'Host' | 'Guest' }) {
     <View style={styles.label}>
       <AntDesign name="star" size={24} color={theme.colors.secondary} />
       <Text variant="h5" color={theme.colors.secondary}>
-        You are {type === 'Host' ? 'hosting' : 'guesting'}
+        You {type === 'Host' ? 'are hosting' : 'requested to be hosted'}
       </Text>
     </View>
   );

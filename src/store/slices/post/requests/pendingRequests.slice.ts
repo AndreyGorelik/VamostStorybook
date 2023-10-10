@@ -35,7 +35,7 @@ const pendingRequestsSlice = createSlice({
 
     removePendingRequest(state, action: PayloadAction<PostRequest>) {
       state.pendingRequests = [
-        ...state.pendingRequests.filter((request) => request.id !== action.payload.id),
+        ...state.pendingRequests.filter((request) => request._id !== action.payload._id),
       ];
     },
     getPendingRequests(state) {
