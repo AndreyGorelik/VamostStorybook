@@ -1,27 +1,30 @@
 import { Ionicons } from '@expo/vector-icons';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { getImagePath } from '@shared/utils/getImagePath';
-import React from 'react';
-import { View, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Image, ActivityIndicator } from 'react-native';
 
 import { createStyles } from './avatarPlaceholder.styles';
 import { AvatarPlaceholderProps } from './avatarPlaceholder.types';
 
-export default function AvatarPlaceholder({
-  style,
-  item,
-  size,
-  imageStyle,
-}: AvatarPlaceholderProps) {
+export default function AvatarPlaceholder({ style, item, size }: AvatarPlaceholderProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const [loading, setLoading] = useState<boolean>(false);
 
   return item.avatar ? (
-    <Image
-      key={item._id}
-      source={{ uri: getImagePath(item.avatar) }}
-      style={[styles.userpic, { width: size, height: size }, imageStyle]}
-    />
+    <View style={style}>
+      <Image
+        key={item._id}
+        source={{ uri: getImagePath(item.avatar) }}
+        style={[styles.userpic, { width: size, height: size }]}
+        onLoadStart={() => setLoading(true)}
+        onLoadEnd={() => setLoading(false)}
+      />
+      {loading && (
+        <ActivityIndicator size={size / 3} color={theme.colors.text} style={styles.loader} />
+      )}
+    </View>
   ) : (
     <View
       key={item._id}

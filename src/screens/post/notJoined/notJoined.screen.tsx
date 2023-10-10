@@ -99,12 +99,7 @@ export default function NotJoined() {
       </ImageBackground>
       <HeaderButton onPress={handleBack} icon={'arrow-back'} isBackground={true} variant="left" />
 
-      <AvatarPlaceholder
-        item={post.info.owner}
-        size={70}
-        style={styles.userPicture}
-        imageStyle={styles.userPicture}
-      />
+      <AvatarPlaceholder item={post.info.owner} size={70} style={styles.userPicture} />
 
       <View style={styles.postInfo}>
         <Text variant="h4">{post.info.location}</Text>

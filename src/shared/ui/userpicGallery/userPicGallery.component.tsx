@@ -29,7 +29,6 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
               key={item._id}
               size={size}
               item={item}
-              imageStyle={{ marginLeft: -size / 2 }}
               style={{ marginLeft: -size / 2 }}
             />
           );
