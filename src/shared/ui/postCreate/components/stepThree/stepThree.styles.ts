@@ -6,4 +6,7 @@ export const createStyles = (_theme: Theme) =>
     wrapper: {
       gap: 15,
     },
+    listItem: {
+      height: 50,
+    },
   });

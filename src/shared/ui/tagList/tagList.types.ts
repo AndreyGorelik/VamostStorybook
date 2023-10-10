@@ -5,6 +5,6 @@ export interface TagsList {
 
 export interface TagListProps {
   selectedList: string[];
-  setSelectedList: React.Dispatch<React.SetStateAction<string[]>>;
+  setSelectedList: (tags: string[]) => void;
   tagsList: TagsList[];
 }
