@@ -15,7 +15,6 @@ function* logInRequestWorker(action: Action<LoginUser>) {
   try {
     const response: AxiosResponse<SignInResponse> = yield call(signInRequest, action.payload);
     const data = response.data;
-    console.log('DATA', data.images);
 
     yield call(saveTokens, data.tokens.refreshToken, data.tokens.accessToken, data._id);
 
@@ -29,7 +28,6 @@ function* logInRequestWorker(action: Action<LoginUser>) {
         sexualOrientation: data.sexualOrientation && data.sexualOrientation,
         shownGender: data.shownGender && data.shownGender,
         images: data?.images.map((image) => {
-          console.log('Image:', image);
           return {
             ...image,
             imagePath: getImagePath(image),

@@ -1,24 +1,34 @@
-import Axios from 'axios';
-import { call, takeLatest } from 'redux-saga/effects';
-import { getProfileRequest } from 'src/api/getProfile';
+import { getImagePath } from '@shared/utils/getImagePath';
+import Axios, { AxiosResponse } from 'axios';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { registerPhotoRequest } from 'src/api/registerPhoto';
-import { UPDATE_PHOTO } from 'src/store/slices/user.slice';
+import { Photo } from 'src/store/slices/profileSlice';
+import {
+  ADD_NEW_PHOTO,
+  setPhoto,
+  setPhotoError,
+  setUploadingPhoto,
+} from 'src/store/slices/user.slice';
 import { Action } from 'src/types/actions/actions.types';
 
-function* updatePhotoWorker(action: Action<FormData[]>) {
+function* addNewPhotoWorker(action: Action<FormData[]>) {
   const { payload } = action;
-  console.log('123123');
-
+  yield put(setUploadingPhoto(true));
   try {
     for (const image of payload) {
-      yield call(registerPhotoRequest, { data: image });
+      const response: AxiosResponse<Photo> = yield call(registerPhotoRequest, { data: image });
+      yield put(
+        setPhoto({
+          ...response.data,
+          imagePath: getImagePath(response.data),
+        })
+      );
     }
-    // yield call(getProfileRequest, '123123');
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
         if (error.response.data && error.response.data.message) {
-          console.log(error);
+          yield put(setPhotoError(error.response.data.message));
         }
       }
     }
@@ -26,5 +36,5 @@ function* updatePhotoWorker(action: Action<FormData[]>) {
 }
 
 export function* accountSaga() {
-  yield takeLatest(UPDATE_PHOTO, updatePhotoWorker);
+  yield takeLatest(ADD_NEW_PHOTO, addNewPhotoWorker);
 }

@@ -28,7 +28,8 @@ export interface UserState {
   images: Photo[];
   avatar: string;
   editInfoError?: string;
-  updatePhotoError?: string;
+  photoError?: string;
+  uploadingPhoto?: boolean;
 }
 
 export type UserInfo = {
@@ -76,6 +77,8 @@ export const initialState: UserState = {
   images: [],
   phoneVerified: false,
   avatar: '',
+  photoError: '',
+  uploadingPhoto: false,
 };
 
 const userSlice = createSlice({
@@ -114,15 +117,23 @@ const userSlice = createSlice({
       state.sexualOrientation = action.payload.sexualOrientation;
       state.birthdate = action.payload.birthdate;
     },
-    setPhoto(state, action) {
-      state.updatePhotoError = undefined;
-      state.images = action.payload;
+    setPhoto(state, action: PayloadAction<Photo>) {
+      state.photoError = '';
+      state.images.push(action.payload);
+      state.uploadingPhoto = false;
+    },
+    setUploadingPhoto(state, action) {
+      state.uploadingPhoto = action.payload;
+    },
+    setPhotoError(state, action) {
+      state.photoError = action.payload;
+      state.uploadingPhoto = false;
     },
   },
 });
 
-export const UPDATE_PHOTO = 'userSlice/updatePhoto';
-export const updatePhoto = createAction<any>(UPDATE_PHOTO);
+export const ADD_NEW_PHOTO = 'userSlice/addNewPhoto';
+export const addNewPhoto = createAction<FormData[]>(ADD_NEW_PHOTO);
 
 export const {
   setPhoneNumber,
@@ -134,6 +145,8 @@ export const {
   setBirthDate,
   setUser,
   setEditedUserInfo,
+  setPhotoError,
+  setUploadingPhoto,
   setPhoto,
 } = userSlice.actions;
 

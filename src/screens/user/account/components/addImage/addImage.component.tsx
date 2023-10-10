@@ -1,12 +1,13 @@
 import { PickedImage } from '@screens/auth/register/components/steps/photos/photos.types';
-import { useAppDispatch } from '@shared/hooks/redux.hook';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import { Button } from '@shared/ui/button';
 import * as ImagePicker from 'expo-image-picker';
 import mime from 'mime';
 import { Platform } from 'react-native';
-import { updatePhoto } from 'src/store/slices/user.slice';
+import { addNewPhoto } from 'src/store/slices/user.slice';
 
 const AddImage = () => {
+  const { uploadingPhoto } = useAppSelector((state) => state.userSlice);
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
   const dispatch = useAppDispatch();
   const addPhoto = async () => {
@@ -43,12 +44,19 @@ const AddImage = () => {
         newImages.push(image);
 
         const photos = newImages.map((image) => image.imageData);
-        dispatch(updatePhoto(photos));
+        dispatch(addNewPhoto(photos));
       });
     }
   };
 
-  return <Button title="Add new photo" onPress={addPhoto} />;
+  return (
+    <Button
+      title="Add new photo"
+      onPress={addPhoto}
+      disabled={uploadingPhoto}
+      loading={uploadingPhoto}
+    />
+  );
 };
 
 export default AddImage;

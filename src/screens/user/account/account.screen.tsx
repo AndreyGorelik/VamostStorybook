@@ -31,8 +31,10 @@ export default function Account() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [editMode, setEditMode] = useState(false);
-  const { email, nickname, images, avatar } = useAppSelector((state) => state.userSlice);
-  
+  const { email, nickname, images, avatar, photoError } = useAppSelector(
+    (state) => state.userSlice
+  );
+
   const dispatch = useAppDispatch();
   const [openPostCreate, setOpenPostCreate] = useState(false);
   const navigation = useNavigation();
@@ -111,6 +113,7 @@ export default function Account() {
           <View style={styles.photoContainer}>
             <Text variant="h3">Photos</Text>
             <PhotoGallery images={images} />
+            {photoError && <Text variant="warning">{photoError}</Text>}
             <AddImage />
           </View>
         </View>

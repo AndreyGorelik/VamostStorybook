@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { ActivityIndicator, Dimensions } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import { PinchGestureHandler, PinchGestureHandlerGestureEvent } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedGestureHandler,
@@ -48,19 +48,20 @@ export default function GalleryImage({ image }: GalleryImageProps) {
   return (
     <PinchGestureHandler onGestureEvent={pinchHandler}>
       <Animated.View style={[animatedImageStyle]}>
-        <Image
-          style={{
-            width: SCREEN_WIDTH,
-            height: SCREEN_HEIGHT,
-          }}
-          contentFit="contain"
-          source={{
-            uri: image.imagePath,
-          }}
-          placeholder={require('../../../../../assets/images/loader.gif')}
-          cachePolicy="memory-disk"
-        />
-        <ActivityIndicator />
+        <View>
+          <Image
+            style={{
+              width: SCREEN_WIDTH,
+              height: SCREEN_HEIGHT,
+            }}
+            contentFit="contain"
+            source={{
+              uri: image.imagePath,
+            }}
+            placeholder={require('../../../../../assets/images/loader.gif')}
+            cachePolicy="memory-disk"
+          />
+        </View>
       </Animated.View>
     </PinchGestureHandler>
   );
