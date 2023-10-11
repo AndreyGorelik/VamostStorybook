@@ -12,7 +12,7 @@ import { getImagePath } from '@shared/utils/getImagePath';
 import Axios from 'axios';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation } from 'expo-router';
+import { Link, useNavigation } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect, useState } from 'react';
 import { View, ImageBackground, ScrollView, Alert, RefreshControl, Pressable } from 'react-native';
@@ -32,6 +32,15 @@ export default function NotJoined() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+
+  const isLocked = post?.info?.postStatus === 'Active';
+  const title = post?.info?.hostType === 'Host' ? 'Request' : 'Request to be host';
+  const hostedBy =
+    post?.info?.hostType === 'Host'
+      ? post?.info?.owner.nickName
+      : isLocked
+      ? post.info.members[1].nickName
+      : '';
 
   function handleBack() {
     navigation.goBack();
@@ -99,17 +108,24 @@ export default function NotJoined() {
       </ImageBackground>
       <HeaderButton onPress={handleBack} icon={'arrow-back'} isBackground={true} variant="left" />
 
-      <AvatarPlaceholder item={post.info.owner} size={70} style={styles.userPicture} />
-
+      <Link
+        href={{
+          pathname: '/profilefull/[id]',
+          params: { id: post.info.owner._id },
+        }}
+        style={styles.userPicture}
+      >
+        <AvatarPlaceholder item={post.info.owner} size={70} />
+      </Link>
       <View style={styles.postInfo}>
         <Text variant="h4">{post.info.location}</Text>
         <View style={styles.mainInfo}>
-          <Text>Hosted by: {post.info.hostType === 'Host' ? post.info.owner.nickName : ''}</Text>
+          <Text>Hosted by: {hostedBy}</Text>
           <Button
-            title={post.info.hostType === 'Host' ? 'Request' : 'Request to be host'}
+            title={isLocked ? 'Locked' : title}
             onPress={requestInvite}
             loading={isLoading}
-            disabled={disabled}
+            disabled={disabled || isLocked}
           />
           <Text variant="disabled" fontSize={14}>
             {post.info.date && format(new Date(post.info.date), 'MMMM d, yyyy, h:mm a')}
