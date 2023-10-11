@@ -150,7 +150,7 @@ const userSlice = createSlice({
 });
 
 export const ADD_NEW_PHOTO = 'userSlice/addNewPhoto';
-export const addNewPhoto = createAction<FormData[]>(ADD_NEW_PHOTO);
+export const addNewPhoto = createAction<string>(ADD_NEW_PHOTO);
 
 export const DELETE_USER_PHOTO = 'userSlice/deletePhoto';
 export const deleteUserPhoto = createAction<string>(DELETE_USER_PHOTO);

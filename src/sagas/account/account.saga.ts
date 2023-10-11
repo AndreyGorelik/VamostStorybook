@@ -16,13 +16,18 @@ import {
 } from 'src/store/slices/user.slice';
 import { Action } from 'src/types/actions/actions.types';
 
-function* addNewPhotoWorker(action: Action<FormData[]>) {
+function* addNewPhotoWorker(action: Action<string>) {
   const { payload } = action;
+
   try {
-    for (const image of payload) {
+    for (const image of JSON.parse(payload)) {
+      const formData = new FormData();
+      formData.append('imageData', image as any);
+
       yield put(setUploadingPhoto(true));
 
-      const response: AxiosResponse<Photo> = yield call(registerPhotoRequest, { data: image });
+      const response: AxiosResponse<Photo> = yield call(registerPhotoRequest, { data: formData });
+
       yield put(
         setPhoto({
           ...response.data,

@@ -1,10 +1,11 @@
-import { PickedImage } from '@screens/auth/register/components/steps/photos/photos.types';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import { Button } from '@shared/ui/button';
 import * as ImagePicker from 'expo-image-picker';
 import mime from 'mime';
 import { Platform } from 'react-native';
 import { addNewPhoto } from 'src/store/slices/user.slice';
+
+import { PickedImg } from './addImage.types';
 
 const AddImage = () => {
   const { uploadingPhoto } = useAppSelector((state) => state.userSlice);
@@ -16,14 +17,14 @@ const AddImage = () => {
     }
 
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: false,
       quality: 1,
       allowsMultipleSelection: true,
     });
 
     if (!result.canceled) {
-      const newImages: PickedImage[] = [];
+      const newImages: PickedImg[] = [];
       result.assets.forEach(async (asset) => {
         const formData = new FormData();
         const uri = Platform.OS === 'ios' ? asset.uri.replace('file://', '') : asset.uri;
@@ -38,14 +39,14 @@ const AddImage = () => {
 
         const image = {
           uri: asset.uri,
-          imageData: formData,
+          imageData: fileData,
         };
 
         newImages.push(image);
 
         const photos = newImages.map((image) => image.imageData);
 
-        dispatch(addNewPhoto(photos));
+        dispatch(addNewPhoto(JSON.stringify(photos)));
       });
     }
   };
