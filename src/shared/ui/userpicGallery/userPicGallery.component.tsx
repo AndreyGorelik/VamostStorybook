@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import useTheme from '@shared/hooks/useTheme.hook';
+import { getImagePath } from '@shared/utils/getImagePath';
 import { View, Image } from 'react-native';
 
 import { createStyles } from './userPicGallery.styles';
@@ -15,13 +16,13 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
         if (index > 0) {
           return item.avatar ? (
             <Image
-              key={item.id}
-              source={{ uri: item.avatar }}
+              key={item._id}
+              source={{ uri: getImagePath(item.avatar) }}
               style={[styles.userpic, { marginLeft: -size / 2, width: size, height: size }]}
             />
           ) : (
             <View
-              key={item.id}
+              key={item._id}
               style={[
                 styles.icon,
                 {
@@ -44,13 +45,13 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
         } else {
           return item.avatar ? (
             <Image
-              key={item.id}
-              source={{ uri: item.avatar }}
+              key={item._id}
+              source={{ uri: getImagePath(item.avatar) }}
               style={[styles.userpic, { width: size, height: size }]}
             />
           ) : (
             <View
-              key={item.id}
+              key={item._id}
               style={[
                 styles.icon,
                 {

@@ -3,6 +3,7 @@ import { SelectCity } from '@shared/ui/selectCity';
 import { useState } from 'react';
 import { TextInput, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Place } from 'src/types/actions/actions.types';
 
 import useTheme from '../../../../hooks/useTheme.hook';
 import { Button } from '../../../button';
@@ -22,7 +23,7 @@ export default function StepTwo({ post, setPost, next, setPlaceId }: StepTwoProp
   const [selectedTagList, setSelectedTagList] = useState<string[]>(post.tags);
   const [descriptionVisible, setDescriptionVisible] = useState(post.description || false);
   const [location, setLocation] = useState(post.location);
-  const [venue, setVenue] = useState('');
+  const [venue, setVenue] = useState<Place | null>(null);
   const [description, setDescription] = useState(post.description);
   const [openCitySelectList, setOpenCitySelectList] = useState(false);
   const [openPlacesSelectList, setOpenPlacesSelectList] = useState(false);
@@ -33,27 +34,44 @@ export default function StepTwo({ post, setPost, next, setPlaceId }: StepTwoProp
   };
 
   const saveAndGoAhead = () => {
+    if (!venue) return;
+
     setPost({
       ...post,
       date,
       description,
       tags: selectedTagList,
       location,
-      venue,
+      venue: venue.name,
     });
     next();
   };
 
+  const selectTags = (tags: string[]) => {
+    tags.forEach((tag) => {
+      if (!venue?.tags.includes(tag)) {
+        setVenue(null);
+      }
+    });
+
+    setSelectedTagList(tags);
+  };
+
   const selectCity = (city: string) => {
-    setVenue('');
+    setVenue(null);
     setLocation(city);
+  };
+
+  const selectDate = (date: Date) => {
+    setVenue(null);
+    setDate(date);
   };
 
   return (
     <View style={styles.wrapper}>
       <View style={styles.row}>
         <Text>When:</Text>
-        <PostDateAndTime date={date} setDate={setDate} />
+        <PostDateAndTime date={date} setDate={selectDate} />
       </View>
       <View style={styles.row}>
         <Text>Where:</Text>
@@ -69,7 +87,7 @@ export default function StepTwo({ post, setPost, next, setPlaceId }: StepTwoProp
         <Text>What:</Text>
         <TagList
           selectedList={selectedTagList}
-          setSelectedList={setSelectedTagList}
+          setSelectedList={selectTags}
           tagsList={TAG_LIST_DATA}
         />
       </View>
@@ -77,7 +95,7 @@ export default function StepTwo({ post, setPost, next, setPlaceId }: StepTwoProp
       <View style={styles.row}>
         <Text>Venue:</Text>
         <OutlinedButton
-          title={venue ? venue : 'Select...'}
+          title={venue ? venue.name : 'Select...'}
           borderRadius={25}
           width={150}
           height={40}

@@ -35,7 +35,7 @@ const deletedRequestsSlice = createSlice({
 
     removeDeletedRequest(state, action: PayloadAction<PostRequest>) {
       state.deletedRequests = [
-        ...state.deletedRequests.filter((request) => request.id !== action.payload.id),
+        ...state.deletedRequests.filter((request) => request._id !== action.payload._id),
       ];
     },
 

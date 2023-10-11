@@ -1,7 +1,9 @@
-import { PostRequest } from 'src/types/api/getPosts';
+import { PostRequest, RequestStatus } from 'src/types/api/getPosts';
 
 interface RequestsProps {
   postId: string;
+  active: RequestStatus;
+  setActive: (active: RequestStatus) => void;
 }
 
 interface TabViewProps {

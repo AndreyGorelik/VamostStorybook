@@ -9,8 +9,8 @@ export const confirmRequest = async ({
   requestId,
   decision = 'Approve',
 }: TakeDecision): Promise<AxiosResponse<string>> => {
-  return await axios.patch(`${API_ROUTES.post}/${postId}/${API_ROUTES.takeDecision}`, {
-    requestId,
+  return await axios.patch(`${API_ROUTES.request}/${requestId}`, {
+    postId,
     decision,
   });
 };

@@ -3,15 +3,18 @@ import { StyleSheet } from 'react-native';
 
 export const createStyles = (theme: Theme) =>
   StyleSheet.create({
-    label: {
+    actionButtons: {
+      width: '100%',
+      flex: 1,
       flexDirection: 'row',
-      backgroundColor: theme.colors.secondRed,
-      alignItems: 'center',
-      justifyContent: 'center',
       gap: 10,
-      borderRadius: 100,
-      padding: 5,
-      minWidth: '50%',
-      paddingHorizontal: 15,
+      justifyContent: 'space-between',
+    },
+
+    actionBtn: {
+      borderRadius: 20,
+      height: 40,
+      fontSize: 14,
+      flex: 1,
     },
   });
