@@ -1,6 +1,5 @@
 import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
-import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
 import { ImageBackground, TouchableOpacity, View } from 'react-native';
@@ -8,16 +7,17 @@ import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import Text from '../text/text.component';
 
 import ModalGallery from './components/modalGallery/modalGallery.component';
+import SmartImage from './components/smartImage/smartImage.component';
 import { createStyles } from './photoGallery.styles';
 import { PhotoGalleryProps } from './photoGallery.types';
 
 const MAX_IMAGES = 6;
-const PLACEHOLDER = '../../../assets/images/loader.gif';
 
 function PhotoGallery({ images }: PhotoGalleryProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
   const reversedImages = [...images].reverse();
+
   const [openModalGallery, setOpenModalGallery] = useState(false);
   const [imageIdGallery, setImageIdGallery] = useState<null | number>(null);
   const { deletingPhoto, deletePhotoError } = useAppSelector((state) => state.userSlice);
@@ -46,13 +46,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
                 style={styles.isTheOnlyOneImage}
                 onPress={() => openGallery(item._id)}
               >
-                <Image
-                  key={item._id}
-                  source={{ uri: item.imagePath }}
-                  style={styles.isTheOnlyOneImage}
-                  placeholder={require(PLACEHOLDER)}
-                  cachePolicy="memory-disk"
-                />
+                <SmartImage photo={item} style={styles.isTheOnlyOneImage} />
               </TouchableOpacity>
             );
           }
@@ -64,13 +58,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
                 style={styles.isTheFirstImage}
                 onPress={() => openGallery(item._id)}
               >
-                <Image
-                  key={item._id}
-                  source={{ uri: item.imagePath }}
-                  style={styles.isTheFirstImage}
-                  placeholder={require(PLACEHOLDER)}
-                  cachePolicy="memory-disk"
-                />
+                <SmartImage photo={item} style={styles.isTheFirstImage} />
               </TouchableOpacity>
             );
           }
@@ -82,13 +70,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
                 style={styles.notTheFirstImage}
                 onPress={() => openGallery(item._id)}
               >
-                <Image
-                  key={item._id}
-                  source={{ uri: item.imagePath }}
-                  style={styles.notTheFirstImage}
-                  placeholder={require(PLACEHOLDER)}
-                  cachePolicy="memory-disk"
-                />
+                <SmartImage photo={item} style={styles.notTheFirstImage} />
               </TouchableOpacity>
             );
           }
@@ -128,13 +110,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
                   activeOpacity={0.8}
                   onPress={() => openGallery(item._id)}
                 >
-                  <Image
-                    key={item._id}
-                    source={{ uri: item.imagePath }}
-                    style={styles.isLastImage}
-                    placeholder={require(PLACEHOLDER)}
-                    cachePolicy="memory-disk"
-                  />
+                  <SmartImage photo={item} style={styles.isLastImage} />
                 </TouchableOpacity>
               );
             }

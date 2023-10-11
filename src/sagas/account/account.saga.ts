@@ -19,9 +19,9 @@ import { Action } from 'src/types/actions/actions.types';
 function* addNewPhotoWorker(action: Action<FormData[]>) {
   const { payload } = action;
   try {
-    yield put(setUploadingPhoto(true));
-
     for (const image of payload) {
+      yield put(setUploadingPhoto(true));
+
       const response: AxiosResponse<Photo> = yield call(registerPhotoRequest, { data: image });
       yield put(
         setPhoto({

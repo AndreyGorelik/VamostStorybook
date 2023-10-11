@@ -14,4 +14,10 @@ export const createStyles = (_theme: Theme) =>
       width: '100%',
       padding: 10,
     },
+    photoCounter: {
+      position: 'absolute',
+      width: '100%',
+      padding: 10,
+      alignItems: 'center',
+    },
   });

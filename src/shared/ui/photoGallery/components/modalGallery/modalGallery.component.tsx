@@ -1,6 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { useAppDispatch } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
+import Text from '@shared/ui/text/text.component';
 import { useRef, useState } from 'react';
 import {
   Alert,
@@ -22,6 +23,8 @@ import { createStyles } from './modalGallery.styles';
 import { ModalGalleryProps } from './modalGallery.types';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
+const HEADER_BUTTONS_SIZE = 24;
+
 function ModalGallery({
   close,
   images,
@@ -34,9 +37,11 @@ function ModalGallery({
   const safeArea = useSafeAreaInsets();
   const dispatch = useAppDispatch();
   const [currentImageId, setCurrentImageId] = useState('');
+
   StatusBar.setBarStyle('light-content');
 
   const listRef = useRef<FlatList>(null);
+  const currentImageIndex = images.findIndex((item) => item._id === currentImageId);
 
   const viewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
     if (viewableItems[0].item._id) {
@@ -91,7 +96,11 @@ function ModalGallery({
                 },
               ]}
             >
-              <MaterialIcons name="arrow-back" size={24} color={theme.colors.secondary} />
+              <MaterialIcons
+                name="arrow-back"
+                size={HEADER_BUTTONS_SIZE}
+                color={theme.colors.secondary}
+              />
             </Pressable>
             <Pressable
               onPress={() => deletePhoto(currentImageId)}
@@ -101,8 +110,15 @@ function ModalGallery({
                 },
               ]}
             >
-              <MaterialIcons name="delete" size={24} color={theme.colors.secondary} />
+              <MaterialIcons
+                name="delete"
+                size={HEADER_BUTTONS_SIZE}
+                color={theme.colors.secondary}
+              />
             </Pressable>
+          </View>
+          <View style={[styles.photoCounter, { bottom: safeArea.bottom }]}>
+            <Text color={'white'}>{`${currentImageIndex + 1}/${images.length}`}</Text>
           </View>
         </View>
       </GestureHandlerRootView>

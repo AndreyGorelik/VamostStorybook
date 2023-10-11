@@ -1,6 +1,5 @@
 import useTheme from '@shared/hooks/useTheme.hook';
 import Text from '@shared/ui/text/text.component';
-import { Image } from 'expo-image';
 import { ActivityIndicator, Dimensions, View } from 'react-native';
 import { PinchGestureHandler, PinchGestureHandlerGestureEvent } from 'react-native-gesture-handler';
 import Animated, {
@@ -9,6 +8,8 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+
+import SmartImage from '../smartImage/smartImage.component';
 
 import { createStyles } from './galleryImage.styles';
 import { GalleryImageProps } from './galleryImage.types';
@@ -83,17 +84,13 @@ export default function GalleryImage({
           )}
 
           {!deletingPhoto && !deletePhotoError && (
-            <Image
+            <SmartImage
+              photo={image}
               style={{
                 width: SCREEN_WIDTH,
                 height: SCREEN_HEIGHT,
               }}
               contentFit="contain"
-              source={{
-                uri: image.imagePath,
-              }}
-              placeholder={require('../../../../../assets/images/loader.gif')}
-              cachePolicy="memory-disk"
             />
           )}
         </View>
