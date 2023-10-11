@@ -6,12 +6,12 @@ import axios from '../axios';
 import { API_ROUTES } from '../constants';
 
 export const getUpcomingPostsRequest = async (): Promise<AxiosResponse<PostResponse[]>> => {
-  const userId = await SecureStore.getItemAsync('userId');
+  const ownerId = await SecureStore.getItemAsync('userId');
 
   return await axios.get(API_ROUTES.post, {
     params: {
       postStatus: 'New',
-      userId,
+      ownerId,
     },
   });
 };
