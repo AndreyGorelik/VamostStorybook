@@ -28,7 +28,7 @@ export default function Photos() {
 
   function onSubmit() {
     const photos = images.map((image) => image.imageData);
-    dispatch(registerPhotoAction(photos));
+    dispatch(registerPhotoAction(JSON.stringify(photos)));
   }
 
   const pickImage = async (id: number) => {
@@ -54,10 +54,11 @@ export default function Photos() {
           type: mime.getType(uri),
           uri,
         };
+
         formData.append('imageData', fileData as any);
         const image = {
           uri: asset.uri,
-          imageData: formData,
+          imageData: fileData,
         };
 
         newImages.push(image);
