@@ -26,7 +26,7 @@ export interface UserState {
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   birthdate: string;
   images: Photo[];
-  avatar: string;
+  avatar: Photo | null;
 }
 
 export type UserInfo = {
@@ -53,8 +53,8 @@ export type UserInfo = {
   };
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   birthdate: string;
-  images: string[];
-  avatar: string;
+  images: Photo[];
+  avatar: Photo | null;
 };
 
 export const initialState: UserState = {
@@ -73,7 +73,7 @@ export const initialState: UserState = {
   birthdate: '',
   images: [],
   phoneVerified: false,
-  avatar: '',
+  avatar: null,
 };
 
 const userSlice = createSlice({
@@ -112,6 +112,15 @@ const userSlice = createSlice({
       state.sexualOrientation = action.payload.sexualOrientation;
       state.birthdate = action.payload.birthdate;
     },
+    addPhoto(state, action: PayloadAction<Photo>) {
+      state.images = [...state.images, action.payload];
+      if (!state.avatar) {
+        state.avatar = state.images[0];
+      }
+    },
+    setAvatar(state, action: PayloadAction<Photo>) {
+      state.avatar = action.payload;
+    },
   },
 });
 
@@ -125,6 +134,8 @@ export const {
   setBirthDate,
   setUser,
   setEditedUserInfo,
+  setAvatar,
+  addPhoto,
 } = userSlice.actions;
 
 export default userSlice.reducer;
