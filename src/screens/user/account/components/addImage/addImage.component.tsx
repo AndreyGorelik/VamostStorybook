@@ -26,7 +26,6 @@ const AddImage = () => {
     if (!result.canceled) {
       const newImages: PickedImg[] = [];
       result.assets.forEach(async (asset) => {
-        const formData = new FormData();
         const uri = Platform.OS === 'ios' ? asset.uri.replace('file://', '') : asset.uri;
 
         const fileData = {
@@ -34,8 +33,6 @@ const AddImage = () => {
           type: mime.getType(uri),
           uri,
         };
-
-        formData.append('imageData', fileData as any);
 
         const image = {
           uri: asset.uri,
