@@ -47,7 +47,6 @@ export default function Photos() {
     if (!result.canceled) {
       const newImages = [...images];
       result.assets.forEach(async (asset) => {
-        const formData = new FormData();
         const uri = Platform.OS === 'ios' ? asset.uri.replace('file://', '') : asset.uri;
         const fileData = {
           name: `image.${mime.getType(uri)?.split('/')[1]}`,
@@ -55,7 +54,6 @@ export default function Photos() {
           uri,
         };
 
-        formData.append('imageData', fileData as any);
         const image = {
           uri: asset.uri,
           imageData: fileData,
