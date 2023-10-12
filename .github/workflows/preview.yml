@@ -49,6 +49,6 @@ jobs:
       - name: Create preview
         uses: expo/expo-github-action/preview@v8
         with:
-          command: eas update --branch "$BRANCH_NAME" --message "$BRANCH_NAME"
+          command: eas update --branch BRANCH_NAME --message "$BRANCH_NAME"
 
 
