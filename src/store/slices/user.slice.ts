@@ -27,11 +27,12 @@ export interface UserState {
   birthdate: string;
   images: Photo[];
   avatar: string;
-  editInfoError?: string;
-  photoError?: string;
   uploadingPhoto?: boolean;
   deletingPhoto?: boolean;
   deletePhotoError?: string;
+  editInfoError?: string;
+  photoError?: string;
+  id: string;
 }
 
 export type UserInfo = {
@@ -83,6 +84,7 @@ export const initialState: UserState = {
   uploadingPhoto: false,
   deletingPhoto: false,
   deletePhotoError: '',
+  id: '',
 };
 
 const userSlice = createSlice({

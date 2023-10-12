@@ -7,7 +7,7 @@ import ModalWithChildren from '@shared/ui/modalWithChildren/modalWithChildren.co
 import { SelectList } from '@shared/ui/selectList';
 import Text from '@shared/ui/text/text.component';
 import { format, subYears } from 'date-fns';
-import { useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { TouchableOpacity, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -30,12 +30,8 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
   const [genderModal, setGenderModal] = useState(false);
   const [orientationModal, setOrientationModal] = useState(false);
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<PersonalInfoValues>({
-    defaultValues: {
+  const formValues = useMemo(
+    () => ({
       birthdate,
       gender: {
         value: gender?.value,
@@ -48,8 +44,22 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
       },
       nickname,
       email,
-    },
+    }),
+    [birthdate, gender, phoneNumber, sexualOrientation, nickname, email]
+  );
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<PersonalInfoValues>({
+    defaultValues: formValues,
   });
+
+  useEffect(() => {
+    if (!editMode) reset(formValues);
+  }, [editMode, formValues, reset]);
 
   const save = (data: PersonalInfoValues) => {
     dispatch(setEditedUserInfo(data));
