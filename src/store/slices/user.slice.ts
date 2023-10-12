@@ -122,6 +122,7 @@ const userSlice = createSlice({
       state.gender = action.payload.gender;
       state.sexualOrientation = action.payload.sexualOrientation;
       state.birthdate = action.payload.birthdate;
+      state.shownGender = action.payload.shownGender;
     },
     setPhoto(state, action: PayloadAction<Photo>) {
       state.photoError = '';
@@ -156,6 +157,9 @@ export const addNewPhoto = createAction<string>(ADD_NEW_PHOTO);
 
 export const DELETE_USER_PHOTO = 'userSlice/deletePhoto';
 export const deleteUserPhoto = createAction<string>(DELETE_USER_PHOTO);
+
+export const UPDATE_PERSONAL_INFO = 'userSlice/updatePersonalInfo';
+export const updatePersonalInfo = createAction<PersonalInfoValues>(UPDATE_PERSONAL_INFO);
 
 export const {
   setPhoneNumber,

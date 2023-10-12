@@ -1,5 +1,6 @@
 import { GENDER_OPTIONS } from '@screens/auth/register/components/steps/gender/gender.data';
 import { ORIENTATION_OPTIONS } from '@screens/auth/register/components/steps/orientation/orientation.data';
+import { ORIENTATION_RADIO_DATA } from '@screens/auth/register/components/steps/showMe/showMe.data';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import { Button } from '@shared/ui/button';
 import { CheckBox } from '@shared/ui/checkBox';
@@ -12,7 +13,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { TouchableOpacity, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import LibPhoneInput from 'react-native-phone-input';
-import { setEditedUserInfo } from 'src/store/slices/user.slice';
+import { updatePersonalInfo } from 'src/store/slices/user.slice';
 
 import { InfoRow } from '../infoRow';
 
@@ -22,13 +23,13 @@ import { PersonalInfoProps, PersonalInfoValues } from './personalInfo.types';
 export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProps) {
   const dispatch = useAppDispatch();
   const styles = createStyles();
-  const { email, nickname, birthdate, gender, phoneNumber, sexualOrientation } = useAppSelector(
-    (state) => state.userSlice
-  );
+  const { email, nickname, birthdate, gender, phoneNumber, sexualOrientation, shownGender } =
+    useAppSelector((state) => state.userSlice);
   const phoneRef = useRef<LibPhoneInput>(null);
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [genderModal, setGenderModal] = useState(false);
   const [orientationModal, setOrientationModal] = useState(false);
+  const [showMeModal, setShowMeModal] = useState(false);
 
   const formValues = useMemo(
     () => ({
@@ -44,8 +45,19 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
       },
       nickname,
       email,
+      shownGender,
     }),
-    [birthdate, gender, phoneNumber, sexualOrientation, nickname, email]
+    [
+      birthdate,
+      gender?.value,
+      gender?.isShown,
+      phoneNumber,
+      sexualOrientation?.value,
+      sexualOrientation?.isShown,
+      nickname,
+      email,
+      shownGender,
+    ]
   );
 
   const {
@@ -62,7 +74,7 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
   }, [editMode, formValues, reset]);
 
   const save = (data: PersonalInfoValues) => {
-    dispatch(setEditedUserInfo(data));
+    dispatch(updatePersonalInfo(data));
     setEditMode(false);
   };
 
@@ -195,6 +207,7 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
           />
         )}
       />
+
       <Controller
         control={control}
         name="sexualOrientation.value"
@@ -225,6 +238,7 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
           );
         }}
       />
+
       <Controller
         control={control}
         name="sexualOrientation.isShown"
@@ -276,6 +290,37 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
           />
         )}
       />
+      <Controller
+        control={control}
+        name="shownGender"
+        render={({ field: { onChange, value, onBlur } }) => {
+          return (
+            <TouchableOpacity onPress={() => setShowMeModal(true)} disabled={!editMode}>
+              <InfoRow
+                title="Show me"
+                value={`${value}`}
+                onChangeText={onChange}
+                editable={false}
+                onBlur={onBlur}
+                input={false}
+              />
+
+              <ModalWithChildren visible={showMeModal} setVisible={setShowMeModal}>
+                <SelectList
+                  listOptions={ORIENTATION_RADIO_DATA}
+                  variant="textList"
+                  selected={value ?? ''}
+                  setSelected={(gender: string) => {
+                    setShowMeModal(false);
+                    onChange(gender);
+                  }}
+                />
+              </ModalWithChildren>
+            </TouchableOpacity>
+          );
+        }}
+      />
+
       {errors.email && <Text variant="warning">{errors.email?.message}</Text>}
       {editMode && <Button title="Save" onPress={handleSubmit(save)} />}
     </View>

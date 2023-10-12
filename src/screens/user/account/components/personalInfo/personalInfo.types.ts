@@ -21,6 +21,7 @@ export type PersonalInfoValues = {
   };
   sexualOrientationShown: boolean;
   email: string;
+  shownGender: 'Man' | 'Woman' | 'Everyone' | null;
 };
 
 export interface PersonalInfoProps {

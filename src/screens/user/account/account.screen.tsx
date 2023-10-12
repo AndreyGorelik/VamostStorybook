@@ -10,23 +10,14 @@ import Constants from 'expo-constants';
 import { Image } from 'expo-image';
 import { useNavigation } from 'expo-router';
 import { useState } from 'react';
-import {
-  View,
-  ScrollView,
-  ImageBackground,
-  FlatList,
-  ActivityIndicatorComponent,
-  Share,
-} from 'react-native';
+import { View, ScrollView, ImageBackground, Share } from 'react-native';
 import { logoutUser } from 'src/store/slices/auth.slice';
 import { initialState, setUser } from 'src/store/slices/user.slice';
 
-import { posts } from './account.data';
 import { createStyles } from './account.styles';
 import AddImage from './components/addImage/addImage.component';
 import ControlButtons from './components/controlButtons/controlButtons';
 import { PersonalInfo } from './components/personalInfo';
-import { RecentMeetup } from './components/recentMeetup';
 
 export default function Account() {
   const theme = useTheme();
