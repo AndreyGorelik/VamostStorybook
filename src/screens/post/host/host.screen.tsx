@@ -5,7 +5,7 @@ import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
 import { PageLoader } from '@shared/ui/pageLoader';
 import { Request } from '@shared/ui/request';
 import { useNavigation } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, RefreshControl, Text, FlatList } from 'react-native';
 import {
   confirmRequest,
@@ -17,12 +17,17 @@ import {
 import {
   addApproveRequest,
   removeApproveRequest,
+  setApproveRequests,
 } from 'src/store/slices/post/requests/approveRequests.slice';
 import {
   removeDeletedRequest,
   addDeletedRequest,
+  setDeletedRequests,
 } from 'src/store/slices/post/requests/deletedRequests.slice';
-import { removePendingRequest } from 'src/store/slices/post/requests/pendingRequests.slice';
+import {
+  removePendingRequest,
+  setPendingRequests,
+} from 'src/store/slices/post/requests/pendingRequests.slice';
 import { PostRequest, RequestStatus } from 'src/types/api/getPosts';
 
 import { Guests } from './components/Guests';
@@ -42,6 +47,14 @@ export default function PostFullHost() {
   const { approveRequests } = useAppSelector((state) => state.approveRequestsSlice);
   const { pendingRequests } = useAppSelector((state) => state.pendingRequestsSlice);
   const { deletedRequests } = useAppSelector((state) => state.deletedRequestsSlice);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setPendingRequests([]));
+      dispatch(setApproveRequests([]));
+      dispatch(setDeletedRequests([]));
+    };
+  }, [dispatch]);
 
   const data: Record<RequestStatus, PostRequest[]> = {
     New: pendingRequests,
