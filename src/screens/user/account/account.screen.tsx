@@ -108,21 +108,6 @@ export default function Account() {
 
           <PersonalInfo editMode={editMode} setEditMode={setEditMode} />
 
-          <View style={styles.recentMeetups}>
-            <Text variant="h3">Recent meetups</Text>
-            <FlatList
-              data={posts}
-              renderItem={({ item }) => <RecentMeetup {...item} />}
-              horizontal
-              contentContainerStyle={styles.meetupsWrapper}
-              maxToRenderPerBatch={5}
-              keyExtractor={(item) => `${item.id}`}
-              ListEmptyComponent={() => (
-                <ActivityIndicatorComponent size="large" color={theme.colors.primary} />
-              )}
-            />
-          </View>
-
           <View style={styles.photoContainer}>
             <Text variant="h3">Photos</Text>
             <PhotoGallery images={images} />
