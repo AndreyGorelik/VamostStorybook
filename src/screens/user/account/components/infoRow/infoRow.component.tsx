@@ -16,18 +16,31 @@ export default function InfoRow({
 }: InfoRowProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
+
+  const renderValue = () => {
+    if (children) {
+      return children;
+    } else if (input) {
+      return (
+        <View style={{ marginVertical: 4, flex: 1 }}>
+          <Input value={value} editable={editable} onChangeText={onChangeText} noGap />
+        </View>
+      );
+    } else {
+      return (
+        <View style={{ flex: 1 }}>
+          <Text>{value}</Text>
+        </View>
+      );
+    }
+  };
+
   return (
     <View style={styles.wrapper}>
       <Text width={130} style={styles.text}>
         {title}:
       </Text>
-      {children ? (
-        children
-      ) : input ? (
-        <Input value={value} editable={editable} onChangeText={onChangeText} noGap />
-      ) : (
-        <Text>{value}</Text>
-      )}
+      {renderValue()}
     </View>
   );
 }

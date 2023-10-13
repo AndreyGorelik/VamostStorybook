@@ -8,11 +8,10 @@ import ModalWithChildren from '@shared/ui/modalWithChildren/modalWithChildren.co
 import { SelectList } from '@shared/ui/selectList';
 import Text from '@shared/ui/text/text.component';
 import { format, subYears } from 'date-fns';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { TouchableOpacity, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import LibPhoneInput from 'react-native-phone-input';
 import { updatePersonalInfo } from 'src/store/slices/user.slice';
 
 import { InfoRow } from '../infoRow';
@@ -23,9 +22,17 @@ import { PersonalInfoProps, PersonalInfoValues } from './personalInfo.types';
 export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProps) {
   const dispatch = useAppDispatch();
   const styles = createStyles();
-  const { email, nickname, birthdate, gender, phoneNumber, sexualOrientation, shownGender } =
-    useAppSelector((state) => state.userSlice);
-  const phoneRef = useRef<LibPhoneInput>(null);
+  const {
+    email,
+    nickname,
+    birthdate,
+    gender,
+    phoneNumber,
+    sexualOrientation,
+    shownGender,
+    savingEditedInfo,
+    savingEditedInfoError,
+  } = useAppSelector((state) => state.userSlice);
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [genderModal, setGenderModal] = useState(false);
   const [orientationModal, setOrientationModal] = useState(false);
@@ -38,7 +45,6 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
         value: gender?.value,
         isShown: gender?.isShown,
       },
-      phoneNumber,
       sexualOrientation: {
         value: sexualOrientation?.value,
         isShown: sexualOrientation?.isShown,
@@ -51,7 +57,6 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
       birthdate,
       gender?.value,
       gender?.isShown,
-      phoneNumber,
       sexualOrientation?.value,
       sexualOrientation?.isShown,
       nickname,
@@ -64,6 +69,7 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
     control,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<PersonalInfoValues>({
     defaultValues: formValues,
@@ -73,14 +79,20 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
     if (!editMode) reset(formValues);
   }, [editMode, formValues, reset]);
 
-  const save = (data: PersonalInfoValues) => {
-    dispatch(updatePersonalInfo(data));
-    setEditMode(false);
-  };
+  useEffect(() => {
+    const actualFormValues = watch();
+    if (JSON.stringify(actualFormValues) === JSON.stringify(formValues)) {
+      setEditMode(false);
+    }
+  }, [formValues, setEditMode, watch]);
 
-  const validatePhoneNumber = () => {
-    const isValidNumber = phoneRef.current?.isValidNumber();
-    return isValidNumber;
+  const save = (data: PersonalInfoValues) => {
+    const actualFormValues = watch();
+    if (JSON.stringify(actualFormValues) === JSON.stringify(formValues)) {
+      setEditMode(false);
+      return;
+    }
+    dispatch(updatePersonalInfo(data));
   };
 
   return (
@@ -88,42 +100,27 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
       <View style={styles.header}>
         <Text variant="h3">Personal info</Text>
       </View>
+
+      <InfoRow title="Phone" value={phoneNumber} editable={false} input={false} />
+
       <Controller
         control={control}
-        name="phoneNumber"
+        name="nickname"
         rules={{
           required: 'This is required',
-          validate: validatePhoneNumber,
         }}
-        render={({ field: { onChange, value, onBlur } }) => {
-          return (
-            <>
-              <InfoRow
-                title="Phone"
-                value={value}
-                onChangeText={onChange}
-                editable={editMode}
-                onBlur={onBlur}
-                input={editMode ? true : false}
-              >
-                {editMode ? (
-                  <LibPhoneInput
-                    ref={phoneRef}
-                    offset={10}
-                    initialValue={value}
-                    autoFormat={true}
-                    textStyle={{
-                      fontSize: 17,
-                    }}
-                    onChangePhoneNumber={onChange}
-                  />
-                ) : undefined}
-              </InfoRow>
-            </>
-          );
-        }}
+        render={({ field: { onChange, value, onBlur } }) => (
+          <InfoRow
+            title="Nickname"
+            value={value}
+            onChangeText={onChange}
+            editable={editMode}
+            onBlur={onBlur}
+            input={editMode ? true : false}
+          />
+        )}
       />
-      {errors.phoneNumber && <Text variant="warning">Invalid phone number</Text>}
+      {errors.nickname && <Text variant="warning">{errors.nickname?.message}</Text>}
 
       <Controller
         control={control}
@@ -195,18 +192,6 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
           );
         }}
       />
-      <Controller
-        control={control}
-        name="gender.isShown"
-        render={({ field: { onChange, value } }) => (
-          <CheckBox
-            label="Show gender on my page"
-            value={value}
-            onChange={onChange}
-            disabled={!editMode}
-          />
-        )}
-      />
 
       <Controller
         control={control}
@@ -241,36 +226,6 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
 
       <Controller
         control={control}
-        name="sexualOrientation.isShown"
-        render={({ field: { onChange, value } }) => (
-          <CheckBox
-            label="Show orientation on my page"
-            value={value}
-            onChange={onChange}
-            disabled={!editMode}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name="nickname"
-        rules={{
-          required: 'This is required',
-        }}
-        render={({ field: { onChange, value, onBlur } }) => (
-          <InfoRow
-            title="Nickname"
-            value={value}
-            onChangeText={onChange}
-            editable={editMode}
-            onBlur={onBlur}
-            input={editMode ? true : false}
-          />
-        )}
-      />
-      {errors.nickname && <Text variant="warning">{errors.nickname?.message}</Text>}
-      <Controller
-        control={control}
         name="email"
         rules={{
           required: 'This is required',
@@ -290,6 +245,8 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
           />
         )}
       />
+      {errors.email && <Text variant="warning">{errors.email?.message}</Text>}
+
       <Controller
         control={control}
         name="shownGender"
@@ -321,8 +278,34 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
         }}
       />
 
-      {errors.email && <Text variant="warning">{errors.email?.message}</Text>}
-      {editMode && <Button title="Save" onPress={handleSubmit(save)} />}
+      <Controller
+        control={control}
+        name="sexualOrientation.isShown"
+        render={({ field: { onChange, value } }) => (
+          <CheckBox
+            label="Show orientation on my page"
+            value={value}
+            onChange={onChange}
+            disabled={!editMode}
+          />
+        )}
+      />
+
+      <Controller
+        control={control}
+        name="gender.isShown"
+        render={({ field: { onChange, value } }) => (
+          <CheckBox
+            label="Show gender on my page"
+            value={value}
+            onChange={onChange}
+            disabled={!editMode}
+          />
+        )}
+      />
+
+      {savingEditedInfoError && <Text variant="warning">{savingEditedInfoError}</Text>}
+      {editMode && <Button title="Save" onPress={handleSubmit(save)} loading={savingEditedInfo} />}
     </View>
   );
 }

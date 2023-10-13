@@ -1,7 +1,7 @@
 import { PersonalInfoValues } from '@screens/user/account/components/personalInfo/personalInfo.types';
 import { getImagePath } from '@shared/utils/getImagePath';
 import Axios, { AxiosResponse } from 'axios';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { registerAttributesRequest } from 'src/api/auth/registerAttributes';
 import { registerBirthDateRequest } from 'src/api/auth/registerBirthDate';
 import { registerEmailRequest } from 'src/api/auth/registerEmail';
@@ -19,6 +19,8 @@ import {
   setEditedUserInfo,
   setPhoto,
   setPhotoError,
+  setSavingEditedInfo,
+  setSavingEditedInfoError,
   setUploadingPhoto,
 } from 'src/store/slices/user.slice';
 import { Action } from 'src/types/actions/actions.types';
@@ -73,39 +75,56 @@ function* deletePhotoWorker(action: Action<string>) {
 
 function* updatePersonalInfoWorker(action: Action<PersonalInfoValues>) {
   const { payload } = action;
-  console.log(payload);
 
   try {
-    // yield call(registerEmailRequest, {
-    //   data: { email: payload.email },
-    // });
+    yield put(setSavingEditedInfo(true));
 
-    // yield call(registerNicknameRequest, {
-    //   data: {
-    //     nickName: payload.nickname,
-    //   },
-    // });
+    const { email, nickname, birthdate, gender, sexualOrientation, shownGender } = yield select(
+      (state) => state.userSlice
+    );
 
-    yield call(registerBirthDateRequest, {
-      data: {
-        birthDate: payload.birthdate,
-      },
-    });
+    if (payload.email !== email) {
+      yield call(registerEmailRequest, {
+        data: { email: payload.email },
+      });
+    }
 
-    yield call(registerAttributesRequest, {
-      data: {
-        gender: payload.gender,
-        sexualOrientation: payload.sexualOrientation,
-        shownGender: payload.shownGender,
-      },
-    });
+    if (payload.nickname !== nickname) {
+      yield call(registerNicknameRequest, {
+        data: {
+          nickName: payload.nickname,
+        },
+      });
+    }
+
+    if (payload.birthdate !== birthdate) {
+      yield call(registerBirthDateRequest, {
+        data: {
+          birthDate: payload.birthdate,
+        },
+      });
+    }
+
+    if (
+      JSON.stringify(payload.gender) !== JSON.stringify(gender) ||
+      JSON.stringify(payload.sexualOrientation) !== JSON.stringify(sexualOrientation) ||
+      payload.shownGender !== shownGender
+    ) {
+      yield call(registerAttributesRequest, {
+        data: {
+          gender: payload.gender,
+          sexualOrientation: payload.sexualOrientation,
+          shownGender: payload.shownGender,
+        },
+      });
+    }
 
     yield put(setEditedUserInfo(action.payload));
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response) {
         if (error.response.data && error.response.data.message) {
-          console.log(error.response.data.message);
+          yield put(setSavingEditedInfoError(error.response.data.message));
         }
       }
     }
