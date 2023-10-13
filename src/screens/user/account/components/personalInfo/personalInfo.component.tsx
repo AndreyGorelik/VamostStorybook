@@ -117,6 +117,7 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
             editable={editMode}
             onBlur={onBlur}
             input={editMode ? true : false}
+            editMode={editMode}
           />
         )}
       />
@@ -140,6 +141,7 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
                   onChangeText={onChange}
                   editable={false}
                   input={false}
+                  editMode={editMode}
                 />
               </TouchableOpacity>
 
@@ -174,6 +176,7 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
                   editable={false}
                   onBlur={onBlur}
                   input={false}
+                  editMode={editMode}
                 />
               </TouchableOpacity>
 
@@ -206,6 +209,7 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
                 editable={false}
                 onBlur={onBlur}
                 input={false}
+                editMode={editMode}
               />
 
               <ModalWithChildren visible={orientationModal} setVisible={setOrientationModal}>
@@ -242,6 +246,7 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
             editable={editMode}
             onBlur={onBlur}
             input={editMode ? true : false}
+            editMode={editMode}
           />
         )}
       />
@@ -260,6 +265,7 @@ export default function PersonalInfo({ editMode, setEditMode }: PersonalInfoProp
                 editable={false}
                 onBlur={onBlur}
                 input={false}
+                editMode={editMode}
               />
 
               <ModalWithChildren visible={showMeModal} setVisible={setShowMeModal}>
