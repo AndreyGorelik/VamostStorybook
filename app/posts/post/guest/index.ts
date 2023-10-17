@@ -1,3 +1,3 @@
-import { PostFullGuest } from '@screens/post/notJoined';
+import { GuestPost } from '@screens/post/guest';
 
-export default PostFullGuest;
+export default GuestPost;

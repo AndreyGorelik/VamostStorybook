@@ -7,7 +7,7 @@ export interface Photo {
 
 export interface Profile {
   phoneNumber: string;
-  avatar: string;
+  avatar: Photo | null;
   sexualOrientation: {
     value: string;
     isShown: boolean;
@@ -32,7 +32,7 @@ export interface ProfileState {
 export const initialState: ProfileState = {
   profile: {
     phoneNumber: '',
-    avatar: '',
+    avatar: null,
     sexualOrientation: {
       value: '',
       isShown: false,

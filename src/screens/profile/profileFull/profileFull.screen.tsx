@@ -5,6 +5,7 @@ import useTheme from '@shared/hooks/useTheme.hook';
 import { PageLoader } from '@shared/ui/pageLoader';
 import PhotoGallery from '@shared/ui/photoGallery/photoGallery.component';
 import Text from '@shared/ui/text/text.component';
+import { getImagePath } from '@shared/utils/getImagePath';
 import Constants from 'expo-constants';
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect } from 'react';
@@ -47,7 +48,7 @@ export default function ProfileFull() {
         <View style={styles.linearGradient} />
         <View style={styles.userInfo}>
           {profile.avatar ? (
-            <Image source={{ uri: profile.avatar }} style={styles.image} />
+            <Image source={{ uri: getImagePath(profile.avatar) }} style={styles.image} />
           ) : (
             <Ionicons name="person-circle" size={60} />
           )}
