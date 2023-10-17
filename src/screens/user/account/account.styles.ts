@@ -61,4 +61,7 @@ export const createStyles = (theme: Theme) =>
       width: '100%',
     },
     meetupsWrapper: { columnGap: 20, paddingVertical: 15 },
+    photoContainer: {
+      gap: 10,
+    },
   });

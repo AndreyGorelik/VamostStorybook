@@ -1,9 +1,4 @@
-export type PhotoInputType = {
-  id: number;
-  image: string;
-};
-
-export type PickedImage = {
+export type PickedImg = {
   uri: string;
   imageData: {
     name: string;
