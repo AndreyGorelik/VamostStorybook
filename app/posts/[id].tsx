@@ -31,7 +31,7 @@ export default function Index() {
     getUserId();
   }, [dispatch, handleFetch, id]);
 
-  if (isPostLoading) return <PageLoader />;
+  if (isPostLoading || !userId) return <PageLoader />;
 
   if (error) {
     return <ErrorPage error={error} retry={async () => handleFetch(id as string)} />;
@@ -41,7 +41,7 @@ export default function Index() {
     return <Redirect href="posts/post/host" />;
   }
 
-  if (post?.info.members.find((member) => member._id === userId)) {
+  if (post?.info?.members.find((member) => member._id === userId)) {
     return <Redirect href="posts/post/guest" />;
   }
 

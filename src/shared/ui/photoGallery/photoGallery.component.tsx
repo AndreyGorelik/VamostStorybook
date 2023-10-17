@@ -1,5 +1,6 @@
 import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
+import { getImagePath } from '@shared/utils/getImagePath';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
 import { ImageBackground, TouchableOpacity, View } from 'react-native';
@@ -87,7 +88,7 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
                   <ImageBackground
                     imageStyle={styles.isLastImage}
                     source={{
-                      uri: item.imagePath,
+                      uri: getImagePath(item),
                     }}
                     style={styles.flex}
                   >

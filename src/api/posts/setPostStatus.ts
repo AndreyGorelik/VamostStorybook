@@ -8,7 +8,7 @@ export const setPostStatusRequest = async ({
   id,
   postStatus,
 }: UpdatePostStatus): Promise<AxiosResponse<string>> => {
-  return await axios.patch(`${API_ROUTES.post}/${id}`, {
+  return await axios.patch(`${API_ROUTES.post}/${id}/${API_ROUTES.setStatus}`, {
     postStatus,
   });
 };
