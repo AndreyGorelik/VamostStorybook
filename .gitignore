@@ -6,6 +6,7 @@
 .pnp.js
 npm-debug.log
 yarn-error.log
+yarn.lock
 
 # testing
 /coverage

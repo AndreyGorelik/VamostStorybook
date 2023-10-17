@@ -154,12 +154,14 @@ function* registerAttributesWorker(action: Action<RegisterAttributes>) {
   }
 }
 
-function* registerPhotoWorker(action: Action<FormData[]>) {
+function* registerPhotoWorker(action: Action<string>) {
   const { payload } = action;
 
   try {
-    for (const image of payload) {
-      yield call(registerPhotoRequest, { data: image });
+    for (const image of JSON.parse(payload)) {
+      const formData = new FormData();
+      formData.append('imageData', image as any);
+      yield call(registerPhotoRequest, { data: formData });
     }
     yield put(setSignUpFinished(true));
   } catch (error) {

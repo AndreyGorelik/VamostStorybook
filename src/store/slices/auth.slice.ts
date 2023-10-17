@@ -125,7 +125,7 @@ export const registerBirthDateAction = createAction<RegisterBirthDate>(REGISTER_
 
 export const registerAttributesAction = createAction<RegisterAttributes>(REGISTER_ATTRIBUTES);
 
-export const registerPhotoAction = createAction<FormData[]>(REGISTER_PHOTO);
+export const registerPhotoAction = createAction<string>(REGISTER_PHOTO);
 
 export const refresh = createAction(REFRESH);
 export const {

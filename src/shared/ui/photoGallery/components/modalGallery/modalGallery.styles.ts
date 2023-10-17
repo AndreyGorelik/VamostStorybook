@@ -7,10 +7,17 @@ export const createStyles = (_theme: Theme) =>
       flex: 1,
       position: 'relative',
     },
-    closeBtn: {
+    headerBtns: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
       position: 'absolute',
-      right: 10,
-      top: 10,
-      zIndex: 999,
+      width: '100%',
+      padding: 10,
+    },
+    photoCounter: {
+      position: 'absolute',
+      width: '100%',
+      padding: 10,
+      alignItems: 'center',
     },
   });

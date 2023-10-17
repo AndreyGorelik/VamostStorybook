@@ -17,6 +17,7 @@ function* logInRequestWorker(action: Action<LoginUser>) {
     const data = response.data;
 
     yield call(saveTokens, data.tokens.refreshToken, data.tokens.accessToken, data._id);
+
     yield put(
       setUser({
         birthdate: data.birthDate && data.birthDate,
@@ -26,12 +27,12 @@ function* logInRequestWorker(action: Action<LoginUser>) {
         phoneNumber: data.phoneNumber && data.phoneNumber,
         sexualOrientation: data.sexualOrientation && data.sexualOrientation,
         shownGender: data.shownGender && data.shownGender,
-        images:
-          data.images &&
-          data.images.map((image) => ({
+        images: data?.images.map((image) => {
+          return {
             ...image,
             imagePath: getImagePath(image),
-          })),
+          };
+        }),
         avatar: data.avatar && getImagePath(data.avatar),
         phoneVerified: data.phoneVerified && data.phoneVerified,
       })
