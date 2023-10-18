@@ -1,8 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { getImagePath } from '@shared/utils/getImagePath';
+import { Image } from 'expo-image';
 import React, { useState } from 'react';
-import { View, Image, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 
 import { createStyles } from './avatarPlaceholder.styles';
 import { AvatarPlaceholderProps } from './avatarPlaceholder.types';

@@ -3,7 +3,7 @@ import useTheme from '@shared/hooks/useTheme.hook';
 import { getImagePath } from '@shared/utils/getImagePath';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
-import { ImageBackground, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, StatusBar, TouchableOpacity, View } from 'react-native';
 
 import Text from '../text/text.component';
 
@@ -17,6 +17,7 @@ const MAX_IMAGES = 6;
 function PhotoGallery({ images }: PhotoGalleryProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
+
   const reversedImages = [...images].reverse();
 
   const [openModalGallery, setOpenModalGallery] = useState(false);
@@ -122,7 +123,10 @@ function PhotoGallery({ images }: PhotoGalleryProps) {
       </View>
       {openModalGallery && (
         <ModalGallery
-          close={() => setOpenModalGallery(false)}
+          close={() => {
+            StatusBar.setBarStyle('dark-content');
+            setOpenModalGallery(false);
+          }}
           images={reversedImages}
           imageScaleId={imageIdGallery}
           deletingPhoto={deletingPhoto || false}

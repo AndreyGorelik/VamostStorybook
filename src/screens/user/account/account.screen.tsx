@@ -5,9 +5,9 @@ import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
 import PhotoGallery from '@shared/ui/photoGallery/photoGallery.component';
 import PostCreate from '@shared/ui/postCreate/postCreate.component';
 import Text from '@shared/ui/text/text.component';
+import { AvatarPlaceholder } from '@shared/ui/userpicGallery/components/avatarPlaceholder';
 import { removeTokens } from '@shared/utils/removeTokens';
 import Constants from 'expo-constants';
-import { Image } from 'expo-image';
 import { useNavigation } from 'expo-router';
 import { useState } from 'react';
 import { View, ScrollView, ImageBackground, Share } from 'react-native';
@@ -68,7 +68,9 @@ export default function Account() {
         >
           <View style={styles.linearGradient}></View>
           <View style={styles.userInfo}>
-            <Image source={{ uri: avatar?.imagePath }} style={styles.image} />
+            {avatar && (
+              <AvatarPlaceholder item={{ avatar, _id: id, nickName: nickname }} size={100} />
+            )}
             <Text variant="h3" {...styles.text} style={styles.nickname}>
               {nickname}
             </Text>
