@@ -6,6 +6,7 @@ export const createStyles = (theme: Theme) =>
     wrapper: { backgroundColor: theme.colors.background, flex: 1 },
     scrollWrapper: {
       rowGap: 20,
+      paddingBottom: 50,
     },
 
     tagIcons: {

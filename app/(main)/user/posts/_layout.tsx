@@ -8,6 +8,9 @@ export default function Layout() {
   const theme = useTheme();
   return (
     <Tab.Navigator
+      sceneContainerStyle={{
+        backgroundColor: theme.colors.background,
+      }}
       screenOptions={{
         tabBarStyle: {
           paddingTop: 10,

@@ -46,10 +46,10 @@ export default function AppWrapper({ onLayoutRootView }: AppWrapperProps) {
       style={{ flex: 1, paddingTop: StatusBar.currentHeight || 0 }}
       onLayout={onLayoutRootView}
     >
-      <Stack screenOptions={{ headerShown: false }}>
+      <Stack screenOptions={{ headerShown: false, animation: 'fade' }}>
         <Stack.Screen name="account/index" options={{ animation: 'slide_from_left' }} />
-        <Stack.Screen name="(main)" options={{ animation: 'fade' }} />
-        <Stack.Screen name="(auth)" options={{ animation: 'fade' }} />
+        <Stack.Screen name="(main)" />
+        <Stack.Screen name="(auth)" />
       </Stack>
     </SafeAreaView>
   );

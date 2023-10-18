@@ -7,21 +7,15 @@ import Divider from '@shared/ui/divider/divider.component';
 import { PageLoader } from '@shared/ui/pageLoader';
 import Text from '@shared/ui/text/text.component';
 import { UserPicGallery } from '@shared/ui/userpicGallery';
+import { AvatarPlaceholder } from '@shared/ui/userpicGallery/components/avatarPlaceholder';
 import { getImagePath } from '@shared/utils/getImagePath';
 import Axios from 'axios';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation } from 'expo-router';
-import { useState } from 'react';
-import {
-  View,
-  Image,
-  ImageBackground,
-  ScrollView,
-  Alert,
-  RefreshControl,
-  Pressable,
-} from 'react-native';
+import { Link, useNavigation } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
+import { useEffect, useState } from 'react';
+import { View, ImageBackground, ScrollView, Alert, RefreshControl, Pressable } from 'react-native';
 import { sendRequest } from 'src/api/posts/sendRequest';
 import { getPostAction, resetPost } from 'src/store/slices/post/post.slice';
 
@@ -31,15 +25,39 @@ const AVATAR_SIZE = 60;
 
 export default function NotJoined() {
   const { post, isPostLoading, error } = useAppSelector((state) => state.postSlice);
+  const { pendingRequests } = useAppSelector((state) => state.pendingRequestsSlice);
+  const [disabled, setDisabled] = useState<boolean>(true);
   const theme = useTheme();
   const styles = createStyles(theme, AVATAR_SIZE);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
+  const isLocked = post?.info?.postStatus === 'Active';
+  const title = post?.info?.hostType === 'Host' ? 'Request' : 'Request to be host';
+  const hostedBy =
+    post?.info?.hostType === 'Host'
+      ? post?.info?.owner.nickName
+      : isLocked
+      ? post.info.members[1].nickName
+      : '';
+
   function handleBack() {
     navigation.goBack();
   }
+
+  useEffect(() => {
+    async function getUserId() {
+      const userId = await SecureStore.getItemAsync('userId');
+      if (pendingRequests.find((request) => request.user._id === userId)) {
+        setDisabled(true);
+        return;
+      }
+      setDisabled(false);
+    }
+
+    getUserId();
+  }, [pendingRequests]);
 
   const requestInvite = async () => {
     if (!post?.info) return;
@@ -47,6 +65,7 @@ export default function NotJoined() {
     try {
       setIsLoading(true);
       await sendRequest({ id: post.info._id, type: post.info.hostType });
+      setDisabled(true);
     } catch (err) {
       if (Axios.isAxiosError(err)) Alert.alert(err?.response?.data.message);
     } finally {
@@ -73,6 +92,7 @@ export default function NotJoined() {
     <ScrollView
       style={styles.scrollWrapper}
       refreshControl={<RefreshControl refreshing={isPostLoading} onRefresh={refetchPost} />}
+      contentContainerStyle={styles.scrollContent}
     >
       <ImageBackground
         imageStyle={styles.postCardCover}
@@ -88,20 +108,24 @@ export default function NotJoined() {
       </ImageBackground>
       <HeaderButton onPress={handleBack} icon={'arrow-back'} isBackground={true} variant="left" />
 
-      <Image
-        source={{
-          uri: post.info.owner.avatar && getImagePath(post.info.owner.avatar),
+      <Link
+        href={{
+          pathname: '/profilefull/[id]',
+          params: { id: post.info.owner._id },
         }}
         style={styles.userPicture}
-      />
+      >
+        <AvatarPlaceholder item={post.info.owner} size={70} />
+      </Link>
       <View style={styles.postInfo}>
         <Text variant="h4">{post.info.location}</Text>
         <View style={styles.mainInfo}>
-          <Text>Hosted by: {post.info.hostType === 'Host' ? post.info.owner.nickName : ''}</Text>
+          <Text>Hosted by: {hostedBy}</Text>
           <Button
-            title={post.info.hostType === 'Host' ? 'Request' : 'Request to be host'}
+            title={isLocked ? 'Locked' : title}
             onPress={requestInvite}
             loading={isLoading}
+            disabled={disabled || isLocked}
           />
           <Text variant="disabled" fontSize={14}>
             {post.info.date && format(new Date(post.info.date), 'MMMM d, yyyy, h:mm a')}
@@ -116,13 +140,13 @@ export default function NotJoined() {
               ? ' +' + post.info.guestOthersCount.toString() + ' Other'
               : ''}
           </Text>
-          {post.info.guests && (
+          {post.info.members && (
             <View style={styles.guests}>
-              <UserPicGallery data={post.info.guests.slice(0, 3)} size={AVATAR_SIZE} />
-              {post.info.guests.length > 3 && (
+              <UserPicGallery data={post.info.members.slice(0, 3)} size={AVATAR_SIZE} />
+              {post.info.members.length > 3 && (
                 <Pressable style={styles.more}>
                   <Text variant="h3" style={{ color: theme.colors.secondary }}>
-                    +{`${post.info.guests.length - 3}`}
+                    +{`${post.info.members.length - 3}`}
                   </Text>
                 </Pressable>
               )}

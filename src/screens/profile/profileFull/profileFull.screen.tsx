@@ -1,5 +1,6 @@
 import Background from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import ErrorPage from '@screens/errorPage/errorPage.component';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { PageLoader } from '@shared/ui/pageLoader';
@@ -8,7 +9,7 @@ import Text from '@shared/ui/text/text.component';
 import { getImagePath } from '@shared/utils/getImagePath';
 import Constants from 'expo-constants';
 import { useLocalSearchParams } from 'expo-router';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Image, ImageBackground, ScrollView, Share, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { getProfile } from 'src/store/slices/profileSlice';
@@ -21,9 +22,16 @@ export default function ProfileFull() {
   const dispatch = useAppDispatch();
   const { profile, isLoading, error } = useAppSelector((state) => state.profileSlice);
 
+  const fetchProfile = useCallback(
+    (id: string) => {
+      dispatch(getProfile(id as string));
+    },
+    [dispatch]
+  );
+
   useEffect(() => {
-    dispatch(getProfile(id as string));
-  }, [dispatch, id]);
+    fetchProfile(id as string);
+  }, [fetchProfile, id]);
 
   const theme = useTheme();
   const styles = createStyles(theme);
@@ -36,7 +44,10 @@ export default function ProfileFull() {
   };
 
   if (isLoading) return <PageLoader />;
-  if (error) return <Text>{error}</Text>;
+  if (error)
+    return (
+      <ErrorPage error={error} retry={async () => fetchProfile(id as string)} backButton={false} />
+    );
 
   return (
     <ScrollView style={styles.wrapper}>

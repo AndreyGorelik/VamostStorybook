@@ -19,6 +19,7 @@ export default function OutlinedButton({
   borderRadius,
   fontSize,
   flex,
+  noDisableStyle,
 }: OutlinedBtnProps) {
   const handlePress = () => {
     onPress?.();
@@ -29,6 +30,7 @@ export default function OutlinedButton({
   const styles = createStyles({
     theme: theme,
     disabled,
+    noDisableStyle,
     selected,
     width,
     height,

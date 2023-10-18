@@ -11,6 +11,7 @@ export const createStyles = ({
   color,
   borderRadius,
   fontSize,
+  noDisableStyle,
   flex,
 }: OutlinedBtnStyle) =>
   StyleSheet.create({
@@ -30,7 +31,7 @@ export const createStyles = ({
         : selected
         ? theme.colors.selected
         : theme.colors.button,
-      opacity: disabled ? 0.6 : 1,
+      opacity: disabled && !noDisableStyle ? 0.6 : 1,
     },
     text: {
       letterSpacing: 0.25,

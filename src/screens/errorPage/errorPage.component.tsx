@@ -8,7 +8,7 @@ import { View } from 'react-native';
 import { createStyles } from './errorPage.styles';
 import { ErrorPageProps } from './errorPage.types';
 
-export default function ErrorPage({ retry, error }: ErrorPageProps) {
+export default function ErrorPage({ retry, error, backButton = true }: ErrorPageProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
   const navigation = useNavigation();
@@ -19,7 +19,9 @@ export default function ErrorPage({ retry, error }: ErrorPageProps) {
 
   return (
     <View style={styles.wrapper}>
-      <HeaderButton onPress={handleBack} icon={'arrow-back'} isBackground={true} variant="left" />
+      {backButton && (
+        <HeaderButton onPress={handleBack} icon={'arrow-back'} isBackground={true} variant="left" />
+      )}
       <Text variant="h3" style={styles.text}>
         {error}
       </Text>

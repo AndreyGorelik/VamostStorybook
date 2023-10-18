@@ -12,7 +12,7 @@ export const API_ROUTES = {
   createPost: 'post',
   getPackages: 'package',
   getVenues: 'place',
-  post: '/post',
+  post: 'post',
   users: 'user',
   request: 'request',
   setAvatar: 'user/set-avatar',
