@@ -68,7 +68,7 @@ export default function Account() {
         >
           <View style={styles.linearGradient}></View>
           <View style={styles.userInfo}>
-            <Image source={{ uri: avatar }} style={styles.image} />
+            <Image source={{ uri: avatar?.imagePath }} style={styles.image} />
             <Text variant="h3" {...styles.text} style={styles.nickname}>
               {nickname}
             </Text>

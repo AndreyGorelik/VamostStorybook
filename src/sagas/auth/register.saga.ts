@@ -7,6 +7,7 @@ import {
   REGISTER_PHOTO,
   REGISTER_BIRTHDATE,
 } from '@shared/constants/actions';
+import { getImagePath } from '@shared/utils/getImagePath';
 import { saveTokens } from '@shared/utils/saveTokens';
 import Axios, { AxiosResponse } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects';
@@ -35,6 +36,9 @@ import {
   RegisterUser,
 } from 'src/types/actions/actions.types';
 import { ConfirmCodeResponse } from 'src/types/api/confirmCode.types';
+
+import { Photo } from '../../store/slices/profileSlice';
+import { addPhoto } from '../../store/slices/user.slice';
 
 function* phoneAndPasswordRequestWorker(action: Action<RegisterUser>) {
   const { payload } = action;
@@ -158,10 +162,12 @@ function* registerPhotoWorker(action: Action<string>) {
   const { payload } = action;
 
   try {
+
     for (const image of JSON.parse(payload)) {
       const formData = new FormData();
       formData.append('imageData', image as any);
-      yield call(registerPhotoRequest, { data: formData });
+      const photo: AxiosResponse<Photo> = yield call(registerPhotoRequest, { data: formData });
+      yield put(addPhoto({ ...photo.data, imagePath: getImagePath(photo.data) }));
     }
     yield put(setSignUpFinished(true));
   } catch (error) {

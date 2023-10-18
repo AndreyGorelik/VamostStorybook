@@ -25,7 +25,7 @@ export default function UserMenu() {
       <ImageBackground
         style={styles.imageWrapper}
         imageStyle={{ opacity: 0.8 }}
-        source={{ uri: avatar }}
+        source={{ uri: avatar?.imagePath }}
       >
         <LinearGradient
           colors={[theme.colors.primary, theme.colors.secondary]}
@@ -34,7 +34,8 @@ export default function UserMenu() {
           style={styles.linearGradient}
         ></LinearGradient>
         <View style={styles.userInfo}>
-          {avatar && <Image source={{ uri: avatar }} style={styles.image} />}
+        {avatar & <Image source={{ uri: avatar?.imagePath }} style={styles.image} />}
+
           <View style={styles.textWrapper}>
             <Text
               variant="common"

@@ -26,7 +26,7 @@ export interface UserState {
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   birthdate: string;
   images: Photo[];
-  avatar: string;
+  avatar: Photo | null;
   id: string;
   uploadingPhoto?: boolean;
   uploadingPhotoError?: string;
@@ -60,8 +60,8 @@ export type UserInfo = {
   };
   shownGender: 'Man' | 'Woman' | 'Everyone' | null;
   birthdate: string;
-  images: string[];
-  avatar: string;
+  images: Photo[];
+  avatar: Photo | null;
 };
 
 export const initialState: UserState = {
@@ -80,7 +80,7 @@ export const initialState: UserState = {
   birthdate: '',
   images: [],
   phoneVerified: false,
-  avatar: '',
+  avatar: null,
   id: '',
   uploadingPhoto: false,
   uploadingPhotoError: '',
@@ -161,6 +161,15 @@ const userSlice = createSlice({
       state.savingEditedInfoError = action.payload;
       state.savingEditedInfo = false;
     },
+    addPhoto(state, action: PayloadAction<Photo>) {
+      state.images = [...state.images, action.payload];
+      if (!state.avatar) {
+        state.avatar = state.images[0];
+      }
+    },
+    setAvatar(state, action: PayloadAction<Photo>) {
+      state.avatar = action.payload;
+    },
   },
 });
 
@@ -183,6 +192,8 @@ export const {
   setBirthDate,
   setUser,
   setEditedUserInfo,
+  setAvatar,
+  addPhoto,
   setPhotoError,
   setUploadingPhoto,
   setPhoto,
