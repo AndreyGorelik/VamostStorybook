@@ -28,7 +28,7 @@ export default function Photos() {
 
   function onSubmit() {
     const photos = images.map((image) => image.imageData);
-    dispatch(registerPhotoAction(photos));
+    dispatch(registerPhotoAction(JSON.stringify(photos)));
   }
 
   const pickImage = async (id: number) => {
@@ -47,17 +47,16 @@ export default function Photos() {
     if (!result.canceled) {
       const newImages = [...images];
       result.assets.forEach(async (asset) => {
-        const formData = new FormData();
         const uri = Platform.OS === 'ios' ? asset.uri.replace('file://', '') : asset.uri;
         const fileData = {
           name: `image.${mime.getType(uri)?.split('/')[1]}`,
           type: mime.getType(uri),
           uri,
         };
-        formData.append('imageData', fileData as any);
+
         const image = {
           uri: asset.uri,
-          imageData: formData,
+          imageData: fileData,
         };
 
         newImages.push(image);

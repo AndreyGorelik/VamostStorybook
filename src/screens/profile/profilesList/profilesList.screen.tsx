@@ -2,6 +2,7 @@ import useTheme from '@shared/hooks/useTheme.hook';
 import { PostGuests } from '@shared/ui/postCard/postCard.types';
 import Text from '@shared/ui/text/text.component';
 import { AvatarPlaceholder } from '@shared/ui/userpicGallery/components/avatarPlaceholder';
+
 import { Link, useLocalSearchParams } from 'expo-router';
 import { FlatList, View } from 'react-native';
 

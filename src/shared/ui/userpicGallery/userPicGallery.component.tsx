@@ -1,6 +1,7 @@
 import useTheme from '@shared/hooks/useTheme.hook';
+import { getImagePath } from '@shared/utils/getImagePath';
 import { router } from 'expo-router';
-import { Pressable } from 'react-native';
+import { View, Image, Pressable } from 'react-native';
 
 import AvatarPlaceholder from './components/avatarPlaceholder/avatarPlaceholder.component';
 import { createStyles } from './userPicGallery.styles';

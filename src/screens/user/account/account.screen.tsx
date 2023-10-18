@@ -8,13 +8,13 @@ import PhotoGallery from '@shared/ui/photoGallery/photoGallery.component';
 import PostCreate from '@shared/ui/postCreate/postCreate.component';
 import Text from '@shared/ui/text/text.component';
 import { removeTokens } from '@shared/utils/removeTokens';
+import { Image } from 'expo-image';
 import { useNavigation } from 'expo-router';
 import { useState } from 'react';
 import {
   View,
   ScrollView,
   ImageBackground,
-  Image,
   FlatList,
   ActivityIndicatorComponent,
 } from 'react-native';
@@ -23,6 +23,7 @@ import { initialState, setUser } from 'src/store/slices/user.slice';
 
 import { actions, posts } from './account.data';
 import { createStyles } from './account.styles';
+import AddImage from './components/addImage/addImage.component';
 import { PersonalInfo } from './components/personalInfo';
 import { RecentMeetup } from './components/recentMeetup';
 
@@ -30,14 +31,17 @@ export default function Account() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [editMode, setEditMode] = useState(false);
-  const { email, nickname, images, avatar } = useAppSelector((state) => state.userSlice);
+  const { email, nickname, images, avatar, photoError } = useAppSelector(
+    (state) => state.userSlice
+  );
+
   const dispatch = useAppDispatch();
   const [openPostCreate, setOpenPostCreate] = useState(false);
   const navigation = useNavigation();
 
-  function handleBack() {
+  const handleBack = () => {
     navigation.goBack();
-  }
+  };
 
   return (
     <>
@@ -106,9 +110,11 @@ export default function Account() {
               )}
             />
           </View>
-          <View>
+          <View style={styles.photoContainer}>
             <Text variant="h3">Photos</Text>
             <PhotoGallery images={images} />
+            {photoError && <Text variant="warning">{photoError}</Text>}
+            <AddImage />
           </View>
         </View>
       </ScrollView>
