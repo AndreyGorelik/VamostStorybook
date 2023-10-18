@@ -18,7 +18,7 @@
     "strict": true,
     "target": "esnext"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "tests/*.ts", "app/**/*.tsx", "./index.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "tests/*.ts", "app/**/*", "./index.d.ts"],
   "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"],
   "extends": "expo/tsconfig.base"
 }

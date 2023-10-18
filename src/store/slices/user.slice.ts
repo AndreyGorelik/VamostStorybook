@@ -1,6 +1,7 @@
 import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
 import { PersonalInfoValues } from '@screens/user/account/components/personalInfo/personalInfo.types';
 import { UserGender } from 'src/types/actions/actions.types';
+import { PostRequest } from 'src/types/api/getPosts';
 
 import { Photo } from './profileSlice';
 
@@ -34,6 +35,9 @@ export interface UserState {
   deletePhotoError?: string;
   savingEditedInfoError?: string;
   savingEditedInfo?: boolean;
+  requests?: PostRequest[];
+  requestsError?: string;
+  requestsLoading?: boolean;
 }
 
 export type UserInfo = {
@@ -170,6 +174,19 @@ const userSlice = createSlice({
     setAvatar(state, action: PayloadAction<Photo>) {
       state.avatar = action.payload;
     },
+    setUserRequests(state, action: PayloadAction<PostRequest[]>) {
+      state.requests = action.payload;
+      state.requestsLoading = false;
+      state.requestsError = undefined;
+    },
+    setUserRequestsError(state, action: PayloadAction<string>) {
+      state.requestsError = action.payload;
+      state.requestsLoading = false;
+    },
+    getUserRequests(state) {
+      state.requestsLoading = true;
+      state.requestsError = undefined;
+    },
   },
 });
 
@@ -181,6 +198,9 @@ export const deleteUserPhoto = createAction<string>(DELETE_USER_PHOTO);
 
 export const UPDATE_PERSONAL_INFO = 'userSlice/updatePersonalInfo';
 export const updatePersonalInfo = createAction<PersonalInfoValues>(UPDATE_PERSONAL_INFO);
+
+export const GET_USER_REQUESTS = 'userSlice/getUserRequests';
+export const getUserRequestsAction = createAction<{ id: string }>(GET_USER_REQUESTS);
 
 export const {
   setPhoneNumber,
@@ -202,6 +222,8 @@ export const {
   setDeletingPhoto,
   setSavingEditedInfo,
   setSavingEditedInfoError,
+  setUserRequests,
+  setUserRequestsError,
 } = userSlice.actions;
 
 export default userSlice.reducer;
