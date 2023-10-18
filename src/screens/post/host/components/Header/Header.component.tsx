@@ -39,7 +39,7 @@ export default function Header({ postInfo }: HeaderProps) {
         </View>
         <HostingLabel type={postInfo.hostType} />
         <View style={styles.guestsGallery}>
-          <UserPicGallery data={postInfo.members?.slice(0, 3)} size={65} />
+          <UserPicGallery data={postInfo.members} size={65} />
         </View>
       </View>
       <View style={styles.guests}>

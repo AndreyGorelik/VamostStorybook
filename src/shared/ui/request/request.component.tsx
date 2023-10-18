@@ -38,14 +38,12 @@ export default function Request({
               <FontAwesome5 name="telegram-plane" size={15} color={theme.colors.secondary} />
             </View>
           </View>
-          <View style={styles.row}>
-            {data.requestStatus !== 'Approve' && (
+          {data.requestStatus === 'New' && (
+            <View style={styles.row}>
               <OutlinedButton title="Confirm" onPress={confirmRequest} height={30} width={70} />
-            )}
-            {data.requestStatus !== 'Rejected' && (
               <OutlinedButton title="Delete" onPress={deleteRequest} height={30} width={70} />
-            )}
-          </View>
+            </View>
+          )}
         </View>
       </View>
     </View>

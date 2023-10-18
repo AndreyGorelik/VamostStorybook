@@ -12,7 +12,7 @@ import { getImagePath } from '@shared/utils/getImagePath';
 import Axios from 'axios';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link, useNavigation } from 'expo-router';
+import { Link, router, useNavigation } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { useEffect, useState } from 'react';
 import { View, ImageBackground, ScrollView, Alert, RefreshControl, Pressable } from 'react-native';
@@ -142,9 +142,19 @@ export default function NotJoined() {
           </Text>
           {post.info.members && (
             <View style={styles.guests}>
-              <UserPicGallery data={post.info.members.slice(0, 3)} size={AVATAR_SIZE} />
+              <UserPicGallery data={post.info.members} size={AVATAR_SIZE} />
               {post.info.members.length > 3 && (
-                <Pressable style={styles.more}>
+                <Pressable
+                  style={styles.more}
+                  onPress={() =>
+                    router.push({
+                      params: {
+                        guests: JSON.stringify(post.info.members),
+                      },
+                      pathname: '/profileslist',
+                    })
+                  }
+                >
                   <Text variant="h3" style={{ color: theme.colors.secondary }}>
                     +{`${post.info.members.length - 3}`}
                   </Text>
