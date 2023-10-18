@@ -62,9 +62,10 @@ export default function PostActions({ post, refetchPost }: PostActionsProps) {
 
   return (
     <View style={styles.actionButtons}>
-      {actionBtns.map((button) => (
-        <OutlinedButton key={button.title} {...button} {...styles.actionBtn} />
-      ))}
+      {actionBtns.map((button, index) => {
+        if (post?.info?.hostType === 'Guest' && index === 0) return;
+        return <OutlinedButton key={button.title} {...button} {...styles.actionBtn} />;
+      })}
     </View>
   );
 }

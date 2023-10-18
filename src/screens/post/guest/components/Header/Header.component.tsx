@@ -1,6 +1,7 @@
 import useTheme from '@shared/hooks/useTheme.hook';
 import Text from '@shared/ui/text/text.component';
 import { UserPicGallery } from '@shared/ui/userpicGallery';
+import { getImagePath } from '@shared/utils/getImagePath';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ImageBackground, View } from 'react-native';
@@ -17,7 +18,7 @@ export default function Header({ postInfo }: HeaderProps) {
       <ImageBackground
         imageStyle={styles.postCardCover}
         source={{
-          uri: postInfo.imageUrl,
+          uri: postInfo.images[0] && getImagePath(postInfo.images[0]),
         }}
         style={styles.photoContainer}
       >
@@ -35,14 +36,15 @@ export default function Header({ postInfo }: HeaderProps) {
             {format(new Date(postInfo.date), 'MMMM d, yyyy, h:mm a')}
           </Text>
         </View>
+
         <View style={styles.guestsGallery}>
-          <UserPicGallery data={postInfo.guests.slice(0, 3)} size={65} />
+          <UserPicGallery data={postInfo.members.slice(0, 3)} size={65} />
         </View>
       </View>
       <View style={styles.guests}>
         <Text>Guests:</Text>
 
-        {postInfo.guests.length > 3 && <Text>({`${postInfo.guests.length - 3} left`})</Text>}
+        {postInfo.members.length > 3 && <Text>({`${postInfo.members.length - 3} left`})</Text>}
       </View>
     </View>
   );

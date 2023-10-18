@@ -5,27 +5,13 @@ export default function Layout() {
     <Stack
       screenOptions={{
         headerShown: false,
+        animation: 'fade',
       }}
     >
       <Stack.Screen name="[id]" />
-      <Stack.Screen
-        name="post/host/index"
-        options={{
-          animation: 'fade',
-        }}
-      />
-      <Stack.Screen
-        name="post/guest/index"
-        options={{
-          animation: 'fade',
-        }}
-      />
-      <Stack.Screen
-        name="post/not-joined/index"
-        options={{
-          animation: 'fade',
-        }}
-      />
+      <Stack.Screen name="post/host/index" />
+      <Stack.Screen name="post/guest/index" />
+      <Stack.Screen name="post/not-joined/index" />
     </Stack>
   );
 }

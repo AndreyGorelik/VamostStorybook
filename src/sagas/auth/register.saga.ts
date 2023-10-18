@@ -158,12 +158,15 @@ function* registerAttributesWorker(action: Action<RegisterAttributes>) {
   }
 }
 
-function* registerPhotoWorker(action: Action<FormData[]>) {
+function* registerPhotoWorker(action: Action<string>) {
   const { payload } = action;
 
   try {
-    for (const image of payload) {
-      const photo: AxiosResponse<Photo> = yield call(registerPhotoRequest, { data: image });
+
+    for (const image of JSON.parse(payload)) {
+      const formData = new FormData();
+      formData.append('imageData', image as any);
+      const photo: AxiosResponse<Photo> = yield call(registerPhotoRequest, { data: formData });
       yield put(addPhoto({ ...photo.data, imagePath: getImagePath(photo.data) }));
     }
     yield put(setSignUpFinished(true));

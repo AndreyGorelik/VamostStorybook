@@ -7,6 +7,9 @@ export const createStyles = (theme: Theme, size: number) =>
       flex: 1,
       backgroundColor: theme.colors.background,
     },
+    scrollContent: {
+      paddingBottom: 50,
+    },
     linearGradient: {
       flex: 1,
       borderBottomLeftRadius: 15,
@@ -21,16 +24,8 @@ export const createStyles = (theme: Theme, size: number) =>
       height: 250,
     },
     userPicture: {
-      width: 70,
-      height: 70,
-      borderRadius: 50,
-      borderWidth: 3,
-      borderColor: theme.colors.background,
-      backgroundColor: theme.colors.secondary,
-      position: 'relative',
       top: -35,
       left: 15,
-      marginBottom: -35,
     },
     postInfo: {
       paddingHorizontal: 15,

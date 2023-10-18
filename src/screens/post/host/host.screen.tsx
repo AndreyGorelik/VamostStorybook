@@ -5,23 +5,29 @@ import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
 import { PageLoader } from '@shared/ui/pageLoader';
 import { Request } from '@shared/ui/request';
 import { useNavigation } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, RefreshControl, Text, FlatList } from 'react-native';
 import {
   confirmRequest,
   deleteRequest,
   getPostAction,
   resetPost,
+  updatePostStatus,
 } from 'src/store/slices/post/post.slice';
 import {
   addApproveRequest,
   removeApproveRequest,
+  setApproveRequests,
 } from 'src/store/slices/post/requests/approveRequests.slice';
 import {
   removeDeletedRequest,
   addDeletedRequest,
+  setDeletedRequests,
 } from 'src/store/slices/post/requests/deletedRequests.slice';
-import { removePendingRequest } from 'src/store/slices/post/requests/pendingRequests.slice';
+import {
+  removePendingRequest,
+  setPendingRequests,
+} from 'src/store/slices/post/requests/pendingRequests.slice';
 import { PostRequest, RequestStatus } from 'src/types/api/getPosts';
 
 import { Guests } from './components/Guests';
@@ -42,6 +48,14 @@ export default function PostFullHost() {
   const { pendingRequests } = useAppSelector((state) => state.pendingRequestsSlice);
   const { deletedRequests } = useAppSelector((state) => state.deletedRequestsSlice);
 
+  useEffect(() => {
+    return () => {
+      dispatch(setPendingRequests([]));
+      dispatch(setApproveRequests([]));
+      dispatch(setDeletedRequests([]));
+    };
+  }, [dispatch]);
+
   const data: Record<RequestStatus, PostRequest[]> = {
     New: pendingRequests,
     Approve: approveRequests,
@@ -59,6 +73,15 @@ export default function PostFullHost() {
     dispatch(
       confirmRequest({ postId: post.info._id, requestId: request._id, decision: 'Approve' })
     );
+
+    if (post.info.hostType === 'Guest') {
+      dispatch(
+        updatePostStatus({
+          id: post.info._id,
+          postStatus: 'Active',
+        })
+      );
+    }
   }
 
   function handleDeleteRequest(request: PostRequest) {
@@ -127,9 +150,8 @@ export default function PostFullHost() {
       )}
       refreshControl={<RefreshControl refreshing={isPostLoading} onRefresh={refetchPost} />}
       extraData={active}
-      style={{
-        backgroundColor: theme.colors.background,
-      }}
+      style={styles.listStyle}
+      contentContainerStyle={styles.contentStyle}
     />
   );
 }

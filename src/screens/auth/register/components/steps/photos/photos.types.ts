@@ -5,5 +5,9 @@ export type PhotoInputType = {
 
 export type PickedImage = {
   uri: string;
-  imageData: FormData;
+  imageData: {
+    name: string;
+    type: string | null;
+    uri: string;
+  };
 };

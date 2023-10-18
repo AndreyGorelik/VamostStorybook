@@ -11,7 +11,6 @@ export type RegisterAttributes = {
   gender: UserGender;
   sexualOrientation: SexualOrientation;
   shownGender: 'Man' | 'Woman' | 'Everyone' | null | string;
-  birthDate: string;
 };
 export type RegisterPhoto = FormData;
 export type SexualOrientation = {

@@ -4,4 +4,5 @@ export interface InfoRowProps extends InputProps {
   title: string;
   editable: boolean;
   input?: boolean;
+  editMode?: boolean;
 }

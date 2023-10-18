@@ -52,13 +52,11 @@ export const createStyles = (theme: Theme) =>
       paddingHorizontal: 20,
       rowGap: 30,
     },
-    actions: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      flex: 1,
-    },
     recentMeetups: {
       width: '100%',
     },
     meetupsWrapper: { columnGap: 20, paddingVertical: 15 },
+    photoContainer: {
+      gap: 10,
+    },
   });

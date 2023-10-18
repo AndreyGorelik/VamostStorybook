@@ -3,7 +3,7 @@ import { getImagePath } from '@shared/utils/getImagePath';
 import { format } from 'date-fns';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { View, TouchableOpacity, ImageBackground, Alert } from 'react-native';
+import { View, TouchableOpacity, ImageBackground } from 'react-native';
 import { PostResponse } from 'src/types/actions/actions.types';
 
 import { OutlinedButton } from '../outlinedBtn';
@@ -97,12 +97,13 @@ export default function PostCard(props: PostResponse) {
             </Text>
           </View>
           <View style={styles.rowSpaceBetween}>
-            <UserPicGallery data={props.guests} />
+            <UserPicGallery data={props.members} />
             <OutlinedButton
-              onPress={() => Alert.alert('press')}
               height={40}
               width={100}
               {...btnStyle[props.postStatus]}
+              disabled
+              noDisableStyle
             />
           </View>
         </View>

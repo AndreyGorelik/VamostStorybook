@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
 import { PersonalInfoValues } from '@screens/user/account/components/personalInfo/personalInfo.types';
 import { UserGender } from 'src/types/actions/actions.types';
 
@@ -27,6 +27,13 @@ export interface UserState {
   birthdate: string;
   images: Photo[];
   avatar: Photo | null;
+  id: string;
+  uploadingPhoto?: boolean;
+  uploadingPhotoError?: string;
+  deletingPhoto?: boolean;
+  deletePhotoError?: string;
+  savingEditedInfoError?: string;
+  savingEditedInfo?: boolean;
 }
 
 export type UserInfo = {
@@ -74,6 +81,13 @@ export const initialState: UserState = {
   images: [],
   phoneVerified: false,
   avatar: null,
+  id: '',
+  uploadingPhoto: false,
+  uploadingPhotoError: '',
+  deletingPhoto: false,
+  deletePhotoError: '',
+  savingEditedInfo: false,
+  savingEditedInfoError: '',
 };
 
 const userSlice = createSlice({
@@ -104,13 +118,48 @@ const userSlice = createSlice({
     setBirthDate(state, action) {
       state.birthdate = action.payload;
     },
+    setPhoto(state, action: PayloadAction<Photo>) {
+      state.uploadingPhotoError = '';
+      state.images.push(action.payload);
+      state.uploadingPhoto = false;
+    },
+    setUploadingPhoto(state, action) {
+      state.uploadingPhoto = action.payload;
+    },
+    setPhotoError(state, action) {
+      state.uploadingPhotoError = action.payload;
+      state.uploadingPhoto = false;
+    },
+    setDeletePhotoError(state, action) {
+      state.deletePhotoError = action.payload;
+      state.deletingPhoto = false;
+    },
+    setDeletingPhoto(state, action) {
+      state.deletingPhoto = action.payload;
+      state.deletePhotoError = '';
+    },
+    removePhoto(state, action) {
+      state.images = state.images.filter((item) => item._id !== action.payload);
+      state.deletePhotoError = '';
+      state.deletingPhoto = false;
+    },
     setEditedUserInfo(state, action: PayloadAction<PersonalInfoValues>) {
-      state.phoneNumber = action.payload.phoneNumber;
       state.email = action.payload.email;
       state.nickname = action.payload.nickname;
       state.gender = action.payload.gender;
       state.sexualOrientation = action.payload.sexualOrientation;
       state.birthdate = action.payload.birthdate;
+      state.shownGender = action.payload.shownGender;
+      state.savingEditedInfoError = '';
+      state.savingEditedInfo = false;
+    },
+    setSavingEditedInfo(state, action) {
+      state.savingEditedInfo = action.payload;
+      state.savingEditedInfoError = '';
+    },
+    setSavingEditedInfoError(state, action) {
+      state.savingEditedInfoError = action.payload;
+      state.savingEditedInfo = false;
     },
     addPhoto(state, action: PayloadAction<Photo>) {
       state.images = [...state.images, action.payload];
@@ -124,6 +173,15 @@ const userSlice = createSlice({
   },
 });
 
+export const ADD_NEW_PHOTO = 'userSlice/addNewPhoto';
+export const addNewPhoto = createAction<string>(ADD_NEW_PHOTO);
+
+export const DELETE_USER_PHOTO = 'userSlice/deletePhoto';
+export const deleteUserPhoto = createAction<string>(DELETE_USER_PHOTO);
+
+export const UPDATE_PERSONAL_INFO = 'userSlice/updatePersonalInfo';
+export const updatePersonalInfo = createAction<PersonalInfoValues>(UPDATE_PERSONAL_INFO);
+
 export const {
   setPhoneNumber,
   setEmail,
@@ -136,6 +194,14 @@ export const {
   setEditedUserInfo,
   setAvatar,
   addPhoto,
+  setPhotoError,
+  setUploadingPhoto,
+  setPhoto,
+  removePhoto,
+  setDeletePhotoError,
+  setDeletingPhoto,
+  setSavingEditedInfo,
+  setSavingEditedInfoError,
 } = userSlice.actions;
 
 export default userSlice.reducer;

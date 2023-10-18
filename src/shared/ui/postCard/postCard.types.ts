@@ -1,4 +1,4 @@
-import { ImageSourcePropType } from 'react-native';
+import { Photo } from 'src/store/slices/profileSlice';
 import { PostStatus } from 'src/types/actions/actions.types';
 
 export interface PostTag {
@@ -7,8 +7,9 @@ export interface PostTag {
 }
 
 export interface PostGuests {
-  guestPhoto: ImageSourcePropType;
-  id: string;
+  avatar: Photo;
+  _id: string;
+  nickName: string;
 }
 
 export interface PostCardProps {

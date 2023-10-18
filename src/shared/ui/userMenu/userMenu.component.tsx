@@ -34,7 +34,8 @@ export default function UserMenu() {
           style={styles.linearGradient}
         ></LinearGradient>
         <View style={styles.userInfo}>
-          <Image source={{ uri: avatar?.imagePath }} style={styles.image} />
+        {avatar & <Image source={{ uri: avatar?.imagePath }} style={styles.image} />}
+
           <View style={styles.textWrapper}>
             <Text
               variant="common"

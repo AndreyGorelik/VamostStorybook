@@ -1,7 +1,6 @@
 import useTheme from '@shared/hooks/useTheme.hook';
 import { useCallback } from 'react';
-import { ActivityIndicator, FlatList } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ActivityIndicator, FlatList, Pressable } from 'react-native';
 
 import { OutlinedButton } from '../outlinedBtn';
 import Text from '../text/text.component';
@@ -40,16 +39,11 @@ export default function SelectList({
 
   const renderListItem = useCallback(
     ({ item }: { item: SelectListItem }) => (
-      <TouchableOpacity
-        style={styles.listItem}
-        activeOpacity={0.8}
-        key={item.id}
-        onPress={() => selectItem(item.id)}
-      >
+      <Pressable style={styles.listItem} key={item.id} onPress={() => selectItem(item.id)}>
         <Text variant="h5" color={item.id === selected ? theme.colors.selected : theme.colors.text}>
           {item.label}
         </Text>
-      </TouchableOpacity>
+      </Pressable>
     ),
     [selectItem, selected, styles.listItem, theme.colors.selected, theme.colors.text]
   );

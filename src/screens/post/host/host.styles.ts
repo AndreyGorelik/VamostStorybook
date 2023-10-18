@@ -34,4 +34,10 @@ export const createStyles = (theme: Theme) =>
       fontSize: 14,
       flex: 1,
     },
+    listStyle: {
+      backgroundColor: theme.colors.background,
+    },
+    contentStyle: {
+      paddingBottom: 50,
+    },
   });

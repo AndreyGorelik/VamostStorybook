@@ -1,12 +1,11 @@
-import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import useTheme from '@shared/hooks/useTheme.hook';
-import { getImagePath } from '@shared/utils/getImagePath';
-import { useState } from 'react';
-import { ActivityIndicator, Image, View } from 'react-native';
+import { View } from 'react-native';
 import { PostRequest } from 'src/types/api/getPosts';
 
 import { OutlinedButton } from '../outlinedBtn';
 import Text from '../text/text.component';
+import { AvatarPlaceholder } from '../userpicGallery/components/avatarPlaceholder';
 
 import { createStyles } from './request.styles';
 
@@ -21,28 +20,11 @@ export default function Request({
 }) {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const [loading, setLoading] = useState<boolean>(false);
 
   return (
     <View style={styles.container}>
-      <View>
-        {loading && <ActivityIndicator size={24} color={theme.colors.text} style={styles.loader} />}
-        {data.user?.avatar ? (
-          <Image
-            source={{ uri: getImagePath(data.user.avatar) }}
-            style={styles.userpic}
-            onLoadStart={() => setLoading(true)}
-            onLoadEnd={() => setLoading(false)}
-          />
-        ) : (
-          <Ionicons
-            name="person-circle"
-            size={60}
-            color={theme.colors.lightText}
-            style={styles.userpic}
-          />
-        )}
-      </View>
+      <AvatarPlaceholder size={60} item={data.user} />
+
       <View style={styles.flex}>
         <View>
           <Text variant="h5">{data.user?.nickName}</Text>
