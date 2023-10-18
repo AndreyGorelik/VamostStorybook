@@ -35,6 +35,7 @@ function* logInRequestWorker(action: Action<LoginUser>) {
         }),
         avatar: data.avatar && getImagePath(data.avatar),
         phoneVerified: data.phoneVerified && data.phoneVerified,
+        id: data._id && data._id,
       })
     );
     yield put(loginUserSuccess());

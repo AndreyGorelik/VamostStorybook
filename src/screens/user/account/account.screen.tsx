@@ -1,46 +1,57 @@
 import Background from '@assets/images/postCardImages/postCardMainPhoto.jpeg';
-import { MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useAppDispatch, useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
-import Action from '@shared/ui/action/action.component';
 import { HeaderButton } from '@shared/ui/bottomSheet/components/headerButton';
 import PhotoGallery from '@shared/ui/photoGallery/photoGallery.component';
 import PostCreate from '@shared/ui/postCreate/postCreate.component';
 import Text from '@shared/ui/text/text.component';
 import { removeTokens } from '@shared/utils/removeTokens';
+import Constants from 'expo-constants';
 import { Image } from 'expo-image';
 import { useNavigation } from 'expo-router';
 import { useState } from 'react';
-import {
-  View,
-  ScrollView,
-  ImageBackground,
-  FlatList,
-  ActivityIndicatorComponent,
-} from 'react-native';
+import { View, ScrollView, ImageBackground, Share } from 'react-native';
 import { logoutUser } from 'src/store/slices/auth.slice';
 import { initialState, setUser } from 'src/store/slices/user.slice';
 
-import { actions, posts } from './account.data';
 import { createStyles } from './account.styles';
 import AddImage from './components/addImage/addImage.component';
+import ControlButtons from './components/controlButtons/controlButtons';
 import { PersonalInfo } from './components/personalInfo';
-import { RecentMeetup } from './components/recentMeetup';
 
 export default function Account() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [editMode, setEditMode] = useState(false);
-  const { email, nickname, images, avatar, photoError } = useAppSelector(
+
+  const { email, nickname, images, avatar, uploadingPhotoError, id } = useAppSelector(
     (state) => state.userSlice
   );
-
   const dispatch = useAppDispatch();
   const [openPostCreate, setOpenPostCreate] = useState(false);
   const navigation = useNavigation();
 
   const handleBack = () => {
     navigation.goBack();
+  };
+
+  const shareProfileLink = async () => {
+    const ip = Constants.linkingUri.split('//')[1].split(':')[0];
+    await Share.share({
+      message: `exp://${ip}:8081/--/profilefull/${id}`,
+    });
+  };
+
+  const watchRequests = () => {
+    return;
+  };
+
+  const addNewPost = () => {
+    setOpenPostCreate(true);
+  };
+
+  const editPersonalInfo = () => {
+    setEditMode(!editMode);
   };
 
   return (
@@ -79,41 +90,20 @@ export default function Account() {
         />
 
         <View style={styles.userContent}>
-          <View style={styles.actions}>
-            <Action
-              Icon={<AntDesign size={26} name="pluscircle" color={theme.colors.secondary} />}
-              title="New"
-              onPress={() => setOpenPostCreate(true)}
-            />
-            <Action
-              Icon={<MaterialIcons name="edit" size={24} color={theme.colors.secondary} />}
-              title="Edit"
-              onPress={() => setEditMode(true)}
-            />
-            {actions.map((action) => (
-              <Action key={action.id} {...action} />
-            ))}
-          </View>
+          <ControlButtons
+            edit={editPersonalInfo}
+            addNew={addNewPost}
+            watchRequests={watchRequests}
+            share={shareProfileLink}
+            editMode={editMode}
+          />
 
           <PersonalInfo editMode={editMode} setEditMode={setEditMode} />
-          <View style={styles.recentMeetups}>
-            <Text variant="h3">Recent meetups</Text>
-            <FlatList
-              data={posts}
-              renderItem={({ item }) => <RecentMeetup {...item} />}
-              horizontal
-              contentContainerStyle={styles.meetupsWrapper}
-              maxToRenderPerBatch={5}
-              keyExtractor={(item) => `${item.id}`}
-              ListEmptyComponent={() => (
-                <ActivityIndicatorComponent size="large" color={theme.colors.primary} />
-              )}
-            />
-          </View>
+
           <View style={styles.photoContainer}>
             <Text variant="h3">Photos</Text>
             <PhotoGallery images={images} />
-            {photoError && <Text variant="warning">{photoError}</Text>}
+            {uploadingPhotoError && <Text variant="warning">{uploadingPhotoError}</Text>}
             <AddImage />
           </View>
         </View>

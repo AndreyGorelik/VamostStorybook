@@ -27,11 +27,13 @@ export interface UserState {
   birthdate: string;
   images: Photo[];
   avatar: string;
-  editInfoError?: string;
-  photoError?: string;
+  id: string;
   uploadingPhoto?: boolean;
+  uploadingPhotoError?: string;
   deletingPhoto?: boolean;
   deletePhotoError?: string;
+  savingEditedInfoError?: string;
+  savingEditedInfo?: boolean;
 }
 
 export type UserInfo = {
@@ -79,10 +81,13 @@ export const initialState: UserState = {
   images: [],
   phoneVerified: false,
   avatar: '',
-  photoError: '',
+  id: '',
   uploadingPhoto: false,
+  uploadingPhotoError: '',
   deletingPhoto: false,
   deletePhotoError: '',
+  savingEditedInfo: false,
+  savingEditedInfoError: '',
 };
 
 const userSlice = createSlice({
@@ -113,16 +118,8 @@ const userSlice = createSlice({
     setBirthDate(state, action) {
       state.birthdate = action.payload;
     },
-    setEditedUserInfo(state, action: PayloadAction<PersonalInfoValues>) {
-      state.phoneNumber = action.payload.phoneNumber;
-      state.email = action.payload.email;
-      state.nickname = action.payload.nickname;
-      state.gender = action.payload.gender;
-      state.sexualOrientation = action.payload.sexualOrientation;
-      state.birthdate = action.payload.birthdate;
-    },
     setPhoto(state, action: PayloadAction<Photo>) {
-      state.photoError = '';
+      state.uploadingPhotoError = '';
       state.images.push(action.payload);
       state.uploadingPhoto = false;
     },
@@ -130,7 +127,7 @@ const userSlice = createSlice({
       state.uploadingPhoto = action.payload;
     },
     setPhotoError(state, action) {
-      state.photoError = action.payload;
+      state.uploadingPhotoError = action.payload;
       state.uploadingPhoto = false;
     },
     setDeletePhotoError(state, action) {
@@ -146,6 +143,24 @@ const userSlice = createSlice({
       state.deletePhotoError = '';
       state.deletingPhoto = false;
     },
+    setEditedUserInfo(state, action: PayloadAction<PersonalInfoValues>) {
+      state.email = action.payload.email;
+      state.nickname = action.payload.nickname;
+      state.gender = action.payload.gender;
+      state.sexualOrientation = action.payload.sexualOrientation;
+      state.birthdate = action.payload.birthdate;
+      state.shownGender = action.payload.shownGender;
+      state.savingEditedInfoError = '';
+      state.savingEditedInfo = false;
+    },
+    setSavingEditedInfo(state, action) {
+      state.savingEditedInfo = action.payload;
+      state.savingEditedInfoError = '';
+    },
+    setSavingEditedInfoError(state, action) {
+      state.savingEditedInfoError = action.payload;
+      state.savingEditedInfo = false;
+    },
   },
 });
 
@@ -154,6 +169,9 @@ export const addNewPhoto = createAction<string>(ADD_NEW_PHOTO);
 
 export const DELETE_USER_PHOTO = 'userSlice/deletePhoto';
 export const deleteUserPhoto = createAction<string>(DELETE_USER_PHOTO);
+
+export const UPDATE_PERSONAL_INFO = 'userSlice/updatePersonalInfo';
+export const updatePersonalInfo = createAction<PersonalInfoValues>(UPDATE_PERSONAL_INFO);
 
 export const {
   setPhoneNumber,
@@ -171,6 +189,8 @@ export const {
   removePhoto,
   setDeletePhotoError,
   setDeletingPhoto,
+  setSavingEditedInfo,
+  setSavingEditedInfoError,
 } = userSlice.actions;
 
 export default userSlice.reducer;

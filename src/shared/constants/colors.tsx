@@ -18,4 +18,5 @@ export const colors = {
   blackTranparentQuarter: 'rgba(0, 0, 0, 0.75)',
   blue: 'rgb(5, 99, 193)',
   green: '#0c903e',
+  cyanTransparent: 'rgba(34, 127, 158, 0.1)',
 };

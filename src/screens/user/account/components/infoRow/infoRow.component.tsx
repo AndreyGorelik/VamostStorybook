@@ -13,21 +13,35 @@ export default function InfoRow({
   onChangeText,
   editable,
   input = true,
+  editMode,
 }: InfoRowProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
+
+  const renderValue = () => {
+    if (children) {
+      return children;
+    } else if (input) {
+      return (
+        <View style={editMode ? styles.inputEdit : styles.inputNoEdit}>
+          <Input value={value} editable={editable} onChangeText={onChangeText} noGap />
+        </View>
+      );
+    } else {
+      return (
+        <View style={editMode ? styles.selectEdit : undefined}>
+          <Text>{value}</Text>
+        </View>
+      );
+    }
+  };
+
   return (
     <View style={styles.wrapper}>
       <Text width={130} style={styles.text}>
         {title}:
       </Text>
-      {children ? (
-        children
-      ) : input ? (
-        <Input value={value} editable={editable} onChangeText={onChangeText} noGap />
-      ) : (
-        <Text>{value}</Text>
-      )}
+      {renderValue()}
     </View>
   );
 }

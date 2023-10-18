@@ -52,11 +52,6 @@ export const createStyles = (theme: Theme) =>
       paddingHorizontal: 20,
       rowGap: 30,
     },
-    actions: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      flex: 1,
-    },
     recentMeetups: {
       width: '100%',
     },

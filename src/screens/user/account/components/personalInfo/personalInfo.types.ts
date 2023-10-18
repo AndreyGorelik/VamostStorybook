@@ -5,7 +5,6 @@ export type PersonalInfoValues = {
     value: 'Man' | 'Woman' | 'Other' | null;
     isShown: boolean;
   };
-  phoneNumber: string;
   sexualOrientation: {
     value:
       | 'Straight'
@@ -21,6 +20,8 @@ export type PersonalInfoValues = {
   };
   sexualOrientationShown: boolean;
   email: string;
+  shownGender: 'Man' | 'Woman' | 'Everyone' | null;
+  phoneNumber: string;
 };
 
 export interface PersonalInfoProps {

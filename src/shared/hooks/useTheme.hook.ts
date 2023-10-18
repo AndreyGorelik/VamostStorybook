@@ -54,6 +54,7 @@ export const LIGHT_THEME: Theme = {
     textLink: colors.blue,
     drawerActive: colors.cyan,
     drawerInactive: colors.darkGray,
+    transparentBack: colors.cyanTransparent,
   },
   styleConstants: styleConstants,
 };
@@ -105,6 +106,7 @@ export type Theme = {
       canceled: string;
       completed: string;
     };
+    transparentBack: string;
   };
   styleConstants: StyleConstants;
 };
