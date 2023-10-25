@@ -7,11 +7,13 @@ import { registerBirthDateRequest } from 'src/api/auth/registerBirthDate';
 import { registerEmailRequest } from 'src/api/auth/registerEmail';
 import { registerNicknameRequest } from 'src/api/auth/registerNickname';
 import { registerPhotoRequest } from 'src/api/auth/registerPhoto';
-import { deleteUserPhotoRequest } from 'src/api/deleteUserPhoto';
+import { deleteUserPhotoRequest } from 'src/api/user/deleteUserPhoto';
+import { getUserRequestsRequest } from 'src/api/user/getUserRequests';
 import { Photo } from 'src/store/slices/profileSlice';
 import {
   ADD_NEW_PHOTO,
   DELETE_USER_PHOTO,
+  GET_USER_REQUESTS,
   UPDATE_PERSONAL_INFO,
   removePhoto,
   setDeletePhotoError,
@@ -22,8 +24,11 @@ import {
   setSavingEditedInfo,
   setSavingEditedInfoError,
   setUploadingPhoto,
+  setUserRequests,
+  setUserRequestsError,
 } from 'src/store/slices/user.slice';
 import { Action } from 'src/types/actions/actions.types';
+import { PostRequest } from 'src/types/api/getPosts';
 
 function* addNewPhotoWorker(action: Action<string>) {
   const { payload } = action;
@@ -131,8 +136,24 @@ function* updatePersonalInfoWorker(action: Action<PersonalInfoValues>) {
   }
 }
 
+export function* getUserRequestsWorker(action: Action<{ id: string }>) {
+  try {
+    const response: AxiosResponse<PostRequest[]> = yield call(getUserRequestsRequest, {
+      ...action.payload,
+    });
+    yield put(setUserRequests(response.data));
+  } catch (error) {
+    if (Axios.isAxiosError(error)) {
+      if (error.response && error.response.data && error.response.data.message) {
+        yield put(setUserRequestsError(error.response.data));
+      }
+    }
+  }
+}
+
 export function* accountSaga() {
   yield takeLatest(ADD_NEW_PHOTO, addNewPhotoWorker);
   yield takeLatest(DELETE_USER_PHOTO, deletePhotoWorker);
   yield takeLatest(UPDATE_PERSONAL_INFO, updatePersonalInfoWorker);
+  yield takeLatest(GET_USER_REQUESTS, getUserRequestsWorker);
 }

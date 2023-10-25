@@ -48,7 +48,7 @@ export default function AppWrapper({ onLayoutRootView }: AppWrapperProps) {
     >
       <StatusBar barStyle="dark-content" />
       <Stack screenOptions={{ headerShown: false, animation: 'fade' }}>
-        <Stack.Screen name="account/index" options={{ animation: 'slide_from_left' }} />
+        <Stack.Screen name="account" options={{ animation: 'slide_from_left' }} />
         <Stack.Screen name="(main)" />
         <Stack.Screen name="(auth)" />
       </Stack>

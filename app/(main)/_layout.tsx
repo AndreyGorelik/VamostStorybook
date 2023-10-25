@@ -15,7 +15,7 @@ export enum MainScreens {
 export const MainScreensPaths: Record<MainScreens, string> = {
   [MainScreens.HOME]: 'home/index',
   [MainScreens.USER]: 'user/posts',
-  [MainScreens.ACCOUNT]: 'user/account/index',
+  [MainScreens.ACCOUNT]: 'user/account',
 };
 
 export default function Layout() {

@@ -8,11 +8,11 @@ import Text from '@shared/ui/text/text.component';
 import { AvatarPlaceholder } from '@shared/ui/userpicGallery/components/avatarPlaceholder';
 import { removeTokens } from '@shared/utils/removeTokens';
 import Constants from 'expo-constants';
-import { useNavigation } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import { useState } from 'react';
 import { View, ScrollView, ImageBackground, Share } from 'react-native';
 import { logoutUser } from 'src/store/slices/auth.slice';
-import { initialState, setUser } from 'src/store/slices/user.slice';
+import { getUserRequestsAction, initialState, setUser } from 'src/store/slices/user.slice';
 
 import { createStyles } from './account.styles';
 import AddImage from './components/addImage/addImage.component';
@@ -43,6 +43,8 @@ export default function Account() {
   };
 
   const watchRequests = () => {
+    dispatch(getUserRequestsAction({ id }));
+    router.push('account/requests');
     return;
   };
 
