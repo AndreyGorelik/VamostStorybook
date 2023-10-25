@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { getImagePath } from '@shared/utils/getImagePath';
 import React, { useState } from 'react';
-import { View, Image, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Image } from 'react-native';
 
 import { createStyles } from './avatarPlaceholder.styles';
 import { AvatarPlaceholderProps } from './avatarPlaceholder.types';
@@ -21,7 +21,9 @@ export default function AvatarPlaceholder({ style, item, size }: AvatarPlacehold
         style={[styles.userpic, { width: size, height: size }]}
         onLoadStart={() => setLoading(true)}
         onLoadEnd={() => setLoading(false)}
-        onError={() => setError(true)}
+        onError={() => {
+          setError(true);
+        }}
       />
       {loading && (
         <ActivityIndicator size={size / 3} color={theme.colors.text} style={styles.loader} />

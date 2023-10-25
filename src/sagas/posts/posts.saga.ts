@@ -66,11 +66,13 @@ export function* getPostWorker(action: Action<GetPost>) {
     const response: AxiosResponse<PostInfo> = yield call(getPostRequest, action.payload);
 
     yield put(setPost(response.data));
-    yield put(
-      getAllRequests({
-        id: response.data.info._id,
-      })
-    );
+    if (response.data.isUsersPost && response.data.info.postStatus === 'New') {
+      yield put(
+        getAllRequests({
+          id: response.data.info._id,
+        })
+      );
+    }
   } catch (error) {
     if (Axios.isAxiosError(error)) {
       if (error.response && error.response.data && error.response.data.message) {

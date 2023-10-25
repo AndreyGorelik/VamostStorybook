@@ -2,16 +2,18 @@ import { useAppSelector } from '@shared/hooks/redux.hook';
 import useTheme from '@shared/hooks/useTheme.hook';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { View, Pressable, Image, ImageBackground } from 'react-native';
+import { View, Pressable } from 'react-native';
 
 import Text from '../text/text.component';
+import { AvatarPlaceholder } from '../userpicGallery/components/avatarPlaceholder';
 
+import BackgroundWrapper from './components/backgroundWrapper/backgroundWrapper.component';
 import { createStyles } from './userMenu.styles';
 
 export default function UserMenu() {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const { email, nickname, avatar } = useAppSelector((state) => state.userSlice);
+  const { email, nickname, avatar, id } = useAppSelector((state) => state.userSlice);
 
   function handleNavigate() {
     router.push('account');
@@ -22,11 +24,7 @@ export default function UserMenu() {
       style={({ pressed }) => [styles.wrapper, { opacity: pressed ? 0.9 : 1 }]}
       onPress={handleNavigate}
     >
-      <ImageBackground
-        style={styles.imageWrapper}
-        imageStyle={{ opacity: 0.8 }}
-        source={{ uri: avatar?.imagePath }}
-      >
+      <BackgroundWrapper source={avatar}>
         <LinearGradient
           colors={[theme.colors.primary, theme.colors.secondary]}
           start={{ x: 0, y: 1 }}
@@ -34,7 +32,7 @@ export default function UserMenu() {
           style={styles.linearGradient}
         ></LinearGradient>
         <View style={styles.userInfo}>
-        {avatar & <Image source={{ uri: avatar?.imagePath }} style={styles.image} />}
+          {avatar && <AvatarPlaceholder size={70} item={{ avatar, _id: id, nickName: nickname }} />}
 
           <View style={styles.textWrapper}>
             <Text
@@ -51,7 +49,7 @@ export default function UserMenu() {
             </Text>
           </View>
         </View>
-      </ImageBackground>
+      </BackgroundWrapper>
     </Pressable>
   );
 }

@@ -33,7 +33,7 @@ function* logInRequestWorker(action: Action<LoginUser>) {
             imagePath: getImagePath(image),
           };
         }),
-        avatar: data.avatar && getImagePath(data.avatar),
+        avatar: data.avatar,
         phoneVerified: data.phoneVerified && data.phoneVerified,
         id: data._id && data._id,
       })

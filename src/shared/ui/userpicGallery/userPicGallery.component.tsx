@@ -1,7 +1,6 @@
 import useTheme from '@shared/hooks/useTheme.hook';
-import { getImagePath } from '@shared/utils/getImagePath';
 import { router } from 'expo-router';
-import { View, Image, Pressable } from 'react-native';
+import { Pressable } from 'react-native';
 
 import AvatarPlaceholder from './components/avatarPlaceholder/avatarPlaceholder.component';
 import { createStyles } from './userPicGallery.styles';
@@ -23,7 +22,7 @@ export default function UserPicGallery({ data, size = 40 }: UserPicGalleryProps)
       }
       style={styles.row}
     >
-      {data?.map((item, index) => {
+      {data?.slice(0, 3).map((item, index) => {
         if (index > 0) {
           return (
             <AvatarPlaceholder

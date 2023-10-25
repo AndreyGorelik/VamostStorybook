@@ -46,6 +46,7 @@ export default function AppWrapper({ onLayoutRootView }: AppWrapperProps) {
       style={{ flex: 1, paddingTop: StatusBar.currentHeight || 0 }}
       onLayout={onLayoutRootView}
     >
+      <StatusBar barStyle="dark-content" />
       <Stack screenOptions={{ headerShown: false, animation: 'fade' }}>
         <Stack.Screen name="account/index" options={{ animation: 'slide_from_left' }} />
         <Stack.Screen name="(main)" />
